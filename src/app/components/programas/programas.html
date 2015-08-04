@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-sm-3">
+    <div class="category-list">
+      <aside class="navigation">
+        <h3 class="title"><b>Programas</b> por Tema</h3>
+        <div class="list-group category-list">
+          <button type="button" class="list-group-item category-item" ng-repeat="tema in vm.categories" ng-click="vm.filterByTema(tema)">
+            <span ng-class="[tema.iconClass]"></span>
+            <span>{{::tema.name}}</span>
+            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+          </button>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="col-sm-9">
+    <div class="program-list">
+      <div class="header">
+        <h2>Programas</h2>
+        <button type="button" ng-click="vm.showAll()" class="btn btn-link">
+          <span class="glyphicon glyphicon-chevron-right"></span> Ver todos os programas
+        </button>
+      </div>
+      <div class="row">
+        <programa-box programa="{}" class="col-sm-12 col-md-6"></programa-box>
+        <programa-box programa="{}" class="col-sm-12 col-md-6"></programa-box>
+        <programa-box programa="{}" class="col-sm-12 col-md-6"></programa-box>
+        <programa-box programa="{}" class="col-sm-12 col-md-6"></programa-box>
+      </div>
+    </div>
+  </div>
+</div>

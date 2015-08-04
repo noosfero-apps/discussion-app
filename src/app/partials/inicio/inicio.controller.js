@@ -6,7 +6,7 @@
     .controller('InicioController', InicioController);
 
   /** @ngInject */
-  function InicioController(ArticleService, $log) {
+  function InicioController(ArticleService, $sce, $log) {
     $log.debug('InicioController');
 
     var vm = this;
@@ -14,12 +14,10 @@
 
     $log.log('ArticleService', ArticleService);
 
-    // ArticleService.getList().then(function(articles){
     vm.loading = true;
     ArticleService.getHome().then(function(homeArticle){
-      $log.log('ArticleService.getList().then() homeArticle.article', homeArticle.article);
-
       vm.article = homeArticle.article;
+      vm.article.abstract = $sce.trustAsHtml(vm.article.abstract);
       vm.loading = false;
     }, function () {
       $log.error('error');

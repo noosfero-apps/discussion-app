@@ -15,14 +15,16 @@
       var vm = this;
 
       $log.debug('this.programa', vm.programa);
-      vm.proposal = vm.programa;
+      vm.program = vm.programa;
     }
 
     ProgramaController.prototype.getCategory = function () {
-      return this.proposal.categories[0];
+      // return this.program.categories[0];
+      return 'category-object';
     };
     ProgramaController.prototype.getCategoryName = function () {
-      return this.getCategory().name;
+      // return this.getCategory().name;
+      return 'category-name';
     };
 
     ProgramaController.prototype.getImageUrl = function () {
@@ -33,7 +35,7 @@
     };
 
     ProgramaController.prototype.showContent = function () {
-      $log.debug('TODO: showContent()');
+      $log.debug('TODO: showContent()', this.program);
     };
 
     var directive = {

@@ -1,13 +1,19 @@
 <nav class="navbar navbar-static-top">
   <div class="container-fluid">
     <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Alternar menu de navegação</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <a class="navbar-brand" ui-sref="inicio">
         <img src="/assets/images/logo.png" alt="Dialoga Brasil | O país fica melhor quando você participa" />
         <!-- <span class="glyphicon glyphicon-home"></span> Início -->
       </a>
     </div>
 
-    <div class="collapse navbar-collapse">
+    <div id="navbar-collapse" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li><a ui-sref="sobre">Sobre</a></li>
         <li><a ui-sref="programas">Programas</a></li>

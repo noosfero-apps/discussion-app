@@ -12,6 +12,7 @@
       }
     })
     .constant('Modernizr', Modernizr)
+    .constant('jQuery', jQuery)
     // .constant('key', value)
     ;
 

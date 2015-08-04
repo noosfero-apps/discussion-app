@@ -1,0 +1,11 @@
+$barra-theme: ("green": #00420c, "yellow": #2c66ce, "blue": #0042b1);
+
+#footer-brasil {
+  background: none repeat scroll 0% 0% map-get($barra-theme, "blue");
+  padding: 1em 0px;
+  max-width: 100%;
+}
+
+#footer {
+  margin: 10px 0;
+}

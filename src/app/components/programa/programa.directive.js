@@ -6,7 +6,7 @@
     .directive('programaBox', programaBox);
 
   /** @ngInject */
-  function programaBox(ProgramaService, $log) {
+  function programaBox($log) {
 
     /** @ngInject */
     function ProgramaController() {

@@ -4,7 +4,13 @@
 
   angular
     .module('dialoga')
-    .constant('private_token', null)
+    .constant('api', {
+      token: null,
+      host: 'http://login.dialoga.gov.br/api/v1/',
+      articleId: {
+        home: 103358
+      }
+    })
     .constant('Modernizr', Modernizr)
     // .constant('key', value)
     ;

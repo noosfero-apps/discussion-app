@@ -9,10 +9,6 @@
   function runBlock($log) {
 
     $log.debug('runBlock end');
-
-    window.skipToContent = function () {
-      console.log('TODO: skipToContent');
-    };
   }
 
 })();

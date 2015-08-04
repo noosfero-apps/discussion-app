@@ -1,3 +1,4 @@
+/* globals document:true*/
 (function() {
   'use strict';
 
@@ -17,7 +18,7 @@
 
   HeaderController.prototype.toggleContrast = function () {
     this.contrast = !this.contrast;
-    console.debug('contrast', this.contrast);
+    this.$log.debug('contrast', this.contrast);
   };
 
   HeaderController.prototype.focusMainContent = function ($event) {

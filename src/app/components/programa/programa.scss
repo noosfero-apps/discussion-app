@@ -1,0 +1,32 @@
+// Variables
+$scale: 1.1;
+$time: 0.3s;
+
+// sandbox
+.programa-box {
+  cursor: pointer;
+
+  .image-wrapper {
+    position: relative;
+    // width: 100%;
+    width: 370px;
+    // height: 170px;
+    background-color: red;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .img-responsive {
+    -webkit-transition: all $time ease-in-out;
+    -moz-transition: all $time ease-in-out;
+    -o-transition: all $time ease-in-out;
+    transition: all $time ease-in-out;
+  }
+
+  &:hover .img-responsive {
+    -webkit-transform: scale($scale); /* prefixo para browsers webkit */
+    -moz-transform: scale($scale); /* prefixo para browsers gecko */
+    -o-transform: scale($scale); /* prefixo para opera */
+    transform: scale($scale);
+  }
+}

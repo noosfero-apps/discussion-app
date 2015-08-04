@@ -1,0 +1,18 @@
+<header class="container" ng-controller="HeaderController as header">
+
+  <div class="skip-links">
+    <a href="#content" class="sr-only" tabindex="0" ng-click="header.focusMainContent($event)">Ir para o conteúdo</a>
+  </div>
+
+  <div class="row">
+    <div class="accessibility-wrapper">
+      <button type="button" id="display-contrast" class="btn btn-link" ng-click="header.toggleContrast()">
+        <span class="glyphicon glyphicon-adjust" aria-hidden="true"></span> Alto Contraste
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <app-navbar></app-navbar>
+  </div>
+</header>

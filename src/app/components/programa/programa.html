@@ -1,0 +1,6 @@
+<div class="programa-box" ng-if="vm.proposal" ng-click="vm.showContent()">
+  <div class="category">{{::vm.getCategoryName()}}</div>
+  <div class="image-wrapper">
+    <image class="img-responsive" ng-src="{{::vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}" />
+  </div>
+</div>

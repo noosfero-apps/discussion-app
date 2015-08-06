@@ -8,9 +8,22 @@
     .run(runBlock);
 
   /** @ngInject */
-  function handleAccessibility($rootScope, $timeout, $log) {
-
+  function handleAccessibility($rootScope, $timeout, $cookies, $log) {
     $log.debug('handleAccessibility');
+
+    var contrast = $cookies.get('dialoga_contraste');
+    adjustContrast(contrast);
+
+    function adjustContrast(state){
+      var bodyEl = angular.element(document).find('body');
+      angular.element(bodyEl).toggleClass('contraste', !!state);
+    }
+
+    $rootScope.toggleContrast = function () {
+      contrast = !contrast;
+      $cookies.put('dialoga_contraste', contrast);
+      adjustContrast(contrast);
+    };
 
     $rootScope.focusMainContent = function ($event) {
 
@@ -31,8 +44,7 @@
 
   /** @ngInject */
   function runBlock($log) {
-
-    $log.debug('runBlock end');
+    $log.debug('runBlock');
   }
 
 })();

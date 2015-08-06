@@ -12,6 +12,12 @@ $icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bo
 // bower:scss
 // endbower
 
+.skip-links a:focus {
+  background-color: #fff !important;
+  opacity: 1;
+  z-index: 2;
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;

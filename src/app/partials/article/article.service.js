@@ -11,9 +11,13 @@
 
     var articlesRest = Restangular.all('articles');
 
+    var _savedAbstract = null;
+
     var service = {
       getList: articlesRest.getList,
-      getHome: getHome
+      getHome: getHome,
+      setHomeAbstract: setHomeAbstract,
+      getHomeAbstract: getHomeAbstract
     };
 
     return service;
@@ -23,6 +27,14 @@
         private_token: api.token,
         fields: 'id,children,categories,abstract,title,image,url,setting,position'
       });
+    }
+
+    function setHomeAbstract (newAbstract) {
+      return _savedAbstract = newAbstract;
+    }
+
+    function getHomeAbstract () {
+      return _savedAbstract;
     }
   }
 })();

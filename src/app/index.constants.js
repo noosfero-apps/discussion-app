@@ -1,4 +1,4 @@
-/* global Modernizr:false */
+/* global Modernizr:false, jQuery:false */
 (function() {
   'use strict';
 

@@ -6,15 +6,14 @@
     .factory('ArticleService', ArticleService);
 
   /** @ngInject */
-  function ArticleService(Restangular, api, $log) {
+  function ArticleService($http, $q, api, $log) {
     $log.debug('ArticleService');
 
-    var articlesRest = Restangular.all('articles');
-
+    var idArticleHome = '103358';
     var _savedAbstract = null;
 
     var service = {
-      getList: articlesRest.getList,
+      apiArticles: api.host + 'articles/',
       getHome: getHome,
       setHomeAbstract: setHomeAbstract,
       getHomeAbstract: getHomeAbstract
@@ -23,7 +22,11 @@
     return service;
 
     function getHome () {
-      return articlesRest.get(api.articleId.home, {
+      return getArticleById(idArticleHome);
+    }
+
+    function getArticleById (articleId) {
+      return $http.get(service.apiArticles + articleId, {
         private_token: api.token,
         fields: 'id,children,categories,abstract,title,image,url,setting,position'
       });

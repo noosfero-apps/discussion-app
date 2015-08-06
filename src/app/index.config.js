@@ -3,14 +3,7 @@
 
   angular
     .module('dialoga')
-    .config(configRestangular)
     .config(config);
-
-  /** @ngInject */
-  function configRestangular(RestangularProvider, api) {
-    RestangularProvider.setBaseUrl(api.host);
-    RestangularProvider.setDefaultRequestParams({ apiKey: api.token });
-  }
 
   /** @ngInject */
   function config($logProvider) {

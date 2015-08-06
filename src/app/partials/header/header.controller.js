@@ -1,4 +1,3 @@
-/* globals document:true*/
 (function() {
   'use strict';
 
@@ -10,31 +9,19 @@
   function HeaderController($timeout, $log) {
     $log.debug('HeaderController');
 
-    this.$timeout = $timeout;
-    this.$log = $log;
+    var vm = this;
 
-    this.contrast = false;
+    vm.$timeout = $timeout;
+    vm.$log = $log;
+
+    vm.contrast = false;
   }
 
   HeaderController.prototype.toggleContrast = function () {
-    this.contrast = !this.contrast;
-    this.$log.debug('contrast', this.contrast);
-  };
+    var vm = this;
 
-  HeaderController.prototype.focusMainContent = function ($event) {
-
-    // prevent skip link from redirecting
-    if ($event) { $event.preventDefault(); }
-
-    var mainContentArea = document.querySelector("[role='main']");
-
-    if ( mainContentArea ) {
-      this.$timeout(function(){
-        mainContentArea.focus();
-      },90);
-    }else{
-      this.$log.warn('role="main" not found.');
-    }
+    vm.contrast = !vm.contrast;
+    vm.$log.debug('contrast', vm.contrast);
   };
 
 })();

@@ -1,4 +1,4 @@
-/* globals document:true */
+/* globals document:true, window:true */
 (function() {
   'use strict';
 
@@ -54,8 +54,8 @@
 
     // inject dependencies
     injectIframeApiJs();
-    document.onYouTubeIframeAPIReady = document.onYouTubeIframeAPIReady || onYouTubeIframeAPIReady;
-    document.onYouTubePlayerReady = document.onYouTubePlayerReady || onYouTubePlayerReady;
+    window.onYouTubeIframeAPIReady = window.onYouTubeIframeAPIReady || onYouTubeIframeAPIReady;
+    window.onYouTubePlayerReady = window.onYouTubePlayerReady || onYouTubePlayerReady;
   };
 
   InicioController.prototype.handleHomeAbstract = function(abstract) {
@@ -77,7 +77,8 @@
 
   function onYouTubeIframeAPIReady() {
     var ytIframe = angular.element.find('.js-iframe iframe');
-    new document.YT.Player(ytIframe[0], {
+    var YTPlayer = window.YT.Player;
+    new YTPlayer(ytIframe[0], {
       events: {
         'onReady': onYouTubePlayerReady
       }

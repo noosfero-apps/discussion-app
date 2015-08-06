@@ -1,4 +1,4 @@
-/* global Modernizr:false, jQuery:false */
+/* global window:true */
 (function() {
   'use strict';
 
@@ -11,8 +11,8 @@
         home: 103358
       }
     })
-    .constant('Modernizr', Modernizr)
-    .constant('jQuery', jQuery)
+    .constant('Modernizr', window.Modernizr)
+    .constant('jQuery', window.jQuery)
     // .constant('key', value)
     ;
 

@@ -11,7 +11,7 @@
   function handleAccessibility($rootScope, $timeout, $cookies, $log) {
     $log.debug('handleAccessibility');
 
-    var contrast = $cookies.get('dialoga_contraste');
+    var contrast = $cookies.get('dialoga_contraste') === "true";
     adjustContrast(contrast);
 
     function adjustContrast(state){

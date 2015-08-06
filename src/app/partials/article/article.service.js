@@ -30,7 +30,7 @@
     }
 
     function setHomeAbstract (newAbstract) {
-      return _savedAbstract = newAbstract;
+      _savedAbstract = newAbstract;
     }
 
     function getHomeAbstract () {

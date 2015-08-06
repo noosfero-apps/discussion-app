@@ -28,10 +28,11 @@
       for (var i = vm.categories.length - 1; i >= 0; i--) {
         var category = vm.categories[i];
         category.iconClass = vm.getIconClasses(category);
-      };
+      }
     }
 
     ProgramaListController.prototype.getIconClasses = function (tema) {
+      $log.debug('[TODO] getIconClasses of tema:', tema);
       return 'glyphicon glyphicon-exclamation-sign';
     };
 

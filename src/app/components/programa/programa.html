@@ -1,6 +1,8 @@
-<div class="programa-box" ng-if="vm.program" ng-click="vm.showContent()">
+<div class="program-box" ng-if="vm.program" ng-click="vm.showContent()">
   <div class="category">{{::vm.getCategoryName()}}</div>
   <div class="image-wrapper">
     <image class="img-responsive" ng-src="{{::vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}" />
   </div>
+  <div class="program-title">{{::vm.program.title}}</div>
+  <div class="program-abstract" ng-bind-html="vm.program.abstract"></div>
 </div>

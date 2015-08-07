@@ -3,15 +3,20 @@ $scale: 1.1;
 $time: 0.3s;
 
 // sandbox
-.programa-box {
+.program-box {
   cursor: pointer;
+
+  .category {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+  }
 
   .image-wrapper {
     position: relative;
     // width: 100%;
     // width: 370px;
     // height: 170px;
-    background-color: red;
     overflow: hidden;
     text-align: center;
   }

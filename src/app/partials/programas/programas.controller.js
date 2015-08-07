@@ -6,14 +6,19 @@
     .controller('ProgramasController', ProgramasController);
 
   /** @ngInject */
-  function ProgramasController(ProgramaService, $log) {
+  function ProgramasController(ArticleService, $log) {
     $log.debug('ProgramasController');
 
     var vm = this;
 
-    vm.programaList = [
-      ProgramaService.mockPrograma(),
-      ProgramaService.mockPrograma()
-    ];
+    vm.ArticleService = ArticleService;
+    vm.$log = $log;
+
+    vm.init();
   }
+
+  ProgramasController.prototype.init = function () {
+
+    vm.programaList = [];
+  };
 })();

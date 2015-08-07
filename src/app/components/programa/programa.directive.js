@@ -6,43 +6,58 @@
     .directive('programaBox', programaBox);
 
   /** @ngInject */
-  function programaBox($log) {
+  function programaBox() {
 
     /** @ngInject */
-    function ProgramaController() {
+    function ProgramaController($log) {
       $log.debug('ProgramaController');
 
       var vm = this;
+      vm.$log = $log;
 
-      $log.debug('this.programa', vm.programa);
-      vm.program = vm.programa;
+      vm.init();
     }
 
-    ProgramaController.prototype.getCategory = function () {
-      // return this.program.categories[0];
-      return 'category-object';
+    ProgramaController.prototype.init = function () {
+
     };
+
+    ProgramaController.prototype.getCategory = function () {
+      var vm = this;
+
+      return vm.program.categories[0];
+    };
+
     ProgramaController.prototype.getCategoryName = function () {
-      // return this.getCategory().name;
-      return 'category-name';
+      var vm = this;
+
+      return vm.getCategory().name;
     };
 
     ProgramaController.prototype.getImageUrl = function () {
-      return 'http://login.dialoga.gov.br/image_uploads/dialoga/0000/0053/requalif_redim.jpg';
+      var vm = this;
+
+      return 'http://login.dialoga.gov.br/' + vm.program.image.url;
     };
+
     ProgramaController.prototype.getImageAlt = function () {
-      return 'TODO: descrição da imagem.';
+      var vm = this;
+
+      vm.$log.warn('image is not accessible.');
+      return 'TODO: create image alt on server-side.';
     };
 
     ProgramaController.prototype.showContent = function () {
-      $log.debug('TODO: showContent()', this.program);
+      var vm = this;
+
+      vm.$log.debug('TODO: showContent()', vm.program);
     };
 
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/programa/programa.html',
       scope: {
-        programa: '=programa'
+        program: '='
       },
       controller: ProgramaController,
       controllerAs: 'vm',

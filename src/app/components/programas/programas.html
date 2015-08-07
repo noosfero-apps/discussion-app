@@ -44,13 +44,18 @@
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" ng-model="orderReverse"> Reverso
+                  <input type="checkbox" ng-model="orderReverse">
+                  Reverso
                 </label>
               </div>
+
+              <input id="programListLimit" type="number" class="form-control input-sm" size="4" step="2" ng-model="vm.limitTo" aria-label="Limitar" >
+              <label for="programListLimit" class="control-label">Limite</label>
+
             </div>
           </div>
         </div>
-        <div ng-repeat="program in vm.programs | filterByCategory:vm.categoryFilter | filterByCriteria:vm.orderCriteria:orderReverse | filter:vm.query  as results">
+        <div ng-repeat="program in vm.programs | filterByCategory:vm.categoryFilter | filterByCriteria:vm.orderCriteria:orderReverse | filter:vm.query | limitTo:vm.limitTo as results">
           <programa-box program="program" class="col-sm-12 col-md-6"></programa-box>
           <div ng-if="$odd" class="clearfix"></div>
         </div>

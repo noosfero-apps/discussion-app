@@ -29,6 +29,7 @@
       var vm = this;
 
       vm.query = null;
+      vm.limitTo = 4;
       vm.categoryFilter = null;
       vm.orderCriteries = [
       { label: 'Título', name: 'title' },
@@ -127,11 +128,8 @@
 
     return function (input, criteria, reverse){
       input = input || [];
+      criteria = criteria || {};
       reverse = reverse || false;
-
-      if( !criteria ){
-        return input;
-      }
 
       var out = [];
       // for (var i = 0; i < input.length; i++) {
@@ -152,9 +150,15 @@
           // break;
         default:
           $log.info('Criteria not handled yet: ', criteria);
-          out = input;
+
+          if(reverse){
+            out = input.slice().reverse();
+          }else{
+            out = input;
+          }
           break;
       }
+
 
       return out;
     };

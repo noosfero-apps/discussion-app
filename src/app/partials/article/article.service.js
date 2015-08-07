@@ -6,7 +6,7 @@
     .factory('ArticleService', ArticleService);
 
   /** @ngInject */
-  function ArticleService($http, $q, api, $log) {
+  function ArticleService($http, $q, api, UtilService, $log) {
     $log.debug('ArticleService');
 
     var idArticleHome = '103358';
@@ -26,10 +26,13 @@
     }
 
     function getArticleById (articleId) {
-      return $http.get(service.apiArticles + articleId, {
-        private_token: api.token,
-        fields: 'id,children,categories,abstract,title,image,url,setting,position'
-      });
+      var url = service.apiArticles + articleId;
+      var params = {
+        fields: 'id,children,categories,abstract,title,image,url,setting,position',
+        private_token: 'null'
+      };
+
+      return UtilService.get(url, {params: params});
     }
 
     function setHomeAbstract (newAbstract) {

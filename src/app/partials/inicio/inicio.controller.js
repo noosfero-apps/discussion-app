@@ -33,7 +33,7 @@
     }
 
     vm.ArticleService.getHome().then(function(result) {
-      vm.article = result.data.article;
+      vm.article = result.article;
     }, function(error) {
       vm.$log.error('Error on getHome article.', error);
     });

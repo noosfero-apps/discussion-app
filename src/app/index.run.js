@@ -4,12 +4,40 @@
 
   angular
     .module('dialoga')
-    .run(handleAccessibility)
+    .run(runAuth)
+    .run(runAccessibility)
     .run(runBlock);
 
   /** @ngInject */
-  function handleAccessibility($rootScope, $timeout, $cookies, $log) {
-    $log.debug('handleAccessibility');
+  function runAuth($rootScope, $cookies, USER_ROLES, AUTH_EVENTS, AuthService, $log){
+
+    // Listner url/state changes, and check permission
+    $rootScope.$on('$stateChangeStart', function (event, next) {
+      if(!next.data || !next.data.authorizedRoles){
+        $log.debug('public url/state');
+        return;
+      }
+
+      var authorizedRoles = next.data.authorizedRoles;
+      if (!AuthService.isAuthorized(authorizedRoles)) {
+        event.preventDefault();
+        if (AuthService.isAuthenticated()) {
+          // user is not allowed
+          $log.debug('user is not allowed');
+          $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+        } else {
+          // user is not logged in
+          $log.debug('user is not logged in');
+          $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+        }
+      }
+    });
+
+    $log.debug('runAuth end.');
+  }
+
+  /** @ngInject */
+  function runAccessibility($rootScope, $timeout, $cookies, $log) {
 
     var contrast = $cookies.get('dialoga_contraste') === "true";
     adjustContrast(contrast);
@@ -40,11 +68,13 @@
         $log.warn('role="main" not found.');
       }
     };
+
+    $log.debug('runAccessibility end.');
   }
 
   /** @ngInject */
   function runBlock($log) {
-    $log.debug('runBlock');
+    $log.debug('runBlock end.');
   }
 
 })();

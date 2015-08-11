@@ -1,0 +1,30 @@
+<article class="container" role="main">
+
+  <div class="col-sm-6 col-sm-offset-3">
+    <form name="loginForm" ng-submit="login.login(login.credentials)">
+
+      <h2>Por favor, identifique-se:</h2>
+
+      <div class="form-group">
+        <label for="inputUsername" class="sr-only">E-mail:</label>
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+          <input type="text" id="inputUsername" class="form-control" placeholder="E-mail" required="" autofocus="" ng-model="login.credentials.username">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="inputPassword" class="sr-only">Senha:</label>
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+          <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required="" ng-model="login.credentials.password">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+      </div>
+    </form>
+  </div>
+
+</article>

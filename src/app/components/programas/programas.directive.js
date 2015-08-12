@@ -11,7 +11,7 @@
   function programaList() {
 
     /** @ngInject */
-    function ProgramaListController($scope, $log) {
+    function ProgramaListController($scope, $location, $log) {
       $log.debug('ProgramaListController');
 
       // alias
@@ -19,6 +19,7 @@
 
       // dependencies
       vm.$scope = $scope;
+      vm.$location = $location;
       vm.$log = $log;
 
       // initialization
@@ -28,15 +29,6 @@
     ProgramaListController.prototype.init = function () {
       var vm = this;
 
-      vm.query = null;
-      vm.limitTo = 4;
-      vm.categoryFilter = null;
-      vm.orderCriteries = [
-      { label: 'Título', name: 'title' },
-      { label: 'Tema', name: 'category' },
-      { label: 'Mais participações', name: 'more_participants' }
-      ];
-
       if(!vm.article){
         vm.$log.warn('no article to display. Tip: use a ng-if before use this directive');
         return;
@@ -45,6 +37,34 @@
       vm.categories = vm.article.categories;
       vm.programs = vm.article.children;
       vm.filtredProgramList = [];
+
+      vm.search = vm.$location.search();
+      vm.query = vm.search ? vm.search.filtro : null;
+      vm.limitTo = vm.search ? vm.search.limite : 4;
+      vm.categoryFilter = vm.search ? vm.filterByCategorySlug(vm.search.tema) : null;
+      vm.categoryOptions = null;
+      vm.orderCriteries = [
+      { label: 'Título', name: 'title' },
+      { label: 'Tema', name: 'category' },
+      { label: 'Mais participações', name: 'more_participants' }
+      ];
+
+      // update window location params
+      vm.$scope.$watch('vm.query', function(newValue, oldValue){
+        vm.search.filtro = newValue;
+        vm.$location.search(vm.search);
+      });
+
+      vm.$scope.$watch('vm.limitTo', function(newValue, oldValue){
+        vm.search.limite = newValue;
+        vm.$location.search(vm.search);
+      });
+
+      vm.$scope.$watch('vm.categoryFilter', function(newValue, oldValue){
+        vm.search.tema = newValue ? newValue.slug : '';
+        vm.$location.search(vm.search);
+      });
+
     };
 
     ProgramaListController.prototype.getIconClasses = function (category) {
@@ -53,6 +73,18 @@
       vm.$log.debug('[TODO] getIconClasses of category:', category);
       return 'glyphicon glyphicon-exclamation-sign';
     };
+
+    ProgramaListController.prototype.filterByCategorySlug = function (categorySlug) {
+      var vm = this;
+      var result = null;
+
+      angular.forEach(vm.categories, function (value, key){
+        if(value.slug === categorySlug){
+          result = value;
+        }
+      })
+      return result;
+    }
 
     ProgramaListController.prototype.filterByCategory = function (category) {
       var vm = this;

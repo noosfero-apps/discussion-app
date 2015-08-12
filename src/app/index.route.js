@@ -20,14 +20,26 @@
           'footer': { templateUrl: 'app/partials/footer/footer.html' }
         }
       })
-      .state('login', {
-        url: '/login',
+      .state('entrar', {
+        url: '/entrar',
         views: {
           'header': { templateUrl: 'app/partials/header/header.html' },
           'main': {
-            templateUrl: 'app/partials/login/login.html',
-            controller: 'LoginController',
-            controllerAs: 'login'
+            templateUrl: 'app/partials/auth/signin.html',
+            controller: 'AuthController',
+            controllerAs: 'signin'
+          },
+          'footer': { templateUrl: 'app/partials/footer/footer.html' }
+        }
+      })
+      .state('cadastrar', {
+        url: '/cadastrar',
+        views: {
+          'header': { templateUrl: 'app/partials/header/header.html' },
+          'main': {
+            templateUrl: 'app/partials/auth/signup.html',
+            controller: 'AuthController',
+            controllerAs: 'signup'
           },
           'footer': { templateUrl: 'app/partials/footer/footer.html' }
         }

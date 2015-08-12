@@ -21,7 +21,7 @@
     return service;
 
     function login (credentials) {
-      var url = api.host + 'login';
+      var url = api.host + '/api/v1/login';
       var encodedData = 'login=' + credentials.username + '&password=' + credentials.password;
 
       return $http

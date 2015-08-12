@@ -6,7 +6,7 @@
     .directive('programaBox', programaBox);
 
   /** @ngInject */
-  function programaBox() {
+  function programaBox(api) {
 
     /** @ngInject */
     function ProgramaController($log) {
@@ -37,7 +37,7 @@
     ProgramaController.prototype.getImageUrl = function () {
       var vm = this;
 
-      return 'http://login.dialoga.gov.br/' + vm.program.image.url;
+      return api.host + vm.program.image.url;
     };
 
     ProgramaController.prototype.getImageAlt = function () {

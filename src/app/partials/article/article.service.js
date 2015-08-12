@@ -13,7 +13,7 @@
     var _savedAbstract = null;
 
     var service = {
-      apiArticles: api.host + 'articles/',
+      apiArticles: api.host + '/api/v1/articles/',
       getHome: getHome,
       setHomeAbstract: setHomeAbstract,
       getHomeAbstract: getHomeAbstract

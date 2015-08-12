@@ -3,11 +3,11 @@
 
   angular
     .module('dialoga')
-    .controller('LoginController', LoginController);
+    .controller('AuthController', AuthController);
 
   /** @ngInject */
-  function LoginController($rootScope, AUTH_EVENTS, AuthService, Session, $log) {
-    $log.debug('LoginController');
+  function AuthController($rootScope, AUTH_EVENTS, AuthService, Session, $log) {
+    $log.debug('AuthController');
 
     var vm = this;
 
@@ -20,7 +20,7 @@
     vm.init();
   }
 
-  LoginController.prototype.init = function() {
+  AuthController.prototype.init = function() {
     var vm = this;
 
     // init variables
@@ -31,7 +31,7 @@
     // ...
   };
 
-  LoginController.prototype.login = function(credentials) {
+  AuthController.prototype.login = function(credentials) {
     var vm = this;
 
     vm.AuthService.login(credentials).then(function(user) {

@@ -25,6 +25,17 @@ $icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bo
   padding: 0.2em 0;
 }
 
+// Hack to fix "Barra do Brasil"
+#barra-brasil .brasil-flag {
+  height: 33px !important;
+}
+
+@media only screen and (max-width: 959px){
+  #barra-brasil ul.list {
+    z-index: 9999;
+  }
+}
+
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
  *  all your sass files automatically

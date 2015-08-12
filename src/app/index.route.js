@@ -20,6 +20,18 @@
           'footer': { templateUrl: 'app/partials/footer/footer.html' }
         }
       })
+      .state('login', {
+        url: '/login',
+        views: {
+          'header': { templateUrl: 'app/partials/header/header.html' },
+          'main': {
+            templateUrl: 'app/partials/login/login.html',
+            controller: 'LoginController',
+            controllerAs: 'login'
+          },
+          'footer': { templateUrl: 'app/partials/footer/footer.html' }
+        }
+      })
       .state('programas', {
         url: '/programas',
         views: {

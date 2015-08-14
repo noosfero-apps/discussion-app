@@ -20,6 +20,42 @@ $gray: #f1f1f1;
 
 // -------------
 
+
+// -------------
+// Paleta de Cores
+// -------------
+$cinza1: #f1f1f1;
+$cinza2: #eaeaea;
+$cinza3: #dadada;
+$cinza4: #989898;
+$cinza5: #606060;
+$cinza6: #484848;
+
+
+// -------------
+// Tipografia
+// -------------
+// $open-sans-regular:
+// $open-sans-bold:
+$titulo1-size: 32pt;
+$titulo1-line-height: 36pt;
+
+$titulo2-size: 26pt;
+$titulo2-line-height: 30pt;
+
+$titulo3-size: 22pt;
+$titulo3-line-height: 26pt;
+
+$titulo4-size: 18pt;
+$titulo4-line-height: 22pt;
+
+$titulo5-size: 14pt;
+$titulo5-line-height: 18pt;
+
+$paragraph-size: 12pt;
+$paragraph-line-height: 16pt;
+
+// -------------
 .skip-links a:focus {
   background-color: #fff !important;
   opacity: 1;

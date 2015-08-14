@@ -1,8 +1,8 @@
-<div class="program-box" ng-if="vm.program" ng-click="vm.showContent()">
-  <div class="category">{{::vm.getCategoryName()}}</div>
+<article class="program-box {{::vm.getCategorySlug()}}" ng-if="vm.program" ng-click="vm.showContent()">
+  <h2 class="category-name">{{::vm.getCategoryName()}}</h2>
   <div class="image-wrapper">
-    <image class="img-responsive" ng-src="{{::vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}" />
+    <img class="img-responsive" ng-src="{{::vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}" />
   </div>
-  <div class="program-title">{{::vm.program.title}}</div>
+  <h1 class="program-title">{{::vm.program.title}}</h1>
   <div class="program-abstract" ng-bind-html="vm.program.abstract"></div>
-</div>
+</article>

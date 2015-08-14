@@ -1,0 +1,18 @@
+{
+  "always-semicolon": true,
+  "block-indent": 4,
+  "color-case": "lower",
+  "color-shorthand": false,
+  "element-case": "lower",
+  "eof-newline": true,
+  "exclude": ["node_modules/**", "bower_components/**"],
+  "leading-zero": false,
+  "space-after-combinator": 1,
+  "space-between-declarations": "\n",
+  "space-after-opening-brace": "\n",
+  "space-after-selector-delimiter": "\n",
+  "space-before-closing-brace": "\n",
+  "space-before-colon": "",
+  "space-before-combinator": 1,
+  "space-before-opening-brace": 1
+}

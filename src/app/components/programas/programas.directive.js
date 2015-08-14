@@ -37,17 +37,18 @@
       vm.categories = vm.article.categories;
       vm.programs = vm.article.children;
       vm.filtredProgramList = [];
-
-      vm.search = vm.$location.search();
-      vm.query = vm.search ? vm.search.filtro : null;
-      vm.limitTo = vm.search ? vm.search.limite : 4;
-      vm.categoryFilter = vm.search ? vm.filterByCategorySlug(vm.search.tema) : null;
-      vm.categoryOptions = null;
       vm.orderCriteries = [
       { label: 'Título', name: 'title' },
-      { label: 'Tema', name: 'category' },
-      { label: 'Mais participações', name: 'more_participants' }
+      { label: 'Tema', name: 'category' }
+      // , { label: 'Mais participações', name: 'more_participants' }
       ];
+
+      vm.search = vm.$location.search();
+
+      // Add initial values for the filter
+      vm.query = (vm.search && vm.search.filtro) ? vm.search.filtro : null;
+      vm.limitTo = (vm.search && vm.search.limite) ? parseInt(vm.search.limite, 10) : 4;
+      vm.categoryFilter = (vm.search && vm.search.tema) ? vm.filterByCategorySlug(vm.search.tema) : null;
 
       // update window location params
       vm.$scope.$watch('vm.query', function(newValue, oldValue){
@@ -65,6 +66,14 @@
         vm.$location.search(vm.search);
       });
 
+    };
+
+    ProgramaListController.prototype.resetFilterValues = function () {
+      var vm = this;
+
+      vm.query = null;
+      vm.limitTo = 4;
+      vm.categoryFilter = null;
     };
 
     ProgramaListController.prototype.getIconClasses = function (category) {
@@ -86,10 +95,13 @@
       return result;
     }
 
-    ProgramaListController.prototype.filterByCategory = function (category) {
+    ProgramaListController.prototype.filterByCategory = function (category, $event) {
       var vm = this;
 
+      $event.stopPropagation();
+
       if(category !== vm.categoryFilter){
+
         // selected new filter
         vm.categoryFilter = category;
       }else{
@@ -98,12 +110,12 @@
       }
     };
 
-    ProgramaListController.prototype.showAll = function () {
+    ProgramaListController.prototype.showAll = function ($event) {
       var vm = this;
 
-      vm.query = null;
-      vm.categoryFilter = null;
-      vm.$log.debug('[TODO] showAll, no filter? ', vm.categoryFilter);
+      $event.stopPropagation();
+
+      vm.resetFilterValues();
     };
 
     // function ProgramaListLinker (scope, element, attrs) {

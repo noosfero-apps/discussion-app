@@ -29,9 +29,11 @@
     };
 
     ProgramaController.prototype.getCategoryName = function () {
-      var vm = this;
+      return this.getCategory().name;
+    };
 
-      return vm.getCategory().name;
+    ProgramaController.prototype.getCategorySlug = function () {
+      return this.getCategory().slug;
     };
 
     ProgramaController.prototype.getImageUrl = function () {

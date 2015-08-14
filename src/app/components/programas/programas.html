@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-sm-3">
     <div class="category-list">
-      <aside class="navigation">
+      <nav class="navigation">
         <h3 class="title"><b>Programas</b> por Tema</h3>
         <div class="list-group category-list">
           <button type="button" class="list-group-item category-item"
             ng-repeat="category in vm.categories"
             ng-class="{active: vm.categoryFilter.slug === category.slug}"
-            ng-click="vm.filterByCategory(category)">
+            ng-click="vm.filterByCategory(category, $event)">
 
             <span ng-class="[category.iconClass]"></span>
             <span>{{::category.name}}</span>
@@ -15,21 +15,21 @@
 
           </button>
         </div>
-      </aside>
+      </nav>
     </div>
   </div>
 
   <div class="col-sm-9">
-    <div class="program-list">
-      <div class="header">
+    <article class="program-list">
+      <header class="header">
         <h2>Programas</h2>
-        <button type="button" class="btn btn-link" ng-click="vm.showAll()">
+        <button type="button" class="btn btn-link" ng-click="vm.showAll($event)">
           <span class="glyphicon glyphicon-chevron-right"></span> Ver todos os programas
         </button>
-      </div>
+      </header>
       <div>
         <div class="col-sm-12">
-          <div class="form-inline">
+          <aside class="form-inline">
             <div class="form-group">
               <label for="programListFilter" class="control-label sr-only">Filtrar programas:</label>
               <input id="programListFilter" type="search" class="form-control" ng-model="vm.query" placeholder="Filtrar programas" aria-label="Filtrar programas" >
@@ -53,7 +53,7 @@
               <label for="programListLimit" class="control-label">Limite</label>
 
             </div>
-          </div>
+          </aside>
         </div>
         <div ng-repeat="program in vm.programs | filterByCategory:vm.categoryFilter | filterByCriteria:vm.orderCriteria:orderReverse | filter:vm.query | limitTo:vm.limitTo as results">
           <programa-box program="program" class="col-sm-12 col-md-6"></programa-box>
@@ -63,6 +63,6 @@
           Nenhum programa encontrado.
         </div>
       </div>
-    </div>
+    </article>
   </div>
 </div>

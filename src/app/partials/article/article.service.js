@@ -6,34 +6,53 @@
     .factory('ArticleService', ArticleService);
 
   /** @ngInject */
-  function ArticleService($http, $q, api, UtilService, Slug, $log) {
+  function ArticleService($http, $q, $rootScope, UtilService, Slug, $log) {
     $log.debug('ArticleService');
 
     var idArticleHome = '103358';
     var _savedAbstract = null;
 
     var service = {
-      apiArticles: api.host + '/api/v1/articles/',
+      apiArticles: $rootScope.basePath + '/api/v1/articles/',
       getHome: getHome,
       getArticleBySlug: getArticleBySlug,
       setHomeAbstract: setHomeAbstract,
       getHomeAbstract: getHomeAbstract
     };
 
+    var CACHE = {}; // cache by article id
+
     return service;
 
-    function getHome () {
-      return getArticleById(idArticleHome);
-    }
+    function loadArticleById (articleId, cbSuccess, cbError) {
 
-    function getArticleById (articleId) {
       var url = service.apiArticles + articleId;
       var params = {
         fields: 'id,children,categories,abstract,title,image,url,setting,position',
         private_token: 'null'
       };
 
-      return UtilService.get(url, {params: params});
+      UtilService.get(url, {params: params}).then(function(data){
+        CACHE[articleId] = data;
+        cbSuccess(data);
+      }, function(error){
+        cbError(error);
+      });
+
+    }
+
+    function getArticleById (articleId, cbSuccess, cbError) {
+      var cachedArticle = CACHE[articleId];
+
+      if(cachedArticle){
+        cbSuccess(cachedArticle);
+      }else{
+        loadArticleById(articleId, cbSuccess, cbError);
+      }
+    }
+
+    function getHome (cbSuccess, cbError) {
+      return getArticleById(idArticleHome, cbSuccess, cbError);
     }
 
     function setHomeAbstract (newAbstract) {
@@ -44,10 +63,10 @@
       return _savedAbstract;
     }
 
-    function getArticleBySlug (slug) {
-      var deferred = $q.defer();
+    function getArticleBySlug (slug, cbSuccess, cbError) {
+      var vm = this;
 
-      this.getHome().then(function (data) {
+      vm.getHome(function (data) {
         var mainArticle = data.article;
         var programList = mainArticle.children;
         var result = null;
@@ -66,13 +85,11 @@
         }
 
         if(result){
-          deferred.resolve(result);
+          cbSuccess(result);
         }else{
-          deferred.reject('None program with slug "' + slug + '"" was found.');
+          cbError('None program with slug "' + slug + '"" was found.');
         }
-      });
-
-      return deferred.promise;
+      }, cbError);
     }
   }
 })();

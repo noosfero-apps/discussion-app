@@ -6,6 +6,7 @@
     .module('dialoga')
     .run(runAuth)
     .run(runAccessibility)
+    .run(runPath)
     .run(runBlock);
 
   /** @ngInject */
@@ -70,6 +71,14 @@
     };
 
     $log.debug('runAccessibility end.');
+  }
+
+  /** @ngInject */
+  function runPath($rootScope, api, $log) {
+    var isProduction = (/^http:\/\/dialoga\.gov\.br\//.test(window.location.href));
+    $rootScope.basePath = isProduction ? api.hostProd :  api.hostHom;
+
+    $log.debug('runPath end.');
   }
 
   /** @ngInject */

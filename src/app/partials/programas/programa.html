@@ -1,5 +1,45 @@
 <div class="container">
 
-  <h1>Programa</h1>
+  <div class="article-bar">
+    <div class="navbar">
+      <div class="navbar-header">
+        <button class="btn btn-link" ng-click="programa.goBack()">
+          <!-- <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> -->
+          <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+          Voltar
+        </button>
+      </div>
+      <div class="navbar-left">
+        <button class="btn btn-link">
+          <span class="glyphicon glyphicon-refresh"></span>
+          <span>{{programa.program.categories[0].name}}</span>
+        </button>
+      </div>
+      <div class="navbar-right">
+        <select name="selectCategory" id="selectCategory-{{::programa.program.categories[0].id}}" class="form-control">
+          <option value="">-- Selectione um Tema --</option>
+        </select>
+      </div>
+    </div>
+  </div>
 
+  <div ng-if="!programa.program">
+    <div class="alert alert-info" role="alert">Carregando informações sobre o progama</div>
+  </div>
+
+  <div ng-if="programa.program">
+    <article>
+      <header class="program-banner">
+        <img class="program-banner--image" ng-src="{{programa.program.image.url}}" alt="Imagem de apresentação do progama.">
+        <div class="program-banner--strip">
+          <h1 class="program-banner--title">{{::programa.program.title}}</h1>
+          <p class="program-banner--abstract" ng-bind-html="programa.program.abstract"></p>
+        </div>
+
+      </header>
+
+    </article>
+  </div>
+  <div id="content" ng-bind-html="programa.program.body"></div>
 </div>
+

@@ -6,7 +6,8 @@
     .module('dialoga')
     .constant('api', {
       token: null,
-      host: 'http://hom.login.dialoga.gov.br',
+      hostHom: 'http://hom.dialoga.gov.br',
+      hostProd: 'http://login.dialoga.gov.br',
       // host: 'http://www.participa.br',
       articleId: {
         home: 103358

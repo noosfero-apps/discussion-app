@@ -56,6 +56,18 @@
           'footer': { templateUrl: 'app/partials/footer/footer.html' }
         }
       })
+      .state('programa', {
+        url: '/programa/:slug',
+        views: {
+          'header': { templateUrl: 'app/partials/header/header.html' },
+          'main': {
+            templateUrl: 'app/partials/programas/programa.html',
+            controller: 'ProgramaController',
+            controllerAs: 'programa'
+          },
+          'footer': { templateUrl: 'app/partials/footer/footer.html' }
+        }
+      })
       .state('sobre', {
         url: '/sobre',
         views: {

@@ -55,6 +55,22 @@
       return 'TODO: create image alt on server-side.';
     };
 
+    ProgramaController.prototype.isDisplay = function (display) {
+      return this.display === display;
+    };
+
+    ProgramaController.prototype.isDisplayBox = function () {
+      return this.isDisplay('box');
+    };
+
+    ProgramaController.prototype.isDisplayPreview = function () {
+      return this.isDisplay('preview');
+    };
+
+    ProgramaController.prototype.isDisplayContent = function () {
+      return this.isDisplay('content');
+    };
+
     ProgramaController.prototype.showContent = function () {
       var vm = this;
 
@@ -71,7 +87,8 @@
       restrict: 'E',
       templateUrl: 'app/components/programa/programa.html',
       scope: {
-        program: '='
+        program: '=',
+        display: '='
       },
       controller: ProgramaController,
       controllerAs: 'vm',

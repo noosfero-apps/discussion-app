@@ -56,7 +56,7 @@
           </aside>
         </div>
         <div ng-repeat="program in vm.programs | filterByCategory:vm.categoryFilter | filterByCriteria:vm.orderCriteria:orderReverse | filter:vm.query | limitTo:vm.limitTo as results">
-          <programa-box program="program" class="col-sm-12 col-md-6"></programa-box>
+          <programa-box program="program" display="'box'" class="col-sm-12 col-md-6"></programa-box>
           <div ng-if="$odd" class="clearfix"></div>
         </div>
         <div class="animate-repeat" ng-if="results.length == 0">

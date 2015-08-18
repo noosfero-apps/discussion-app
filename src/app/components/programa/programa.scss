@@ -1,21 +1,71 @@
 // Variables
+$program-box-padding: 20px;
 $scale: 1.1;
 $time: .3s;
 
 // sandbox
 .program-box {
     cursor: pointer;
-    .category-name {
+    background-color: #fff;
+    margin-bottom: $program-box-padding;
+
+    .contraste & {
+        color: #fff;
+        background-color: #262626;
+    }
+
+    &--category {
         font-size: 14px;
         font-weight: bold;
-        line-height: 30px;
+        text-transform: uppercase;
+        line-height: 22px;
         display: block;
         height: 30px;
-        margin-bottom: 0;
+        margin: 0;
+        padding: 5px $program-box-padding;
         color: #ffffff;
-        background-color: #000000;
+
+        @each $category, $color in $categories {
+            .#{$category} & {
+                background-color: $color;
+            }
+        }
+
+        .contraste & {
+            background-color: #262626;
+        }
     }
-    .image-wrapper {
+
+    &--title {
+        font-size: 18px;
+        font-weight: bold;
+        padding: 0 $program-box-padding;
+    }
+
+    &--abstract {
+        padding: 0 $program-box-padding;
+    }
+
+    &--button {
+        padding: $program-box-padding;
+        .btn {
+            color: #fff;
+            font-weight: bold;
+
+            @each $category, $color in $categories {
+                .#{$category} & {
+                    background-color: $color;
+                }
+            }
+
+            .contraste & {
+                color: #262626;
+                background-color: #fff;
+            }
+        }
+    }
+
+    &--image-wrapper {
         position: relative;
         // width: 100%;
         // width: 370px;
@@ -24,13 +74,15 @@ $time: .3s;
         overflow: hidden;
         text-align: center;
     }
-    .img-responsive {
+
+    &--image {
         -webkit-transition: all $time ease-in-out;
         -moz-transition: all $time ease-in-out;
         -o-transition: all $time ease-in-out;
         transition: all $time ease-in-out;
     }
-    &:hover .img-responsive {
+
+    &:hover .program-box--image {
         -webkit-transform: scale($scale); /* prefixo para browsers webkit */
         -moz-transform: scale($scale); /* prefixo para browsers gecko */
         -o-transform: scale($scale); /* prefixo para opera */

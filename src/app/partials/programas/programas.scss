@@ -1,9 +1,15 @@
 .article-bar {
-
+    
     .btn {
         color: #fff;
         font-weight: bold;
     }
+    
+    &--item {
+        margin: 8px 0;
+    }
+
+
 
     @each $category, $color in $categories {
         &.#{$category} {

@@ -8,6 +8,7 @@ $darken: 15%;
 .program-box {
     cursor: pointer;
     background-color: #fff;
+    margin-top: $program-box-space;
     margin-bottom: $program-box-space;
 
     .contraste & {

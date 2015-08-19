@@ -3,20 +3,20 @@
   <div class="article-bar" ng-class="programa.program.categories[0].slug">
     <div class="navbar">
       <div class="navbar-header">
-        <button class="btn btn-link" ng-click="programa.goBack()">
+        <button class="article-bar--item btn btn-link" ng-click="programa.goBack()">
           <!-- <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> -->
           <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
           Voltar
         </button>
       </div>
       <div class="navbar-left">
-        <button class="btn btn-link">
+        <button class="article-bar--item btn btn-link">
           <span class="glyphicon glyphicon-refresh"></span>
           <span class="category-name">{{::programa.program.categories[0].name}}</span>
         </button>
       </div>
       <div class="navbar-right">
-        <select name="selectCategory" id="selectCategory-{{::programa.program.categories[0].id}}" class="form-control">
+        <select name="selectCategory" id="selectCategory-{{::programa.program.categories[0].id}}" class="article-bar--item form-control">
           <option value="">-- Selectione um Tema --</option>
         </select>
       </div>

@@ -6,7 +6,7 @@
     .directive('programaBox', programaBox);
 
   /** @ngInject */
-  function programaBox(api) {
+  function programaBox($rootScope, api) {
 
     /** @ngInject */
     function ProgramaController($state, Slug, $log) {
@@ -45,7 +45,7 @@
     ProgramaController.prototype.getImageUrl = function () {
       var vm = this;
 
-      return api.host + vm.program.image.url;
+      return $rootScope.basePath + vm.program.image.url;
     };
 
     ProgramaController.prototype.getImageAlt = function () {

@@ -10,11 +10,16 @@
     $log.debug('ArticleService');
 
     var idArticleHome = '103358';
+    var idArticleAbout = '108073';
+    var idArticleTerms = '107880';
+
     var _savedAbstract = null;
 
     var service = {
       apiArticles: $rootScope.basePath + '/api/v1/articles/',
       getHome: getHome,
+      getAbout: getAbout,
+      getTerms: getTerms,
       getArticleById: getArticleById,
       getArticleBySlug: getArticleBySlug,
       setHomeAbstract: setHomeAbstract,
@@ -25,13 +30,10 @@
 
     return service;
 
-    function loadArticleById (articleId, cbSuccess, cbError) {
+    function loadArticleById (articleId, params, cbSuccess, cbError) {
 
       var url = service.apiArticles + articleId;
-      var params = {
-        fields: 'id,children,categories,abstract,title,image,url,setting,position',
-        private_token: 'null'
-      };
+      var params = angular.extend({}, params);
 
       UtilService.get(url, {params: params}).then(function(data){
         CACHE[articleId] = data;
@@ -41,19 +43,22 @@
       });
     }
 
-    function getArticleById (articleId, cbSuccess, cbError) {
+    function getArticleById (articleId, params, cbSuccess, cbError) {
       var cachedArticle = CACHE[articleId];
 
       if(cachedArticle){
         cbSuccess(cachedArticle);
       }else{
-        loadArticleById(articleId, cbSuccess, cbError);
+        loadArticleById(articleId, params, cbSuccess, cbError);
       }
     }
 
     function getArticleBySlug (slug, cbSuccess, cbError) {
       var vm = this;
 
+      /**
+       * XXX: get from home article util we have a endpoint to do-it.
+       */
       vm.getHome(function (data) {
         var mainArticle = data.article;
         var programList = mainArticle.children;
@@ -81,7 +86,18 @@
     }
 
     function getHome (cbSuccess, cbError) {
-      return getArticleById(idArticleHome, _handleCategoryColors(cbSuccess), cbError);
+      return getArticleById(idArticleHome, {
+        fields: 'id,children,categories,abstract,title,image,url,setting,position',
+        private_token: 'null'
+      }, _handleCategoryColors(cbSuccess), cbError);
+    }
+
+    function getAbout (cbSuccess, cbError) {
+      return getArticleById(idArticleAbout, {}, cbSuccess, cbError);
+    }
+
+    function getTerms (cbSuccess, cbError) {
+      return getArticleById(idArticleTerms, {}, cbSuccess, cbError);
     }
 
     function _handleCategoryColors (cbSuccess) {

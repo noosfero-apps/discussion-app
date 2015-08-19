@@ -1,5 +1,11 @@
-<article class="container" role="main">
-
-  Artigo <span>{{article.page}}</span>
-
-</article>
+<div class="container" role="main">
+	<span class="hide">{{::article.page}}</span>
+	<div ng-if="article.article">
+		<article>
+			<header>
+				<h1>{{::article.article.title}}</h1>
+			</header>
+			<section ng-bind-html="article.article.body"></section>
+		</article>
+	</div>
+</div>

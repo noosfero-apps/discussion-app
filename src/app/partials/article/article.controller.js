@@ -6,23 +6,38 @@
     .controller('ArticleController', ArticleController);
 
   /** @ngInject */
-  function ArticleController($state, $log) {
+  function ArticleController(ArticleService, $state, $sce, $log) {
     $log.debug('ArticleController');
 
     var vm = this;
+    vm.ArticleService = ArticleService;
+    vm.$state = $state;
+    vm.$sce = $sce;
+    vm.$log = $log;
 
-    vm.page = $state.current.name;
+    vm.init();
+  }
 
-    switch ( $state.current.name ) {
+  ArticleController.prototype.init = function() {
+    var vm = this;
+
+    vm.page = vm.$state.current.name;
+    vm.article = null;
+    switch(vm.page){
       case 'sobre':
+        vm.ArticleService.getAbout(handleSuccess);
         break;
       case 'termos-de-uso':
+        vm.ArticleService.getTerms(handleSuccess);
         break;
       default:
-        $log.debug('$state.current.name', $state.current.name);
+        vm.$log.warn('Page not handled:', vm.page);
         break;
     }
 
-    // page = $state.is('sobre');
-  }
+    function handleSuccess (data) {
+      vm.article = data.article;
+      // vm.article.body = vm.$sce.trustAsHtml(vm.article.body);
+    }
+  };
 })();

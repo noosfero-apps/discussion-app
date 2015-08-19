@@ -116,6 +116,7 @@
       $event.stopPropagation();
 
       vm.resetFilterValues();
+      vm.limitTo = vm.programs.length;
     };
 
     // function ProgramaListLinker (scope, element, attrs) {

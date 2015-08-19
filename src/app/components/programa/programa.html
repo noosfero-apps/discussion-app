@@ -3,7 +3,8 @@
     <div class="program-box {{::vm.getCategorySlug()}}">
       <h2 class="program-box--category">{{::vm.getCategoryName()}}</h2>
       <div class="program-box--image-wrapper">
-        <img class="program-box--image img-responsive" ng-src="{{::vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}" />
+        <!-- <img class="program-box--image img-responsive" ng-src="{{::vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}" /> -->
+        <div class="program-box--image" ng-style="{'background-image':'url( {{::vm.getImageUrl()}} )'}"></div>
       </div>
       <h1 class="program-box--title">{{::vm.program.title}}</h1>
       <div class="program-box--abstract" ng-bind-html="vm.program.abstract"></div>

@@ -9,7 +9,7 @@
   function programaList() {
 
     /** @ngInject */
-    function ProgramaListController($scope, $location, $filter, $anchorScroll, $log) {
+    function ProgramaListController($scope, $element, $location, $filter, $log) {
       $log.debug('ProgramaListController');
 
       // alias
@@ -17,10 +17,11 @@
 
       // dependencies
       vm.$scope = $scope;
+      vm.$element = $element;
       vm.$location = $location;
       vm.$filter = $filter;
-      vm.$anchorScroll = $anchorScroll;
       vm.$log = $log;
+      vm.defaultLimit = 6;
 
       // initialization
       vm.init();
@@ -47,15 +48,14 @@
 
       // Add initial values for the filter
       vm.query = (vm.search && vm.search.filtro) ? vm.search.filtro : null;
-      vm.limitTo = (vm.search && vm.search.limite) ? parseInt(vm.search.limite, 10) : 4;
+      vm.limitTo = (vm.search && vm.search.limite) ? parseInt(vm.search.limite, 10) : vm.defaultLimit;
       vm.categoryFilter = (vm.search && vm.search.tema) ? vm.getCategoryBySlug(vm.search.tema) : null;
       vm.orderCriteria = (vm.search && vm.search.ordem) ? { name: vm.search.ordem } : null;
       vm.reverse = (vm.search && vm.search.reverso) ? true : false;
 
-      if(!angular.equals({}, vm.search)){
-        vm.$location.hash('lista-de-programas');
-        vm.$anchorScroll();
-        console.log('scrolled');
+      if (!angular.equals({}, vm.search)) {
+        var $el = vm.$element;
+        angular.element('body').animate({scrollTop: $el.offset().top}, 'slow');
       }
 
       // update window location params
@@ -66,7 +66,7 @@
       });
 
       vm.$scope.$watch('vm.limitTo', function(newValue, oldValue){
-        vm.search.limite = (newValue && newValue !== 4)  ? newValue : null;
+        vm.search.limite = (newValue && newValue !== vm.defaultLimit)  ? newValue : null;
         vm.$location.search('limite', vm.search.limite);
         vm.filtredProgramList = vm.getFiltredPrograms();
       });
@@ -95,7 +95,7 @@
       var vm = this;
 
       vm.query = null;
-      vm.limitTo = 4;
+      vm.limitTo = vm.defaultLimit;
       vm.categoryFilter = null;
       vm.orderCriteria = null;
     };
@@ -154,7 +154,7 @@
       var orderBy = vm.$filter('orderBy');
       var limitTo = vm.$filter('limitTo');
       var limit = vm.limitTo ? vm.limitTo : 4;
-      
+
       if(categoryFilter){
         output = _filterByCategory(output, categoryFilter);
       }
@@ -188,8 +188,8 @@
           break;
       }
 
-      output = limitTo(output, limit);        
-      
+      output = limitTo(output, limit);
+
       return output;
     };
 
@@ -216,21 +216,21 @@
           resultByCategory[prop] = shuffle(categoryWithPrograms);
         }
       }
-      
+
       // Concat all into result array
       // > while has program at Lists on resultByCategory
       var hasProgram = true;
       while (hasProgram) {
-        
+
         var foundProgram = false;
         // each categoryList with array of program
         for (var prop in resultByCategory){
-        
+
           if( resultByCategory.hasOwnProperty( prop ) ) {
             var categoryWithPrograms = resultByCategory[prop];
-            
+
             if (categoryWithPrograms.length > 0 ) {
-              var pivotProgram = categoryWithPrograms.pop(); 
+              var pivotProgram = categoryWithPrograms.pop();
               result.push(pivotProgram);
               foundProgram = true;
             }
@@ -286,7 +286,7 @@
 
     var out = [];
 
-    
+
 
     return out;
   }

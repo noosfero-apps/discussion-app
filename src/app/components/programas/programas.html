@@ -3,7 +3,7 @@
     <div class="category-list">
       <nav class="navigation">
         <h3 class="title"><b>Programas</b> por Tema</h3>
-        <div class="list-group category-list">
+        <div class="list-group category-list" ng-class="vm.categoryFilter.slug">
           <button type="button" class="list-group-item category-item"
             ng-repeat="category in vm.categories"
             ng-class="{active: vm.categoryFilter.slug === category.slug}"

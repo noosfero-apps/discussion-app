@@ -11,4 +11,18 @@
       top: 2px;
     }
   }
+
+}
+
+.category-list {
+
+    @each $category, $color in $categories {
+        &.#{$category} {
+            .list-group-item.active,
+            .list-group-item.active:hover,
+            .list-group-item.active:focus {
+                background-color: $color;
+            }
+        }
+    }
 }

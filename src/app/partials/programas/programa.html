@@ -17,9 +17,9 @@
               <span class="category-name">{{::programa.program.categories[0].name}}</span>
             </button>
           </div>
-          <div class="navbar-right">
-            <select name="selectCategory" id="selectCategory-{{::programa.program.categories[0].id}}" class="article-bar--item form-control">
-              <option value="">-- Selectione um Tema --</option>
+          <div class="navbar-right" ng-if="programa.categories">
+            <label for="selectCategory" class="control-label sr-only" title="Selecione uma opção para acessar os programas do tema">Temas:</label>
+            <select id="selectCategory" name="selectCategory" class="article-bar--item form-control" ng-model="programa.currentCategory" ng-options="category.name for category in programa.categories track by category.slug">
             </select>
           </div>
         </div>

@@ -62,7 +62,7 @@
       });
 
       vm.$scope.$watch('vm.categoryFilter', function(newValue, oldValue){
-        vm.search.tema = newValue ? newValue.slug : '';
+        vm.search.tema = newValue ? newValue.slug : null;
         vm.$location.search(vm.search);
       });
 

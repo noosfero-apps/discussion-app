@@ -6,13 +6,15 @@
     .controller('ProgramaController', ProgramaController);
 
   /** @ngInject */
-  function ProgramaController(ArticleService, $state, $rootScope, $log) {
+  function ProgramaController(ArticleService, $state, $location, $scope, $log) {
     $log.debug('ProgramaController');
 
     var vm = this;
 
     vm.ArticleService = ArticleService;
+    vm.$scope = $scope;
     vm.$state = $state;
+    vm.$location = $location;
     vm.$log = $log;
 
     vm.init();
@@ -25,9 +27,27 @@
     var slug = params.slug;
 
     vm.program = null;
+    vm.currentCategory = null;
+
+    vm.ArticleService.getHome(function(data){
+      vm.categories = data.article.categories;
+    }, function (error) {
+      vm.$log.error(error);
+    });
 
     vm.ArticleService.getArticleBySlug(slug, function(program){
       vm.program = program;
+      vm.currentCategory = vm.program.categories[0];
+
+      vm.$scope.$watch('programa.currentCategory', function(newValue, oldValue){
+        if(newValue !== oldValue){
+          vm.$state.go('inicio', {
+            tema: newValue.slug
+          }, {
+            location: true
+          });
+        }
+      });
 
       // load proposals
       // vm.ArticleService.getRandomProposals(program.id).then(function(proposal){

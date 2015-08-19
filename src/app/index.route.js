@@ -9,7 +9,7 @@
   function routeConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('inicio', {
-        url: '/',
+        url: '/?limite&tema',
         views: {
           'header': { templateUrl: 'app/partials/header/header.html' },
           'main': {

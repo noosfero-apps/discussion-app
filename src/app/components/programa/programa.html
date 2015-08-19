@@ -1,6 +1,6 @@
 <div ng-if="vm.program">
-  <article ng-if="vm.isDisplayBox()" ng-click="vm.showContent()">
-    <div class="program-box {{::vm.getCategorySlug()}}">
+  <article class="program-box" ng-if="vm.isDisplayBox()" ng-click="vm.showContent()">
+    <div class="{{::vm.getCategorySlug()}}">
       <h2 class="program-box--category">{{::vm.getCategoryName()}}</h2>
       <div class="program-box--image-wrapper">
         <!-- <img class="program-box--image img-responsive" ng-src="{{::vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}" /> -->
@@ -18,7 +18,7 @@
     </div>
   </article>
 
-  <article ng-if="vm.isDisplayPreview()">
+  <article ng-if="vm.isDisplayPreview()" class="program-preview">
     <header class="program-banner">
       <img class="program-banner--image" ng-src="{{vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}">
       <div class="program-banner--strip">

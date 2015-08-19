@@ -4,7 +4,6 @@ $scale: 1.1;
 $time: .2s;
 $darken: 15%;
 
-// sandbox
 .program-box {
     cursor: pointer;
     background-color: #fff;
@@ -183,5 +182,10 @@ $darken: 15%;
             transform: scale($scale);
         }
     }
+}
 
+.program-preview {
+    .program-banner {
+        
+    }
 }

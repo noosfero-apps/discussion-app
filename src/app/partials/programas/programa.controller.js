@@ -6,15 +6,16 @@
     .controller('ProgramaController', ProgramaController);
 
   /** @ngInject */
-  function ProgramaController(ArticleService, $state, $location, $scope, $log) {
+  function ProgramaController(ArticleService, $state, $location, $scope, $rootScope, $log) {
     $log.debug('ProgramaController');
 
     var vm = this;
 
     vm.ArticleService = ArticleService;
-    vm.$scope = $scope;
     vm.$state = $state;
     vm.$location = $location;
+    vm.$scope = $scope;
+    vm.$rootScope = $rootScope;
     vm.$log = $log;
 
     vm.init();
@@ -80,6 +81,11 @@
   ProgramaController.prototype.goBack = function () {
     var vm = this;
 
-    vm.$log.warn('Not implemented yet!');
+    var prevState = vm.$rootScope.$previousState;
+    if(prevState && prevState.state.name){
+      vm.$state.go(prevState.state.name, prevState.params);
+    } else {
+      vm.$state.go('inicio');
+    }
   };
 })();

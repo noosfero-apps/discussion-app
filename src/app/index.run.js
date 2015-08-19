@@ -6,6 +6,7 @@
     .module('dialoga')
     .run(runAuth)
     .run(runAccessibility)
+    .run(runHistory)
     .run(runPath)
     .run(runColorUtils)
     .run(runBlock);
@@ -72,6 +73,13 @@
     };
 
     $log.debug('runAccessibility end.');
+  }
+
+  /** @ngInject */
+  function runHistory($rootScope, $log) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toStateParams, fromState, fromStateParams) {
+      $rootScope.$previousState = { state: fromState, params: fromStateParams};
+    });
   }
 
   /** @ngInject */

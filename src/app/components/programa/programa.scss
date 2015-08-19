@@ -42,20 +42,20 @@ $darken: 15%;
 
     &--title {
 
-        padding: $program-box-space;
+        padding: 0 $program-box-space;
 
         h1 {
             font-size: 18px;
             font-weight: bold;
+            margin: 0 0 $program-box-space 0;
             display: table-cell;
             vertical-align: middle;
-            margin: 10px 0;
 
             // Altura das linhas do abstract
-            $hLine: 20px;
+            $hLine: 20px;            
+            // default 
+            height: $hLine * 2; 
             
-            height: $hLine * 2; // default
-
             @media (max-width: $screen-xs) {
                 // height: $hLine * 3;
                 height: auto;

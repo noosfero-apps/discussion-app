@@ -26,6 +26,11 @@
       if(!vm.program.slug){
         vm.program.slug = vm.Slug.slugify(vm.program.title);
       }
+
+      // if(vm.program.color && !vm.program.bgColor){
+      //   // 15% more darker
+      //   vm.program.colorDarker = window.ColorLuminance(vm.program.color, 0.15);
+      // }
     };
 
     ProgramaController.prototype.getCategory = function () {

@@ -81,7 +81,25 @@
     }
 
     function getHome (cbSuccess, cbError) {
-      return getArticleById(idArticleHome, cbSuccess, cbError);
+      return getArticleById(idArticleHome, _handleCategoryColors(cbSuccess), cbError);
+    }
+
+    function _handleCategoryColors (cbSuccess) {
+      var darkFactor = 0.15;
+
+      return function (data) {
+        if(data.categories){
+          var categories = data.categories;
+
+          for (var i = categories.length - 1; i >= 0; i--) {
+            var category = categories[i];
+            if(category.color && !category.bgColor){
+              category.colorDarker = window.ColorLuminance(category.color, 0.15);
+            }
+          };
+        }
+        cbSuccess(data);
+      };
     }
 
     function setHomeAbstract (newAbstract) {

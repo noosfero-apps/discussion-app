@@ -1,5 +1,5 @@
 // Variables
-$program-box-padding: 20px;
+$program-box-space: 20px;
 $scale: 1.1;
 $time: .3s;
 
@@ -7,7 +7,7 @@ $time: .3s;
 .program-box {
     cursor: pointer;
     background-color: #fff;
-    margin-bottom: $program-box-padding;
+    margin-bottom: $program-box-space;
 
     .contraste & {
         color: #fff;
@@ -22,7 +22,7 @@ $time: .3s;
         display: block;
         height: 30px;
         margin: 0;
-        padding: 5px $program-box-padding;
+        padding: 5px $program-box-space;
         color: #ffffff;
 
         @each $category, $color in $categories {
@@ -39,15 +39,16 @@ $time: .3s;
     &--title {
         font-size: 18px;
         font-weight: bold;
-        padding: 0 $program-box-padding;
+        padding: 0 $program-box-space;
+        margin: 0 0 10px 0;
     }
 
     &--abstract {
-        padding: 0 $program-box-padding;
+        padding: 0 $program-box-space;
     }
 
     &--button {
-        padding: $program-box-padding;
+        padding: $program-box-space;
         .btn {
             color: #fff;
             font-weight: bold;
@@ -73,6 +74,7 @@ $time: .3s;
 
         overflow: hidden;
         text-align: center;
+        min-height: 170px;
     }
 
     &--image {

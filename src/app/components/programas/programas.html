@@ -34,11 +34,13 @@
               <label for="programListFilter" class="control-label sr-only">Filtrar programas:</label>
               <input id="programListFilter" type="search" class="form-control" ng-model="vm.query" placeholder="Filtrar programas" aria-label="Filtrar programas" >
 
-              <select class="form-control" ng-model="vm.categoryFilter" ng-options="category.name for category in vm.categories track by category.slug">
+              <!-- <label for="selectCategoryFilter" class="control-label sr-only">Filtrar por tema:</label>
+              <select id="selectCategoryFilter" name="selectCategoryFilter" class="form-control" ng-model="vm.categoryFilter" ng-options="category.name for category in vm.categories track by category.slug">
                 <option value="">-- Filtrar por tema --</option>
-              </select>
+              </select> -->
 
-              <select class="form-control" ng-model="vm.orderCriteria" ng-options="orderCriteria.label for orderCriteria in vm.orderCriteries">
+              <label for="selectOrderBy" class="control-label sr-only">Ordernar por:</label>
+              <select id="selectOrderBy" name="selectOrderBy" class="form-control" ng-model="vm.orderCriteria" ng-options="orderCriteria.label for orderCriteria in vm.orderCriteries">
                 <option value="">-- Ordernar por: --</option>
               </select>
 
@@ -56,7 +58,7 @@
           </aside>
         </div>
         <div ng-repeat="program in vm.programs | filterByCategory:vm.categoryFilter | filterByCriteria:vm.orderCriteria:orderReverse | filter:vm.query | limitTo:vm.limitTo as results">
-          <programa-box program="program" display="'box'" class="col-sm-12 col-md-6"></programa-box>
+          <programa-box program="program" display="'box'" class="col-xs-12 col-sm-6"></programa-box>
           <div ng-if="$odd" class="clearfix"></div>
         </div>
         <div class="animate-repeat" ng-if="results.length == 0">

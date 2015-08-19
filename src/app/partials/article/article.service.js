@@ -15,6 +15,7 @@
     var service = {
       apiArticles: $rootScope.basePath + '/api/v1/articles/',
       getHome: getHome,
+      getArticleById: getArticleById,
       getArticleBySlug: getArticleBySlug,
       setHomeAbstract: setHomeAbstract,
       getHomeAbstract: getHomeAbstract
@@ -38,7 +39,6 @@
       }, function(error){
         cbError(error);
       });
-
     }
 
     function getArticleById (articleId, cbSuccess, cbError) {
@@ -49,18 +49,6 @@
       }else{
         loadArticleById(articleId, cbSuccess, cbError);
       }
-    }
-
-    function getHome (cbSuccess, cbError) {
-      return getArticleById(idArticleHome, cbSuccess, cbError);
-    }
-
-    function setHomeAbstract (newAbstract) {
-      _savedAbstract = newAbstract;
-    }
-
-    function getHomeAbstract () {
-      return _savedAbstract;
     }
 
     function getArticleBySlug (slug, cbSuccess, cbError) {
@@ -90,6 +78,18 @@
           cbError('None program with slug "' + slug + '"" was found.');
         }
       }, cbError);
+    }
+
+    function getHome (cbSuccess, cbError) {
+      return getArticleById(idArticleHome, cbSuccess, cbError);
+    }
+
+    function setHomeAbstract (newAbstract) {
+      _savedAbstract = newAbstract;
+    }
+
+    function getHomeAbstract () {
+      return _savedAbstract;
     }
   }
 })();

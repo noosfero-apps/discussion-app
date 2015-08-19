@@ -32,8 +32,8 @@
       hideBackground(2000);
     }
 
-    vm.ArticleService.getHome().then(function(result) {
-      vm.article = result.article;
+    vm.ArticleService.getHome(function(data) {
+      vm.article = data.article;
     }, function(error) {
       vm.$log.error('Error on getHome article.', error);
     });

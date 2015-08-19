@@ -106,7 +106,7 @@
         vm.categoryFilter = category;
       }else{
         // already selected. Unselect.
-        vm.showAll();
+        vm.showAll($event);
       }
     };
 

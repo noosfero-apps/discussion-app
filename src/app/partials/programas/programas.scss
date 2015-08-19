@@ -9,7 +9,9 @@
         margin: 8px 0;
     }
 
-
+    .navbar-right {
+        margin-right: 15px;
+    }
 
     @each $category, $color in $categories {
         &.#{$category} {

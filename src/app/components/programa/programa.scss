@@ -1,7 +1,7 @@
 // Variables
 $program-box-space: 20px;
 $scale: 1.1;
-$time: .3s;
+$time: .2s;
 $darken: 15%;
 
 // sandbox
@@ -10,6 +10,8 @@ $darken: 15%;
     background-color: #fff;
     margin-top: $program-box-space;
     margin-bottom: $program-box-space;
+    border-radius: 3px;
+    overflow: hidden;
 
     .contraste & {
         color: #fff;
@@ -39,10 +41,16 @@ $darken: 15%;
     }
 
     &--title {
-        font-size: 18px;
-        font-weight: bold;
+
         padding: 0 $program-box-space;
         margin: 0 0 10px 0;
+        h1 {
+            font-size: 18px;
+            font-weight: bold;
+            height: 60px;
+            display: table-cell;
+            vertical-align: middle;
+        }
     }
 
     &--abstract {
@@ -60,10 +68,24 @@ $darken: 15%;
             border-top: 0;
             border-radius: 6px;
 
+            -webkit-transition: all $time ease-in-out;
+            -moz-transition: all $time ease-in-out;
+            -o-transition: all $time ease-in-out;
+            transition: all $time ease-in-out;
+
             @each $category, $color in $categories {
                 .#{$category} & {
                     background-color: $color;
                     border-bottom: 3px solid darken($color, $darken);
+                }
+            }
+
+            &:hover,
+            &:focus {
+                @each $category, $color in $categories {
+                    .#{$category} & {
+                        background-color: darken($color, $darken);
+                    }
                 }
             }
 
@@ -97,10 +119,15 @@ $darken: 15%;
         transition: all $time ease-in-out;
     }
 
-    &:hover .program-box--image {
-        -webkit-transform: scale($scale); /* prefixo para browsers webkit */
-        -moz-transform: scale($scale); /* prefixo para browsers gecko */
-        -o-transform: scale($scale); /* prefixo para opera */
-        transform: scale($scale);
+    &:hover {
+        background-color: #d9d9d9;
+
+        .program-box--image {
+            -webkit-transform: scale($scale); /* prefixo para browsers webkit */
+            -moz-transform: scale($scale); /* prefixo para browsers gecko */
+            -o-transform: scale($scale); /* prefixo para opera */
+            transform: scale($scale);
+        }
     }
+
 }

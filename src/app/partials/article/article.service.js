@@ -88,16 +88,16 @@
       var darkFactor = 0.15;
 
       return function (data) {
-        if(data.categories){
-          var categories = data.categories;
+        // if(data.article.categories){
+        //   var categories = data.article.categories;
 
-          for (var i = categories.length - 1; i >= 0; i--) {
-            var category = categories[i];
-            if(category.color && !category.bgColor){
-              category.colorDarker = window.ColorLuminance(category.color, 0.15);
-            }
-          };
-        }
+        //   for (var i = categories.length - 1; i >= 0; i--) {
+        //     var category = categories[i];
+        //     if(category.color && !category.bgColor){
+        //       category.colorDarker = $window.ColorLuminance(category.color, 0.15);
+        //     }
+        //   };
+        // }
         cbSuccess(data);
       };
     }

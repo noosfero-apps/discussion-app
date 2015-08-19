@@ -10,6 +10,7 @@
     $stateProvider
       .state('inicio', {
         url: '/?limite&tema',
+        reloadOnSearch: false,
         views: {
           'header': { templateUrl: 'app/partials/header/header.html' },
           'main': {

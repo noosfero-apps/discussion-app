@@ -181,11 +181,15 @@ $darken: 15%;
             -o-transform: scale($scale); /* prefixo para opera */
             transform: scale($scale);
         }
+
+        .contraste & {
+            background-color: #262626;
+        }
     }
 }
 
 .program-preview {
     .program-banner {
-        
+
     }
 }

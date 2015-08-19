@@ -46,7 +46,7 @@
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" ng-model="orderReverse">
+                  <input type="checkbox" ng-model="vm.reverse">
                   Reverso
                 </label>
               </div>
@@ -57,7 +57,8 @@
             </div>
           </aside>
         </div>
-        <div ng-repeat="program in vm.programs | filterByCategory:vm.categoryFilter | filterByCriteria:vm.orderCriteria:orderReverse | filter:vm.query | limitTo:vm.limitTo as results">
+        
+        <div ng-repeat="program in vm.filtredProgramList as results">
           <programa-box program="program" display="'box'" class="col-xs-12 col-sm-6"></programa-box>
           <div ng-if="$odd" class="clearfix"></div>
         </div>

@@ -1,5 +1,10 @@
 .section-gray {
   background-color: $gray;
+
+  .contraste & {
+    color: #fff;
+    background-color: #000;
+  }
 }
 
 .video-wrapper {

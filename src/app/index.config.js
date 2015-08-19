@@ -4,6 +4,7 @@
   angular
     .module('dialoga')
     .config(configAuthInterceptor)
+    .config(configLocationProvider)
     .config(config);
 
   /** @ngInject */
@@ -27,7 +28,13 @@
         return $injector.get('AuthInterceptor');
       }
     ]);
+  }
 
+  /** @ngInject */
+  function configLocationProvider ($locationProvider, Modernizr) {
+    if (Modernizr.history) {
+      $locationProvider.html5Mode(true);
+    }
   }
 
   /** @ngInject */

@@ -19,7 +19,11 @@
     vm.$log.debug('InicioController');
   }
   InicioController.prototype.init = function() {
-    this.loadHomeArticle();
+    var vm = this;
+
+    vm.error = null;
+    vm.loading = true;
+    vm.loadHomeArticle();
   };
 
   InicioController.prototype.loadHomeArticle = function() {
@@ -33,9 +37,11 @@
     }
 
     vm.ArticleService.getHome(function(data) {
+      vm.loading = false;
       vm.article = data.article;
     }, function(error) {
       vm.$log.error('Error on getHome article.', error);
+      vm.error = 'Erro ao carregar o conteúdo principal.';
     });
   };
 

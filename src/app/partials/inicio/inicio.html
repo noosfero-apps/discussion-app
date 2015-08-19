@@ -11,8 +11,23 @@
     </div>
   </div>
 </section>
-<section class="section-gray">
+
+<section class="info-section" ng-if="inicio.loading || inicio.error">
+    <div class="container">
+      <div class="col-md-12">
+        <div ng-if="inicio.loading && !inicio.error">
+          <div class="alert alert-info">Carregando conteúdo...</div>
+        </div>
+        
+        <div ng-if="inicio.error">
+          <div class="alert alert-danger">{{inicio.error}}</div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<section class="section-gray" ng-if="inicio.article">
   <div class="container">
-    <programa-list ng-if="inicio.article" article="inicio.article"></programa-list>
+    <programa-list article="inicio.article"></programa-list>
   </div>
 </section>

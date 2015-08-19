@@ -9,7 +9,7 @@
   function programaList() {
 
     /** @ngInject */
-    function ProgramaListController($scope, $location, $filter, $log) {
+    function ProgramaListController($scope, $location, $filter, $anchorScroll, $log) {
       $log.debug('ProgramaListController');
 
       // alias
@@ -19,6 +19,7 @@
       vm.$scope = $scope;
       vm.$location = $location;
       vm.$filter = $filter;
+      vm.$anchorScroll = $anchorScroll;
       vm.$log = $log;
 
       // initialization
@@ -46,10 +47,16 @@
 
       // Add initial values for the filter
       vm.query = (vm.search && vm.search.filtro) ? vm.search.filtro : null;
-      vm.limitTo = (vm.search && vm.search.limite) ? parseInt(vm.search.limite, 10) : null;
+      vm.limitTo = (vm.search && vm.search.limite) ? parseInt(vm.search.limite, 10) : 4;
       vm.categoryFilter = (vm.search && vm.search.tema) ? vm.getCategoryBySlug(vm.search.tema) : null;
       vm.orderCriteria = (vm.search && vm.search.ordem) ? { name: vm.search.ordem } : null;
       vm.reverse = (vm.search && vm.search.reverso) ? true : false;
+
+      if(!angular.equals({}, vm.search)){
+        vm.$location.hash('lista-de-programas');
+        vm.$anchorScroll();
+        console.log('scrolled');
+      }
 
       // update window location params
       vm.$scope.$watch('vm.query', function(newValue, oldValue){
@@ -59,7 +66,7 @@
       });
 
       vm.$scope.$watch('vm.limitTo', function(newValue, oldValue){
-        vm.search.limite = newValue ? newValue : null;
+        vm.search.limite = (newValue && newValue !== 4)  ? newValue : null;
         vm.$location.search('limite', vm.search.limite);
         vm.filtredProgramList = vm.getFiltredPrograms();
       });
@@ -88,7 +95,7 @@
       var vm = this;
 
       vm.query = null;
-      vm.limitTo = null;
+      vm.limitTo = 4;
       vm.categoryFilter = null;
       vm.orderCriteria = null;
     };
@@ -122,8 +129,7 @@
         // selected new filter
         vm.categoryFilter = category;
       }else{
-        // already selected. Unselect.
-        vm.showAll($event);
+        vm.categoryFilter = null;
       }
     };
 

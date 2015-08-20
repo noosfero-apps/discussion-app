@@ -48,6 +48,7 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
     .pipe($.replace('../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/', '../fonts/'))
+    .pipe($.replace('../../bower_components/open-sans-fontface/fonts/', '../fonts/'))
     .pipe($.csso())
     .pipe(cssFilter.restore())
     .pipe(assets.restore())
@@ -68,7 +69,10 @@ gulp.task('html', ['inject', 'partials'], function () {
 // Only applies for fonts from bower dependencies
 // Custom fonts are handled by the "other" task
 gulp.task('fonts', function () {
-  return gulp.src($.mainBowerFiles().concat('bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*'))
+  return gulp.src([
+      $.mainBowerFiles().concat('bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*'),
+      $.mainBowerFiles().concat('bower_components/open-sans-fontface/fonts/*')
+    ])
     .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
     .pipe($.flatten())
     .pipe(gulp.dest(path.join(conf.paths.dist, '/fonts/')));

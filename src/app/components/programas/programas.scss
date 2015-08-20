@@ -34,22 +34,41 @@
         font-weight: bold;
         padding: 0;
         height: 68px;
+        overflow: hidden;
     }
 
     .category-list--label {
         margin-left: 70px;
         margin-right: 30px;
         display: inline-block;
+        z-index: 99999;
     }
 
-    .category-list--icon-circle {
+    &--icon-circle {
         width: 48px;
         height: 48px;
         position: absolute;
         top: 10px;
         left: 10px;
-        border: 1px solid #fff;
+        // border: 1px solid #fff;
         border-radius: 48px;
+
+        -webkit-transition: -webkit-transform 0.2s ease-in-out;
+        -moz-transition: -moz-transform 0.2s ease-in-out;
+        -o-transition: -o-transform 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out;
+
+        // -webkit-transition: all 0.2s ease-in-out;
+        // -moz-transition: all 0.2s ease-in-out;
+        // -o-transition: all 0.2s ease-in-out;
+        // transition: all 0.2s ease-in-out;
+
+        z-index: 0;
+
+        .active & {
+            transform: scale(15);
+            z-index: -1;
+        }
 
         @each $category, $color in $categories {
             &.#{$category} {
@@ -73,13 +92,19 @@
         transform: scale(1.4);
     }
 
-    @each $category, $color in $categories {
-        &.#{$category} {
-            .list-group-item.active,
-            .list-group-item.active:hover,
-            .list-group-item.active:focus {
-                background-color: $color;
-            }
-        }
+    .list-group-item.active,
+    .list-group-item.active:hover,
+    .list-group-item.active:focus {
+        background-color: #f5f5f5;
     }
+
+    // @each $category, $color in $categories {
+    //     &.#{$category} {
+    //         .list-group-item.active,
+    //         .list-group-item.active:hover,
+    //         .list-group-item.active:focus {
+    //             background-color: $color;
+    //         }
+    //     }
+    // }
 }

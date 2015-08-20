@@ -62,6 +62,11 @@
       vm.$scope.$watch('vm.query', function(newValue/*, oldValue*/) {
         vm.search.filtro = newValue ? newValue : null;
         vm.$location.search('filtro', vm.search.filtro);
+        if(vm.search.filtro){
+          vm.limitTo = vm.programs.length;
+        }else{
+          vm.limitTo = vm.defaultLimit;
+        }
         vm.filtredProgramList = vm.getFiltredPrograms();
       });
 
@@ -74,6 +79,9 @@
       vm.$scope.$watch('vm.categoryFilter', function(newValue/*, oldValue*/) {
         vm.search.tema = newValue ? newValue.slug : null;
         vm.$location.search('tema', vm.search.tema);
+        if(vm.search.tema){
+          vm.limitTo = vm.programs.length;
+        }
         vm.filtredProgramList = vm.getFiltredPrograms();
       });
 

@@ -22,7 +22,7 @@
   <div class="col-sm-8">
     <article class="program-list">
       <header class="header">
-        <h2>Programas</h2>
+        <h2>Programas <span class="small">({{vm.filtredProgramList.length}}/{{::vm.programs.length}})</span></h2>
         <button type="button" class="btn btn-link" ng-click="vm.showAll($event)">
           <span class="glyphicon glyphicon-chevron-right"></span> Ver todos os programas
         </button>

@@ -11,7 +11,6 @@
       restrict: 'E',
       templateUrl: 'app/components/socialShare/socialShare.html',
       scope: {
-        display: '='
       },
       controller: SocialShareController,
       controllerAs: 'vm',
@@ -25,8 +24,6 @@
       $log.debug('SocialShareController');
 
       var vm = this;
-
-      vm.displayFull = (vm.display && vm.display === 'full');
     }
   }
 

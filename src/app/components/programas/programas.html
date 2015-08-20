@@ -2,15 +2,16 @@
   <div class="col-sm-3">
     <div class="category-list">
       <nav class="navigation">
-        <h3 class="title"><b>Programas</b> por Tema</h3>
+        <h3 class="category-list--title"><b>Programas</b> por Tema</h3>
         <div class="list-group category-list" ng-class="vm.categoryFilter.slug">
-          <button type="button" class="list-group-item category-item"
+          <button type="button" class="list-group-item category-list--item"
             ng-repeat="category in vm.categories"
             ng-class="{active: vm.categoryFilter.slug === category.slug}"
             ng-click="vm.filterByCategory(category, $event)">
 
-            <span ng-class="[category.iconClass]"></span>
-            <span>{{::category.name}}</span>
+            <span class="category-list--icon-circle" ng-class="category.slug"></span>
+            <span class="category-list--icon icon" ng-class="'icon-tema-' + category.slug"></span>
+            <span class="category-list--label">{{::category.name}}</span>
             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
 
           </button>
@@ -44,15 +45,15 @@
                 <option value="">-- Ordernar por: --</option>
               </select>
 
-              <div class="checkbox">
+              <!-- <div class="checkbox">
                 <label>
                   <input type="checkbox" ng-model="vm.reverse">
                   Reverso
                 </label>
-              </div>
+              </div> -->
 
-              <input id="programListLimit" type="number" class="form-control input-sm" size="4" step="2" ng-model="vm.limitTo" aria-label="Limitar" >
-              <label for="programListLimit" class="control-label">Limite</label>
+              <!-- <input id="programListLimit" type="number" class="form-control input-sm" size="4" step="2" ng-model="vm.limitTo" aria-label="Limitar" >
+              <label for="programListLimit" class="control-label">Limite</label> -->
 
             </div>
           </aside>

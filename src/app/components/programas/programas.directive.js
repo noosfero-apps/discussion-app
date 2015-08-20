@@ -27,10 +27,10 @@
       vm.init();
     }
 
-    ProgramaListController.prototype.init = function () {
+    ProgramaListController.prototype.init = function() {
       var vm = this;
 
-      if(!vm.article){
+      if (!vm.article) {
         vm.$log.warn('no article to display. Tip: use a ng-if before use this directive');
         return;
       }
@@ -38,9 +38,9 @@
       vm.categories = vm.article.categories;
       vm.programs = vm.article.children;
       vm.orderCriteries = [
-        { label: 'Aleatório', name: 'aleatorio' },
         { label: 'Título', name: 'titulo' },
-        { label: 'Tema', name: 'tema' }
+        { label: 'Tema', name: 'tema' },
+        { label: 'Aleatório', name: 'aleatorio' }
       ];
 
       vm.filtredProgramList = vm.getFiltredPrograms();
@@ -59,31 +59,31 @@
       }
 
       // update window location params
-      vm.$scope.$watch('vm.query', function(newValue, oldValue){
+      vm.$scope.$watch('vm.query', function(newValue/*, oldValue*/) {
         vm.search.filtro = newValue ? newValue : null;
         vm.$location.search('filtro', vm.search.filtro);
         vm.filtredProgramList = vm.getFiltredPrograms();
       });
 
-      vm.$scope.$watch('vm.limitTo', function(newValue, oldValue){
+      vm.$scope.$watch('vm.limitTo', function(newValue/*, oldValue*/) {
         vm.search.limite = (newValue && newValue !== vm.defaultLimit)  ? newValue : null;
         vm.$location.search('limite', vm.search.limite);
         vm.filtredProgramList = vm.getFiltredPrograms();
       });
 
-      vm.$scope.$watch('vm.categoryFilter', function(newValue, oldValue){
+      vm.$scope.$watch('vm.categoryFilter', function(newValue/*, oldValue*/) {
         vm.search.tema = newValue ? newValue.slug : null;
         vm.$location.search('tema', vm.search.tema);
         vm.filtredProgramList = vm.getFiltredPrograms();
       });
 
-      vm.$scope.$watch('vm.orderCriteria', function(newValue, oldValue){
+      vm.$scope.$watch('vm.orderCriteria', function(newValue/*, oldValue*/) {
         vm.search.ordem = (newValue && newValue.name) ? newValue.name : null;
         vm.$location.search('ordem', vm.search.ordem);
         vm.filtredProgramList = vm.getFiltredPrograms();
       });
 
-      vm.$scope.$watch('vm.reverse', function(newValue, oldValue){
+      vm.$scope.$watch('vm.reverse', function(newValue/*, oldValue*/) {
         vm.search.reverso = newValue ? newValue : null;
         vm.$location.search('reverso', vm.search.reverso);
         vm.filtredProgramList = vm.getFiltredPrograms();
@@ -91,7 +91,7 @@
 
     };
 
-    ProgramaListController.prototype.resetFilterValues = function () {
+    ProgramaListController.prototype.resetFilterValues = function() {
       var vm = this;
 
       vm.query = null;
@@ -100,40 +100,41 @@
       vm.orderCriteria = null;
     };
 
-    ProgramaListController.prototype.getIconClasses = function (category) {
+    ProgramaListController.prototype.getIconClasses = function(category) {
       var vm = this;
 
       vm.$log.debug('[TODO] getIconClasses of category:', category);
       return 'glyphicon glyphicon-exclamation-sign';
     };
 
-    ProgramaListController.prototype.getCategoryBySlug = function (categorySlug) {
+    ProgramaListController.prototype.getCategoryBySlug = function(categorySlug) {
       var vm = this;
       var result = null;
 
-      angular.forEach(vm.categories, function (value, key){
-        if(value.slug === categorySlug){
+      angular.forEach(vm.categories, function(value, key) {
+        if (value.slug === categorySlug) {
           result = value;
         }
-      })
-      return result;
-    }
+      });
 
-    ProgramaListController.prototype.filterByCategory = function (category, $event) {
+      return result;
+    };
+
+    ProgramaListController.prototype.filterByCategory = function(category, $event) {
       var vm = this;
 
       $event.stopPropagation();
 
-      if(category !== vm.categoryFilter){
+      if (category !== vm.categoryFilter) {
 
         // selected new filter
         vm.categoryFilter = category;
-      }else{
+      } else {
         vm.categoryFilter = null;
       }
     };
 
-    ProgramaListController.prototype.showAll = function ($event) {
+    ProgramaListController.prototype.showAll = function($event) {
       var vm = this;
 
       $event.stopPropagation();
@@ -142,7 +143,7 @@
       vm.limitTo = vm.programs.length;
     };
 
-    ProgramaListController.prototype.getFiltredPrograms = function () {
+    ProgramaListController.prototype.getFiltredPrograms = function() {
       var vm = this;
 
       var input = vm.programs;
@@ -155,15 +156,15 @@
       var limitTo = vm.$filter('limitTo');
       var limit = vm.limitTo ? vm.limitTo : 4;
 
-      if(categoryFilter){
+      if (categoryFilter) {
         output = _filterByCategory(output, categoryFilter);
       }
 
-      if(query){
+      if (query) {
         output = filter(output, query, false);
       }
 
-      switch(orderCriteria.name) {
+      switch (orderCriteria.name) {
         case 'titulo':
           output = orderBy(output, 'title', vm.reverse);
           break;
@@ -171,20 +172,22 @@
           output = orderBy(output, 'categories[0].name', vm.reverse);
           break;
         case 'more_participants':
-          $log.info('Criteria not handled yet: ', orderCriteria);
+          vm.$log.info('Criteria not handled yet: ', orderCriteria);
           break;
         case 'aleatorio':
-        default:
           // shuffling
-          // if(!vm._isShuffled){
-            output = vm.filterShuffle(output);
+          // if (!vm._isShuffled){
+          output = vm.filterShuffle(output);
           //   vm._isShuffled = true;
           // }
 
-          if(vm.reverse){
+          if (vm.reverse) {
             output = output.slice().reverse();
           }
 
+          break;
+        default:
+          vm.$log.warn('Criteria not matched: ', orderCriteria);
           break;
       }
 
@@ -193,7 +196,7 @@
       return output;
     };
 
-    ProgramaListController.prototype.filterShuffle = function (input) {
+    ProgramaListController.prototype.filterShuffle = function(input) {
       var result = [];
       var resultByCategory = {};
 
@@ -202,7 +205,7 @@
         var program = input[i];
         var categorySlug = program.categories[0].slug;
 
-        if(!resultByCategory[categorySlug]){
+        if (!resultByCategory[categorySlug]) {
           resultByCategory[categorySlug] = [];
         }
 
@@ -210,9 +213,11 @@
       }
 
       // shuffle each array
-      for (var prop in resultByCategory){
-        if( resultByCategory.hasOwnProperty( prop ) ) {
-          var categoryWithPrograms = resultByCategory[prop];
+      var prop = null;
+      var categoryWithPrograms = null;
+      for (prop in resultByCategory) {
+        if (resultByCategory.hasOwnProperty(prop)) {
+          categoryWithPrograms = resultByCategory[prop];
           resultByCategory[prop] = shuffle(categoryWithPrograms);
         }
       }
@@ -224,12 +229,14 @@
 
         var foundProgram = false;
         // each categoryList with array of program
-        for (var prop in resultByCategory){
+        prop = null;
+        categoryWithPrograms = null;
+        for (prop in resultByCategory) {
 
-          if( resultByCategory.hasOwnProperty( prop ) ) {
-            var categoryWithPrograms = resultByCategory[prop];
+          if (resultByCategory.hasOwnProperty(prop)) {
+            categoryWithPrograms = resultByCategory[prop];
 
-            if (categoryWithPrograms.length > 0 ) {
+            if (categoryWithPrograms.length > 0) {
               var pivotProgram = categoryWithPrograms.pop();
               result.push(pivotProgram);
               foundProgram = true;
@@ -237,13 +244,13 @@
           }
         }
 
-        if(!foundProgram){
+        if (!foundProgram) {
           hasProgram = false;
         }
       }
 
       return result;
-    }
+    };
 
     var directive = {
       restrict: 'E',
@@ -259,10 +266,10 @@
     return directive;
   }
 
-  function _filterByCategory (input, category){
+  function _filterByCategory (input, category) {
     input = input || [];
 
-    if(!category){
+    if (!category) {
       // no filter
       return input;
     }
@@ -270,23 +277,10 @@
     var out = [];
     for (var i = 0; i < input.length; i++) {
       var program = input[i];
-      if(program.categories[0].slug === category.slug){
+      if (program.categories[0].slug === category.slug) {
         out.push(program);
       }
     }
-
-    return out;
-  }
-
-  function _filterByCriteria (input, criteria, reverse){
-    var vm = this;
-    input = input || [];
-    criteria = criteria || {};
-    reverse = reverse || false;
-
-    var out = [];
-
-
 
     return out;
   }
@@ -310,6 +304,5 @@
 
     return array;
   }
-
 
 })();

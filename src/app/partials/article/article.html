@@ -1,5 +1,18 @@
 <div class="container" role="main">
 	<span class="hide">{{::article.page}}</span>
+
+  <div ng-if="article.loading">
+    <div class="alert alert-info">
+      Carregando conteúdo...
+    </div>
+  </div>
+
+  <div ng-if="article.error">
+    <div class="alert alert-info">
+      Erro ao carregar conteúdo.
+    </div>
+  </div>
+
 	<div ng-if="article.article">
 		<article>
 			<header>

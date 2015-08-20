@@ -18,7 +18,7 @@
     vm.init();
     vm.$log.debug('InicioController');
   }
-  
+
   InicioController.prototype.init = function() {
     var vm = this;
 

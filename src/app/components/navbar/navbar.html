@@ -1,4 +1,4 @@
-<nav class="navbar navbar-static-top">
+<nav class="header-navbar navbar navbar-static-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
@@ -16,7 +16,7 @@
     <div id="navbar-collapse" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li><a ui-sref="sobre">Sobre</a></li>
-        <li><a ui-sref="programas">Programas</a></li>
+        <li><a ui-sref="inicio({'#':'lista-de-programas'})" ng-click="vm.scrollTo('lista-de-programas')">Programas</a></li>
         <!-- <li><a ui-sref="ranking">Ranking</a></li> -->
         <!-- <li><a ui-sref="duvidas">Dúvidas</a></li> -->
         <!-- <li><a ui-sref="respostas">Respostas</a></li> -->

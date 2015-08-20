@@ -216,7 +216,6 @@ $darken: 15%;
             position: relative;
             width: 100%;
         }
-
     }
 
     .program-banner--title {
@@ -244,6 +243,90 @@ $darken: 15%;
     }
 }
 
+// .flexbox {
+//     .proposal-row {
+//         display: flex;
+//         flex-flow: row nowrap;
+//         // flex-direction: row;
+//         // flex-wrap: wrap;
+//     }
+
+//     .proposal-box {
+//         // flex: 1 100%;
+//         flex: 1 0 auto;
+//         // align-items: stretch;
+//     }
+// }
+// .flexboxlegacy {}
+
+.row-height {
+  display: table;
+  table-layout: fixed;
+  height: 100%;
+  width: 100%;
+  border-spacing: 20px;
+}
+
+.col-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+    vertical-align: top;
+
+    border: 1px solid #000;
+    border-radius: 3px;
+
+    @each $category, $color in $categories {
+        .#{$category} & {
+            border-color: $color;
+        }
+    }
+}
+
+.inside {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.inside-full-height {
+    height: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.talk-proposal {
+    margin-top: -20px;
+}
+
+.proposal-box {
+
+    // padding: 10px 20px;
+
+    .proposal-box--title {
+        font-size: 38px;
+        font-weight: 400;
+        text-align: center;
+
+        margin-bottom: 20px;
+    }
+
+    .proposal-box--text {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    @each $category, $color in $categories {
+        .#{$category} & {
+            border-color: $color;
+
+            .proposal-box--title {
+                color: $color;
+            }
+        }
+    }
+}
 
 .program-content {
     h2 {

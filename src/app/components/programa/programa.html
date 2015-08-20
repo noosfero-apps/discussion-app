@@ -1,5 +1,5 @@
 <div ng-if="vm.program" class="{{::vm.getCategorySlug()}}">
-  <article class="program-box" ng-if="vm.isDisplayBox()" ng-click="vm.showContent()">
+  <article ng-if="vm.displayType == 'box'" class="program-box" ng-click="vm.showPreview()">
     <div>
       <h2 class="program-box--category">{{::vm.getCategoryName()}}</h2>
       <div class="program-box--image-wrapper">
@@ -10,7 +10,7 @@
         <h1>{{::vm.program.title}}</h1>
       </div>
       <div class="program-box--abstract" ng-bind-html="vm.program.abstract"></div>
-      <div class="program-box--button">
+      <div class="button--themed">
         <button class="btn btn-block">
           Participe
         </button>
@@ -18,7 +18,7 @@
     </div>
   </article>
 
-  <article ng-if="vm.isDisplayPreview()" class="program-preview">
+  <article ng-if="vm.displayType == 'preview'" class="program-preview">
     <header class="program-banner">
       <img class="program-banner--image" ng-src="{{vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}">
       <div class="program-banner--strip">
@@ -26,5 +26,15 @@
         <p class="program-banner--abstract" ng-bind-html="vm.program.abstract"></p>
       </div>
     </header>
+
+    <section class="call-to-action--section">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+          <div class="button--themed">
+            <button class="btn btn-block" ng-click="vm.showContent()">Conheça o programa</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </article>
 </div>

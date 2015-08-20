@@ -22,6 +22,7 @@
       getTerms: getTerms,
       getArticleById: getArticleById,
       getArticleBySlug: getArticleBySlug,
+      getContentById: getContentById,
       setHomeAbstract: setHomeAbstract,
       getHomeAbstract: getHomeAbstract
     };
@@ -83,6 +84,12 @@
           cbError('None program with slug "' + slug + '"" was found.');
         }
       }, cbError);
+    }
+
+    function getContentById (contentId, cbSuccess, cbError) {
+      return getArticleById(contentId, {
+        fields: 'id,body&content_type=ProposalsDiscussionPlugin::Topic'
+      }, cbSuccess, cbError);
     }
 
     function getHome (cbSuccess, cbError) {

@@ -7,6 +7,10 @@
 
     &--item {
         margin: 8px 0;
+
+        @media (max-width: $screen-xs) {
+            margin: 8px;
+        }
     }
 
     .navbar {
@@ -28,4 +32,7 @@
     }
 }
 
+.program--aside {
+    margin-top: 20px;
+}
 

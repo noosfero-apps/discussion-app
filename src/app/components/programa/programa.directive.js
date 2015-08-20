@@ -9,10 +9,11 @@
   function programaBox($rootScope) {
 
     /** @ngInject */
-    function ProgramaController($state, Slug, $log) {
+    function ProgramaController(ArticleService, $state, Slug, $log) {
       $log.debug('ProgramaController');
 
       var vm = this;
+      vm.ArticleService = ArticleService;
       vm.$state = $state;
       vm.Slug = Slug;
       vm.$log = $log;
@@ -26,6 +27,8 @@
       if(!vm.program.slug){
         vm.program.slug = vm.Slug.slugify(vm.program.title);
       }
+
+      vm.displayType = vm.display;
 
       // if(vm.program.color && !vm.program.bgColor){
       //   // 15% more darker
@@ -79,10 +82,18 @@
     ProgramaController.prototype.showContent = function () {
       var vm = this;
 
-      vm.$log.info('showContent');
+      vm.$state.go('programa-conheca', {
+        slug: vm.program.slug
+      }, {
+        location: true
+      });
+    };
+
+    ProgramaController.prototype.showPreview = function () {
+      var vm = this;
+
       vm.$state.go('programa', {
-        slug: vm.program.slug,
-        program: vm.program
+        slug: vm.program.slug
       }, {
         location: true
       });

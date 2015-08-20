@@ -3,11 +3,11 @@
 
   angular
     .module('dialoga')
-    .controller('ProgramaPageController', ProgramaPageController);
+    .controller('ProgramaContentPageController', ProgramaContentPageController);
 
   /** @ngInject */
-  function ProgramaPageController(ArticleService, $state, $location, $scope, $rootScope, $log) {
-    $log.debug('ProgramaPageController');
+  function ProgramaContentPageController(ArticleService, $state, $location, $scope, $rootScope, $log) {
+    $log.debug('ProgramaContentPageController');
 
     var vm = this;
 
@@ -21,7 +21,7 @@
     vm.init();
   }
 
-  ProgramaPageController.prototype.init = function () {
+  ProgramaContentPageController.prototype.init = function () {
     var vm = this;
 
     var params = vm.$state.params;
@@ -30,6 +30,7 @@
     vm.program = null;
     vm.currentCategory = null;
     vm.loadingContent = null;
+    vm.error = null;
 
     vm.ArticleService.getHome(function(data){
       vm.categories = data.article.categories;
@@ -51,26 +52,7 @@
         }
       });
 
-      // load proposals
-      // vm.ArticleService.getRandomProposals(program.id).then(function(proposal){
-      //   vm.program.proposal = proposal;
-      // }, function (error){
-      //   vm.$log.error(error);
-      // });
-
-      // load events
-      // vm.ArticleService.getEvents(program.id).then(function(proposal){
-      //   vm.program.proposal = proposal;
-      // }, function (error){
-      //   vm.$log.error(error);
-      // });
-
-      // load body content
-      // vm.ArticleService.getBodyContent(program.id).then(function(proposal){
-      //   vm.program.proposal = proposal;
-      // }, function (error){
-      //   vm.$log.error(error);
-      // });
+      vm.loadContent();
 
     }, function (error) {
       vm.$log.error(error);
@@ -79,14 +61,32 @@
     });
   };
 
-  ProgramaPageController.prototype.goBack = function () {
+  ProgramaContentPageController.prototype.loadContent = function () {
+    var vm = this;
+
+    vm.loadingContent = true;
+    if(!vm.program.body){
+      vm.ArticleService.getContentById(vm.program.id, function (data) {
+        vm.program.body = data.article.body;
+        vm.loadingContent = false;
+      }, function (error) {
+        vm.loadingContent = false;
+        vm.error = error;
+      });
+    }
+    vm.loadingContent = false;
+  };
+
+  ProgramaContentPageController.prototype.goBack = function () {
     var vm = this;
 
     var prevState = vm.$rootScope.$previousState;
     if(prevState && prevState.state.name){
       vm.$state.go(prevState.state.name, prevState.params);
     } else {
-      vm.$state.go('inicio');
+      vm.$state.go('programa', {
+        slug: vm.program.slug
+      });
     }
   };
 })();

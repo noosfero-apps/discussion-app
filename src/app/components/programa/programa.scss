@@ -4,6 +4,46 @@ $scale: 1.1;
 $time: .2s;
 $darken: 15%;
 
+// Commons
+.button--themed {
+    padding: $program-box-space;
+    .btn {
+        color: #fff;
+        font-weight: bold;
+        padding: 15px 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        border-radius: 6px;
+
+        -webkit-transition: all $time ease-in-out;
+        -moz-transition: all $time ease-in-out;
+        -o-transition: all $time ease-in-out;
+        transition: all $time ease-in-out;
+
+        @each $category, $color in $categories {
+            .#{$category} & {
+                background-color: $color;
+                border-bottom: 3px solid darken($color, $darken);
+            }
+        }
+
+        &:hover,
+        &:focus {
+            @each $category, $color in $categories {
+                .#{$category} & {
+                    background-color: darken($color, $darken);
+                }
+            }
+        }
+
+        .contraste & {
+            color: #262626;
+            background-color: #fff;
+        }
+    }
+}
+
 .program-box {
     cursor: pointer;
     background-color: #fff;
@@ -110,45 +150,6 @@ $darken: 15%;
         p { margin: 0; }
     }
 
-    &--button {
-        padding: $program-box-space;
-        .btn {
-            color: #fff;
-            font-weight: bold;
-            padding: 15px 0;
-            border-left: 0;
-            border-right: 0;
-            border-top: 0;
-            border-radius: 6px;
-
-            -webkit-transition: all $time ease-in-out;
-            -moz-transition: all $time ease-in-out;
-            -o-transition: all $time ease-in-out;
-            transition: all $time ease-in-out;
-
-            @each $category, $color in $categories {
-                .#{$category} & {
-                    background-color: $color;
-                    border-bottom: 3px solid darken($color, $darken);
-                }
-            }
-
-            &:hover,
-            &:focus {
-                @each $category, $color in $categories {
-                    .#{$category} & {
-                        background-color: darken($color, $darken);
-                    }
-                }
-            }
-
-            .contraste & {
-                color: #262626;
-                background-color: #fff;
-            }
-        }
-    }
-
     &--image-wrapper {
         position: relative;
         // width: 100%;
@@ -230,5 +231,32 @@ $darken: 15%;
     }
     .program-banner--abstract {
         padding-bottom: 10px;
+    }
+
+    .button--themed {
+        .btn {
+            font-size: 38px;
+
+            @media (max-width: $screen-sm){
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+
+.program-content {
+    h2 {
+        font-size: 38px;
+        font-weight: 500;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+
+        small {
+            display: block;
+            font-size: 16px;
+            padding-top: 5px;
+            text-transform: none;
+        }
     }
 }

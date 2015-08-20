@@ -57,6 +57,18 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
+      .state('programa-conheca', {
+        url: '/programa/:slug/conheca-o-programa',
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': {
+            templateUrl: 'app/pages/programas/conheca-o-programa.html',
+            controller: 'ProgramaContentPageController',
+            controllerAs: 'pageProgramaContent'
+          },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
       .state('sobre', {
         url: '/sobre',
         views: {

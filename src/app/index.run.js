@@ -18,7 +18,7 @@
     $rootScope.$on('$stateChangeStart', function(event, next) {
 
       if (!next.data || !next.data.authorizedRoles) {
-        $log.debug('public url/state');
+        $log.debug('runAuth: public url/state');
         return;
       }
 

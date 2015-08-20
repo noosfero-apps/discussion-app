@@ -3,11 +3,11 @@
 
   angular
     .module('dialoga')
-    .controller('ProgramaController', ProgramaController);
+    .controller('ProgramaPageController', ProgramaPageController);
 
   /** @ngInject */
-  function ProgramaController(ArticleService, $state, $location, $scope, $rootScope, $log) {
-    $log.debug('ProgramaController');
+  function ProgramaPageController(ArticleService, $state, $location, $scope, $rootScope, $log) {
+    $log.debug('ProgramaPageController');
 
     var vm = this;
 
@@ -21,7 +21,7 @@
     vm.init();
   }
 
-  ProgramaController.prototype.init = function () {
+  ProgramaPageController.prototype.init = function () {
     var vm = this;
 
     var params = vm.$state.params;
@@ -78,7 +78,7 @@
     });
   };
 
-  ProgramaController.prototype.goBack = function () {
+  ProgramaPageController.prototype.goBack = function () {
     var vm = this;
 
     var prevState = vm.$rootScope.$previousState;

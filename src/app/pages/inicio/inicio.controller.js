@@ -4,10 +4,10 @@
 
   angular
     .module('dialoga')
-    .controller('InicioController', InicioController);
+    .controller('InicioPageController', InicioPageController);
 
   /** @ngInject */
-  function InicioController(ArticleService, $sce, $log) {
+  function InicioPageController(ArticleService, $sce, $log) {
     var vm = this;
 
     // aliases
@@ -16,10 +16,10 @@
     vm.$log = $log;
 
     vm.init();
-    vm.$log.debug('InicioController');
+    vm.$log.debug('InicioPageController');
   }
 
-  InicioController.prototype.init = function() {
+  InicioPageController.prototype.init = function() {
     var vm = this;
 
     vm.error = null;
@@ -27,7 +27,7 @@
     vm.loadHomeArticle();
   };
 
-  InicioController.prototype.loadHomeArticle = function() {
+  InicioPageController.prototype.loadHomeArticle = function() {
     var vm = this;
 
     vm.content = vm.ArticleService.getHomeAbstract();
@@ -46,7 +46,7 @@
     });
   };
 
-  InicioController.prototype.showVideo = function() {
+  InicioPageController.prototype.showVideo = function() {
     var vm = this;
 
     // we need handle home content
@@ -65,7 +65,7 @@
     window.onYouTubePlayerReady = window.onYouTubePlayerReady || onYouTubePlayerReady;
   };
 
-  InicioController.prototype.handleHomeAbstract = function(abstract) {
+  InicioPageController.prototype.handleHomeAbstract = function(abstract) {
     var vm = this;
 
     abstract = forceIframeParams(abstract);

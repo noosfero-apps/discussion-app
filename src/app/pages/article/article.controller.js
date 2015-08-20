@@ -3,11 +3,11 @@
 
   angular
     .module('dialoga')
-    .controller('ArticleController', ArticleController);
+    .controller('ArticlePageController', ArticlePageController);
 
   /** @ngInject */
-  function ArticleController(ArticleService, $state, $sce, $log) {
-    $log.debug('ArticleController');
+  function ArticlePageController(ArticleService, $state, $sce, $log) {
+    $log.debug('ArticlePageController');
 
     var vm = this;
     vm.ArticleService = ArticleService;
@@ -18,7 +18,7 @@
     vm.init();
   }
 
-  ArticleController.prototype.init = function() {
+  ArticlePageController.prototype.init = function() {
     var vm = this;
 
     vm.page = vm.$state.current.name;

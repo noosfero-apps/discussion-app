@@ -1,0 +1,23 @@
+<div class="article-bar" ng-class="vm.theme">
+    <div class="navbar">
+      <div class="navbar-header">
+        <button class="article-bar--item btn btn-link" ng-click="vm.goBack()">
+          <!-- <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> -->
+          <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+          Voltar
+        </button>
+      </div>
+      <div class="navbar-left" ng-if="vm.category">
+        <button class="article-bar--item article-bar--category-button btn btn-link">
+          <span class="icon" ng-class="'icon-tema-' + vm.category.slug"></span>
+          <span class="category-name">{{::vm.category.name}}</span>
+        </button>
+      </div>
+      <div class="navbar-right" ng-if="vm.categories">
+        <label for="selectCategory" class="control-label sr-only" title="Selecione uma opção para acessar os programas do tema">Temas:</label>
+        <select id="selectCategory" name="selectCategory" class="article-bar--item form-control" ng-model="vm.currentCategory" ng-options="category.name for category in vm.categories track by category.slug">
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

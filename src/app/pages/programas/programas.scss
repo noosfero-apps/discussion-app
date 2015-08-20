@@ -1,38 +1,9 @@
-.article-bar {
-
-    .btn {
-        color: #fff;
-        font-weight: bold;
-    }
-
-    &--item {
-        margin: 8px 0;
-
-        @media (max-width: $screen-xs) {
-            margin: 8px;
-        }
-    }
-
-    .navbar {
-        margin-bottom: 0;
-    }
-
-    .navbar-right {
-        margin-right: 15px;
-    }
-
-    @each $category, $color in $categories {
-        &.#{$category} {
-            background-color: $color;
-        }
-    }
-
-    .contraste & {
-        background-color: #262626;
-    }
-}
-
 .program--aside {
     margin-top: 20px;
+    padding-top: 20px;
+
+    .button--themed {
+        padding-top: 0;
+    }
 }
 

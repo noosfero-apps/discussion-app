@@ -67,6 +67,14 @@
         transform: scale(0.35);
     }
 
+    .category-list--icon--right {
+        position: absolute;
+        right: 9px;
+        top: 50%;
+        margin-top: -9px;
+        transform: scale(1.4);
+    }
+
     @each $category, $color in $categories {
         &.#{$category} {
             .list-group-item.active,

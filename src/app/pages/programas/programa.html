@@ -1,37 +1,14 @@
 <div class="container">
 
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="article-bar" ng-class="pagePrograma.program.categories[0].slug">
-        <div class="navbar">
-          <div class="navbar-header">
-            <button class="article-bar--item btn btn-link" ng-click="pagePrograma.goBack()">
-              <!-- <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> -->
-              <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-              Voltar
-            </button>
-          </div>
-          <div class="navbar-left">
-            <button class="article-bar--item btn btn-link">
-              <span class="glyphicon glyphicon-refresh"></span>
-              <span class="category-name">{{::pagePrograma.program.categories[0].name}}</span>
-            </button>
-          </div>
-          <div class="navbar-right" ng-if="pagePrograma.categories">
-            <label for="selectCategory" class="control-label sr-only" title="Selecione uma opção para acessar os programas do tema">Temas:</label>
-            <select id="selectCategory" name="selectCategory" class="article-bar--item form-control" ng-model="pagePrograma.currentCategory" ng-options="category.name for category in pagePrograma.categories track by category.slug">
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div ng-if="pagePrograma.program && pagePrograma.categories">
+    <article-bar category="pagePrograma.program.categories[0]" categories="pagePrograma.categories"></article-bar>
   </div>
 
   <div ng-if="!pagePrograma.program">
     <div class="alert alert-info" role="alert">Carregando informações sobre o progama</div>
   </div>
 
-  <div ng-if="pagePrograma.program">
+  <div ng-if="pagePrograma.program && pagePrograma.categories">
     <programa-box program="pagePrograma.program" display="'preview'"></programa-box>
   </div>
 </div>

@@ -28,29 +28,21 @@
     var slug = params.slug;
 
     vm.program = null;
+    vm.categories = null;
     vm.currentCategory = null;
-    vm.loadingContent = null;
-    vm.error = null;
+    vm.loading = true;
+    vm.error = false;
 
     vm.ArticleService.getHome(function(data){
       vm.categories = data.article.categories;
     }, function (error) {
+      vm.error = error;
       vm.$log.error(error);
     });
 
     vm.ArticleService.getArticleBySlug(slug, function(program){
       vm.program = program;
       vm.currentCategory = vm.program.categories[0];
-
-      vm.$scope.$watch('programa.currentCategory', function(newValue, oldValue){
-        if(newValue !== oldValue){
-          vm.$state.go('inicio', {
-            tema: newValue.slug
-          }, {
-            location: true
-          });
-        }
-      });
 
       vm.loadContent();
 
@@ -64,29 +56,16 @@
   ProgramaContentPageController.prototype.loadContent = function () {
     var vm = this;
 
-    vm.loadingContent = true;
+    vm.loading = true;
     if(!vm.program.body){
       vm.ArticleService.getContentById(vm.program.id, function (data) {
         vm.program.body = data.article.body;
-        vm.loadingContent = false;
+        vm.loading = false;
       }, function (error) {
-        vm.loadingContent = false;
+        vm.loading = false;
         vm.error = error;
       });
     }
-    vm.loadingContent = false;
-  };
-
-  ProgramaContentPageController.prototype.goBack = function () {
-    var vm = this;
-
-    var prevState = vm.$rootScope.$previousState;
-    if(prevState && prevState.state.name){
-      vm.$state.go(prevState.state.name, prevState.params);
-    } else {
-      vm.$state.go('programa', {
-        slug: vm.program.slug
-      });
-    }
+    vm.loading = false;
   };
 })();

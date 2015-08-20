@@ -7,7 +7,7 @@
     .controller('InicioPageController', InicioPageController);
 
   /** @ngInject */
-  function InicioPageController(ArticleService, $sce, $log) {
+  function InicioPageController(ArticleService, $rootScope, $sce, $log) {
     var vm = this;
 
     // aliases

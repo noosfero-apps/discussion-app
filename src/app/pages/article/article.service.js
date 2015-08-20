@@ -63,8 +63,11 @@
       vm.getHome(function (data) {
         var mainArticle = data.article;
         var programList = mainArticle.children;
-        var result = null;
+        var categories = mainArticle.categories;
 
+        $rootScope._CATEGORIES = $rootScope._CATEGORIES ? $rootScope._CATEGORIES : categories;
+
+        var result = null;
         for (var i = programList.length - 1; i >= 0; i--) {
           var program = programList[i];
 

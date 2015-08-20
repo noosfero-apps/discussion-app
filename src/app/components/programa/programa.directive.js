@@ -9,11 +9,12 @@
   function programaBox($rootScope) {
 
     /** @ngInject */
-    function ProgramaController(ArticleService, $state, Slug, $log) {
+    function ProgramaController(ArticleService, $scope, $state, Slug, $log) {
       $log.debug('ProgramaController');
 
       var vm = this;
       vm.ArticleService = ArticleService;
+      vm.$scope = $scope;
       vm.$state = $state;
       vm.Slug = Slug;
       vm.$log = $log;
@@ -28,39 +29,23 @@
         vm.program.slug = vm.Slug.slugify(vm.program.title);
       }
 
+      if(!vm.category){
+        vm.category = vm.program.categories[0];
+      }
+
+      if(!vm.banner){
+        vm.banner = {
+          src: $rootScope.basePath + vm.program.image.url,
+          alt: 'Imagem de destaque do programa'
+        };
+      }
+
       vm.displayType = vm.display;
 
       // if(vm.program.color && !vm.program.bgColor){
       //   // 15% more darker
       //   vm.program.colorDarker = window.ColorLuminance(vm.program.color, 0.15);
       // }
-    };
-
-    ProgramaController.prototype.getCategory = function () {
-      var vm = this;
-
-      return vm.program.categories[0];
-    };
-
-    ProgramaController.prototype.getCategoryName = function () {
-      return this.getCategory().name;
-    };
-
-    ProgramaController.prototype.getCategorySlug = function () {
-      return this.getCategory().slug;
-    };
-
-    ProgramaController.prototype.getImageUrl = function () {
-      var vm = this;
-
-      return $rootScope.basePath + vm.program.image.url;
-    };
-
-    ProgramaController.prototype.getImageAlt = function () {
-      var vm = this;
-
-      vm.$log.warn('image is not accessible.');
-      return 'TODO: create image alt on server-side.';
     };
 
     ProgramaController.prototype.isDisplay = function (display) {
@@ -73,10 +58,6 @@
 
     ProgramaController.prototype.isDisplayPreview = function () {
       return this.isDisplay('preview');
-    };
-
-    ProgramaController.prototype.isDisplayContent = function () {
-      return this.isDisplay('content');
     };
 
     ProgramaController.prototype.showContent = function () {

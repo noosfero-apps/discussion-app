@@ -1,10 +1,10 @@
-<div ng-if="vm.program" class="{{::vm.getCategorySlug()}}">
+<div ng-if="vm.program" class="{{vm.category.slug}}">
   <article ng-if="vm.displayType == 'box'" class="program-box" ng-click="vm.showPreview()">
     <div>
-      <h2 class="program-box--category">{{::vm.getCategoryName()}}</h2>
+      <h2 class="program-box--category">{{vm.category.name}}</h2>
       <div class="program-box--image-wrapper">
-        <!-- <img class="program-box--image img-responsive" ng-src="{{::vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}" /> -->
-        <div class="program-box--image" ng-style="{'background-image':'url( {{::vm.getImageUrl()}} )'}"></div>
+        <!-- <img class="program-box--image img-responsive" ng-src="{{vm.banner.src}}" alt="{{vm.banner.alt}}" /> -->
+        <div class="program-box--image" ng-style="{'background-image':'url( {{vm.banner.src}} )'}"></div>
       </div>
       <div class="program-box--title">
         <h1>{{::vm.program.title}}</h1>
@@ -20,7 +20,7 @@
 
   <article ng-if="vm.displayType == 'preview'" class="program-preview">
     <header class="program-banner">
-      <img class="program-banner--image" ng-src="{{vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}">
+      <img class="program-banner--image" ng-src="{{vm.banner.src}}" alt="{{vm.banner.alt}}">
       <div class="program-banner--strip">
         <h1 class="program-banner--title">{{::vm.program.title}}</h1>
         <p class="program-banner--abstract" ng-bind-html="vm.program.abstract"></p>

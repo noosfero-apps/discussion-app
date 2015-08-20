@@ -1,43 +1,19 @@
 <div class="container page--conheca-o-programa">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="article-bar" ng-class="pageProgramaContent.program.categories[0].slug">
-        <div class="navbar">
-          <div class="navbar-header">
-            <button class="article-bar--item btn btn-link" ng-click="pageProgramaContent.goBack()">
-              <!-- <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span> -->
-              <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-              Voltar
-            </button>
-          </div>
-          <div class="navbar-left">
-            <button class="article-bar--item btn btn-link">
-              <span class="glyphicon glyphicon-refresh"></span>
-              <span class="category-name">{{::pageProgramaContent.program.categories[0].name}}</span>
-            </button>
-          </div>
-          <div class="navbar-right" ng-if="pageProgramaContent.categories">
-            <label for="selectCategory" class="control-label sr-only" title="Selecione uma opção para acessar os programas do tema">Temas:</label>
-            <select id="selectCategory" name="selectCategory" class="article-bar--item form-control" ng-model="pageProgramaContent.currentCategory" ng-options="category.name for category in pageProgramaContent.categories track by category.slug">
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div ng-if="pageProgramaContent.program && pageProgramaContent.categories">
+    <article-bar category="pageProgramaContent.program.categories[0]" categories="pageProgramaContent.categories"></article-bar>
   </div>
 
-  <div class="row">
+  <div ng-if="!pageProgramaContent.program.body">
+    <div ng-if="!pageProgramaContent.error" class="alert alert-info" role="alert">Carregando detalhes sobre o progama...</div>
+    <div ng-if="pageProgramaContent.error" class="alert alert-warning" role="alert">{{pageProgramaContent}}</div>
+  </div>
+
+  <div ng-if="pageProgramaContent.program.body">
     <article class="program-content">
-      <div ng-if="!pageProgramaContent.program.body">
-        <div ng-if="!pageProgramaContent.error" class="alert alert-info" role="alert">Carregando detalhes sobre o progama...</div>
-        <div ng-if="pageProgramaContent.error" class="alert alert-warning" role="alert">{{pageProgramaContent}}</div>
-      </div>
-      <div ng-if="pageProgramaContent.program.body">
+      <div>
         <section ng-bind-html="pageProgramaContent.program.body"></section>
       </div>
     </article>
-  </div>
-  <div class="row">
     <aside class="program--aside"ng-class="pageProgramaContent.program.categories[0].slug">
       <div class="col-sm-6" >
         <div class="button--themed">

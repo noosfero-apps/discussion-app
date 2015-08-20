@@ -28,12 +28,15 @@
     var slug = params.slug;
 
     vm.program = null;
+    vm.categories = null;
     vm.currentCategory = null;
-    vm.loadingContent = null;
+    vm.loading = true;
+    vm.error = false;
 
     vm.ArticleService.getHome(function(data){
       vm.categories = data.article.categories;
     }, function (error) {
+      vm.error = error;
       vm.$log.error(error);
     });
 
@@ -41,52 +44,25 @@
       vm.program = program;
       vm.currentCategory = vm.program.categories[0];
 
-      vm.$scope.$watch('programa.currentCategory', function(newValue, oldValue){
-        if(newValue !== oldValue){
-          vm.$state.go('inicio', {
-            tema: newValue.slug
-          }, {
-            location: true
-          });
-        }
-      });
-
       // load proposals
-      // vm.ArticleService.getRandomProposals(program.id).then(function(proposal){
+      // vm.ArticleService.getRandomProposal(program.id, function(proposal){
       //   vm.program.proposal = proposal;
       // }, function (error){
       //   vm.$log.error(error);
       // });
 
       // load events
-      // vm.ArticleService.getEvents(program.id).then(function(proposal){
-      //   vm.program.proposal = proposal;
-      // }, function (error){
-      //   vm.$log.error(error);
-      // });
-
-      // load body content
-      // vm.ArticleService.getBodyContent(program.id).then(function(proposal){
+      // vm.ArticleService.getEvents(program.id, function(proposal){
       //   vm.program.proposal = proposal;
       // }, function (error){
       //   vm.$log.error(error);
       // });
 
     }, function (error) {
+      vm.error = error;
       vm.$log.error(error);
       vm.$log.info('Rollback to home page.');
       vm.$state.go('inicio', {}, {location: true});
     });
-  };
-
-  ProgramaPageController.prototype.goBack = function () {
-    var vm = this;
-
-    var prevState = vm.$rootScope.$previousState;
-    if(prevState && prevState.state.name){
-      vm.$state.go(prevState.state.name, prevState.params);
-    } else {
-      vm.$state.go('inicio');
-    }
   };
 })();

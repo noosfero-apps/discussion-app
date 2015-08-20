@@ -68,4 +68,14 @@
     }
     vm.loading = false;
   };
+
+  ProgramaContentPageController.prototype.goToPreview = function () {
+    var vm = this;
+
+    vm.$state.go('programa', {
+      slug: vm.program.slug
+    }, {
+      location: true
+    });
+  };
 })();

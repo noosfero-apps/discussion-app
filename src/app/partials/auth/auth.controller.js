@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -34,7 +34,7 @@
   AuthController.prototype.login = function(credentials) {
     var vm = this;
 
-    vm.AuthService.login(credentials).then(function(user) {
+    vm.AuthService.login(credentials).then(function(/*user*/) {
       // handle view
     }, function() {
       // handle view

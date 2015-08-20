@@ -111,7 +111,7 @@
       var vm = this;
       var result = null;
 
-      angular.forEach(vm.categories, function(value, key) {
+      angular.forEach(vm.categories, function(value/*, key*/) {
         if (value.slug === categorySlug) {
           result = value;
         }

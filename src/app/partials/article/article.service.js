@@ -33,9 +33,9 @@
     function loadArticleById (articleId, params, cbSuccess, cbError) {
 
       var url = service.apiArticles + articleId;
-      var params = angular.extend({}, params);
+      var paramsExtended = angular.extend({}, params);
 
-      UtilService.get(url, {params: params}).then(function(data){
+      UtilService.get(url, {params: paramsExtended}).then(function(data){
         CACHE[articleId] = data;
         cbSuccess(data);
       }, function(error){
@@ -101,7 +101,7 @@
     }
 
     function _handleCategoryColors (cbSuccess) {
-      var darkFactor = 0.15;
+      // var darkFactor = 0.15;
 
       return function (data) {
         // if(data.article.categories){

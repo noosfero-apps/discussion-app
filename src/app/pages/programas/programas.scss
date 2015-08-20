@@ -1,12 +1,16 @@
 .article-bar {
-    
+
     .btn {
         color: #fff;
         font-weight: bold;
     }
-    
+
     &--item {
         margin: 8px 0;
+    }
+
+    .navbar {
+        margin-bottom: 0;
     }
 
     .navbar-right {

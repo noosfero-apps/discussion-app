@@ -51,10 +51,10 @@ $darken: 15%;
             vertical-align: middle;
 
             // Altura das linhas do abstract
-            $hLine: 20px;            
-            // default 
-            height: $hLine * 2; 
-            
+            $hLine: 20px;
+            // default
+            height: $hLine * 2;
+
             @media (max-width: $screen-xs) {
                 // height: $hLine * 3;
                 height: auto;
@@ -79,7 +79,7 @@ $darken: 15%;
         padding: 0 $program-box-space;
         display: table-cell;
         vertical-align: middle;
-        
+
         // Altura das linhas do abstract
         $pLine: 20px;
         // 1 linha: 19px -> 20
@@ -88,7 +88,7 @@ $darken: 15%;
         // 4 linhas: 76px -> 80
 
         height: $pLine * 2; // default
-        
+
         @media (max-width: $screen-xs) {
             // height: $pLine * 4;
             height: auto;
@@ -190,6 +190,45 @@ $darken: 15%;
 
 .program-preview {
     .program-banner {
+        position: relative;
+    }
 
+    .program-banner--image {
+        width: 100%;
+    }
+
+    .program-banner--strip {
+        color: #fff;
+        position: absolute;
+        bottom: 15%;
+        right: 0;
+        width: 50%;
+        text-align: center;
+
+        @each $category, $color in $categories {
+            .#{$category} & {
+                background-color: $color;
+            }
+        }
+
+        @media (max-width: $screen-sm){
+            position: relative;
+            width: 100%;
+        }
+
+    }
+
+    .program-banner--title {
+        font-size: 32px;
+        text-transform: uppercase;
+        margin-top: 0;
+        padding-top: 20px;
+    }
+    .program-banner--title,
+    .program-banner--abstract {
+        font-weight: bold;
+    }
+    .program-banner--abstract {
+        padding-bottom: 10px;
     }
 }

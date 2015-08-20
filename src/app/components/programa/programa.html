@@ -1,6 +1,6 @@
-<div ng-if="vm.program">
+<div ng-if="vm.program" class="{{::vm.getCategorySlug()}}">
   <article class="program-box" ng-if="vm.isDisplayBox()" ng-click="vm.showContent()">
-    <div class="{{::vm.getCategorySlug()}}">
+    <div>
       <h2 class="program-box--category">{{::vm.getCategoryName()}}</h2>
       <div class="program-box--image-wrapper">
         <!-- <img class="program-box--image img-responsive" ng-src="{{::vm.getImageUrl()}}" alt="{{::vm.getImageAlt()}}" /> -->

@@ -28,7 +28,7 @@
     </header>
 
     <section class="call-to-action--section">
-      <div class="row">
+      <div class="row show-content-row">
         <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
           <div class="button--themed">
             <button class="btn btn-block" ng-click="vm.showContent()">Conheça o programa</button>
@@ -42,6 +42,15 @@
               <div class="proposal-box make-proposal">
                 <h2 class="proposal-box--title">Faça uma proposta</h2>
                 <p class="proposal-box--text">Qual a sua sugestão para melhorar este programa?</p>
+                <div class="row">
+                  <div class="col-xs-8 col-xs-offset-2">
+                    <div class="button--themed">
+                      <button class="btn btn-block" ng-click="vm.goSendProposal()">
+                        Envie sua proposta
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -57,6 +66,43 @@
                   Lorem qual a sua sugestão para melhorar este programa
                   Lorem qual a sua sugestão para melhorar este programa?
                 </p>
+                <div class="col-lg-12">
+                  <div class="col-xs-8 col-xs-offset-2 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                    <div class="button--themed vote-buttons">
+                      <button class="btn btn-circle vote-buttons-up" ng-click="vm.vote(1)">
+                        <span class="sr-only">Eu <b>apoio</b> esta proposta.</span>
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      </button>
+
+                      <button class="btn btn-circle vote-buttons-down" ng-click="vm.vote(-1)">
+                        <span class="sr-only">Eu <b>não apoio</b> esta proposta.</span>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      </button>
+
+                      <button class="btn btn-block vote-buttons-skip" ng-click="vm.vote(0)">
+                        <span class="sr-only">Pular esta proposta.</span>
+                        <span class="icon" aria-hidden="true"></span>
+                        Pular
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="col-xs-8 col-xs-offset-2 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                    <div class="text-center">
+                      <button class="btn btn-link" ng-click="vm.showResults()">Resultados</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-xs-12">
+                    <div class="text-center">
+                      <span>Compartilhe esta proposta</span>
+                      <social-share></social-share>
+                    </div>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
               </div>
             </div>
           </div>

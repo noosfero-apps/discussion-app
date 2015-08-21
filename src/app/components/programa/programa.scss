@@ -42,7 +42,53 @@ $darken: 15%;
             background-color: #fff;
         }
     }
+
+    .btn-circle {
+        width: 64px;
+        height: 64px;
+        border-radius: 100%;
+    }
+
+    // &.vote-buttons {
+    //     padding-bottom: 40px;
+    // }
+
+    .btn.vote-buttons-up {
+        float: right;
+        margin-right: 10px;
+        background-color: #32dbb5;
+        border-bottom: 3px solid #1da485;
+
+        &:hover,
+        &:focus {
+            background-color: #1da485;
+        }
+    }
+
+    .btn.vote-buttons-down {
+        float: left;
+        margin-left: 10px;
+        background-color: #db4127;
+        border-bottom: 3px solid #9c2d1a;
+
+        &:hover,
+        &:focus {
+            background-color: #9c2d1a;
+        }
+
+
+        // @media (max-width: $screen-sm) {
+        //     margin-left:
+        // }
+    }
+
+    .vote-buttons-up,
+    .vote-buttons-down {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
 }
+
 
 .program-box {
     cursor: pointer;
@@ -231,7 +277,9 @@ $darken: 15%;
     .program-banner--abstract {
         padding-bottom: 10px;
     }
+}
 
+.show-content-row {
     .button--themed {
         .btn {
             font-size: 38px;
@@ -243,28 +291,24 @@ $darken: 15%;
     }
 }
 
-// .flexbox {
-//     .proposal-row {
-//         display: flex;
-//         flex-flow: row nowrap;
-//         // flex-direction: row;
-//         // flex-wrap: wrap;
-//     }
-
-//     .proposal-box {
-//         // flex: 1 100%;
-//         flex: 1 0 auto;
-//         // align-items: stretch;
-//     }
-// }
-// .flexboxlegacy {}
-
 .row-height {
-  display: table;
-  table-layout: fixed;
-  height: 100%;
-  width: 100%;
-  border-spacing: 20px;
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+    border-spacing: 20px;
+
+    @media (max-width: $screen-sm) {
+        display: block;
+    }
+
+    // @media (min-width: $screen-sm + 1) {
+    //     height: $hLine * 2;
+    // }
+
+    // @media (min-width: $screen-md + 1) {
+    //     height: $hLine * 2;
+    // }
 }
 
 .col-height {
@@ -281,6 +325,11 @@ $darken: 15%;
             border-color: $color;
         }
     }
+
+    @media (max-width: $screen-sm){
+        display: block;
+        border: none;
+    }
 }
 
 .inside {
@@ -292,7 +341,22 @@ $darken: 15%;
     height: 100%;
     margin-top: 0;
     margin-bottom: 0;
+
+
+    @media (max-width: $screen-sm) {
+        border: 1px solid;
+        border-radius: 3px;
+        padding: 20px;
+        margin: 10px 0;
+
+        @each $category, $color in $categories {
+            .#{$category} & {
+                border-color: $color;
+            }
+        }
+    }
 }
+
 
 .talk-proposal {
     margin-top: -20px;

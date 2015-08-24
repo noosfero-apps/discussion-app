@@ -1,33 +1,25 @@
 <div class="social-share">
-
-  <p ng-if="vm.displayFull" class="social-share--description">
-    <span>COMPARTILHE</span>
-    <br>
-    <span>ESTE PROGRAMA</span>
-  </p>
   <ul>
     <li>
-      <a ng-href="{{vm.social.facebook.href}}"
-        data-caption="{{vm.social.facebook.caption}}"
-        data-description="{{vm.social.facebook.description}}">
+      <a social-facebook custom-url="http://dialoga.gov.br">
         <span class="icon icon-social-facebook"></span>
         <span class="sr-only">Compartilhar no Facebook</span>
       </a>
     </li>
     <li>
-      <a ng-href="{{vm.social.twitter.href}}" target="_blank">
+      <a social-twitter custom-url="http://dialoga.gov.br" status="This status is #{{ ctrl.coolWord }}">
         <span class="icon icon-social-twitter"></span>
         <span class="sr-only">Compartilhar no Twitter</span>
       </a>
     </li>
     <li>
-      <a ng-href="{{vm.social.googlePlus.href}}" target="_blank">
+      <a social-gplus custom-url="http://dialoga.gov.br">
         <span class="icon icon-social-google-plus"></span>
         <span class="sr-only">Compartilhar no Google Plus</span>
       </a>
     </li>
     <li>
-      <a ng-href="{{vm.social.whatsapp.href}}" target="_blank">
+      <a href="whatsapp://send?text=Apoio ao audiovisual brasileiro: ampliação da produção, da difusão e do acesso http%3A%2F%2Fdialoga.gov.br%2F%23%2Fprogramas%2F121492%2Fsobre-o-programa" target="_blank">
         <span class="icon icon-social-whatsapp"></span>
         <span class="sr-only">Compartilhar no WhatsApp</span>
       </a>

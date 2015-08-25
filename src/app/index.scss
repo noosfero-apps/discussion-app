@@ -44,19 +44,7 @@ body {
             color: #fff;
             background-color: #000;
         }
-
-        .skip-links a:focus {
-            background-color: #000 !important;
-            border-color: #fff;
-        }
     }
-}
-
-
-.skip-links a:focus {
-  background-color: #fff !important;
-  opacity: 1;
-  z-index: 2;
 }
 
 // Commons

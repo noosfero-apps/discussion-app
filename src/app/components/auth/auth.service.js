@@ -8,7 +8,7 @@
     .factory('AuthInterceptor', AuthInterceptor);
 
   /** @ngInject */
-  function AuthService($http, $rootScope, Session, AUTH_EVENTS, api, $log) {
+  function AuthService($http, $rootScope, Session, AUTH_EVENTS, API, $log) {
 
     var service = {
       login: login,
@@ -21,7 +21,7 @@
     return service;
 
     function login (credentials) {
-      var url = api.host + '/api/v1/login';
+      var url = API.host + '/api/v1/login';
       var encodedData = 'login=' + credentials.username + '&password=' + credentials.password;
 
       return $http

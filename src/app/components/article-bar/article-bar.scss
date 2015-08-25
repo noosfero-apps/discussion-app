@@ -26,9 +26,8 @@
         font-family: 'Open Sans';
 
         .icon {
-            position: absolute;
-            top: -34px;
-            left: -34px;
+            display: inline-block;
+            margin: -40px -35px -40px -50px;
             transform: scale(.37);
         }
     }

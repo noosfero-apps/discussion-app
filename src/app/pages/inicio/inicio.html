@@ -28,6 +28,13 @@
 
 <section class="section-gray section-space-up" ng-if="pageInicio.article">
   <div class="container">
-    <programa-list article="pageInicio.article"></programa-list>
+    <div id="lista-de-programas" class="row">
+      <div class="col-sm-4 col-md-3">
+        <category-list></category-list>
+      </div>
+      <div class="col-sm-8 col-md-9">
+        <article-grid></article-grid>
+      </div>
+    </div>
   </div>
 </section>

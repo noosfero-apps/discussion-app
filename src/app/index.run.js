@@ -51,7 +51,25 @@
       angular.element(bodyEl).toggleClass('contraste', !!state);
     }
 
-    $rootScope.toggleContrast = function() {
+    $rootScope.skipToContent = function() {
+      angular.element('#content').attr('tabIndex', -1).focus();
+    };
+
+    $rootScope.skipToNavigation = function() {
+      angular.element('#navigation').attr('tabIndex', -1).focus();
+    };
+
+    $rootScope.skipToSearch = function() {
+      // angular.element('#search').attr('tabIndex', -1).focus();
+      angular.element('#articleQueryFilter').attr('tabIndex', -1).focus();
+    };
+
+    $rootScope.skipToFooter = function() {
+      angular.element('#footer').attr('tabIndex', -1).focus();
+    };
+
+    $rootScope.actionContrast = function() {
+      // toggle contrast
       contrast = !contrast;
       $cookies.put('dialoga_contraste', contrast);
       adjustContrast(contrast);

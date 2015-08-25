@@ -27,33 +27,33 @@
     var params = vm.$state.params;
     var slug = params.slug;
 
-    vm.program = null;
+    vm.article = null;
     vm.categories = null;
     vm.currentCategory = null;
     vm.loading = true;
     vm.error = false;
 
-    vm.ArticleService.getHome(function(data){
-      vm.categories = data.article.categories;
+    vm.ArticleService.getCategories(function(categories){
+      vm.categories = categories;
     }, function (error) {
       vm.error = error;
       vm.$log.error(error);
     });
 
-    vm.ArticleService.getArticleBySlug(slug, function(program){
-      vm.program = program;
-      vm.currentCategory = vm.program.categories[0];
+    vm.ArticleService.getArticleBySlug(slug, function(article){
+      vm.article = article;
+      vm.currentCategory = vm.article.categories[0];
 
       // load proposals
       // vm.ArticleService.getRandomProposal(program.id, function(proposal){
-      //   vm.program.proposal = proposal;
+      //   vm.article.proposal = proposal;
       // }, function (error){
       //   vm.$log.error(error);
       // });
 
       // load events
       // vm.ArticleService.getEvents(program.id, function(proposal){
-      //   vm.program.proposal = proposal;
+      //   vm.article.proposal = proposal;
       // }, function (error){
       //   vm.$log.error(error);
       // });

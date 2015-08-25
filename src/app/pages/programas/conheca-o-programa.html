@@ -1,20 +1,20 @@
 <div class="container page--conheca-o-programa">
-  <div ng-if="pageProgramaContent.program && pageProgramaContent.categories">
-    <article-bar category="pageProgramaContent.program.categories[0]" categories="pageProgramaContent.categories"></article-bar>
+  <div ng-if="pageProgramaContent.article && pageProgramaContent.categories">
+    <article-bar category="pageProgramaContent.article.categories[0]" categories="pageProgramaContent.categories"></article-bar>
   </div>
 
-  <div ng-if="!pageProgramaContent.program.body">
+  <div ng-if="!pageProgramaContent.article.body">
     <div ng-if="!pageProgramaContent.error" class="alert alert-info" role="alert">Carregando detalhes sobre o progama...</div>
     <div ng-if="pageProgramaContent.error" class="alert alert-warning" role="alert">{{pageProgramaContent}}</div>
   </div>
 
-  <div ng-if="pageProgramaContent.program.body">
+  <div ng-if="pageProgramaContent.article.body">
     <article class="program-content">
       <div>
-        <section ng-bind-html="pageProgramaContent.program.body"></section>
+        <section ng-bind-html="pageProgramaContent.article.body"></section>
       </div>
     </article>
-    <aside class="program--aside"ng-class="pageProgramaContent.program.categories[0].slug">
+    <aside class="program--aside"ng-class="pageProgramaContent.article.categories[0].slug">
       <div class="col-sm-6" >
         <div class="button--themed">
           <button class="btn btn-block" ng-click="pageProgramaContent.goToPreview()">

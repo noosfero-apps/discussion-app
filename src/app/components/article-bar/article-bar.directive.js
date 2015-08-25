@@ -9,7 +9,7 @@
   function articleBar() {
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/components/articleBar/articleBar.html',
+      templateUrl: 'app/components/article-bar/article-bar.html',
       scope: {
         category: '=',
         categories: '='

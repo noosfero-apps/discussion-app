@@ -4,14 +4,28 @@ module.exports = function(){
   describe('The common layout', function () {
 
     describe('Accessibility (a11y) top bar', function(){
-      it('should have a "go-to-content" anchor', function() {});
-      it('should have a "go-to-menu" anchor', function() {});
-      it('should have a "go-to-search" anchor', function() {});
-      it('should have a "go-to-footer" anchor', function() {});
+      it('should have a "skip-to-content" anchor', function() {
+        expect(element(by.id('skip-to-content')).getText()).toEqual('Ir para o conteúdo 1');
+      });
+      it('should have a "skip-to-navigation" anchor', function() {
+        expect(element(by.id('skip-to-navigation')).getText()).toEqual('Ir para o menu 2');
+      });
+      it('should have a "skip-to-search" anchor', function() {
+        expect(element(by.id('skip-to-search')).getText()).toEqual('Ir para a busca 3');
+      });
+      it('should have a "skip-to-footer" anchor', function() {
+        expect(element(by.id('skip-to-footer')).getText()).toEqual('Ir para o rodapé 4');
+      });
 
-      it('should have a accessibility anchor', function() {});
-      it('should have a adjust contrast anchor', function() {});
-      it('should have a sitemap anchor', function() {});
+      it('should have a accessibility anchor', function() {
+        expect(element(by.id('siteaction-accessibility')).getText()).toEqual('Acessibilidade');
+      });
+      it('should have a adjust contrast anchor', function() {
+        expect(element(by.id('siteaction-contraste')).getText()).toEqual('Alto Contraste');
+      });
+      it('should have a sitemap anchor', function() {
+        expect(element(by.id('siteaction-mapadosite')).getText()).toEqual('Mapa do Site');
+      });
     });
 
     describe('Header', function(){

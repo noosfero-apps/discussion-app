@@ -19,11 +19,22 @@
 
     baseUrl: 'http://localhost:3000',
 
+    rootElement: '[ng-app]',
+
+    // The timeout in milliseconds for each script run on the browser. This should
+    // be longer than the maximum time your application needs to stabilize between
+    // tasks.
+    allScriptsTimeout: 11000,
+
+    // How long to wait for a page to load.
+    getPageTimeout: 10000,
+
     // Spec patterns are relative to the current working directly when
     // protractor is called.
     specs: [paths.e2e + '/**/*.js'],
 
     // Options to be passed to Jasmine-node.
+    'framework': 'jasmine2',
     jasmineNodeOpts: {
       showColors: true,
       defaultTimeoutInterval: 30000

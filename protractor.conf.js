@@ -7,17 +7,21 @@
   // An example configuration file.
   exports.config = {
     // The address of a running selenium server.
-    //seleniumAddress: 'http://localhost:4444/wd/hub',
+    //seleniumAddress: 'http://0.0.0.0:4444/wd/hub',
     //seleniumServerJar: deprecated, this should be set on node_modules/protractor/config.json
 
     // Capabilities to be passed to the webdriver instance.
     capabilities: {
-      'browserName': 'firefox'
+      'browserName': 'chrome'
     },
 
-    // chromeOnly: true,
+    chromeOnly: true,
 
-    baseUrl: 'http://localhost:3000',
+    // onPrepare: function() {
+    //   browser.driver.manage().window().setSize(1600, 800);
+    // },
+
+    baseUrl: 'http://0.0.0.0:3000',
 
     rootElement: '[ng-app]',
 
@@ -38,6 +42,15 @@
     jasmineNodeOpts: {
       showColors: true,
       defaultTimeoutInterval: 30000
-    }
+    },
+
+    plugins: [{
+      path: 'node_modules/gulp-protractor/node_modules/protractor/plugins/accessibility',
+      chromeA11YDevTools: {
+        treatWarningsAsFailures: true
+      }
+    }, {
+      path: 'node_modules/gulp-protractor/node_modules/protractor/plugins/ngHint'
+    }]
   };
 })();

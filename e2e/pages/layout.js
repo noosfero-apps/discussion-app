@@ -3,7 +3,7 @@ module.exports = function(){
 
   describe('The common layout', function () {
 
-    var page = require('./layout.js');
+    var page = require('./layout.po.js');
 
     describe('Accessibility (a11y) top bar', function(){
       it('should have a "skip-to-content" anchor', function() {

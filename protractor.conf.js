@@ -17,9 +17,33 @@
 
     chromeOnly: true,
 
-    // onPrepare: function() {
-    //   browser.driver.manage().window().setSize(1600, 800);
-    // },
+    onPrepare: function() {
+      /* global angular: false, browser: false */
+
+      // Disable animations so e2e tests run more quickly
+      var disableNgAnimate = function() {
+        angular.module('disableNgAnimate', []).run(['$animate', function($animate) {
+          $animate.enabled(false);
+        }]);
+      };
+
+      browser.addMockModule('disableNgAnimate', disableNgAnimate);
+
+      // Disable debug info
+      var disableDebugInfo = function() {
+        angular.module('disableDebugInfo', []).run(['$compileProvider', function($compileProvider) {
+          $compileProvider.debugInfoEnabled(false);
+        }]);
+      };
+      browser.addMockModule('disableDebugInfo', disableDebugInfo);
+
+      // Store the name of the browser that's currently being used.
+      browser.getCapabilities().then(function(caps) {
+        browser.params.browser = caps.get('browserName');
+      });
+
+      browser.driver.manage().window().setSize(1400, 400);
+    },
 
     baseUrl: 'http://0.0.0.0:3000',
 

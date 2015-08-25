@@ -57,7 +57,7 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
-      .state('programa-conheca', {
+      .state('conheca-o-programa', {
         url: '/programa/:slug/conheca-o-programa',
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },

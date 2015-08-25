@@ -18,7 +18,7 @@
     $rootScope.$on('$stateChangeStart', function(event, next) {
 
       if (!next.data || !next.data.authorizedRoles) {
-        $log.debug('runAuth: public url/state');
+        $log.debug('[RUN] Auth: public url/state');
         return;
       }
 
@@ -37,7 +37,7 @@
       }
     });
 
-    $log.debug('runAuth end.');
+    $log.debug('[RUN] Auth end.');
   }
 
   /** @ngInject */
@@ -75,7 +75,7 @@
       }
     };
 
-    $log.debug('runAccessibility end.');
+    $log.debug('[RUN] Accessibility end.');
   }
 
   /** @ngInject */
@@ -86,11 +86,11 @@
   }
 
   /** @ngInject */
-  function runPath($rootScope, api, $window, $log) {
+  function runPath($rootScope, API, $window, $log) {
     var isProduction = (/^http:\/\/dialoga\.gov\.br\//.test($window.location.href));
-    $rootScope.basePath = isProduction ? api.hostProd :  api.hostHom;
+    $rootScope.basePath = isProduction ? API.hostProd :  API.hostHom;
 
-    $log.debug('runPath end.');
+    $log.debug('[RUN] Path end.');
   }
 
   /** @ngInject */
@@ -122,7 +122,7 @@
 
   /** @ngInject */
   function runBlock($log) {
-    $log.debug('runBlock end.');
+    $log.debug('[RUN] Block end.');
   }
 
 })();

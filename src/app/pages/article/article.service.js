@@ -6,12 +6,12 @@
     .factory('ArticleService', ArticleService);
 
   /** @ngInject */
-  function ArticleService($http, $q, $rootScope, UtilService, Slug, $log) {
+  function ArticleService($http, $q, $rootScope, API, UtilService, Slug, $log) {
     $log.debug('ArticleService');
 
-    var idArticleHome = '103358';
-    var idArticleAbout = '108073';
-    var idArticleTerms = '107880';
+    var idArticleHome = API.articleId.home;
+    var idArticleAbout = API.articleId.about;
+    var idArticleTerms = API.articleId.terms;
 
     var _savedAbstract = null;
 
@@ -22,6 +22,9 @@
       getTerms: getTerms,
       getArticleById: getArticleById,
       getArticleBySlug: getArticleBySlug,
+      getCategories: getCategories,
+      getCategoryBySlug: getCategoryBySlug,
+      getPrograms: getPrograms,
       getContentById: getContentById,
       setHomeAbstract: setHomeAbstract,
       getHomeAbstract: getHomeAbstract
@@ -89,6 +92,34 @@
       }, cbError);
     }
 
+    function getCategories (cbSuccess, cbError) {
+      return getHome(function(data){
+        cbSuccess(data.article.categories);
+      }, cbError);
+    }
+
+    function getCategoryBySlug (slug, cbSuccess, cbError) {
+      return getHome(function (data){
+        var result = null;
+
+        for (var i = data.article.categories.length - 1; i >= 0; i--) {
+          var category = data.article.categories[i];
+          if (category.slug === slug) {
+            result = category;
+            break;
+          }
+        }
+
+        cbSuccess(result);
+      }, cbError);
+    }
+
+    function getPrograms (cbSuccess, cbError) {
+      return getHome(function(data){
+        cbSuccess(data.article.children);
+      }, cbError);
+    }
+
     function getContentById (contentId, cbSuccess, cbError) {
       return getArticleById(contentId, {
         fields: 'id,body&content_type=ProposalsDiscussionPlugin::Topic'
@@ -99,7 +130,7 @@
       return getArticleById(idArticleHome, {
         fields: 'id,children,categories,abstract,title,image,url,setting,position',
         private_token: 'null'
-      }, _handleCategoryColors(cbSuccess), cbError);
+      }, _handleCategory(cbSuccess), cbError);
     }
 
     function getAbout (cbSuccess, cbError) {
@@ -110,20 +141,23 @@
       return getArticleById(idArticleTerms, {}, cbSuccess, cbError);
     }
 
-    function _handleCategoryColors (cbSuccess) {
+    function _handleCategory (cbSuccess) {
       // var darkFactor = 0.15;
 
       return function (data) {
-        // if(data.article.categories){
-        //   var categories = data.article.categories;
+        if(data.article.categories){
+          // var categories = data.article.categories;
 
+          // Handle Category Data
+
+          // Handle Category Colors
         //   for (var i = categories.length - 1; i >= 0; i--) {
         //     var category = categories[i];
         //     if(category.color && !category.bgColor){
         //       category.colorDarker = $window.ColorLuminance(category.color, 0.15);
         //     }
         //   };
-        // }
+        }
         cbSuccess(data);
       };
     }

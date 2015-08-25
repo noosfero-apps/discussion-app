@@ -27,22 +27,22 @@
     var params = vm.$state.params;
     var slug = params.slug;
 
-    vm.program = null;
+    vm.article = null;
     vm.categories = null;
     vm.currentCategory = null;
     vm.loading = true;
     vm.error = false;
 
-    vm.ArticleService.getHome(function(data){
-      vm.categories = data.article.categories;
+    vm.ArticleService.getCategories(function(categories){
+      vm.categories = categories;
     }, function (error) {
       vm.error = error;
       vm.$log.error(error);
     });
 
-    vm.ArticleService.getArticleBySlug(slug, function(program){
-      vm.program = program;
-      vm.currentCategory = vm.program.categories[0];
+    vm.ArticleService.getArticleBySlug(slug, function(article){
+      vm.article = article;
+      vm.currentCategory = vm.article.categories[0];
 
       vm.loadContent();
 
@@ -57,9 +57,9 @@
     var vm = this;
 
     vm.loading = true;
-    if(!vm.program.body){
-      vm.ArticleService.getContentById(vm.program.id, function (data) {
-        vm.program.body = data.article.body;
+    if(!vm.article.body){
+      vm.ArticleService.getContentById(vm.article.id, function (data) {
+        vm.article.body = data.article.body;
         vm.loading = false;
       }, function (error) {
         vm.loading = false;
@@ -73,7 +73,7 @@
     var vm = this;
 
     vm.$state.go('programa', {
-      slug: vm.program.slug
+      slug: vm.article.slug
     }, {
       location: true
     });

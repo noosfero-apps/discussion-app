@@ -1,0 +1,18 @@
+<article class="article-box" ng-click="vm.showPreview()" ng-class="vm.category.slug">
+  <div>
+    <h2 class="article-box--category">{{vm.category.name}}</h2>
+    <div class="article-box--image-wrapper">
+      <!-- <img class="article-box--image img-responsive" ng-src="{{vm.banner.src}}" alt="{{vm.banner.alt}}" /> -->
+      <div class="article-box--image" ng-style="{'background-image':'url( {{vm.banner.src}} )'}"></div>
+    </div>
+    <div class="article-box--title">
+      <h1>{{::vm.article.title}}</h1>
+    </div>
+    <div class="article-box--abstract" ng-bind-html="vm.article.abstract"></div>
+    <div class="button--themed">
+      <button class="btn btn-block">
+        Participe
+      </button>
+    </div>
+  </div>
+</article>

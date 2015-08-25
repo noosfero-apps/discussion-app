@@ -2,14 +2,14 @@
   'use strict';
 
   describe('The "Programa" page', function () {
+    var page = browser.get('/');
 
-    beforeEach(function () {
-      browser.get('/');
-
-    });
+    // beforeEach(function () {
+    //   browser.get('/');
+    // });
 
     describe('Common layout', function (){
-      require('layout')();
+      require('./layout.js')();
     });
 
     describe('Component: article-preview', function (){});

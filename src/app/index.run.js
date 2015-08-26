@@ -105,8 +105,9 @@
 
   /** @ngInject */
   function runPath($rootScope, API, $window, $log) {
-    var isProduction = (/^http:\/\/dialoga\.gov\.br\//.test($window.location.href));
-    $rootScope.basePath = isProduction ? API.hostProd :  API.hostHom;
+    var isProd = (/^http:\/\/dialoga\.gov\.br\//.test($window.location.href));
+    var isHom = (/^http:\/\/hom.dialoga\.gov\.br\//.test($window.location.href));
+    $rootScope.basePath = isProd ? API.hostProd : (isHom ? API.hostHom : API.hostDev);
 
     $log.debug('[RUN] Path end.');
   }

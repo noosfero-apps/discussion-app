@@ -30,12 +30,12 @@
       browser.addMockModule('disableNgAnimate', disableNgAnimate);
 
       // Disable debug info
-      var disableDebugInfo = function() {
-        angular.module('disableDebugInfo', []).run(['$compileProvider', function($compileProvider) {
-          $compileProvider.debugInfoEnabled(false);
-        }]);
-      };
-      browser.addMockModule('disableDebugInfo', disableDebugInfo);
+      // var disableDebugInfo = function() {
+      //   angular.module('disableDebugInfo', []).run(['$compileProvider', function($compileProvider) {
+      //     $compileProvider.debugInfoEnabled(false);
+      //   }]);
+      // };
+      // browser.addMockModule('disableDebugInfo', disableDebugInfo);
 
       // Store the name of the browser that's currently being used.
       browser.getCapabilities().then(function(caps) {
@@ -52,10 +52,10 @@
     // The timeout in milliseconds for each script run on the browser. This should
     // be longer than the maximum time your application needs to stabilize between
     // tasks.
-    allScriptsTimeout: 11000,
+    allScriptsTimeout: 15000,
 
     // How long to wait for a page to load.
-    getPageTimeout: 10000,
+    getPageTimeout: 12000,
 
     // Spec patterns are relative to the current working directly when
     // protractor is called.

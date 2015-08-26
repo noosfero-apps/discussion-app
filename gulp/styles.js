@@ -39,7 +39,10 @@ gulp.task('styles', function () {
     .pipe(wiredep(_.extend({}, conf.wiredep)))
     .pipe($.sourcemaps.init())
     .pipe($.sass(sassOptions)).on('error', conf.errorHandler('Sass'))
-    .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
+    .pipe($.autoprefixer({
+      browsers: ['last 3 versions', 'ie >= 9', 'ff > 20', 'Chrome > 30', 'Opera > 25', 'Safari > 6', 'iOS > 6'],
+      cascade: false
+    })).on('error', conf.errorHandler('Autoprefixer'))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')))
     .pipe(browserSync.reload({ stream: true }));

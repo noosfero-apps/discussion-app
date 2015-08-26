@@ -8,6 +8,7 @@ var browserSync = require('browser-sync');
 var browserSyncSpa = require('browser-sync-spa');
 
 var util = require('util');
+var gutil = require('gulp-util');
 
 var proxyMiddleware = require('http-proxy-middleware');
 
@@ -33,7 +34,25 @@ function browserSyncInit(baseDir, browser) {
    *
    * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.0.5/README.md
    */
-  // server.middleware = proxyMiddleware('/users', {target: 'http://jsonplaceholder.typicode.com', proxyHost: 'jsonplaceholder.typicode.com'});
+  if(gutil.env.target) {
+    server.middleware = proxyMiddleware('/api', {target: gutil.env.target});
+  } else {
+    // no target! Point to localhost
+    server.middleware = proxyMiddleware('/api', {
+      target: 'http://0.0.0.0:9000/',
+      pathRewrite: {
+          // rewrite paths
+          '^/api/v1/articles' : '/articles'
+      },
+      proxyTable: {
+        // when request.headers.host == 'dev.localhost:3000',
+        // override target 'http://www.example.org' to 'http://localhost:8000'
+        // 'dev.localhost:3000' : 'http://localhost:8000'
+        'hom.dialoga.gov.br' : 'http://localhost:9000',
+        'login.dialoga.gov.br' : 'http://localhost:9000'
+      }
+    });
+  }
 
   browserSync.instance = browserSync.init({
     startPath: '/',

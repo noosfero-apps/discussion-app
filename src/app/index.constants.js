@@ -4,13 +4,15 @@
 
   angular
     .module('dialoga')
-    .constant('api', {
+    .constant('API', {
       token: null,
+      hostDev: '',
       hostHom: 'http://hom.dialoga.gov.br',
       hostProd: 'http://login.dialoga.gov.br',
-      // host: 'http://www.participa.br',
       articleId: {
-        home: 103358
+        home: '103358',
+        about: '108073',
+        terms: '107880'
       }
     })
     .constant('AUTH_EVENTS', {

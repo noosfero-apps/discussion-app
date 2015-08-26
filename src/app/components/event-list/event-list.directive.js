@@ -30,14 +30,13 @@
 
     EventListController.prototype.toggleView = function () {
       var vm = this;
-
-      if(vm.isListVisible) {
-        // animate hide
-      } else {
-        // animate show
-      }
-
       vm.isListVisible = !vm.isListVisible;
+    };
+
+    EventListController.prototype.subscribe = function (data) {
+      var vm = this;
+
+      vm.$log.debug('data', data);
     };
 
     var directive = {

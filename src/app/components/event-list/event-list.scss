@@ -1,23 +1,22 @@
 .event-list {
     position: relative;
-    background-color: #eee;
+    background-color: #eeeeee;
 
     .event-list--panel {
-        height: 400px;
-        border: 1px solid #333;
+        height: 310px;
+        border: 1px solid #333333;
         padding: 20px;
-
-        -webkit-transition: 0.5s linear all;
-        -moz-transition: 0.5s linear all;
-        -o-transition: 0.5s linear all;
-        transition: 0.5s linear all;
+        margin: 20px 0;
+        line-height: 20px;
+        transition: .3s linear all;
 
         &.ng-hide {
             height: 0px;
+            line-height: 0px;
         }
 
         .event-list--header {
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #333333;
         }
 
         .event-list--icon {
@@ -43,12 +42,27 @@
         height: $event-tab-height;
         position: absolute;
         right: 0;
-        top: -$event-tab-height;
+        top: $event-tab-height * (-1);
         padding: 5px;
-        background-color: #eee;
-        border: 1px solid #333;
-
+        background-color: #eeeeee;
+        border: 1px solid #333333;
         text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+        transition: .3s linear all;
+        overflow: hidden;
+        z-index: 100;
+
+        &.ng-hide {
+            height: 0px;
+            line-height: 0px;
+            top: -1px;
+        }
+    }
+
+    .table-responsive {
+        height: 250px;
+        overflow-y: scroll;
     }
 
     .event-tab--icon {

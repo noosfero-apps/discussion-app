@@ -3,8 +3,7 @@
   'use strict';
 
   describe('The index page', function () {
-    var page = browser.get('/');
-
+    var page = require('./inicio.po.js');
     // beforeEach(function () {
     //   browser.get('/');
     // });
@@ -14,27 +13,59 @@
     });
 
     describe('Component: Main Video', function(){
-      it('should have a alt text', function() {});
-      it('should have a thumb background image (for async)', function() {});
-      it('should have a button play trigger', function() {});
-      it('should be accessible', function() {});
+      it('should have a thumb background image (for async)', function() {
+        expect(page.video.element(by.css('.video-thumbnail'))).toBeDefined();
+        expect(page.video.element(by.css('.video-thumbnail')).getCssValue('background-image')).toContain('youtube-background.png');
+        expect(page.video.element(by.css('.video-thumbnail')).getAttribute('aria-hidden')).toBe('true');
+      });
+
+      it('should have a button play trigger', function() {
+        expect(page.video.element(by.css('.video-play-button'))).toBeDefined();
+        expect(page.video.element(by.css('.video-play-button')).getAttribute('aria-label')).toBeDefined();
+      });
     });
 
     describe('Component: Agenda', function(){
-      it('should have a title', function() {});
-      it('should have a icon', function() {});
-      it('should show the number of scheduled chats', function() {});
-      it('should have a open trigger', function() {});
-      it('should be accessible', function() {});
+      it('should have a tab-trigger', function() {
+        expect(page.agenda.element(by.css('.event-tab--trigger'))).toBeDefined();
+        expect(page.agenda.element(by.css('.event-tab--title'))).toBeDefined();
+        expect(page.agenda.element(by.css('.event-tab--icon'))).toBeDefined();
+        expect(page.agenda.element(by.css('.event-tab--icon')).element(by.css('.glyphicon'))).toBeDefined();
+        expect(page.agenda.element(by.css('.event-tab--icon')).element(by.css('.glyphicon')).getAttribute('aria-hidden')).toBe('true');
+        expect(page.agenda.element(by.css('.event-tab--button'))).toBeDefined();
+        expect(page.agenda.element(by.css('.event-tab--total-scheduled'))).toBeDefined();
+        expect(page.agenda.element(by.css('.event-tab--total-scheduled'))).toMatch(/(\d)*/);
+      });
 
       describe('Component: Agenda / Open-panel', function(){
-        it('should have a close trigger', function() {});
-        it('should have the date/time of scheduled chat', function() {});
-        it('should have the title of scheduled chat', function() {});
-        it('should have a subscribe button to scheduled chat', function() {});
-        it('should show the number of subscribers on each item', function() {});
-        it('should show 5 itens at most', function() {});
-        it('should be accessible', function() {});
+        it('should have a header', function() {
+          // the 2 lines below need to open panel and make elements visibles
+          expect(page.agenda.element(by.model('eventListCtrl.isListVisible'))).toBeDefined();
+          page.agenda.element(by.css('.event-tab--trigger')).click();
+
+          expect(page.agenda.element(by.css('.event-list--title'))).toBeDefined();
+          expect(page.agenda.element(by.css('.event-list--title')).getText()).toEqual('Bate-papo com ministr@s');
+          expect(page.agenda.element(by.css('.event-list--icon'))).toBeDefined();
+          expect(page.agenda.element(by.css('.event-list--icon')).element(by.css('.glyphicon'))).toBeDefined();
+          expect(page.agenda.element(by.css('.event-list--icon')).element(by.css('.glyphicon')).getAttribute('aria-hidden')).toBe('true');
+          expect(page.agenda.element(by.css('.event-list--minimize'))).toBeDefined();
+          expect(page.agenda.element(by.css('.event-list--minimize')).element(by.css('.glyphicon'))).toBeDefined();
+          expect(page.agenda.element(by.css('.event-list--minimize')).element(by.css('.glyphicon')).getAttribute('aria-hidden')).toBe('true');
+        });
+
+        it('should have a table with content', function() {
+          // date/time
+          expect(page.agenda.element(by.css('.event-list--minimize')).element(by.css('.glyphicon')).getAttribute('aria-hidden')).toBe('true');
+          // title
+          // subscribe button
+          // total of subscribers
+          // show only 5 itens
+        });
+        // it('should have the title of scheduled chat', function() {});
+        // it('should have a subscribe button to scheduled chat', function() {});
+        // it('should show the number of subscribers on each item', function() {});
+        // it('should show 5 itens at most', function() {});
+        // it('should be accessible', function() {});
       });
 
       describe('Component: Agenda / with Hangout', function(){

@@ -3,7 +3,6 @@
     table-layout: fixed;
     height: 100%;
     width: 100%;
-    border-spacing: 20px;
 
     @media (max-width: $screen-sm) {
         display: block;
@@ -23,20 +22,10 @@
     float: none;
     height: 100%;
     vertical-align: top;
+}
 
-    border: 1px solid #000;
-    border-radius: 3px;
-
-    @each $category, $color in $categories {
-        .#{$category} & {
-            border-color: $color;
-        }
-    }
-
-    @media (max-width: $screen-sm){
-        display: block;
-        border: none;
-    }
+.col-height--align-bottom {
+    vertical-align: bottom;
 }
 
 .inside {

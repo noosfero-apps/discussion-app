@@ -1,0 +1,68 @@
+.event-list {
+    position: relative;
+    background-color: #eee;
+
+    .event-list--panel {
+        height: 400px;
+        border: 1px solid #333;
+        padding: 20px;
+
+        -webkit-transition: 0.5s linear all;
+        -moz-transition: 0.5s linear all;
+        -o-transition: 0.5s linear all;
+        transition: 0.5s linear all;
+
+        &.ng-hide {
+            height: 0px;
+        }
+
+        .event-list--header {
+            border-bottom: 1px solid #333;
+        }
+
+        .event-list--icon {
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        .event-list--title {
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .event-list--minimize {
+            display: inline-block;
+            float: right;
+            width: 100px;
+        }
+    }
+
+    .event-tab--trigger {
+        $event-tab-height: 130px;
+        width: 150px;
+        height: $event-tab-height;
+        position: absolute;
+        right: 0;
+        top: -$event-tab-height;
+        padding: 5px;
+        background-color: #eee;
+        border: 1px solid #333;
+
+        text-align: center;
+    }
+
+    .event-tab--icon {
+        font-size: 25px;
+    }
+    .event-tab--title {
+        font-weight: bold;
+    }
+
+    .event-tab--button {
+        font-size: 12px;
+        margin: 10px 0 0 0;
+        padding: 0;
+        width: 100%;
+        white-space: normal;
+    }
+}

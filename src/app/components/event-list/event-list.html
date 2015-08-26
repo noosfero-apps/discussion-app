@@ -1,0 +1,35 @@
+<div class="event-list">
+  <div class="event-tab--trigger" ng-click="eventListCtrl.toggleView()">
+    <div class="event-tab--header">
+      <div class="event-tab--icon">
+        <span class="glyphicon glyphicon-calendar" arria-hidden="true"></span>
+      </div>
+      <div class="event-tab--title">Bate-Papo com ministr@s</div>
+    </div>
+    <button class="btn btn-link event-tab--button">
+      <span>18 bate-papos agendados</span>
+      <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="event-list--panel ng-hide" ng-show="eventListCtrl.isListVisible">
+    <div class="event-list--header">
+      <div class="event-list--icon">
+        <div class="glyphicon glyphicon-calendar" aria-hidden="true"></div>
+      </div>
+      <h2 class="event-list--title">
+        Bate-papo com ministr@s
+      </h2>
+      <div class="event-list--minimize">
+        <button type="button" class="btn btn-link" ng-click="eventListCtrl.toggleView()">
+          <span>Minimizar</span>
+          <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="event-list--table-wrapper">
+      <table class="event-list--table">
+      </table>
+    </div>
+  </div>
+</div>

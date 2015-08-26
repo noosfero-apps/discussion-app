@@ -11,7 +11,7 @@
       restrict: 'E',
       templateUrl: 'app/components/navbar/navbar.html',
       scope: {
-          creationDate: '='
+        creationDate: '='
       },
       controller: NavbarController,
       controllerAs: 'vm',
@@ -23,11 +23,15 @@
     /** @ngInject */
     function NavbarController($log) {
       $log.debug('NavbarController');
-      // var vm = this;
 
-      // "vm.creation" is avaible by directive option "bindToController: true"
-      // vm.relativeDate = moment(vm.creationDate).fromNow();
+      var vm = this;
+
+      vm.scrollTo = function(hash) {
+        var $el = angular.element('#' + hash);
+        angular.element('body').animate({scrollTop: $el.offset().top}, 'slow');
+      };
     }
+
   }
 
 })();

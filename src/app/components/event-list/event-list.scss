@@ -1,0 +1,82 @@
+.event-list {
+    position: relative;
+    background-color: #eeeeee;
+
+    .event-list--panel {
+        height: 310px;
+        border: 1px solid #333333;
+        padding: 20px;
+        margin: 20px 0;
+        line-height: 20px;
+        transition: .3s linear all;
+
+        &.ng-hide {
+            height: 0px;
+            line-height: 0px;
+        }
+
+        .event-list--header {
+            border-bottom: 1px solid #333333;
+        }
+
+        .event-list--icon {
+            font-size: 25px;
+            display: inline-block;
+        }
+
+        .event-list--title {
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .event-list--minimize {
+            display: inline-block;
+            float: right;
+            width: 100px;
+        }
+    }
+
+    .event-tab--trigger {
+        $event-tab-height: 130px;
+        width: 150px;
+        height: $event-tab-height;
+        position: absolute;
+        right: 0;
+        top: $event-tab-height * (-1);
+        padding: 5px;
+        background-color: #eeeeee;
+        border: 1px solid #333333;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+        transition: .3s linear all;
+        overflow: hidden;
+        z-index: 100;
+
+        &.ng-hide {
+            height: 0px;
+            line-height: 0px;
+            top: -1px;
+        }
+    }
+
+    .table-responsive {
+        height: 250px;
+        overflow-y: scroll;
+    }
+
+    .event-tab--icon {
+        font-size: 25px;
+    }
+    .event-tab--title {
+        font-weight: bold;
+    }
+
+    .event-tab--button {
+        font-size: 12px;
+        margin: 10px 0 0 0;
+        padding: 0;
+        width: 100%;
+        white-space: normal;
+    }
+}

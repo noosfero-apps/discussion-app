@@ -1,0 +1,15 @@
+<div class="container">
+
+  <div ng-if="pagePrograma.article && pagePrograma.categories">
+    <article-bar category="pagePrograma.article.categories[0]" categories="pagePrograma.categories"></article-bar>
+  </div>
+
+  <div ng-if="!pagePrograma.article">
+    <div class="alert alert-info" role="alert">Carregando informações sobre o progama</div>
+  </div>
+
+  <div ng-if="pagePrograma.article && pagePrograma.categories">
+    <article-preview article="pagePrograma.article"></article-preview>
+  </div>
+</div>
+

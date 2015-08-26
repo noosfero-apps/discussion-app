@@ -25,6 +25,16 @@ gulp.task('watch', ['inject'], function () {
     }
   });
 
+  gulp.watch([
+    path.join(conf.paths.src, '/assets/images/icons/*.png')
+  ], function(event) {
+    if(isOnlyChange(event)) {
+      gulp.start('sprites');
+    } else {
+      gulp.start('inject');
+    }
+  });
+
   gulp.watch(path.join(conf.paths.src, '/app/**/*.js'), function(event) {
     if(isOnlyChange(event)) {
       gulp.start('scripts');

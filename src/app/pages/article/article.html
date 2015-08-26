@@ -1,0 +1,25 @@
+<div class="container" role="main">
+
+  <article-bar></article-bar>
+
+  <div ng-if="pageArticle.loading">
+    <div class="alert alert-info">
+      Carregando conteúdo...
+    </div>
+  </div>
+
+  <div ng-if="pageArticle.error">
+    <div class="alert alert-info">
+      Erro ao carregar conteúdo.
+    </div>
+  </div>
+
+	<div ng-if="pageArticle.article">
+		<article>
+			<header>
+				<h1>{{::pageArticle.article.title}}</h1>
+			</header>
+			<section ng-bind-html="pageArticle.article.body"></section>
+		</article>
+	</div>
+</div>

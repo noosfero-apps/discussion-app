@@ -9,76 +9,89 @@
   function routeConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('inicio', {
-        url: '/',
+        url: '/?limite&tema',
+        reloadOnSearch: false,
         views: {
-          'header': { templateUrl: 'app/partials/header/header.html' },
+          'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
-            templateUrl: 'app/partials/inicio/inicio.html',
-            controller: 'InicioController',
-            controllerAs: 'inicio'
+            templateUrl: 'app/pages/inicio/inicio.html',
+            controller: 'InicioPageController',
+            controllerAs: 'pageInicio'
           },
-          'footer': { templateUrl: 'app/partials/footer/footer.html' }
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
       .state('entrar', {
         url: '/entrar',
         views: {
-          'header': { templateUrl: 'app/partials/header/header.html' },
+          'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
-            templateUrl: 'app/partials/auth/signin.html',
-            controller: 'AuthController',
-            controllerAs: 'signin'
+            templateUrl: 'app/pages/auth/signin.html',
+            controller: 'AuthPageController',
+            controllerAs: 'pageSignin'
           },
-          'footer': { templateUrl: 'app/partials/footer/footer.html' }
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
       .state('cadastrar', {
         url: '/cadastrar',
         views: {
-          'header': { templateUrl: 'app/partials/header/header.html' },
+          'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
-            templateUrl: 'app/partials/auth/signup.html',
-            controller: 'AuthController',
-            controllerAs: 'signup'
+            templateUrl: 'app/pages/auth/signup.html',
+            controller: 'AuthPageController',
+            controllerAs: 'pageSignup'
           },
-          'footer': { templateUrl: 'app/partials/footer/footer.html' }
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
-      .state('programas', {
-        url: '/programas',
+      .state('programa', {
+        url: '/programa/:slug',
         views: {
-          'header': { templateUrl: 'app/partials/header/header.html' },
+          'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
-            templateUrl: 'app/partials/programas/programas.html',
-            controller: 'ProgramasController',
-            controllerAs: 'programas'
+            templateUrl: 'app/pages/programas/programa.html',
+            controller: 'ProgramaPageController',
+            controllerAs: 'pagePrograma'
           },
-          'footer': { templateUrl: 'app/partials/footer/footer.html' }
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
+      .state('conheca-o-programa', {
+        url: '/programa/:slug/conheca-o-programa',
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': {
+            templateUrl: 'app/pages/programas/conheca-o-programa.html',
+            controller: 'ProgramaContentPageController',
+            controllerAs: 'pageProgramaContent'
+          },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
       .state('sobre', {
         url: '/sobre',
         views: {
-          'header': { templateUrl: 'app/partials/header/header.html' },
+          'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
-            templateUrl: 'app/partials/article/article.html',
-            controller: 'ArticleController',
-            controllerAs: 'article'
+            templateUrl: 'app/pages/article/article.html',
+            controller: 'ArticlePageController',
+            controllerAs: 'pageArticle'
           },
-          'footer': { templateUrl: 'app/partials/footer/footer.html' }
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
       .state('termos-de-uso', {
         url: '/termos-de-uso',
-        controller: 'ArticleController',
+        controller: 'ArticlePageController',
         views: {
-          'header': { templateUrl: 'app/partials/header/header.html' },
+          'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
-            templateUrl: 'app/partials/article/article.html',
-            controller: 'ArticleController',
-            controllerAs: 'article'
+            templateUrl: 'app/pages/article/article.html',
+            controller: 'ArticlePageController',
+            controllerAs: 'pageArticle'
           },
-          'footer': { templateUrl: 'app/partials/footer/footer.html' }
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
       ;

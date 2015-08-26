@@ -1,0 +1,17 @@
+<div class="category-list">
+  <nav class="navigation">
+    <h3 class="category-list--title"><b>Programas</b> por Tema</h3>
+    <div class="list-group category-list" ng-class="categoryListCtrl.selectedCategory.slug">
+      <button type="button" class="list-group-item category-list--item"
+        ng-repeat="category in categoryListCtrl.categories"
+        ng-class="{active: categoryListCtrl.selectedCategory.slug === category.slug}"
+        ng-click="categoryListCtrl.selectCategory(category, $event)">
+
+        <span class="category-list--icon-circle"  aria-hidden="true" ng-class="category.slug"></span>
+        <span class="category-list--icon icon" aria-hidden="true" ng-class="'icon-tema-' + category.slug"></span>
+        <span class="category-list--label">{{::category.name}}</span>
+        <span class="category-list--icon--right glyphicon glyphicon-chevron-right"></span>
+      </button>
+    </div>
+  </nav>
+</div>

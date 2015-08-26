@@ -1,0 +1,16 @@
+.accessibility-wrapper {
+    .icon-user {
+        display: inline-block;
+        vertical-align: middle;
+        width: 26px;
+        height: 26px;
+        border: 1px solid #ccc;
+        border-radius: 100%;
+        background-position: 1px 0px;
+
+        .contraste & {
+            // XXX: chage for dinamic handler
+            background-position: -0px -24px;
+        }
+    }
+}

@@ -1,12 +1,26 @@
-.navbar-brand {
-  height: auto;
-}
+.header-navbar {
 
-.navbar-nav > li > a {
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
+    .navbar-brand {
+        height: auto;
+    }
 
-.navbar-toggle .icon-bar {
-  background-color: #333;
+    .navbar-nav a {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        text-transform: uppercase;
+        color: #03316f;
+
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+
+        .contraste & {
+            color: #fff;
+        }
+    }
+
+    .navbar-toggle .icon-bar {
+        background-color: #333;
+    }
 }

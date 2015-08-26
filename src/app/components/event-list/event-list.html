@@ -1,0 +1,109 @@
+<div class="event-list">
+  <div class="event-tab--trigger" ng-show="!eventListCtrl.isListVisible" ng-click="eventListCtrl.toggleView()">
+    <div class="event-tab--header">
+      <div class="event-tab--icon">
+        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+      </div>
+      <div class="event-tab--title">Bate-Papo com ministr@s</div>
+    </div>
+    <button class="btn btn-link event-tab--button">
+      <span class="event-tab--total-scheduled">18</span>
+      <span>bate-papos agendados</span>
+      <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="event-list--panel ng-hide" ng-show="eventListCtrl.isListVisible">
+    <div class="event-list--header">
+      <div class="event-list--icon">
+        <div class="glyphicon glyphicon-calendar" aria-hidden="true"></div>
+      </div>
+      <h2 class="event-list--title">Bate-papo com ministr@s</h2>
+      <div class="event-list--minimize">
+        <button type="button" class="btn btn-link" ng-click="eventListCtrl.toggleView()">
+          <span>Minimizar</span>
+          <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="event-list--table-wrapper">
+      <div class="table-responsive">
+        <table class="table event-list--table">
+          <!-- <thead></thead> -->
+          <tbody>
+            <tr>
+              <td>
+                <span class="date">dd/mm/aaaa</span>
+                <span class="separator">-</span>
+                <span class="time">HH:mm</span>
+                <span class="separator">-</span>
+                <span class="description">Mais médicos, Segurança Nacional, SAMU</span>
+                <button type="button" class="btn" ng-click="eventListCtrl.subscribe('EVENT_ID')">
+                  Inscreva-se
+                  <span class="sr-only">no bate-papo com (ministro) no dia (date) as (hh:mm) horas</span>
+                </button>
+                <span class="subscribers">123 inscritos</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="date">dd/mm/aaaa</span>
+                <span class="separator">-</span>
+                <span class="time">HH:mm</span>
+                <span class="separator">-</span>
+                <span class="description">Mais médicos, Segurança Nacional, SAMU</span>
+                <button type="button" class="btn">Inscreva-se</button>
+                <span class="subscribers">123 inscritos</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="date">dd/mm/aaaa</span>
+                <span class="separator">-</span>
+                <span class="time">HH:mm</span>
+                <span class="separator">-</span>
+                <span class="description">Mais médicos, Segurança Nacional, SAMU</span>
+                <button type="button" class="btn">Inscreva-se</button>
+                <span class="subscribers">123 inscritos</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="date">dd/mm/aaaa</span>
+                <span class="separator">-</span>
+                <span class="time">HH:mm</span>
+                <span class="separator">-</span>
+                <span class="description">Mais médicos, Segurança Nacional, SAMU</span>
+                <button type="button" class="btn">Inscreva-se</button>
+                <span class="subscribers">123 inscritos</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="date">dd/mm/aaaa</span>
+                <span class="separator">-</span>
+                <span class="time">HH:mm</span>
+                <span class="separator">-</span>
+                <span class="description">Mais médicos, Segurança Nacional, SAMU</span>
+                <button type="button" class="btn">Inscreva-se</button>
+                <span class="subscribers">123 inscritos</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="date">dd/mm/aaaa</span>
+                <span class="separator">-</span>
+                <span class="time">HH:mm</span>
+                <span class="separator">-</span>
+                <span class="description">Mais médicos, Segurança Nacional, SAMU</span>
+                <button type="button" class="btn">Inscreva-se</button>
+                <span class="subscribers">123 inscritos</span>
+              </td>
+            </tr>
+          </tbody>
+          <!-- <tfooter></tfooter> -->
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

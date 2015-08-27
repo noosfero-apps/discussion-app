@@ -3,11 +3,11 @@
 
   angular
     .module('dialoga')
-    .controller('ProgramaPageController', ProgramaPageController);
+    .controller('ProgramasPageController', ProgramasPageController);
 
   /** @ngInject */
-  function ProgramaPageController(ArticleService, $state, $location, $scope, $rootScope, $log) {
-    $log.debug('ProgramaPageController');
+  function ProgramasPageController(ArticleService, $state, $location, $scope, $rootScope, $log) {
+    $log.debug('ProgramasPageController');
 
     var vm = this;
 
@@ -21,7 +21,7 @@
     vm.init();
   }
 
-  ProgramaPageController.prototype.init = function () {
+  ProgramasPageController.prototype.init = function () {
     var vm = this;
 
     var params = vm.$state.params;
@@ -33,6 +33,13 @@
     vm.loading = true;
     vm.error = false;
 
+    vm.loadData();
+  };
+
+
+  ProgramasPageController.prototype.loadData = function () {
+    var vm = this;
+
     vm.ArticleService.getCategories(function(categories){
       vm.categories = categories;
     }, function (error) {
@@ -40,29 +47,30 @@
       vm.$log.error(error);
     });
 
-    vm.ArticleService.getArticleBySlug(slug, function(article){
-      vm.article = article;
-      vm.currentCategory = vm.article.categories[0];
+    // vm.ArticleService.getArticleBySlug(slug, function(article){
+    //   vm.article = article;
+    //   vm.currentCategory = vm.article.categories[0];
 
-      // load proposals
-      // vm.ArticleService.getRandomProposal(program.id, function(proposal){
-      //   vm.article.proposal = proposal;
-      // }, function (error){
-      //   vm.$log.error(error);
-      // });
+    //   // load proposals
+    //   // vm.ArticleService.getRandomProposal(program.id, function(proposal){
+    //   //   vm.article.proposal = proposal;
+    //   // }, function (error){
+    //   //   vm.$log.error(error);
+    //   // });
 
-      // load events
-      // vm.ArticleService.getEvents(program.id, function(proposal){
-      //   vm.article.proposal = proposal;
-      // }, function (error){
-      //   vm.$log.error(error);
-      // });
+    //   // load events
+    //   // vm.ArticleService.getEvents(program.id, function(proposal){
+    //   //   vm.article.proposal = proposal;
+    //   // }, function (error){
+    //   //   vm.$log.error(error);
+    //   // });
 
-    }, function (error) {
-      vm.error = error;
-      vm.$log.error(error);
-      vm.$log.info('Rollback to home page.');
-      vm.$state.go('inicio', {}, {location: true});
-    });
+    // }, function (error) {
+    //   vm.error = error;
+    //   vm.$log.error(error);
+    //   vm.$log.info('Rollback to home page.');
+    //   vm.$state.go('inicio', {}, {location: true});
+    // });
+
   };
 })();

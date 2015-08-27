@@ -45,26 +45,51 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
-      .state('programa', {
-        url: '/programa/:slug',
+      .state('programas', {
+        url: '/programas',
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
-            templateUrl: 'app/pages/programas/programa.html',
-            controller: 'ProgramaPageController',
+            templateUrl: 'app/pages/programas/programas.html',
+            controller: 'ProgramasPageController',
             controllerAs: 'pagePrograma'
           },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
-      .state('conheca-o-programa', {
-        url: '/programa/:slug/conheca-o-programa',
+      .state('programa-conteudo', {
+        url: '/programa/:slug',
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
-            templateUrl: 'app/pages/programas/conheca-o-programa.html',
+            templateUrl: 'app/pages/programas/programa.html',
             controller: 'ProgramaContentPageController',
             controllerAs: 'pageProgramaContent'
+          },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
+      .state('propostas', {
+        url: '/propostas',
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': {
+            templateUrl: 'app/pages/propostas/propostas.html',
+            controller: 'PropostasPageController',
+            controllerAs: 'pagePropostas'
+          },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
+      .state('propostas-details', {})
+      .state('duvidas', {
+        url: '/duvidas',
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': {
+            templateUrl: 'app/pages/duvidas/duvidas.html',
+            controller: 'DuvidasPageController',
+            controllerAs: 'pageDuvidas'
           },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
@@ -91,6 +116,14 @@
             controller: 'ArticlePageController',
             controllerAs: 'pageArticle'
           },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
+      .state('mapa-do-site', {
+        url: '/mapa-do-site',
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': { templateUrl: 'app/pages/sitemap/sitemap.html' },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })

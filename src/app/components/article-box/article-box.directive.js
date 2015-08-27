@@ -49,16 +49,6 @@
     ArticleBoxController.prototype.showContent = function () {
       var vm = this;
 
-      vm.$state.go('programa-conheca', {
-        slug: vm.article.slug
-      }, {
-        location: true
-      });
-    };
-
-    ArticleBoxController.prototype.showPreview = function () {
-      var vm = this;
-
       vm.$state.go('programa-conteudo', {
         slug: vm.article.slug
       }, {

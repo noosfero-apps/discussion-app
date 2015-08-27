@@ -25,25 +25,31 @@
     var vm = this;
 
     var params = vm.$state.params;
-    var slug = params.slug;
 
     vm.article = null;
-    vm.categories = null;
-    vm.currentCategory = null;
+    vm.category = null;
     vm.loading = true;
     vm.error = false;
+    vm.slug = params.slug;
 
-    vm.ArticleService.getCategories(function(categories){
-      vm.categories = categories;
-    }, function (error) {
-      vm.error = error;
-      vm.$log.error(error);
-    });
+    vm.loadData();
+  };
 
-    vm.ArticleService.getArticleBySlug(slug, function(article){
+  ProgramaContentPageController.prototype.loadData = function () {
+    var vm = this;
+
+    vm.ArticleService.getArticleBySlug(vm.slug, function(article){
       vm.article = article;
+      vm.category = vm.article.categories[0];
+
       vm.$rootScope.contentTitle = vm.article.title;
-      vm.currentCategory = vm.article.categories[0];
+
+      if(!vm.banner){
+        vm.banner = {
+          src: vm.$rootScope.basePath + vm.article.image.url,
+          alt: 'Imagem de destaque do conteúdo'
+        };
+      }
 
       vm.loadContent();
 
@@ -70,13 +76,9 @@
     vm.loading = false;
   };
 
-  ProgramaContentPageController.prototype.goToPreview = function () {
+  ProgramaContentPageController.prototype.makeProposal = function () {
     var vm = this;
 
-    vm.$state.go('programa', {
-      slug: vm.article.slug
-    }, {
-      location: true
-    });
+    vm.$log.warn('Not implemented yet: "makeProposal"');
   };
 })();

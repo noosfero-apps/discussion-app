@@ -9,6 +9,7 @@
     .run(runHistory)
     .run(runPath)
     .run(runColorUtils)
+    .run(runUtils)
     .run(runBlock);
 
   /** @ngInject */
@@ -143,6 +144,13 @@
       }
 
       return rgb;
+    };
+  }
+
+  /** @ngInject */
+  function runUtils($rootScope) {
+    $rootScope.stripHtml = function (text) {
+      return String(text).replace(/<[^>]+>/gm, '');
     };
   }
 

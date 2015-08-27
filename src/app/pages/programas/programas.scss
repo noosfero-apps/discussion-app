@@ -7,3 +7,52 @@
     }
 }
 
+.program-preview {
+
+    .program-preview--box {
+        position: relative;
+        background: #eee;
+    }
+
+    .program-preview--banner {
+        width: 100%;
+        height: 400px;
+
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .program-preview--icon {
+        $icon-size: 98px;
+        $icon-scale: 0.7;
+        position: absolute;
+        top: (-1) * ($icon-size / 2);
+        left: 40px;
+
+        width: $icon-size * $icon-scale + 20px;
+        height: $icon-size * $icon-scale + 20px;
+
+        .icon {
+            display: block;
+            position: relative;
+            top: -8px;
+            left: -6px;
+            transform: scale($icon-scale);
+        }
+    }
+
+    .program-preview--box--content-wrapper {
+        padding: 40px;
+        position: relative;
+    }
+
+    h2,
+    h3{
+        font-weight: bold;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+}

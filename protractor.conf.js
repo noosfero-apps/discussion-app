@@ -11,9 +11,19 @@
     //seleniumServerJar: deprecated, this should be set on node_modules/protractor/config.json
 
     // Capabilities to be passed to the webdriver instance.
-    capabilities: {
-      'browserName': 'chrome'
-    },
+    //
+    // Ref.: https://github.com/angular/protractor/blob/master/docs/browser-setup.md
+    // chrome, phantomjs, firefox
+
+    // capabilities: {
+    //   'browserName': 'phantomjs'
+    // },
+
+    multiCapabilities: [
+    // {'browserName': 'firefox'},
+    // {'browserName': 'chrome'}
+    {'browserName': 'phantomjs'}
+    ],
 
     chromeOnly: true,
 

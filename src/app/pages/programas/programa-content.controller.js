@@ -42,6 +42,7 @@
 
     vm.ArticleService.getArticleBySlug(slug, function(article){
       vm.article = article;
+      vm.$rootScope.contentTitle = vm.article.title;
       vm.currentCategory = vm.article.categories[0];
 
       vm.loadContent();

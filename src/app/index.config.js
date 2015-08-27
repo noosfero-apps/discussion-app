@@ -5,6 +5,7 @@
     .module('dialoga')
     .config(configAuthInterceptor)
     .config(configLocationProvider)
+    .config(configBreadcrumbProvider)
     .config(config);
 
   /** @ngInject */
@@ -35,6 +36,14 @@
     if (Modernizr.history) {
       $locationProvider.html5Mode(true);
     }
+  }
+
+  /** @ngInject */
+  function configBreadcrumbProvider($breadcrumbProvider) {
+    $breadcrumbProvider.setOptions({
+      prefixStateName: 'inicio',
+      templateUrl: 'app/components/breadcrumb/template.html'
+    });
   }
 
   /** @ngInject */

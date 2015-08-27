@@ -1,6 +1,6 @@
 <div class="container page--conheca-o-programa">
-  <div ng-if="pageProgramaContent.article && pageProgramaContent.categories">
-    <article-bar category="pageProgramaContent.article.categories[0]" categories="pageProgramaContent.categories"></article-bar>
+  <div ng-if="pageProgramaContent.article && pageProgramaContent.article.title">
+    <div ncy-breadcrumb></div>
   </div>
 
   <div ng-if="!pageProgramaContent.article.body">

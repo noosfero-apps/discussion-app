@@ -98,9 +98,16 @@
 
   /** @ngInject */
   function runHistory($rootScope) {
+    var MAX_HISTORY = 20;
+    $rootScope.$previousState = $rootScope.$previousState || [];
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toStateParams, fromState, fromStateParams) {
-      $rootScope.$previousState = { state: fromState, params: fromStateParams};
+      $rootScope.$previousState.push({ state: fromState, params: fromStateParams});
+      $rootScope.$previousState.splice(-MAX_HISTORY, MAX_HISTORY);
     });
+
+    $rootScope.goBack = $rootScope.goBack || function () {
+      return $rootScope.$previousState.pop();
+    };
   }
 
   /** @ngInject */

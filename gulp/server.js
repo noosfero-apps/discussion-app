@@ -35,7 +35,14 @@ function browserSyncInit(baseDir, browser) {
    * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.0.5/README.md
    */
   if(gutil.env.target) {
-    server.middleware = proxyMiddleware('/api', {target: gutil.env.target});
+    server.middleware = proxyMiddleware(['/api/**', '/image_uploads/**'], {
+      target: gutil.env.target,
+      changeOrigin: true,
+      proxyTable: {
+        'localhost:3000' : gutil.env.target
+      }
+
+    });
   } else {
     // no target! Point to localhost
     server.middleware = proxyMiddleware('/api', {

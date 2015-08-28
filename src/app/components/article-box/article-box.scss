@@ -129,6 +129,10 @@ $article-box-space: 20px;
         transition: all $time ease-in-out;
     }
 
+    .button--themed {
+        padding: 20px;
+    }
+
     &:hover {
         background-color: #d9d9d9;
 

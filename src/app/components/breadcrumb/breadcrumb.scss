@@ -1,0 +1,5 @@
+.custom-breadcrumb {
+    .breadcrumb > li + li:before {
+        content: '>';
+    }
+}

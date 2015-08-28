@@ -10,6 +10,7 @@
     $stateProvider
       .state('inicio', {
         url: '/?limite&tema',
+        ncyBreadcrumb: {label: 'Home'},
         reloadOnSearch: false,
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -23,6 +24,7 @@
       })
       .state('entrar', {
         url: '/entrar',
+        ncyBreadcrumb: {label: 'Entrar'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
@@ -35,6 +37,7 @@
       })
       .state('cadastrar', {
         url: '/cadastrar',
+        ncyBreadcrumb: {label: 'Cadastrar'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
@@ -47,6 +50,7 @@
       })
       .state('programas', {
         url: '/programas',
+        ncyBreadcrumb: {label: 'Programas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
@@ -59,6 +63,10 @@
       })
       .state('programa-conteudo', {
         url: '/programa/:slug',
+        ncyBreadcrumb: {
+          label: '{{$parent.$root.contentTitle}}',
+          parent: 'programas'
+        },
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
@@ -71,6 +79,7 @@
       })
       .state('propostas', {
         url: '/propostas',
+        ncyBreadcrumb: {label: 'Propostas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
@@ -81,9 +90,25 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
-      .state('propostas-details', {})
+      .state('propostas-conteudo', {
+        url: '/propostas/:id',
+        ncyBreadcrumb: {
+          label: '{{$parent.$root.contentTitle}}',
+          parent: 'propostas'
+        },
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': {
+            templateUrl: 'app/pages/propostas/proposta.html',
+            controller: 'PropostasPageController',
+            controllerAs: 'pagePropostas'
+          },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
       .state('duvidas', {
         url: '/duvidas',
+        ncyBreadcrumb: {label: 'Dúvidas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
@@ -96,6 +121,7 @@
       })
       .state('sobre', {
         url: '/sobre',
+        ncyBreadcrumb: {label: 'Sobre'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
@@ -108,6 +134,7 @@
       })
       .state('termos-de-uso', {
         url: '/termos-de-uso',
+        ncyBreadcrumb: {label: 'Termos de Uso'},
         controller: 'ArticlePageController',
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -121,6 +148,7 @@
       })
       .state('mapa-do-site', {
         url: '/mapa-do-site',
+        ncyBreadcrumb: {label: 'Mapa do Site'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': { templateUrl: 'app/pages/sitemap/sitemap.html' },

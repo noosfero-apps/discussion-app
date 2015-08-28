@@ -49,7 +49,7 @@ body {
 
 // Commons
 .button--themed {
-    padding: 20px;
+    // padding: 20px;
     .btn {
         color: #fff;
         font-weight: bold;
@@ -131,6 +131,24 @@ body {
         margin-bottom: 20px;
     }
 }
+
+.icon-wrapper-rounded {
+    padding: 3px;
+    border-radius: 100%;
+}
+
+// Theme
+@each $category, $color in $categories {
+    .#{$category} {
+        .color-theme-fg { color: $color; }
+        .color-theme-bg { background-color: $color;}
+    }
+}
+
+$common-color: #5E739E;
+.color-theme-common-fg {color: $common-color; }
+.color-theme-common-bg {background-color: $common-color; }
+
 
 // Hack to fix "Barra do Brasil"
 #barra-brasil .brasil-flag {

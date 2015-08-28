@@ -1,0 +1,77 @@
+.proposal-ranking {
+    // both: carousel and list
+}
+
+.proposal-ranking--carousel {
+    background-color: #f1f1f1;
+
+    &-top {
+        position: relative;
+        color: #fff;
+        font-weight: bold;
+        font-size: 18px;
+        padding: 5px 10px;
+
+
+        &-triggers {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+
+            li {
+                border: 1px solid #fff;
+                border-radius: 100%;
+                width: 15px;
+                height: 15px;
+                margin-right: 5px;
+
+                cursor: pointer;
+
+                &.active {
+                    background-color: #fff;
+                }
+            }
+        }
+    }
+
+    &-middle {
+        position: relative;
+        padding: 25px 30px;
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        &-watermark {
+            position: absolute;
+            bottom: 1px;
+            left: -5px;
+            color: #ddd;
+            font-size: 150px;
+            font-weight: bold;
+            line-height: 116px;
+            z-index: 1;
+
+        }
+    }
+
+    &-bottom {
+        position: relative;
+        color: #fff;
+        padding: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 10;
+
+        &-icon {
+            .glyphicon {
+                position: relative;
+                top: -2px;
+                background-color: #fff;
+                padding: 6px 5px 5px 6px;
+                border-radius: 100%;
+            }
+        }
+    }
+}

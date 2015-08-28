@@ -1,0 +1,84 @@
+<div class="proposal-ranking">
+
+  <div class="proposal-ranking--carousel" ng-if="vm.display==='carousel'">
+    <div class="proposal-ranking--carousel-top color-theme-bg">
+      <div class="proposal-ranking--carousel-position">
+        <span>1º</span>
+        <span>Lugar</span>
+      </div>
+      <div class="proposal-ranking--carousel-top-triggers">
+        <ul class="list-inline">
+          <li ng-class="{'active': vm.activeIndex === 1}" ng-click="vm.switchProposal(1)"></li>
+          <li ng-class="{'active': vm.activeIndex === 2}" ng-click="vm.switchProposal(2)"></li>
+          <li ng-class="{'active': vm.activeIndex === 3}" ng-click="vm.switchProposal(3)"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="proposal-ranking--carousel-middle">
+      <div class="content">
+        <p>Lorem ipsum dolor sit amet, an qui alia constituam. Forensibus scripserit pri at, sit et dolorum ancillae. Ad sea quas utamur salutandi, illud veritus propriae mea ut. Ius no timeam intellegat liberavisse, eum suscipit pertinax ad. Illum graeci postulant et pro, at clita facete quo, cibo liber ad pri.</p>
+      </div>
+      <div class="proposal-ranking--carousel-middle-watermark"><span>1º</span></div>
+    </div>
+    <div class="proposal-ranking--carousel-bottom color-theme-common-bg" ng-click="vm.showProposals()">
+      <div class="proposal-ranking--carousel-bottom-icon">
+        <span>Veja as propostas mais vortadas</span>
+        <span class="glyphicon glyphicon-chevron-down pull-right color-theme-common-fg"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="proposal-ranking--list" ng-if="vm.display==='list'">
+
+    <div class="table-responsive" ng-if="vm.loading">
+      <div class="table-responsive">Carregando...</div>
+    </div>
+    <div class="table-responsive" ng-if="!vm.loading">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              Colocação
+              <button type="button" class="btn btn-link btn-question" ng-click="vm.showPopover($event)">?</button>
+            </th>
+            <th>123 PROPOSTAS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="color-theme-fg">
+              <span class="position">1º</span>
+            </td>
+            <td>
+              <div class="row">
+                <div class="col-xs-12">Conteúdo</div>
+                <div class="col-md-6">
+                  <button type="button" class="btn btn-link">
+                    Avalie esta proposta
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <!-- <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> -->
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <proposal-ranking views="'1'"></proposal-ranking>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="color-theme-fg">
+              <span class="position">2º</span>
+            </td>
+            <td>
+              <div class="row">
+                <div class="col-xs-12">Conteúdo</div>
+                <div class="col-md-6">Avalie esta proposta</div>
+                <div class="col-md-6">[STATS]</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

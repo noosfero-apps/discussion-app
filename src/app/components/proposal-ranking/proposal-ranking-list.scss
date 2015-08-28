@@ -61,6 +61,22 @@
         }
     }
 
+    .abstract {
+        color: #393939;
+        font-size: 18px;
+    }
+
+    .row-actions {
+        padding-top: 20px;
+    }
+
+    .btn-rate {
+        padding: 0;
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: blink;
+    }
+
     // override bootstrap
     .table-striped > tbody > tr:nth-of-type(odd) {
         // impar

@@ -11,7 +11,7 @@
 
     .program-preview--box {
         position: relative;
-        background: #f1f1f1;
+        background-color: #f1f1f1;
     }
 
     .program-preview--banner {
@@ -39,6 +39,10 @@
             top: -8px;
             left: -6px;
             transform: scale($icon-scale);
+        }
+
+        .contraste & {
+            border: 1px solid #fff;
         }
     }
 

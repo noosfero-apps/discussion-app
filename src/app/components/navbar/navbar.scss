@@ -23,4 +23,12 @@
     .navbar-toggle .icon-bar {
         background-color: #333;
     }
+
+    .contraste & {
+        .nav > li > a:hover,
+        .nav > li > a:focus {
+            color: #000;
+        }
+
+    }
 }

@@ -142,12 +142,22 @@ body {
     .#{$category} {
         .color-theme-fg { color: $color; }
         .color-theme-bg { background-color: $color;}
+
+        .contraste & .color-theme-fg { color: #fff; }
+        .contraste & .color-theme-bg { background-color: #000;}
     }
 }
 
 $common-color: #5E739E;
 .color-theme-common-fg {color: $common-color; }
 .color-theme-common-bg {background-color: $common-color; }
+
+// Contraste
+.contraste {
+    .color-theme-common-fg {color: #fff; }
+    .color-theme-common-bg {background-color: #000; }
+    .contraste-box {background-color: #000; border: 1px solid #fff;}
+}
 
 
 // Hack to fix "Barra do Brasil"

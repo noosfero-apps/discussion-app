@@ -52,23 +52,6 @@
       angular.element(bodyEl).toggleClass('contraste', !!state);
     }
 
-    $rootScope.skipToContent = function() {
-      angular.element('#content').attr('tabIndex', -1).focus();
-    };
-
-    $rootScope.skipToNavigation = function() {
-      angular.element('#navigation').attr('tabIndex', -1).focus();
-    };
-
-    $rootScope.skipToSearch = function() {
-      // angular.element('#search').attr('tabIndex', -1).focus();
-      angular.element('#articleQueryFilter').attr('tabIndex', -1).focus();
-    };
-
-    $rootScope.skipToFooter = function() {
-      angular.element('#footer').attr('tabIndex', -1).focus();
-    };
-
     $rootScope.actionContrast = function() {
       // toggle contrast
       contrast = !contrast;
@@ -76,22 +59,35 @@
       adjustContrast(contrast);
     };
 
-    $rootScope.focusMainContent = function($event) {
+    $rootScope.focusOn = function(elId, $event) {
+      var el = angular.element(elId);
+      $rootScope.scrollTo(el, $event);
+      el.attr('tabIndex', -1).focus();
+    };
 
-      // prevent skip link from redirecting
-      if ($event) { $event.preventDefault(); }
+    $rootScope.focusMainContent = function($event) {
 
       var mainContentArea = document.querySelector('[role="main"]');
 
       if (mainContentArea) {
         $timeout(function() {
-          var $el = angular.element(mainContentArea);
-
-          angular.element('body').animate({scrollTop: $el.offset().top}, 'slow');
-        }, 90);
+          $rootScope.scrollTo(mainContentArea, $event);
+        }, 90); // force queue
       } else {
         $log.warn('role="main" not found.');
       }
+    };
+
+    $rootScope.scrollTo = function(target, $event) {
+
+      // prevent skip link from redirecting
+      if ($event) { $event.preventDefault(); }
+
+      if(angular.isString(target)){
+        target = angular.element(target);
+      }
+
+      angular.element('body').animate({scrollTop: target.offset().top}, 'fast');
     };
 
     $log.debug('[RUN] Accessibility end.');

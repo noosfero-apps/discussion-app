@@ -1,5 +1,19 @@
 # Dialoga App
 
+Start development:
+
+```bash
+# dev with no proxy (local data)
+gulp serve
+json-server data.js -p 9000 -w data.js
+
+# dev with proxy to hom server
+gulp serve --target="http://hom.login.dialoga.gov.br"
+
+# dev with proxy to production server
+gulp serve --target="http://login.dialoga.gov.br"
+```
+
 # Project Decisions
 
 - [generator-gulp-angular](https://github.com/Swiip/generator-gulp-angular)

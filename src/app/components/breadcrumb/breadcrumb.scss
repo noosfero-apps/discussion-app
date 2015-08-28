@@ -2,4 +2,9 @@
     .breadcrumb > li + li:before {
         content: '>';
     }
+
+    .contraste & .breadcrumb {
+        background-color: #000;
+        border: 1px solid #fff;
+    }
 }

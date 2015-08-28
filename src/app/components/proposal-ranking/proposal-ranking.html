@@ -1,5 +1,4 @@
-<div class="proposal-ranking">
-
+<div class="proposal-ranking contraste-box">
   <div class="proposal-ranking--carousel" ng-if="vm.display==='carousel'">
     <div class="proposal-ranking--carousel-top color-theme-bg">
       <div class="proposal-ranking--carousel-position">
@@ -33,47 +32,39 @@
     <div class="table-responsive" ng-if="vm.loading">
       <div class="table-responsive">Carregando...</div>
     </div>
-    <div class="table-responsive" ng-if="!vm.loading">
+    <div class="table-responsive" ng-if="!vm.loading && vm.proposals">
       <table class="table table-striped">
         <thead>
           <tr>
             <th>
               Colocação
-              <button type="button" class="btn btn-link btn-question" ng-click="vm.showPopover($event)">?</button>
+              <button type="button" class="btn btn-link btn-question">?</button>
             </th>
             <th>123 PROPOSTAS</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr ng-repeat="proposal in vm.proposals">
+
             <td class="color-theme-fg">
-              <span class="position">1º</span>
+              <span class="position">{{::($index+1)}}º</span>
             </td>
             <td>
               <div class="row">
-                <div class="col-xs-12">Conteúdo</div>
-                <div class="col-md-6">
-                  <button type="button" class="btn btn-link">
-                    Avalie esta proposta
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <!-- <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> -->
-                  </button>
-                </div>
-                <div class="col-md-6">
-                  <proposal-ranking views="'1'"></proposal-ranking>
+                <div class="col-xs-12">
+                  <span class="abstract">{{proposal.abstract}}</span>
                 </div>
               </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="color-theme-fg">
-              <span class="position">2º</span>
-            </td>
-            <td>
-              <div class="row">
-                <div class="col-xs-12">Conteúdo</div>
-                <div class="col-md-6">Avalie esta proposta</div>
-                <div class="col-md-6">[STATS]</div>
+              <div class="row row-actions">
+                <div class="col-md-9">
+                  <button type="button" class="btn btn-link btn-rate color-theme-common-fg">
+                    Avalie esta proposta
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="col-md-3">
+                  <proposal-stats views="{{::proposal.hits}}" up="{{::proposal.votes_for}}" down="{{::proposal.votes_against}}"></proposal-stats>
+                </div>
               </div>
             </td>
           </tr>

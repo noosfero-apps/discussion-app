@@ -4,26 +4,29 @@
 
 .proposal-ranking--carousel {
     background-color: #f1f1f1;
+    border-radius: 5px;
+    overflow: hidden;
 
     &-top {
         position: relative;
         color: #fff;
         font-weight: bold;
-        font-size: 18px;
-        padding: 5px 10px;
+        font-size: 25px;
+        padding: 20px 15px;
 
 
         &-triggers {
             position: absolute;
-            right: 5px;
-            top: 5px;
+            right: 15px;
+            top: 20px;
 
-            li {
+            button {
                 border: 1px solid #fff;
                 border-radius: 100%;
                 width: 15px;
                 height: 15px;
                 margin-right: 5px;
+                background-color: transparent;
 
                 cursor: pointer;
 
@@ -37,6 +40,12 @@
     &-middle {
         position: relative;
         padding: 25px 30px;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
 
         .content {
             position: relative;
@@ -65,6 +74,10 @@
         z-index: 10;
 
         &-icon {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+
             .glyphicon {
                 position: relative;
                 top: -2px;

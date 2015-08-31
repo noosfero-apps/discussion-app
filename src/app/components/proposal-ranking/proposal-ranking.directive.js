@@ -26,7 +26,7 @@
       // initial values
       var vm = this;
 
-      vm.activeIndex = 1;
+      vm.activeIndex = 0;
       vm.loading = false;
 
       if(angular.isDefined(vm.limit) && angular.isString(vm.limit)){
@@ -59,14 +59,14 @@
           votes_for: 1780
         },{
           id: 935,
-          abstract: 'Magni sunt ut molestiae. A porro et quod saepe placeat amet nihil. Aut ut id voluptatem doloribus quia.',
+          abstract: 'Aut fuga magni adipisci. Recusandae ipsum distinctio omnis ut illum. Magni sunt ut molestiae.',
           effective_support: 0.1572052401746725,
           hits: 8602,
           votes_against: 7005,
           votes_for: 8728
         },{
           id: 1008,
-          abstract: 'Cum quas assumenda nihil delectus eos. Minus fugit velit voluptatem nisi nam esse ut id.',
+          abstract: 'Recusandae ipsum distinctio omnis ut illum. Magni sunt ut molestiae. Aut fuga magni adipisci.',
           effective_support: 0.1572052401746725,
           hits: 9181,
           votes_against: 612,
@@ -82,10 +82,22 @@
       }, 2000);
     };
 
+    ProposalRankingController.prototype.swipeLeft = function () {
+      var vm = this;
+
+      vm.activeIndex = (vm.activeIndex < vm.limit - 1) ? ++vm.activeIndex : 0;
+    };
+
+    ProposalRankingController.prototype.swipeRight = function () {
+      var vm = this;
+
+      vm.activeIndex = (vm.activeIndex > 0) ? --vm.activeIndex : vm.limit - 1;
+    };
+
     ProposalRankingController.prototype.switchProposal = function (index) {
       var vm = this;
 
-      if(index > 0 && index <= vm.limit) {
+      if(index >= 0 && index < vm.limit) {
         vm.activeIndex = index;
       }else{
         vm.$log.warn('[switchProposal] "index" not handled:', index);

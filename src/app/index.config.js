@@ -3,13 +3,13 @@
 
   angular
     .module('dialoga')
-    .config(configAuthInterceptor)
+    .config(configHeadersInterceptor)
     .config(configLocationProvider)
     .config(configBreadcrumbProvider)
     .config(config);
 
   /** @ngInject */
-  function configAuthInterceptor ($httpProvider){
+  function configHeadersInterceptor ($httpProvider){
 
     //Reset headers to avoid OPTIONS request (aka preflight)
     $httpProvider.defaults.headers.common = {};

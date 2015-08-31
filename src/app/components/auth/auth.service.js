@@ -10,18 +10,9 @@
   /** @ngInject */
   function AuthService($http, $rootScope, Session, AUTH_EVENTS, API, $log) {
 
-    var service = {
-      login: login,
-      logout: logout,
-      isAuthenticated: isAuthenticated,
-      isAuthorized: isAuthorized
-    };
-
-    $log.debug('AuthService', service);
-    return service;
-
     function login (credentials) {
-      var url = API.host + '/api/v1/login';
+      var hostProd = 'http://login.dialoga.gov.br';
+      var url = hostProd + '/api/v1/login';
       var encodedData = 'login=' + credentials.username + '&password=' + credentials.password;
 
       return $http
@@ -40,7 +31,10 @@
     }
 
     function logout () {
+
       Session.destroy();
+
+      $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
     }
 
     function isAuthenticated () {
@@ -54,42 +48,42 @@
 
       return (service.isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1);
     }
+
+    var service = {
+      login: login,
+      logout: logout,
+      isAuthenticated: isAuthenticated,
+      isAuthorized: isAuthorized
+    };
+
+    $log.debug('AuthService', service);
+    return service;
   }
 
   /** @ngInject */
-  function Session($cookies, $log) {
+  function Session($localStorage, $log) {
 
     var service = {};
 
-    var currentUser = $cookies.getObject('currentUser') || {};
+    // $localStorage.currentUser = $localStorage.currentUser || null;
 
     service.create = function(data) {
 
-      currentUser.id = data.id;
-      currentUser.email = data.email;
-      currentUser.login = data.login;
-      currentUser.permissions = data.permissions;
-      currentUser.person = data.person;
-      currentUser.private_token = data.private_token;
-      currentUser.activated = data.activated;
+      $localStorage.currentUser = data;
+      $log.debug('User session created.', $localStorage.currentUser);
 
-      $cookies.putObject('currentUser', currentUser);
-
-      $log.debug('User session created.', currentUser);
-      return currentUser;
+      return $localStorage.currentUser;
     };
 
     service.destroy = function() {
 
-      currentUser = {};
-
-      $cookies.remove('currentUser');
+      delete $localStorage.currentUser;
 
       $log.debug('User session destroyed.');
     };
 
     service.getCurrentUser = function () {
-      return currentUser;
+      return $localStorage.currentUser;
     };
 
     return service;

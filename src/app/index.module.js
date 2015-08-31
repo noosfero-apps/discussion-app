@@ -2,6 +2,6 @@
   'use strict';
 
   angular
-    .module('dialoga', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router', 'socialLinks', 'slugifier', 'ncy-angular-breadcrumb']);
+    .module('dialoga', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ui.router', 'ngStorage', 'socialLinks', 'slugifier', 'ncy-angular-breadcrumb']);
 
 })();

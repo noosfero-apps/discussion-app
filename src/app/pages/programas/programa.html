@@ -1,14 +1,6 @@
 <div class="page--conheca-o-programa">
   <section>
     <div class="container">
-      <div ng-if="pageProgramaContent.article && pageProgramaContent.article.title">
-        <div ncy-breadcrumb></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
       <div ng-if="!pageProgramaContent.article.body">
         <div ng-if="!pageProgramaContent.error" class="alert alert-info" role="alert">Carregando detalhes sobre o progama...</div>
         <div ng-if="pageProgramaContent.error" class="alert alert-warning" role="alert">{{pageProgramaContent}}</div>

@@ -33,7 +33,7 @@
         vm.category = vm.article.categories[0];
       }
 
-      if(!vm.banner){
+      if(!vm.banner && vm.article.image){
         vm.banner = {
           src: $rootScope.basePath + vm.article.image.url,
           alt: 'Imagem de destaque do conteúdo'

@@ -13,7 +13,7 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runAuth($rootScope, $cookies, USER_ROLES, AUTH_EVENTS, AuthService, $log) {
+  function runAuth($rootScope, $localStorage, USER_ROLES, AUTH_EVENTS, AuthService, $log) {
 
     // Listner url/state changes, and check permission
     $rootScope.$on('$stateChangeStart', function(event, next) {
@@ -37,6 +37,8 @@
         }
       }
     });
+
+    $rootScope.currentUser = $localStorage.currentUser;
 
     $log.debug('[RUN] Auth end.');
   }

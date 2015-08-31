@@ -1,3 +1,14 @@
-<div class="container page--programas">
-  <h1>TODO: Home > Programas</h1>
+<div class="page--programas">
+  <section class="section-gray section-space-up">
+    <div class="container">
+      <div id="lista-de-programas" class="row">
+        <div class="col-sm-4 col-md-3">
+          <category-list ng-if="pageProgramas.categories"></category-list>
+        </div>
+        <div class="col-sm-8 col-md-9">
+          <article-grid></article-grid>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

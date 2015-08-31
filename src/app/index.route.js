@@ -56,7 +56,7 @@
           'main': {
             templateUrl: 'app/pages/programas/programas.html',
             controller: 'ProgramasPageController',
-            controllerAs: 'pagePrograma'
+            controllerAs: 'pageProgramas'
           },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }

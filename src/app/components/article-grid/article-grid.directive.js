@@ -32,13 +32,9 @@
     ArticleGridController.prototype.init = function() {
       var vm = this;
 
-      vm.ArticleService.getPrograms(function(programs){
-        vm.articles = programs;
-      });
-
-      vm.ArticleService.getCategories(function(categories){
-        vm.categories = categories;
-      });
+      vm.articles = null;
+      vm.filtredArticleList = null;
+      vm.categories = null;
 
       vm.orderCriteries = [
         { label: 'Título', name: 'titulo' },
@@ -46,7 +42,6 @@
         { label: 'Aleatório', name: 'aleatorio' }
       ];
 
-      vm.filtredArticleList = vm.getFiltredArticles();
       vm.search = vm.$location.search();
 
       // Add initial values for the filter
@@ -69,6 +64,16 @@
         var $el = vm.$element;
         angular.element('body').animate({scrollTop: $el.offset().top}, 'slow');
       }
+
+      vm.loadData(function(){
+        vm.filtredArticleList = vm.getFiltredArticles();
+      });
+
+      vm.attachListeners();
+    };
+
+    ArticleGridController.prototype.attachListeners = function() {
+      var vm = this;
 
       // update window location params
       vm.$scope.$on('change-selectedCategory', function(event, selectedCategory){
@@ -115,6 +120,30 @@
         vm.filtredArticleList = vm.getFiltredArticles();
       });
 
+    };
+    ArticleGridController.prototype.loadData = function(cb) {
+      var vm = this;
+
+      var articlesLoaded = false;
+      var categoriesLoaded = false;
+
+      vm.ArticleService.getPrograms(function(programs){
+        vm.articles = programs;
+        articlesLoaded = true;
+        endLoad();
+      });
+
+      vm.ArticleService.getCategories(function(categories){
+        vm.categories = categories;
+        categoriesLoaded = true;
+        endLoad();
+      });
+
+      function endLoad () {
+        if(articlesLoaded && categoriesLoaded){
+          cb();
+        }
+      }
     };
 
     ArticleGridController.prototype.resetFilterValues = function() {

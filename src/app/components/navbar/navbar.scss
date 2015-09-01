@@ -1,4 +1,12 @@
-.header-navbar {
+.app-navbar {
+
+    border-bottom: 2px solid #f1f1f1;
+    margin-bottom: 40px;
+
+    .navbar {
+        margin-bottom: 0;
+        border: none;
+    }
 
     .navbar-brand {
         height: auto;
@@ -14,19 +22,62 @@
         }
     }
 
-    .navbar-nav a {
-        padding-top: 30px;
-        padding-bottom: 30px;
-        text-transform: uppercase;
-        color: #03316f;
+    .navbar-nav .divider span {
+        padding: 0 0 10px 0;
+        margin: 53px 10px 0 10px;
+        display: block;
 
-        -webkit-transition: all 0.2s ease-in-out;
-        -moz-transition: all 0.2s ease-in-out;
-        -o-transition: all 0.2s ease-in-out;
-        transition: all 0.2s ease-in-out;
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
 
-        .contraste & {
-            color: #fff;
+    .navbar-nav > li {
+
+        & > a {
+            padding: 0 0 10px 0;
+            margin: 55px 10px 0 10px;
+            text-transform: uppercase;
+            color: #616161;
+            font-weight: bold;
+
+            &:hover,
+            &:focus {
+                background: none;
+            }
+
+            .contraste & {
+                color: #fff;
+            }
+        }
+
+        &.active > a {
+            border-bottom: 3px solid #77BB34;
+
+            @media screen and (max-width: 768px) {
+                border: none;
+                background-color: #eee;
+                padding: 10px 0 10px 0px;
+            }
+        }
+
+        .dropdown-menu {
+            min-width: 190px;
+
+            li {
+                float: left;
+                padding: 0;
+                margin: 0;
+                width: 45px;
+
+                & > a {
+                    padding: 0;
+                }
+
+                &:first-child {
+                    margin-left: 5px;
+                }
+            }
         }
     }
 
@@ -37,8 +88,11 @@
     .contraste & {
         .nav > li > a:hover,
         .nav > li > a:focus {
-            color: #000;
+            color: #fff;
         }
 
+        .active a {
+            border-bottom-color: #fff;
+        }
     }
 }

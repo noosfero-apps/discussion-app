@@ -1,25 +1,63 @@
-<nav id="navigation" class="header-navbar navbar navbar-static-top" role="navigation">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-      <span class="sr-only">Alternar menu de navegação</span>
-      <span class="icon-bar" aria-hidden="true"></span>
-      <span class="icon-bar" aria-hidden="true"></span>
-      <span class="icon-bar" aria-hidden="true"></span>
-    </button>
-    <a class="navbar-brand" ui-sref="inicio">
-      <img src="/assets/images/logo.png" alt="Dialoga Brasil | O país fica melhor quando você participa" />
-      <!-- <span class="glyphicon glyphicon-home"></span> Início -->
-    </a>
-  </div>
+<div class="app-navbar">
+  <nav id="navigation" class="header-navbar navbar navbar-static-top" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Alternar menu de navegação</span>
+        <span class="icon-bar" aria-hidden="true"></span>
+        <span class="icon-bar" aria-hidden="true"></span>
+        <span class="icon-bar" aria-hidden="true"></span>
+      </button>
+      <a class="navbar-brand" ui-sref="inicio">
+        <img src="/assets/images/logo.png" alt="Dialoga Brasil | O país fica melhor quando você participa" />
+        <!-- <span class="glyphicon glyphicon-home"></span> Início -->
+      </a>
+    </div>
 
-  <div id="navbar-collapse" class="collapse navbar-collapse">
-    <ul class="nav navbar-nav">
-      <li><a ui-sref="sobre">Sobre</a></li>
-      <li><a ui-sref="programas">Programas</a></li>
-      <li><a ui-sref="propostas">Propostas</a></li>
-      <!-- <li><a ui-sref="ranking">Ranking</a></li> -->
-      <li><a ui-sref="duvidas">Dúvidas</a></li>
-      <!-- <li><a ui-sref="respostas">Respostas</a></li> -->
-    </ul>
-  </div>
-</nav>
+    <div id="navbar-collapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li ui-sref-active="active"><a ui-sref="sobre">Sobre</a></li>
+        <li ui-sref-active="active"><a ui-sref="programas">Programas</a></li>
+        <li ui-sref-active="active"><a ui-sref="propostas">Propostas</a></li>
+        <li ui-sref-active="active"><a ui-sref="ranking">Ranking</a></li>
+        <li ui-sref-active="active"><a ui-sref="duvidas">Dúvidas</a></li>
+        <!-- <li ui-sref-active="active"><a ui-sref="respostas">Respostas</a></li> -->
+        <li role="separator" class="divider"><span>|</span></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compartilhar <span class="icon-circle"><span class="glyphicon glyphicon-share-alt"></span></span></a>
+          <ul class="dropdown-menu">
+            <li>
+              <a social-facebook custom-url="http://dialoga.gov.br" title="Compartilhar no Facebook">
+                <span class="icon icon-social-facebook"></span>
+                <span class="sr-only">Compartilhar no Facebook</span>
+              </a>
+            </li>
+            <li>
+              <a social-twitter custom-url="http://dialoga.gov.br" status="This status is #{{ vm.status }}" title="Compartilhar no Twitter">
+                <span class="icon icon-social-twitter"></span>
+                <span class="sr-only">Compartilhar no Twitter</span>
+              </a>
+            </li>
+            <li>
+              <a social-gplus custom-url="http://dialoga.gov.br" title="Compartilhar no Google Plus">
+                <span class="icon icon-social-google-plus"></span>
+                <span class="sr-only">Compartilhar no Google Plus</span>
+              </a>
+            </li>
+            <!-- <li>
+              <a href="whatsapp://send?text=http%3A%2F%2Fdialoga.gov.br" target="_blank" title="Compartilhar no WhatsApp">
+                <span class="icon icon-social-whatsapp"></span>
+                <span class="sr-only">Compartilhar no WhatsApp</span>
+              </a>
+            </li> -->
+            <li>
+              <a href="mailto:contato@dialoga.gov.br?subject=Conheça o Dialoga Brasil" title="Enviar por email">
+                <span class="icon icon-social-whatsapp"></span>
+                <span class="sr-only">Enviar por email</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

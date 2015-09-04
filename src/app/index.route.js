@@ -35,6 +35,32 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
+      .state('recuperar', {
+        url: '/recuperar',
+        ncyBreadcrumb: {label: 'Recuperar'},
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': {
+            templateUrl: 'app/pages/auth/recover.html',
+            controller: 'AuthPageController',
+            controllerAs: 'pageSignin'
+          },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
+      .state('alterar', {
+        url: '/alterar',
+        ncyBreadcrumb: {label: 'Alterar'},
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': {
+            templateUrl: 'app/pages/auth/change.html',
+            controller: 'AuthPageController',
+            controllerAs: 'pageSignin'
+          },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
       .state('cadastrar', {
         url: '/cadastrar',
         ncyBreadcrumb: {label: 'Cadastrar'},

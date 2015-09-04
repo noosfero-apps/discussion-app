@@ -6,11 +6,11 @@
     .controller('ArticlePageController', ArticlePageController);
 
   /** @ngInject */
-  function ArticlePageController(ArticleService, $state, $sce, $log) {
+  function ArticlePageController(DialogaService, $state, $sce, $log) {
     $log.debug('ArticlePageController');
 
     var vm = this;
-    vm.ArticleService = ArticleService;
+    vm.DialogaService = DialogaService;
     vm.$state = $state;
     vm.$sce = $sce;
     vm.$log = $log;
@@ -26,10 +26,10 @@
     vm.loading = true;
     switch (vm.page){
       case 'sobre':
-        vm.ArticleService.getAbout(handleSuccess, handleError);
+        vm.DialogaService.getAbout(handleSuccess, handleError);
         break;
       case 'termos-de-uso':
-        vm.ArticleService.getTerms(handleSuccess, handleError);
+        vm.DialogaService.getTerms(handleSuccess, handleError);
         break;
       default:
         vm.$log.warn('Page not handled:', vm.page);

@@ -9,14 +9,11 @@
   function articleBox($rootScope) {
 
     /** @ngInject */
-    function ArticleBoxController(ArticleService, $scope, $state, Slug, $log) {
+    function ArticleBoxController($state, $log) {
       $log.debug('ArticleBoxController');
 
       var vm = this;
-      vm.ArticleService = ArticleService;
-      vm.$scope = $scope;
       vm.$state = $state;
-      vm.Slug = Slug;
       vm.$log = $log;
 
       vm.init();
@@ -26,7 +23,7 @@
       var vm = this;
 
       if(!vm.article.slug){
-        vm.article.slug = vm.Slug.slugify(vm.article.title);
+        throw { name: 'NotDefined', message: 'The attribute "slug" is undefined.'};
       }
 
       if(!vm.category){

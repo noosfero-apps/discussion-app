@@ -6,14 +6,13 @@
     .controller('ProgramaContentPageController', ProgramaContentPageController);
 
   /** @ngInject */
-  function ProgramaContentPageController(ArticleService, $state, $location, $scope, $rootScope, $log) {
+  function ProgramaContentPageController(DialogaService, $state, $scope, $rootScope, $log) {
     $log.debug('ProgramaContentPageController');
 
     var vm = this;
 
-    vm.ArticleService = ArticleService;
+    vm.DialogaService = DialogaService;
     vm.$state = $state;
-    vm.$location = $location;
     vm.$scope = $scope;
     vm.$rootScope = $rootScope;
     vm.$log = $log;
@@ -39,12 +38,15 @@
   ProgramaContentPageController.prototype.loadData = function() {
     var vm = this;
 
-    vm.ArticleService.getArticleBySlug(vm.slug, function(article) {
+    // Get initial data of Program
+    vm.DialogaService.getProgramBySlug(vm.slug, function(article) {
       vm.article = article;
       vm.category = vm.article.categories[0];
 
+      // update the breadcrumb
       vm.$rootScope.contentTitle = vm.article.title;
 
+      // set the banner image with full image path
       if (!vm.banner) {
         vm.banner = {
           src: vm.$rootScope.basePath + vm.article.image.url,
@@ -52,6 +54,7 @@
         };
       }
 
+      // Get full data content of Program
       vm.loadContent();
 
     }, function(error) {
@@ -69,12 +72,13 @@
     });
   };
 
+  // Get full data content of Program
   ProgramaContentPageController.prototype.loadContent = function() {
     var vm = this;
 
     vm.loading = true;
     if (!vm.article.body) {
-      vm.ArticleService.getContentById(vm.article.id, function(data) {
+      vm.DialogaService.getContentById(vm.article.id, function(data) {
         vm.article.body = data.article.body;
         vm.loading = false;
       }, function(error) {

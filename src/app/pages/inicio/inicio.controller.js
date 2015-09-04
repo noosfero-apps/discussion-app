@@ -7,11 +7,11 @@
     .controller('InicioPageController', InicioPageController);
 
   /** @ngInject */
-  function InicioPageController(ArticleService, $rootScope, $sce, $log) {
+  function InicioPageController(DialogaService, $sce, $log) {
     var vm = this;
 
     // aliases
-    vm.ArticleService = ArticleService;
+    vm.DialogaService = DialogaService;
     vm.$sce = $sce;
     vm.$log = $log;
 
@@ -24,20 +24,21 @@
 
     vm.error = null;
     vm.loading = true;
-    vm.loadHomeArticle();
+
+    vm.loadData();
   };
 
-  InicioPageController.prototype.loadHomeArticle = function() {
+  InicioPageController.prototype.loadData = function() {
     var vm = this;
 
-    vm.content = vm.ArticleService.getHomeAbstract();
+    vm.content = vm.DialogaService.getHomeAbstract();
     vm.isCached = !!vm.content;
 
     if (vm.isCached) {
       hideBackground(2000);
     }
 
-    vm.ArticleService.getHome(function(data) {
+    vm.DialogaService.getHome(function(data) {
       vm.loading = false;
       vm.article = data.article;
     }, function(error) {
@@ -52,12 +53,12 @@
     // we need handle home content
     if (vm.isCached) {
       hideBackground(0); // force to hide
-      vm.$log.warn('The content already cached. Aborting.');
+      vm.$log.debug('The content already cached. Show-it!');
       return;
     }
 
     vm.content = vm.handleHomeAbstract(vm.article.abstract);
-    vm.ArticleService.setHomeAbstract(vm.content);
+    vm.DialogaService.setHomeAbstract(vm.content);
 
     // inject dependencies
     injectIframeApiJs();
@@ -65,6 +66,7 @@
     window.onYouTubePlayerReady = window.onYouTubePlayerReady || onYouTubePlayerReady;
   };
 
+  // TODO: move this to DialogaService
   InicioPageController.prototype.handleHomeAbstract = function(abstract) {
     var vm = this;
 

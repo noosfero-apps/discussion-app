@@ -1,0 +1,18 @@
+<div id="message" class="show-message">
+	<div class="row">
+		<div class="col-sm-1 col-sm-offset-2">
+			<div ng-class="{ 'success': vm.type, 'error': !vm.type }" class="message-border">
+				<span class="glyphicon glyphicon-ok icon-white" aria-hidden="true"></span>
+			</div>
+		</div>
+		<div class="col-sm-4"><h3>{{ vm.title }}</h3></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-3">
+		<h5>{{ vm.message }}</h5>
+        </div>
+    </div>
+</div>
+
+<!-- add the class 'text-success' if the variable 'awesome' is true -->
+<!-- <div ng-class="{ 'text-success': awesome, 'text-large': giant }"> -->

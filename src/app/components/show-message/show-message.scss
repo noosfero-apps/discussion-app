@@ -1,0 +1,17 @@
+.show-message {
+
+    .message-border {
+      border-radius: 40px;
+      padding: 30px 7px;
+      width: 80px;
+      height: 80px;
+      display: inline-block;
+      background-color: #496AA0;
+    }
+    .success {
+      background-color: #8AB34D;
+    }
+    .error {
+      background-color: #C93E55;
+    }
+}

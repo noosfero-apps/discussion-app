@@ -6,6 +6,7 @@
     "angular-animate": "~1.4.0",
     "angular-breadcrumb": "~0.4.1",
     "angular-cookies": "~1.4.0",
+    "angular-messages": "ng-messages#*",
     "angular-sanitize": "~1.4.0",
     "angular-slugify": "~1.0.1",
     "angular-social-links": "~0.0.19",
@@ -22,6 +23,7 @@
     "angular-mocks": "~1.4.0"
   },
   "resolutions": {
-    "angular": "~1.4.0"
+    "angular": "~1.4.0",
+    "angular-messages": "~1.4.5"
   }
 }

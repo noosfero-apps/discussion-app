@@ -61,3 +61,27 @@
 .error-message {
     color: #ff4431
 }
+
+.modal-termos-uso {
+    height: 500px;
+}
+
+.modal-termos-uso-body {
+    padding: 30px;
+    
+    .modal-termos-uso-inner {
+        padding: 30px;
+        background-color: lightgray;
+    }
+    
+    .modal-termos-uso-header{
+        border-bottom: none;  
+        padding: 0px;
+        min-height: 10px;
+        }
+}
+
+.modal-header {
+    border-bottom: none;
+    padding: 0px;
+}

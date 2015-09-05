@@ -23,7 +23,7 @@
     function SocialShareController($log) {
       $log.debug('SocialShareController');
 
-      var vm = this;
+      // var vm = this;
     }
   }
 

@@ -7,11 +7,12 @@
     .controller('InicioPageController', InicioPageController);
 
   /** @ngInject */
-  function InicioPageController(DialogaService, $sce, $log) {
+  function InicioPageController(DialogaService, $scope, $sce, $log) {
     var vm = this;
 
     // aliases
     vm.DialogaService = DialogaService;
+    vm.$scope = $scope;
     vm.$sce = $sce;
     vm.$log = $log;
 
@@ -22,58 +23,95 @@
   InicioPageController.prototype.init = function() {
     var vm = this;
 
+    vm.article = null;
+    vm.themes = null;
+    vm.selectedTheme = null;
+    vm.programs = null;
+    vm.filtredPrograms = null;
+    vm.query = null;
+
     vm.error = null;
-    vm.loading = true;
 
     vm.loadData();
+    vm.attachListeners();
   };
 
   InicioPageController.prototype.loadData = function() {
     var vm = this;
 
-    vm.content = vm.DialogaService.getHomeAbstract();
-    vm.isCached = !!vm.content;
+    vm.loading = true;
+    vm.loadingEvents = true;
+    vm.loadingThemes = true;
+    vm.loadingPrograms = true;
 
-    if (vm.isCached) {
-      hideBackground(2000);
+    // Load main content
+    vm.DialogaService.getHome(function(data) {
+      vm.article = data.article;
+
+      if (vm.article.videoIsLoaded) {
+        hideBackground(2000);
+      }
+
+      loadAfterHome();
+      
+      vm.loading = false;
+    }, function(error) {
+      vm.$log.error('Error on getHome.', error);
+    });
+
+    function loadAfterHome () {
+      // Load event list
+      // vm.DialogaService.getEvents(function(data) {
+      //   vm.events = data;
+      //   vm.loadingEvents = false;
+      // }, function(error) {
+      //   vm.$log.error('Error on getEvents.', error);
+      // });
+
+      // Load theme list
+      vm.DialogaService.getThemes(function(data) {
+        vm.themes = data;
+        vm.loadingThemes = false;
+      }, function(error) {
+        vm.$log.error('Error on getThemes.', error);
+      });
+
+      // Load program list
+      vm.DialogaService.getProgramsRandom(function(data) {
+        vm.programs = vm.article.children;
+        vm.filtredPrograms = data;
+        vm.loadingPrograms = false;
+      }, function(error) {
+        vm.$log.error('Error on getPrograms.', error);
+      });
     }
 
-    vm.DialogaService.getHome(function(data) {
-      vm.loading = false;
-      vm.article = data.article;
-    }, function(error) {
-      vm.$log.error('Error on getHome article.', error);
-      vm.error = 'Erro ao carregar o conteúdo principal.';
-    });
   };
 
   InicioPageController.prototype.showVideo = function() {
     var vm = this;
 
     // we need handle home content
-    if (vm.isCached) {
+    if (vm.article.videoIsLoaded) {
       hideBackground(0); // force to hide
       vm.$log.debug('The content already cached. Show-it!');
       return;
     }
 
-    vm.content = vm.handleHomeAbstract(vm.article.abstract);
-    vm.DialogaService.setHomeAbstract(vm.content);
-
     // inject dependencies
     injectIframeApiJs();
     window.onYouTubeIframeAPIReady = window.onYouTubeIframeAPIReady || onYouTubeIframeAPIReady;
     window.onYouTubePlayerReady = window.onYouTubePlayerReady || onYouTubePlayerReady;
+
+    vm.article.videoIsLoaded = true;
   };
 
-  // TODO: move this to DialogaService
-  InicioPageController.prototype.handleHomeAbstract = function(abstract) {
+  InicioPageController.prototype.attachListeners = function() {
     var vm = this;
 
-    abstract = forceIframeParams(abstract);
-    abstract = removeStylefromIframe(abstract);
-
-    return vm.$sce.trustAsHtml(abstract);
+    vm.$scope.$on('change-selectedCategory', function (selectedCategory) {
+      vm.selectedTheme = selectedCategory;
+    });
   };
 
   function injectIframeApiJs() {
@@ -103,52 +141,5 @@
     var $elBg = angular.element.find('.video-background');
     angular.element($elBg).fadeOut(ms || 100);
     // angular.element($elBg).hide();
-  }
-
-  function forceIframeParams(abstract) {
-    var patternIframe = '<iframe src="';
-    var indexOfIframe = abstract.indexOf(patternIframe);
-
-    if (indexOfIframe === -1) {
-      return abstract;
-    }
-
-    var startSrcUrl = indexOfIframe + patternIframe.length;
-    var endSrcUrl = abstract.indexOf('"', startSrcUrl);
-    var srcUrl = abstract.substring(startSrcUrl , endSrcUrl);
-    var resultUrl = srcUrl;
-    var c = (srcUrl.indexOf('?') !== -1) ? '&' : ''; // already have url params. So, append-it
-
-    // enable js api
-    if (srcUrl.indexOf('enablejsapi=1') === -1) {
-      resultUrl += c + 'enablejsapi=1';
-      c = '&'; // force to always use '&' after here
-    }
-
-    // set opaque mode
-    if (srcUrl.indexOf('wmode=opaque') === -1) {
-      resultUrl += c + 'wmode=opaque';
-      // c = '&'; // force to always use '&' after here
-    }
-
-    abstract = abstract.replace(srcUrl, resultUrl);
-
-    return abstract;
-  }
-
-  function removeStylefromIframe (abstract) {
-    var patternIframe = 'style="';
-    var indexOfIframe = abstract.indexOf('<iframe');
-    var indexOfStyleOnIframe = abstract.indexOf('style="', indexOfIframe);
-
-    if (indexOfStyleOnIframe === -1) {
-      return abstract;
-    }
-
-    var startStyleContent = indexOfStyleOnIframe + patternIframe.length;
-    var endStyleContent = abstract.indexOf('"', startStyleContent);
-    var style = abstract.substring(startStyleContent , endStyleContent);
-
-    return abstract.replace(style, '');
   }
 })();

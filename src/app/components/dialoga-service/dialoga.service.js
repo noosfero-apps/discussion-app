@@ -6,146 +6,219 @@
     .factory('DialogaService', DialogaService);
 
   /** @ngInject */
-  function DialogaService($rootScope, API, ArticleService, UtilService, Slug, $log) {
+  function DialogaService($rootScope, $sce, API, ArticleService, UtilService, Slug, $log) {
     $log.debug('DialogaService');
 
     var service = {
-      getInicio: getInicio,
-      getSobre: getSobre,
-      getTemas: getTemas,
-      getProgramas: getProgramas,
-      getPropostas: getPropostas,
-      getDuvidas: getDuvidas,
-      buscaPrograma: buscaPrograma,
-      buscaProposta: buscaProposta,
+      getHome: getHome,
+      getAbout: getAbout,
+      getThemes: getThemes,
+      getPrograms: getPrograms,
+      getProgramBySlug: getProgramBySlug,
+      getProgramsRandom: getProgramsRandom,
+      getProposals: getProposals,
+      getEvents: getEvents,
+      getQuestions: getQuestions,
+      searchProgram: searchProgram,
+      searchProposal: searchProposal,
     };
 
     var CACHE = {};
 
     return service;
 
-    function getInicio (cbSuccess, cbError) {
-      if(CACHE.hasOwnProperty('inicio')){
-        cbSuccess(CACHE.inicio);
+    function getHome (cbSuccess, cbError) {
+      if( !!CACHE.home ){
+        cbSuccess(CACHE.home);
       }else{
         // load main content
         ArticleService.getArticleById(API.articleId.home, {
-          fields: 'id,abstract,body,categories,children,children_count,title'
-        }, function (article){
-          CACHE.inicio = article;
+        'fields[]': ['id','abstract','body','categories','children','children_count','title','image','url']
+        }, function (data){
+          CACHE.home = data;
 
-          _pipeSetSobre(article);
-          _pipeSetTemas(article);
-          _pipeSetProgramas(article);
+          _pipeHandleYoutube(data);
+          _pipeHandleSlug(data);
+          _pipeSetAbout(data);
+          _pipeSetThemes(data);
+          _pipeSetPrograms(data);
 
-          cbSuccess(article);
+          cbSuccess(data);
         }, cbError);
       }
     }
 
-    function getSobre (cbSuccess, cbError) {
-      if(CACHE.hasOwnProperty('sobre')){
-        cbSuccess(CACHE.sobre);
+    function getAbout (cbSuccess, cbError) {
+      if( !!CACHE.about ){
+        cbSuccess(CACHE.about);
       }else{
         // load article content
         ArticleService.getArticleById(API.articleId.about, {}, function (article){
-          CACHE.sobre = article;
+          CACHE.about = article;
 
-          cbSuccess(CACHE.sobre);
+          cbSuccess(CACHE.about);
         }, cbError);
       }
     }
 
-    function getTemas (cbSuccess, cbError) {
-      if(CACHE.hasOwnProperty('temas')){
-        cbSuccess(CACHE.temas);
+    function getThemes (cbSuccess, cbError) {
+      if( !!CACHE.themes ){
+        cbSuccess(CACHE.themes);
       }else{
         // load main content
-        getInicio(function(){
-          if(!CACHE.hasOwnProperty('temas')){
-            throw { name: 'NotFound', message: '"temas" is not defined. "article.categories" was handled?'};
+        getHome(function(){
+          if(!CACHE.hasOwnProperty('themes')){
+            throw { name: 'NotFound', message: '"themes" is not defined. "article.categories" was loaded?'};
           }
-          cbSuccess(CACHE.temas);
+          cbSuccess(CACHE.themes);
         },cbError);
       }
     }
 
-    function getProgramas (cbSuccess, cbError) {
-      if(CACHE.hasOwnProperty('programas')){
-        cbSuccess(CACHE.programas);
+    function getPrograms (cbSuccess, cbError) {
+      if( !!CACHE.programs ){
+        cbSuccess(CACHE.programs);
       }else{
         // load main content
-        getInicio(function(){
-          if(!CACHE.hasOwnProperty('programas')){
-            throw { name: 'NotFound', message: '"programas" is not defined. "article.children" was handled?'};
+        getHome(function(){
+          if(!CACHE.hasOwnProperty('programs')){
+            throw { name: 'NotFound', message: '"programs" is not defined. "article.children" was handled?'};
           }
-          cbSuccess(CACHE.programas);
+          cbSuccess(CACHE.programs);
         },cbError);
       }
     }
 
-    function getProgramasAleatorios (cbSuccess, cbError) {
-      // load article content
-      UtilService.get(API.random_topics, {params: {
-        'fields[]': [
-          'id', 'title', 'slug', 'abstract', 'body', 'categories', 'setting',
-          'ranking_position', 'position', 'children_count', 'hits', 'votes_for',
-          'votes_against', 'tag_list']
-      }}).then(function(data){
-        cbSuccess(data);
-      }).catch(function(error){
-        cbError(error);
-      });
+    function getProgramBySlug (slug, cbSuccess, cbError) {
+      
+      if( !CACHE.programs ){
+        getPrograms(_getProgramBySlug, cbError);
+      } else {
+       _getProgramBySlug(); 
+      }
+
+      function _getProgramBySlug(){
+        var result = CACHE.programs.filter(function filterProgramBySlug (program) {
+          if(angular.equals(program.slug, slug)) {
+            return true;
+          }
+          return false;
+        });
+
+        cbSuccess(result[0]);
+      }
     }
 
-    function getPropostas (cbSuccess, cbError) {
-      if(CACHE.hasOwnProperty('propostas')){
-        cbSuccess(CACHE.propostas);
+    function getProgramsRandom (cbSuccess, cbError) {
+      getPrograms(cbSuccess, cbError);
+      // TODO: get endpoint for production
+      // if( !!CACHE.programsRandom ){
+      //   cbSuccess(CACHE.programsRandom);
+      // }else{
+      //   // load article content
+      //   // UtilService.get(API.random_topics, {params: {
+      //   ArticleService.getArticleById(API.articleId.home, {params: {
+      //     'fields[]': [
+      //       'id', 'title', 'slug', 'abstract', 'children_count'],
+      //     'content_type': 'ProposalsDiscussionPlugin::Topic'
+      //   }}).then(function(data){
+      //     CACHE.programsRandom = data;
+
+      //     cbSuccess(data);
+      //   }).catch(function(error){
+      //     cbError(error);
+      //   });
+      // }
+    }
+
+    function getProposals (cbSuccess, cbError) {
+      if( !!CACHE.proposals ){
+        cbSuccess(CACHE.proposals);
       }else{
         // load main content
-        getInicio(function(){
-          if(!CACHE.hasOwnProperty('propostas')){
-            throw { name: 'NotFound', message: '"propostas" is not defined. "article.categories" was handled?'};
+        getHome(function(){
+          if(!CACHE.hasOwnProperty('proposals')){
+            throw { name: 'NotFound', message: '"proposals" is not defined. "article.categories" was loaded?'};
           }
-          cbSuccess(CACHE.propostas);
+          cbSuccess(CACHE.proposals);
         },cbError);
       }
     }
 
-    function getDuvidas (cbSuccess, cbError) {
-      if(CACHE.hasOwnProperty('duvidas')){
-        cbSuccess(CACHE.duvidas);
+    function getEvents (cbSuccess, cbError) {
+      if( !!CACHE.events ){
+        cbSuccess(CACHE.events);
+      }else{
+        // load main content
+        getHome(function(){
+          if(!CACHE.hasOwnProperty('events')){
+            throw { name: 'NotFound', message: '"events" is not defined. "article.categories" was loaded?'};
+          }
+          cbSuccess(CACHE.events);
+        },cbError);
+      }
+    }
+
+    function getQuestions (cbSuccess/*, cbError*/) {
+      if( !!CACHE.questions ){
+        cbSuccess(CACHE.questions);
       }else{
         // load content
-        var duvidas = [];
+        var questions = [];
 
-        CACHE.duvidas = duvidas;
-        cbSuccess(CACHE.duvidas);
+        CACHE.questions = questions;
+        cbSuccess(CACHE.questions);
       }
     }
 
-    function buscaPrograma (cbSuccess, cbError) {}
+    function searchProgram (cbSuccess, cbError) {}
 
-    function buscaProposta (cbSuccess, cbError) {}
+    function searchProposal (cbSuccess, cbError) {}
 
-    function _pipeSetSobre (article) {
-      if(!CACHE.hasOwnProperty('sobre')){
-        CACHE.sobre = article.body;
+    function _pipeHandleYoutube (data) {
+      var abstract = data.article.abstract;
+
+      abstract = forceIframeParams(abstract);
+      abstract = removeStylefromIframe(abstract);
+
+      data.article.abstract = abstract;
+
+      data.article.abstractTrusted = $sce.trustAsHtml(abstract);
+    }
+
+    function _pipeHandleSlug (data) {
+      // set slug to article
+      if(!data.article.slug){
+        data.article.slug = Slug.slugify(data.article.title);
+      }
+
+      // set slug to programs
+      for (var i = data.article.children.length - 1; i >= 0; i--) {
+        var program = data.article.children[i];
+        if(!program.slug){
+          program.slug = Slug.slugify(program.title);
+        }
       }
     }
 
-    function _pipeSetTemas (article) {
-      if(!CACHE.hasOwnProperty('temas')){
-        CACHE.temas = article.categories;
+    function _pipeSetAbout (data) {
+      if(!CACHE.hasOwnProperty('about')){
+        CACHE.about = data.article.body;
       }
-
-      _pipeCalcColors(article);
     }
 
-    function _pipeSetProgramas (article) {
-      if(!CACHE.hasOwnProperty('programas')){
-        CACHE.programas = article.children;
-        CACHE.programas_count = article.children_count;
+    function _pipeSetThemes (data) {
+      if(!CACHE.hasOwnProperty('themes')){
+        CACHE.themes = data.article.categories;
+      }
+
+      _pipeCalcColors(data);
+    }
+
+    function _pipeSetPrograms (data) {
+      if(!CACHE.hasOwnProperty('programs')){
+        CACHE.programs = data.article.children;
+        CACHE.programs_count = data.article.children_count;
       }
     }
 
@@ -165,6 +238,53 @@
         //   }
         // };
       }
+    }
+
+    function forceIframeParams(abstract) {
+      var patternIframe = '<iframe src="';
+      var indexOfIframe = abstract.indexOf(patternIframe);
+
+      if (indexOfIframe === -1) {
+        return abstract;
+      }
+
+      var startSrcUrl = indexOfIframe + patternIframe.length;
+      var endSrcUrl = abstract.indexOf('"', startSrcUrl);
+      var srcUrl = abstract.substring(startSrcUrl , endSrcUrl);
+      var resultUrl = srcUrl;
+      var c = (srcUrl.indexOf('?') !== -1) ? '&' : ''; // already have url params. So, append-it
+
+      // enable js api
+      if (srcUrl.indexOf('enablejsapi=1') === -1) {
+        resultUrl += c + 'enablejsapi=1';
+        c = '&'; // force to always use '&' after here
+      }
+
+      // set opaque mode
+      if (srcUrl.indexOf('wmode=opaque') === -1) {
+        resultUrl += c + 'wmode=opaque';
+        // c = '&'; // force to always use '&' after here
+      }
+
+      abstract = abstract.replace(srcUrl, resultUrl);
+
+      return abstract;
+    }
+
+    function removeStylefromIframe (abstract) {
+      var patternIframe = 'style="';
+      var indexOfIframe = abstract.indexOf('<iframe');
+      var indexOfStyleOnIframe = abstract.indexOf('style="', indexOfIframe);
+
+      if (indexOfStyleOnIframe === -1) {
+        return abstract;
+      }
+
+      var startStyleContent = indexOfStyleOnIframe + patternIframe.length;
+      var endStyleContent = abstract.indexOf('"', startStyleContent);
+      var style = abstract.substring(startStyleContent , endStyleContent);
+
+      return abstract.replace(style, '');
     }
   }
 })();

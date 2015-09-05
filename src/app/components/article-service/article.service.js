@@ -90,7 +90,7 @@
       });
     }
 
-    function searchTopics (param, cbSuccess, cbError) {
+    function searchTopics (params, cbSuccess, cbError) {
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Topic&query=cisternas
       var url = '/api/v1/search/article';
       var paramsExtended = angular.extend({
@@ -98,14 +98,14 @@
         'type': 'ProposalsDiscussionPlugin::Topic'
       }, params);
 
-      UtilService.get(url, {params: paramsExtended).then(function(data){
+      UtilService.get(url, {params: paramsExtended}).then(function(data){
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);
       });
     }
 
-    function searchProposals (param, cbSuccess, cbError) {
+    function searchProposals (params, cbSuccess, cbError) {
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
       var url = '/api/v1/search/article';
       var paramsExtended = angular.extend({
@@ -113,7 +113,7 @@
         'type': 'ProposalsDiscussionPlugin::Proposal'
       }, params);
 
-      UtilService.get(url, {params: paramsExtended).then(function(data){
+      UtilService.get(url, {params: paramsExtended}).then(function(data){
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);

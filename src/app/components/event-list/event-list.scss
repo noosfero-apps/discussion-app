@@ -17,8 +17,8 @@
         transition: .3s linear all;
 
         &.ng-hide {
-            height: 0px;
-            line-height: 0px;
+            height: 0;
+            line-height: 0;
         }
 
         // .event-list--header {
@@ -72,6 +72,7 @@
 
     .event-bar--trigger {
         color: #fff;
+        cursor: pointer;
 
         h1 {
             margin-bottom: 20px;

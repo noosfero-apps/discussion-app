@@ -23,7 +23,7 @@
 
   <section class="section-event">
     <div ng-if="pageInicio.events">
-      <event-list events="[]"></event-list>
+      <event-list events="pageInicio.events"></event-list>
     </div>
     <div ng-if="!pageInicio.events && pageInicio.loadingEvents" class="container">
       <div class="row">

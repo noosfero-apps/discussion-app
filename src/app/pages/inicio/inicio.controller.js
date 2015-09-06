@@ -60,8 +60,8 @@
     });
 
     // Load event list
-    vm.DialogaService.getEvents({}, function(data) {
-      vm.events = data;
+    vm.DialogaService.getEvents({}, function(events) {
+      vm.events = events;
       vm.loadingEvents = false;
     }, function(error) {
       vm.$log.error('Error on getEvents.', error);

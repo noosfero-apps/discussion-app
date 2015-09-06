@@ -138,7 +138,7 @@
       }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
-        cbSuccess(data);
+        cbSuccess(data.articles);
       }).catch(function(error){
         cbError(error);
       });

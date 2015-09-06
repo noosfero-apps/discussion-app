@@ -1,8 +1,4 @@
-.proposal-ranking {
-    // both: carousel and list
-}
-
-.proposal-ranking--carousel {
+.proposal-carousel {
     background-color: #f1f1f1;
     border-radius: 5px;
     overflow: hidden;
@@ -13,7 +9,6 @@
         font-weight: bold;
         font-size: 25px;
         padding: 20px 15px;
-
 
         &-triggers {
             position: absolute;
@@ -40,7 +35,8 @@
     &-middle {
         position: relative;
         padding: 25px 30px;
-        cursor: pointer;
+        min-height: 200px;
+        // cursor: pointer;
         -webkit-user-select: none;
         -khtml-user-select: none;
         -moz-user-select: none;

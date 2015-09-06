@@ -3,14 +3,14 @@
 
   angular
     .module('dialoga')
-    .directive('programaList', programaList);
+    .directive('topicList', topicList);
 
   /** @ngInject */
-  function programaList() {
+  function topicList() {
 
     /** @ngInject */
-    function ProgramaListController($scope, $element, $location, $filter, $log) {
-      $log.debug('ProgramaListController');
+    function TopicListController($scope, $element, $location, $filter, $log) {
+      $log.debug('TopicListController');
 
       // alias
       var vm = this;
@@ -27,7 +27,7 @@
       vm.init();
     }
 
-    ProgramaListController.prototype.init = function() {
+    TopicListController.prototype.init = function() {
       var vm = this;
 
       if (!vm.article) {
@@ -99,7 +99,7 @@
 
     };
 
-    ProgramaListController.prototype.resetFilterValues = function() {
+    TopicListController.prototype.resetFilterValues = function() {
       var vm = this;
 
       vm.query = null;
@@ -108,14 +108,14 @@
       vm.orderCriteria = null;
     };
 
-    ProgramaListController.prototype.getIconClasses = function(category) {
+    TopicListController.prototype.getIconClasses = function(category) {
       var vm = this;
 
       vm.$log.debug('[TODO] getIconClasses of category:', category);
       return 'glyphicon glyphicon-exclamation-sign';
     };
 
-    ProgramaListController.prototype.getCategoryBySlug = function(categorySlug) {
+    TopicListController.prototype.getCategoryBySlug = function(categorySlug) {
       var vm = this;
       var result = null;
 
@@ -128,7 +128,7 @@
       return result;
     };
 
-    ProgramaListController.prototype.filterByCategory = function(category, $event) {
+    TopicListController.prototype.filterByCategory = function(category, $event) {
       var vm = this;
 
       $event.stopPropagation();
@@ -142,7 +142,7 @@
       }
     };
 
-    ProgramaListController.prototype.showAll = function($event) {
+    TopicListController.prototype.showAll = function($event) {
       var vm = this;
 
       $event.stopPropagation();
@@ -151,7 +151,7 @@
       vm.limitTo = vm.programs.length;
     };
 
-    ProgramaListController.prototype.getFiltredPrograms = function() {
+    TopicListController.prototype.getFiltredPrograms = function() {
       var vm = this;
 
       var input = vm.programs;
@@ -204,7 +204,7 @@
       return output;
     };
 
-    ProgramaListController.prototype.filterShuffle = function(input) {
+    TopicListController.prototype.filterShuffle = function(input) {
       var result = [];
       var resultByCategory = {};
 
@@ -266,7 +266,7 @@
       scope: {
         article: '='
       },
-      controller: ProgramaListController,
+      controller: TopicListController,
       controllerAs: 'vm',
       bindToController: true
     };

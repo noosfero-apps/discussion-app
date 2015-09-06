@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  describe('program directive', function() {
+  describe('topic directive', function() {
     var compile, scope, directiveElem;
 
     beforeEach(function(){
@@ -10,23 +10,23 @@
       inject(function($compile, $rootScope){
         compile = $compile;
         scope = $rootScope.$new();
-        // mock article
-        scope.article = {};
+        // mock topics
+        scope.topics = [];
       });
 
       directiveElem = getCompiledElement();
     });
 
     function getCompiledElement(){
-      var element = compile(angular.element('<programa-list></programa-list>'))(scope);
+      var element = compile(angular.element('<topic-list></topic-list>'))(scope);
       var compiledElement = compile(element)(scope);
       scope.$digest();
       return compiledElement;
     }
 
-    it('ensure exist only one id "lista-de-programas"', function() {});
+    // it('ensure exist only one id "topic-list"', function() {});
 
-    it('should show default programs, one each category', function() {});
+    // it('should show default topics, one each category', function() {});
 
   });
 })();

@@ -1,0 +1,33 @@
+<div class="proposal-carousel">
+  <div ng-if="vm.proposals">
+    <div class="proposal-carousel-top color-theme-bg">
+      <div class="proposal-carousel-position" ng-repeat="proposal in vm.proposals">
+        <span ng-show="vm.activeIndex === $index">{{::($index+1)}}º</span>
+        <span ng-show="vm.activeIndex === $index">Lugar</span>
+      </div>
+      <div class="proposal-carousel-top-triggers" ng-if="vm.proposals">
+        <ul class="list-inline">
+          <li class="item-dot" ng-repeat="proposal in vm.proposals">
+            <button type="button" ng-class="{'active': vm.activeIndex === $index}" ng-click="vm.switchProposal($index)" title="Apersentar proposta na posição {{$index}}"></button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="proposal-carousel-middle" ng-swipe-left="vm.swipeLeft()" ng-swipe-right="vm.swipeRight()">
+      <div ng-repeat="proposal in vm.proposals" class="animation-swipe">
+        <div class="content">
+          <div ng-show="vm.activeIndex === $index">{{::proposal.abstract}}</div>
+        </div>
+        <div class="proposal-carousel-middle-watermark" ng-show="vm.activeIndex === $index">
+          <span>{{::($index+1)}}º</span>
+        </div>
+      </div>
+    </div>
+    <div class="proposal-carousel-bottom color-theme-common-bg" ng-click="vm.showProposals()">
+      <div>Veja as propostas mais vortadas</div>
+      <div class="proposal-carousel-bottom-icon">
+        <span class="glyphicon glyphicon-chevron-down pull-right color-theme-common-fg"></span>
+      </div>
+    </div>
+  </div>
+</div>

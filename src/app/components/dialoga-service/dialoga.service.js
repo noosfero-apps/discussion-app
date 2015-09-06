@@ -17,6 +17,7 @@
       getProgramBySlug: getProgramBySlug,
       getProgramsRandom: getProgramsRandom,
       getProposals: getProposals,
+      getProposalsByTopicId: getProposalsByTopicId,
       getEvents: getEvents,
       getQuestions: getQuestions,
       searchProgram: searchProgram,
@@ -131,18 +132,20 @@
       // }
     }
 
-    function getProposals (cbSuccess, cbError) {
-      if( !!CACHE.proposals ){
+    function getProposals (param, cbSuccess, cbError) {
+      ArticleService.getProposals(param, function (data){
+        CACHE.proposals = data;
+
         cbSuccess(CACHE.proposals);
-      }else{
-        // load main content
-        getHome(function(){
-          if(!CACHE.hasOwnProperty('proposals')){
-            throw { name: 'NotFound', message: '"proposals" is not defined. "article.categories" was loaded?'};
-          }
-          cbSuccess(CACHE.proposals);
-        },cbError);
-      }
+      }, cbError);
+    }
+
+    function getProposalsByTopicId (topicId, params, cbSuccess, cbError) {
+      ArticleService.getProposalsByTopicId(topicId, params, function (data){
+        CACHE.proposals = data;
+
+        cbSuccess(CACHE.proposals);
+      }, cbError);
     }
 
     function getEvents (cbSuccess, cbError) {

@@ -18,28 +18,27 @@
     vm.$log = $log;
 
     vm.init();
+    vm.loadData();
+    vm.attachListeners();
   }
 
   ProgramaContentPageController.prototype.init = function() {
     var vm = this;
 
-    var params = vm.$state.params;
-
     vm.article = null;
     vm.category = null;
-    vm.loading = true;
-    vm.error = false;
-    vm.slug = params.slug;
 
-    vm.loadData();
-    vm.attachListeners();
+    vm.error = false;
   };
 
   ProgramaContentPageController.prototype.loadData = function() {
     var vm = this;
 
-    // Get initial data of Program
-    vm.DialogaService.getProgramBySlug(vm.slug, function(article) {
+    vm.loading = true;
+
+    // Get program by slug
+    var slug = vm.$state.params.slug;
+    vm.DialogaService.getProgramBySlug(slug, function(article) {
       vm.article = article;
       vm.category = vm.article.categories[0];
 
@@ -54,39 +53,35 @@
         };
       }
 
-      // Get full data content of Program
-      vm.loadContent();
-
+      vm.DialogaService.getProposalsByTopicId(vm.article.id, {}, function(data){
+        vm.proposals = data.children;
+        vm.proposalsTopRated = [
+          {abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique consectetur neque, at tincidunt enim volutpat sit amet. Integer sed cursus metus, non luctus risus. Mauris elementum est quis vehicula ullamcorper.'},
+          {abstract: 'Mauris elementum est quis vehicula ullamcorper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique consectetur neque, at tincidunt enim volutpat sit amet. Integer sed cursus metus, non luctus risus.'},
+          {abstract: 'Integer sed cursus metus, non luctus risus. Mauris elementum est quis vehicula ullamcorper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique consectetur neque, at tincidunt enim volutpat sit amet.'},
+        ];
+      }, function (error) {
+        vm.$log.error(error);
+      });
+      
+      vm.loading = false;
     }, function(error) {
       vm.$log.error(error);
-      vm.$log.info('Rollback to home page.');
-      vm.$state.go('inicio', {}, {location: true});
+      vm.error = error;
+      vm.loading = false;
+      
+      // vm.$log.info('Rollback to home page.');
+      // vm.$state.go('inicio', {}, {location: true});
     });
+
   };
 
   ProgramaContentPageController.prototype.attachListeners = function() {
     var vm = this;
 
-    vm.$scope.$on('see-proposals', function() {
+    vm.$scope.$on('proposal-carousel:toProposals', function() {
       vm.$log.warn('TODO: handle see proposals / ranking');
     });
-  };
-
-  // Get full data content of Program
-  ProgramaContentPageController.prototype.loadContent = function() {
-    var vm = this;
-
-    vm.loading = true;
-    if (!vm.article.body) {
-      vm.DialogaService.getContentById(vm.article.id, function(data) {
-        vm.article.body = data.article.body;
-        vm.loading = false;
-      }, function(error) {
-        vm.loading = false;
-        vm.error = error;
-      });
-    }
-    vm.loading = false;
   };
 
   ProgramaContentPageController.prototype.makeProposal = function() {

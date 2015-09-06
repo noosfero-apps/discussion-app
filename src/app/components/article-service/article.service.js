@@ -17,6 +17,8 @@
       getCategoryBySlug: getCategoryBySlug,
       getTopics: getTopics,
       getTopicById: getTopicById,
+      getProposals: getProposals,
+      getProposalsByTopicId: getProposalsByTopicId,
       searchTopics: searchTopics,
       searchProposals: searchProposals
     };
@@ -89,6 +91,40 @@
         cbError(error);
       });
     }
+
+    function getProposals (params, cbSuccess, cbError) {
+      // Ex.: /api/v1/articles/103358?fields=
+
+      var url = service.apiArticles + API.articleId.home;
+
+      var paramsExtended = angular.extend({
+        'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits'],
+        'content_type':'ProposalsDiscussionPlugin::Proposals'
+      }, params);
+
+      UtilService.get(url, {params: paramsExtended}).then(function(data){
+        cbSuccess(data);
+      }).catch(function(error){
+        cbError(error);
+      });
+    }
+
+    function getProposalsByTopicId (topicId, params, cbSuccess, cbError) {
+      var url = service.apiArticles + topicId;
+
+      var paramsExtended = angular.extend({
+        'fields[]': ['id', 'title', 'abstract', 'children', 'children_count'],
+        'content_type':'ProposalsDiscussionPlugin::Proposals'
+      }, params);
+
+      UtilService.get(url, {params: paramsExtended}).then(function(data){
+        cbSuccess(data);
+      }).catch(function(error){
+        cbError(error);
+      });
+    }
+
+    function getRandomProposal (cbSuccess, cbError) {}
 
     function searchTopics (params, cbSuccess, cbError) {
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Topic&query=cisternas

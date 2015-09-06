@@ -26,17 +26,12 @@
 
       // initialization
       vm.init();
-      vm.loadData();
       vm.attachListeners();
     }
 
     ArticleGridController.prototype.init = function() {
       // var vm = this;
       // vm.programs = null; // scope var
-    };
-
-    ArticleGridController.prototype.loadData = function() {
-      // var vm = this;
     };
 
     ArticleGridController.prototype.attachListeners = function() {

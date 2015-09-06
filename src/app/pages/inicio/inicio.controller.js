@@ -59,14 +59,17 @@
       vm.$log.error('Error on getHome.', error);
     });
 
+    // Load event list
+    vm.DialogaService.getEvents({}, function(data) {
+      vm.events = data;
+      vm.loadingEvents = false;
+    }, function(error) {
+      vm.$log.error('Error on getEvents.', error);
+      vm.loadingEvents = false;
+      vm.eventsError = true;
+    });
+
     function loadAfterHome () {
-      // Load event list
-      // vm.DialogaService.getEvents(function(data) {
-      //   vm.events = data;
-      //   vm.loadingEvents = false;
-      // }, function(error) {
-      //   vm.$log.error('Error on getEvents.', error);
-      // });
 
       // Load theme list
       vm.DialogaService.getThemes(function(data) {

@@ -13,7 +13,8 @@
         home: '103358',
         about: '108073',
         terms: '107880'
-      }
+      },
+      communityId: '19195'
     })
     .constant('AUTH_EVENTS', {
       loginSuccess: 'auth-login-success',

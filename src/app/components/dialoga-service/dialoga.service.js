@@ -148,17 +148,15 @@
       }, cbError);
     }
 
-    function getEvents (cbSuccess, cbError) {
+    function getEvents (params, cbSuccess, cbError) {
       if( !!CACHE.events ){
         cbSuccess(CACHE.events);
       }else{
-        // load main content
-        getHome(function(){
-          if(!CACHE.hasOwnProperty('events')){
-            throw { name: 'NotFound', message: '"events" is not defined. "article.categories" was loaded?'};
-          }
-          cbSuccess(CACHE.events);
-        },cbError);
+        ArticleService.getEvents(API.communityId, params, function(data){
+          CACHE.events = data;
+
+          cbSuccess(data);
+        }, cbError);
       }
     }
 

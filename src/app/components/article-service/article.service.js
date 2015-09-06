@@ -11,6 +11,7 @@
 
     var service = {
       apiArticles: $rootScope.basePath + '/api/v1/articles/',
+      apiCommunities: $rootScope.basePath + '/api/v1/communities/',
       getArticleById: getArticleById,
       getArticleBySlug: getArticleBySlug,
       getCategories: getCategories,
@@ -19,6 +20,7 @@
       getTopicById: getTopicById,
       getProposals: getProposals,
       getProposalsByTopicId: getProposalsByTopicId,
+      getEvents: getEvents,
       searchTopics: searchTopics,
       searchProposals: searchProposals
     };
@@ -125,6 +127,22 @@
     }
 
     function getRandomProposal (cbSuccess, cbError) {}
+    
+    function getEvents (community_id, params, cbSuccess, cbError) {
+      // Ex.: /api/v1/communities/' + community_id + '/articles?categories_ids[]=' + cat_id + '&content_type=Event';
+      
+      var url = service.apiCommunities + community_id + '/articles';
+      var paramsExtended = angular.extend({
+        'fields[]': ['id', 'slug', 'title', 'abstract', 'body', 'categories', 'created_at', 'start_date', 'end_date', 'hits'],
+        'content_type':'Event'
+      }, params);
+
+      UtilService.get(url, {params: paramsExtended}).then(function(data){
+        cbSuccess(data);
+      }).catch(function(error){
+        cbError(error);
+      });
+    }
 
     function searchTopics (params, cbSuccess, cbError) {
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Topic&query=cisternas

@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Esqueci minha senha</h2>
+      <h5>
+        Calma, podemos ajudar! Informe o seu e-mail que a gente envia um link de alteração.
+      </h5>
+    </div>
+  </div>
+</div>
+<section
+  role="main"
+  class="section-gray auth-content">
+  <div class="container">
+    <div class="row">
+      <!-- Mostra só se estiver logado  -->
+      <div ng-if="pageSignin.currentUser">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <h3>Você está logado!</h3>
+            <button
+              type="button"
+              ng-click="pageSignin.onClickLogout()"
+              class="btn btn-primary">Sair</button>
+          </div>
+        </div>
+      </div>
+      <!-- Mostra só se não estiver logado  -->
+      <div ng-if="!pageSignin.currentUser">
+        <br>
+        <div class="col-sm-8 col-sm-offset-2">
+          <div class="row">
+            <div class="col-md-12">
+              <form
+                name="recoverPassForm"
+                ng-submit="pageSignin.login(pageSignin.credentials)">
+                <div class="form-group">
+                  <label for="inputUsername">E-mail*</label>
+                  <input
+                    type="email"
+                    id="inputUsername"
+                    name="inputUsername"
+                    class="form-control input-lg"
+                    ng-class="{ 'has-error' : recoverPassForm.inputUsername.$invalid && recoverPassForm.inputUsername.$touched }"
+                    ng-model="pageSignin.credentials.username"
+                    required />
+                  <div ng-show="recoverPassForm.inputUsername.$touched">
+                    <div ng-messages="recoverPassForm.inputUsername.$error">
+                      <div ng-messages-include="app/pages/geral/error-messages.html"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <label for="inputPassword">Digite o texto desta imagem</label>
+                    <br>
+                    <span>Aqui vai um CAPTCHA</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button
+                    class="btn btn-lg btn-block btn-submit"
+                    type="submit">Solicitar alteração de senha</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <br></div>
+    </div>
+  </div>
+</section>

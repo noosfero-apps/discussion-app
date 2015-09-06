@@ -114,3 +114,26 @@
     vertical-align: bottom;
   }
 }
+
+.has-error {
+    border-color: #FF0000;
+    border-width: 1px;
+}
+
+.error-message {
+    color: #ff4431
+}
+
+.modal-termos-uso-header{
+    border-bottom: none;  
+    padding: 0px;
+    min-height: 10px;
+    border-bottom: none;
+    padding: 0px;
+}
+
+.modal-termos-uso-body {
+    padding: 30px;
+    height: 500px;
+    overflow-y: auto;
+}

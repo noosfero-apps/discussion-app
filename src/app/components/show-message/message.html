@@ -1,0 +1,21 @@
+<div
+	id="message"
+	class="show-message">
+	<div class="row">
+		<div class="col-sm-1 col-sm-offset-2">
+			<div class="message-border {{ ::vm.type }}">
+				<span
+					class="glyphicon glyphicon-ok icon-white"
+					aria-hidden="true"></span>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<h3>{{ ::vm.title }}</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-3">
+			<h5>{{ ::vm.message }}</h5>
+		</div>
+	</div>
+</div>

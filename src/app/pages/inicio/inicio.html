@@ -79,12 +79,14 @@
         </div>
         <div class="col-sm-8 col-md-9">
           <div class="row">
-            <header class="header">
-              <h2>Conheça os programas <span class="small">({{pageInicio.filtredPrograms.length}}/{{::pageInicio.programs.length}})</span></h2>
-              <button type="button" class="btn btn-link" ng-click="pageInicio.showAll($event)">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Ver todos os {{::pageInicio.programs.length}} programas
-              </button>
-            </header>
+            <div class="col-sm-12">
+              <header class="header">
+                <h2>Conheça os programas <span class="small">({{pageInicio.filtredPrograms.length}}/{{::pageInicio.programs.length}})</span></h2>
+                <button type="button" class="btn btn-link" ng-click="pageInicio.showAll($event)">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Ver todos os {{::pageInicio.programs.length}} programas
+                </button>
+              </header>
+            </div>
           </div>
           <div class="row">
             <div class="col-xs-6 col-sm-7 col-md-9">
@@ -93,17 +95,19 @@
             </div>
           </div>
 
-          <div ng-if="pageInicio.programs">
-            <article-grid articles="pageInicio.filtredPrograms"></article-grid>
-          </div>
-          <div ng-if="!pageInicio.programs && pageInicio.loadingPrograms">
-            <div class="alert alert-info" role="alert">
-              Carregando programas.
+          <div class="row">
+            <div class="col-sm-12" ng-if="pageInicio.programs">
+              <article-grid articles="pageInicio.filtredPrograms"></article-grid>
             </div>
-          </div>
-          <div ng-if="!pageInicio.programs && pageInicio.programsError">
-            <div class="alert alert-danger" role="alert">
-              Não foi possível carregar a lista de programas neste momento.
+            <div ng-if="!pageInicio.programs && pageInicio.loadingPrograms">
+              <div class="alert alert-info" role="alert">
+                Carregando programas.
+              </div>
+            </div>
+            <div ng-if="!pageInicio.programs && pageInicio.programsError">
+              <div class="alert alert-danger" role="alert">
+                Não foi possível carregar a lista de programas neste momento.
+              </div>
             </div>
           </div>
         </div>

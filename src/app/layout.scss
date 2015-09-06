@@ -1,56 +1,118 @@
 .row-height {
+  display: table;
+  table-layout: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.col-height {
+  display: table-cell;
+  float: none;
+  height: 100%;
+}
+
+.col-top {
+  vertical-align: top;
+}
+
+.col-middle {
+  vertical-align: middle;
+}
+
+.col-bottom {
+  vertical-align: bottom;
+}
+
+@media (min-width: 480px) {
+  .row-xs-height {
     display: table;
     table-layout: fixed;
     height: 100%;
     width: 100%;
-
-    @media (max-width: $screen-sm) {
-        display: block;
-    }
-
-    // @media (min-width: $screen-sm + 1) {
-    //     height: $hLine * 2;
-    // }
-
-    // @media (min-width: $screen-md + 1) {
-    //     height: $hLine * 2;
-    // }
-}
-
-.col-height {
+  }
+  .col-xs-height {
     display: table-cell;
     float: none;
     height: 100%;
+  }
+  .col-xs-top {
     vertical-align: top;
-}
-
-.col-height--align-bottom {
+  }
+  .col-xs-middle {
+    vertical-align: middle;
+  }
+  .col-xs-bottom {
     vertical-align: bottom;
+  }
 }
 
-.inside {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.inside-full-height {
+@media (min-width: 768px) {
+  .row-sm-height {
+    display: table;
+    table-layout: fixed;
     height: 100%;
-    margin-top: 0;
-    margin-bottom: 0;
+    width: 100%;
+  }
+  .col-sm-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-sm-top {
+    vertical-align: top;
+  }
+  .col-sm-middle {
+    vertical-align: middle;
+  }
+  .col-sm-bottom {
+    vertical-align: bottom;
+  }
+}
 
+@media (min-width: 992px) {
+  .row-md-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .col-md-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-md-top {
+    vertical-align: top;
+  }
+  .col-md-middle {
+    vertical-align: middle;
+  }
+  .col-md-bottom {
+    vertical-align: bottom;
+  }
+}
 
-    @media (max-width: $screen-sm) {
-        border: 1px solid;
-        border-radius: 3px;
-        padding: 20px;
-        margin: 10px 0;
-
-        @each $category, $color in $categories {
-            .#{$category} & {
-                border-color: $color;
-            }
-        }
-    }
+@media (min-width: 1200px) {
+  .row-lg-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .col-lg-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-lg-top {
+    vertical-align: top;
+  }
+  .col-lg-middle {
+    vertical-align: middle;
+  }
+  .col-lg-bottom {
+    vertical-align: bottom;
+  }
 }
 
 .has-error {

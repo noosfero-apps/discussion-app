@@ -194,9 +194,18 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
+      .state('erro', {
+        url: '/erro',
+        ncyBreadcrumb: {label: 'Erro'},
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': { templateUrl: 'app/pages/erro/erro.html' },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
       ;
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/erro');
   }
 
 })();

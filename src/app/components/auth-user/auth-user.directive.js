@@ -42,6 +42,7 @@
     AuthUserController.prototype.onClickLogout = function (){
       var vm = this;
 
+      // TODO: emit event?
       vm.AuthService.logout();
     };
 

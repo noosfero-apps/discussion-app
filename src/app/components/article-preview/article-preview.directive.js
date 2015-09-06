@@ -9,14 +9,11 @@
   function articlePreview($rootScope) {
 
     /** @ngInject */
-    function ArticlePreviewController(ArticleService, $scope, $state, Slug, $log) {
+    function ArticlePreviewController($state, $log) {
       $log.debug('ArticlePreviewController');
 
       var vm = this;
-      vm.ArticleService = ArticleService;
-      vm.$scope = $scope;
       vm.$state = $state;
-      vm.Slug = Slug;
       vm.$log = $log;
 
       vm.init();
@@ -26,7 +23,7 @@
       var vm = this;
 
       if(!vm.article.slug){
-        vm.article.slug = vm.Slug.slugify(vm.article.title);
+        throw { name: 'NotDefined', message: 'The attribute "slug" is undefined.'};
       }
 
       if(!vm.category){

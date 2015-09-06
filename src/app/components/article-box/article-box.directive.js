@@ -9,14 +9,11 @@
   function articleBox($rootScope) {
 
     /** @ngInject */
-    function ArticleBoxController(ArticleService, $scope, $state, Slug, $log) {
+    function ArticleBoxController($state, $log) {
       $log.debug('ArticleBoxController');
 
       var vm = this;
-      vm.ArticleService = ArticleService;
-      vm.$scope = $scope;
       vm.$state = $state;
-      vm.Slug = Slug;
       vm.$log = $log;
 
       vm.init();
@@ -26,24 +23,19 @@
       var vm = this;
 
       if(!vm.article.slug){
-        vm.article.slug = vm.Slug.slugify(vm.article.title);
+        throw { name: 'NotDefined', message: 'The attribute "slug" is undefined.'};
       }
 
       if(!vm.category){
-        vm.category = vm.article.categories[0];
+        throw { name: 'NotDefined', message: 'The attribute "category" is undefined.'};
       }
 
-      if(!vm.banner && vm.article.image){
-        vm.banner = {
+      if(!vm.image && vm.article.image){
+        vm.image = {
           src: $rootScope.basePath + vm.article.image.url,
           alt: 'Imagem de destaque do conteúdo'
         };
       }
-
-      // if(vm.article.color && !vm.article.bgColor){
-      //   // 15% more darker
-      //   vm.article.colorDarker = window.ColorLuminance(vm.article.color, 0.15);
-      // }
     };
 
     ArticleBoxController.prototype.showContent = function () {
@@ -60,7 +52,8 @@
       restrict: 'E',
       templateUrl: 'app/components/article-box/article-box.html',
       scope: {
-        article: '='
+        article: '=',
+        category: '='
       },
       controller: ArticleBoxController,
       controllerAs: 'vm',

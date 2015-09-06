@@ -76,7 +76,7 @@
         if(vm.display === 'list'){
           // wait until DOM be created
           vm.$timeout(function(){
-            attachPopover.call(vm);
+            // attachPopover.call(vm);
           }, 20);
         }
       }, 2000);

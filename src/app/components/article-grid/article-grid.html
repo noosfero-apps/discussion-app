@@ -1,50 +1,9 @@
-<article class="article-grid">
-  <header class="header">
-    <h2>Conheça os programas <span class="small">({{vm.filtredArticleList.length}}/{{vm.articles.length}})</span></h2>
-    <button type="button" class="btn btn-link" ng-click="vm.showAll($event)">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Ver todos os {{vm.articles.length}} programas
-    </button>
-  </header>
-  <div>
-    <div class="col-sm-12">
-      <aside class="form-inline">
-        <div class="row">
-          <div class="col-xs-6 col-sm-7 col-md-9">
-            <label for="articleQueryFilter" class="control-label sr-only">Filtrar programas:</label>
-            <input id="articleQueryFilter" type="search" class="form-control" ng-model="vm.query" placeholder="Filtrar programas" aria-label="Filtrar programas" >
-          </div>
-
-          <!-- <label for="selectCategoryFilter" class="control-label sr-only">Filtrar por tema:</label>
-          <select id="selectCategoryFilter" name="selectCategoryFilter" class="form-control" ng-model="vm.categoryFilter" ng-options="category.name for category in vm.categories track by category.slug">
-            <option value="">-- Filtrar por tema --</option>
-          </select> -->
-
-          <div class="col-xs-6 col-sm-5 col-md-3">
-            <label for="articleOrderByFilter" class="control-label sr-only">Ordernar por:</label>
-            <select id="articleOrderByFilter" name="articleOrderByFilter" class="form-control pull-right" ng-model="vm.orderCriteria" ng-options="orderCriteria.label for orderCriteria in vm.orderCriteries">
-              <option value="">-- Ordernar por: --</option>
-            </select>
-          </div>
-          <!-- <div class="checkbox">
-            <label>
-              <input type="checkbox" ng-model="vm.reverse">
-              Reverso
-            </label>
-          </div> -->
-
-          <!-- <input id="articleLimitFilter" type="number" class="form-control input-sm" size="4" step="2" ng-model="vm.limitTo" aria-label="Limitar" >
-          <label for="articleLimitFilter" class="control-label">Limite</label> -->
-
-        </div>
-      </aside>
-    </div>
-
-    <div ng-repeat="article in vm.filtredArticleList as results">
-      <article-box article="article" class="col-xs-12 col-sm-6"></article-box>
-      <div ng-if="$odd" class="clearfix"></div>
-    </div>
-    <div class="animate-repeat" ng-if="results.length == 0">
-      Nenhum programa encontrado.
-    </div>
+<div class="article-grid">
+  <div ng-repeat="article in vm.articles as results">
+    <article-box article="article" category="article.categories[0]" class="col-xs-12 col-sm-6"></article-box>
+    <div ng-if="$odd" class="clearfix"></div>
   </div>
-</article>
+  <div class="animate-repeat" ng-if="results.length == 0">
+    Nenhum programa encontrado.
+  </div>
+</div>

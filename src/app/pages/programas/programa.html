@@ -1,9 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div ncy-breadcrumb></div>
+    </div>
+  </div>
+</div>
+
 <div class="page--conheca-o-programa">
   <section>
     <div class="container">
-      <div ng-if="!pageProgramaContent.article.body">
-        <div ng-if="!pageProgramaContent.error" class="alert alert-info" role="alert">Carregando detalhes sobre o progama...</div>
-        <div ng-if="pageProgramaContent.error" class="alert alert-warning" role="alert">{{pageProgramaContent}}</div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div ng-if="!pageProgramaContent.article && pageProgramaContent.loading" class="alert alert-info" role="alert">Carregando detalhes sobre o progama...</div>
+          <div ng-if="!pageProgramaContent.article && pageProgramaContent.error" class="alert alert-warning" role="alert">Erro ao carregar o programa.</div>
+        </div>
       </div>
     </div>
   </section>
@@ -11,56 +21,59 @@
   <div ng-if="pageProgramaContent.article.body" ng-class="pageProgramaContent.category.slug">
     <section>
       <div class="container">
-        <article class="program-preview">
-          <div class="row">
-            <div class="col-md-12">
-              <h1 class="program-preview--title color-theme-fg">{{::pageProgramaContent.article.title}}</h1>
-            </div>
-            <div class="col-md-8">
-              <div class="program-preview--box contraste-box">
-                <div class="program-preview--banner" ng-style="{'background-image':'url( {{::pageProgramaContent.banner.src}} )'}"></div>
-                <div class="program-preview--box--content-wrapper">
-                  <div class="program-preview--icon icon-wrapper-rounded color-theme-bg" ng-class="pageProgramaContent.category.slug">
-                    <span class="icon" ng-class="'icon-tema-' + pageProgramaContent.category.slug"></span>
-                  </div>
-                  <div class="program-preview--abstract color-theme-fg">
-                    <h2>{{::stripHtml(pageProgramaContent.article.abstract)}}</h2>
-                  </div>
-                  <div class="program-preview--abstract-details">
-                    <p>Lorem ipsum dolor sit amet, ea veniam mucius ocurreret vix, ius ex nisl vidisse partiendo. Blandit nominavi cum ei, paulo quaestio his ei, eum minim salutandi in. Civibus albucius in quo, et eam posse facilisis. Debet suavitate sea ut, his ei feugiat fastidii eleifend. Quo ex quando maiestatis voluptatum, mel te perpetua maiestatis, sit ceteros legendos deserunt ea. Enim dolores moderatius eu pro, ad quo ignota aliquid meliore.</p>
-                  </div>
-                  <div class="program-preview--share">
-                    <ul class="list-inline">
-                      <li>Compartilhe este programa:</li>
-                      <li><social-share class="program-preview--share-directive"></social-share></li>
-                    </ul>
-                  </div>
-                  <div class="program-preview--make-proposal">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="button--themed">
-                          <button type="button" class="btn btn-block" ng-click="pageProgramaContent.makeProposal()">Faça uma proposta</button>
+        <div class="row">
+          <article class="program-preview">
+            
+              <div class="col-md-12">
+                <h1 class="program-preview--title color-theme-fg">{{::pageProgramaContent.article.title}}</h1>
+              </div>
+              <div class="col-md-8">
+                <div class="program-preview--box contraste-box">
+                  <div class="program-preview--banner" ng-style="{'background-image':'url( {{::pageProgramaContent.banner.src}} )'}"></div>
+                  <div class="program-preview--box--content-wrapper">
+                    <div class="program-preview--icon icon-wrapper-rounded color-theme-bg" ng-class="pageProgramaContent.category.slug">
+                      <span class="icon" ng-class="'icon-tema-' + pageProgramaContent.category.slug"></span>
+                    </div>
+                    <div class="program-preview--abstract color-theme-fg">
+                      <h2>{{::stripHtml(pageProgramaContent.article.abstract)}}</h2>
+                    </div>
+                    <div class="program-preview--abstract-details">
+                      <p>Lorem ipsum dolor sit amet, ea veniam mucius ocurreret vix, ius ex nisl vidisse partiendo. Blandit nominavi cum ei, paulo quaestio his ei, eum minim salutandi in. Civibus albucius in quo, et eam posse facilisis. Debet suavitate sea ut, his ei feugiat fastidii eleifend. Quo ex quando maiestatis voluptatum, mel te perpetua maiestatis, sit ceteros legendos deserunt ea. Enim dolores moderatius eu pro, ad quo ignota aliquid meliore.</p>
+                    </div>
+                    <div class="program-preview--share">
+                      <ul class="list-inline">
+                        <li>Compartilhe este programa:</li>
+                        <li><social-share class="program-preview--share-directive"></social-share></li>
+                      </ul>
+                    </div>
+                    <div class="program-preview--make-proposal">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="button--themed">
+                            <button type="button" class="btn btn-block" ng-click="pageProgramaContent.makeProposal()">Faça uma proposta</button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-4">
-              <div class="row">
-                <div class="col-xs-12">
-                  <h3 class="color-theme-fg">Propostas mais votadas</h3>
-                  <proposal-ranking limit="'3'" display="'carousel'"></proposal-ranking>
-                </div>
-                <div class="col-xs-12">
-                  <h3 class="color-theme-fg">Propostas nesse programa</h3>
-                  <proposal-related article="pageProgramaContent.article"></proposal-related>
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <h3 class="color-theme-fg">Propostas mais votadas</h3>
+                    <div ng-if="pageProgramaContent.proposalsTopRated">
+                      <proposal-carousel proposals="pageProgramaContent.proposalsTopRated"></proposal-carousel>
+                    </div>
+                  </div>
+                  <div class="col-xs-12">
+                    <h3 class="color-theme-fg">Propostas nesse programa</h3>
+                    <proposal-related article="pageProgramaContent.article"></proposal-related>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </article>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -69,16 +82,16 @@
         <div class="proposal-ranking-section-header">
           <h3 class="color-theme-fg">Resultados de propostas mais votadas</h3>
         </div>
-        <div class="proposal-ranking-section-table">
-          <proposal-ranking limit="'5'" display="'list'"></proposal-ranking>
+        <div class="proposal-ranking-section-table" ng-if="pageProgramaContent.proposals">
+          <proposal-list proposals="pageProgramaContent.proposals"></proposal-list>
         </div>
       </div>
     </section>
-
-    <article class="program-content">
-      <div class="row">
-        <section ng-bind-html="pageProgramaContent.article.body"></section>
-      </div>
-    </article>
+    
+    <section class="section-content">
+      <article class="program-content" ng-if="pageProgramaContent.article">
+          <div ng-bind-html="pageProgramaContent.article.body"></div>
+      </article>
+    </section>
   </div>
 </div>

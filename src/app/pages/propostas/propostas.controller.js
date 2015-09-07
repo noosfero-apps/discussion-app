@@ -26,7 +26,7 @@
     vm.loading = true;
     vm.error = false;
 
-    vm.loadData();
+    // vm.loadData();
   };
 
 

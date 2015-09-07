@@ -24,4 +24,28 @@
         height: 200px;
         resize: none;
     }
+
+    .popover .fade .right .in {
+        top: 0px!important;
+    }
+
+    .popover-content {
+        width: 300px;
+    }
+
+    .popover-title {
+        display: none;
+    }
+
+    .btn-question {
+        color: #484848;
+        background-color: #fff;
+        display: inline-block;
+        text-align: center;
+        width: 22px;
+        height: 22px;
+        margin-left: 10px;
+        padding: 0;
+        border-radius: 10px;
+    }
 }

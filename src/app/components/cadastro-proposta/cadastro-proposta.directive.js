@@ -9,22 +9,19 @@
   function cadastroProposta() {
 
     /** @ngInject */
-    function CadastroPropostaController(ArticleService, $scope, $element, $timeout, $log) {
+    function CadastroPropostaController ($scope, $element, $timeout, $log) {
       $log.debug('cadastroPropostaController');
 
       var vm = this;
-      vm.ArticleService = ArticleService;
       vm.$scope = $scope;
       vm.$element = $element;
       vm.$timeout = $timeout;
       vm.$log = $log;
 
       vm.init();
-
-      vm.loadData();
     }
 
-    CadastroPropostaController.prototype.loadData = function () {
+    CadastroPropostaController.prototype.init = function () {
       // async values
       var vm = this;
 
@@ -37,10 +34,10 @@
     function attachPopover(){
       var vm = this;
 
-      vm.popover = angular.element(vm.$element.find('.texto-proposta'));
+      vm.popover = angular.element(vm.$element.find('.link-popover'));
       vm.popover.popover({
         html: true,
-        placement: 'right',
+        placement: 'bottom',
         animation: true,
         title: 'Regra de posição das propostas',
         content: '<p>Poderia escrever a sua proposta em um texto simples e breve?</p><br><p>Sua proposta passará pela fase de moderação. Assim que ela estiver pronta para compartilhar, avisaremos você.'
@@ -50,10 +47,7 @@
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/cadastro-proposta/cadastro-proposta.html',
-      scope: {
-        programa: '=',
-        proposta: '=',
-      },
+      scope: {},
       controller: CadastroPropostaController,
       controllerAs: 'vm',
       bindToController: true

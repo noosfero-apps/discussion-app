@@ -138,7 +138,7 @@
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
             templateUrl: 'app/pages/propostas/cadastro-proposta.html',
-            controller: 'CadastroPropostaController',
+            controller: 'PropostasPageController',
             controllerAs: 'pagePropostas'
           },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }

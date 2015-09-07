@@ -1,0 +1,10 @@
+<div ng-show="vm.field.$touched">
+  <div ng-messages="vm.field.$error">
+    <div class="error-message">
+      <div ng-message="required">{{vm.required}}</div>
+      <div ng-message="minlength">{{vm.minlength}}</div>
+      <div ng-message="maxlength">{{vm.maxlength}}</div>
+      <div ng-message="email">{{vm.email}}</div>
+    </div>
+  </div>
+</div>

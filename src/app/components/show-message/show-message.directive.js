@@ -18,7 +18,7 @@
 
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/components/show-message/message.html',
+      templateUrl: 'app/components/show-message/show-message.html',
       scope: {
         type: '=',
         title: '=',

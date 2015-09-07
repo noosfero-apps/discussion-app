@@ -60,11 +60,11 @@
                 <div class="row">
                   <div class="col-xs-12" ng-if="pageProgramaContent.proposalsTopRated && pageProgramaContent.proposalsTopRated.length > 0">
                     <h3 class="color-theme-fg">Propostas mais votadas</h3>
-                    <proposal-carousel proposals="pageProgramaContent.proposalsTopRated"></proposal-carousel>
+                    <proposal-carousel proposals="pageProgramaContent.proposalsTopRated" canVote="true"></proposal-carousel>
                   </div>
                   <div class="col-xs-12" ng-if="pageProgramaContent.randomProposal">
                     <h3 class="color-theme-fg">Propostas nesse programa</h3>
-                    <proposal-related proposal="pageProgramaContent.randomProposal" topic="pageProgramaContent.article" category="pageProgramaContent.category"></proposal-related>
+                    <proposal-box proposal="pageProgramaContent.randomProposal" topic="pageProgramaContent.article" category="pageProgramaContent.category" vote="false" ></proposal-box>
                   </div>
                   <div class="col-xs-12" ng-if="!pageProgramaContent.randomProposal && !(pageProgramaContent.proposalsTopRated && pageProgramaContent.proposalsTopRated.length > 0)">
                     <h3>Programas sem propostas</h3>

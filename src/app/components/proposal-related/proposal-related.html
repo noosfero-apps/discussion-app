@@ -1,10 +1,12 @@
 <div class="proposal-related" ng-class="{'focus':vm.isFocused}">
   <div class="proposal-related--top">
-  	<div class="proposal-related--theme color-theme-bg-darker">[Nome do Tema]</div>
-  	<div class="proposal-related--program color-theme-bg">[Nome do Programa]</div>
+  	<div class="proposal-related--theme color-theme-bg-darker">{{::vm.category.name}}</div>
+  	<div class="proposal-related--program color-theme-bg">{{::vm.topic.title}}</div>
   </div>
   <div class="proposal-related--middle">
-  	<div class="proposal-related--content">[Conteúdo ad proposta enviada]</div>
+    <div class="proposal-related--content">
+  	 <div class="proposal-related--content-inner" ng-bind-html="vm.proposal.abstract"></div>
+    </div>
   	<div class="proposal-related--actions">
   		<div class="row">
   			<div class="col-sm-4">

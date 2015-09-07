@@ -1,5 +1,5 @@
 .category-list {
-    .category-list--title {
+    &--title {
         color: #ffffff;
         font-size: 16px;
         margin: 0;
@@ -8,10 +8,7 @@
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         overflow: hidden;
-    }
-
-
-    .category-list--group {
+        cursor: pointer;
     }
 
     .category-list--item {
@@ -22,6 +19,8 @@
         height: 68px;
         overflow: hidden;
     }
+
+
 
     .category-list--label {
         margin-left: 70px;
@@ -93,19 +92,25 @@
         transform: scale(1.4);
     }
 
+    .list-group {
+
+        -webkit-transition: -webkit-transform .3s ease-in-out;
+        -moz-transition: -moz-transform .3s ease-in-out;
+        -o-transition: -o-transform .3s ease-in-out;
+        transition: transform .3s ease-in-out;
+
+        opacity: 1;
+
+        &.ng-hide {
+            opacity: 0;
+            // height: 0;
+            // line-height: 0;
+        }
+    }
+
     .list-group-item.active,
     .list-group-item.active:hover,
     .list-group-item.active:focus {
         background-color: #f5f5f5;
     }
-
-    // @each $category, $color in $categories {
-    //     &.#{$category} {
-    //         .list-group-item.active,
-    //         .list-group-item.active:hover,
-    //         .list-group-item.active:focus {
-    //             background-color: $color;
-    //         }
-    //     }
-    // }
 }

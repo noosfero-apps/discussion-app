@@ -55,7 +55,12 @@
         text-align: center;
         line-height: 20px;
         cursor: pointer;
-        transition: .3s linear all;
+
+        -webkit-transition: -webkit-transform 0.3s linear all;
+        -moz-transition: -moz-transform 0.3s linear all;
+        -o-transition: -o-transform 0.3s linear all;
+        transition: transform 0.3s linear all;
+
         overflow: hidden;
         z-index: 100;
 

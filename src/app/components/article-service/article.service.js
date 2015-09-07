@@ -121,7 +121,7 @@
       var url = service.apiArticles + topicId + '/children';
 
       var paramsExtended = angular.extend({
-        'fields[]': ['id', 'title', 'abstract', 'children', 'children_count'],
+        'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
         'limit':'20',
         'page':'1',
         'content_type':'ProposalsDiscussionPlugin::Proposal'

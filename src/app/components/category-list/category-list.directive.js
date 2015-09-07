@@ -9,7 +9,7 @@
   function categoryList() {
 
     /** @ngInject */
-    function CategoryListController($rootScope, $location, $log) {
+    function CategoryListController($rootScope, $element, $log) {
       $log.debug('CategoryListController');
 
       // alias
@@ -17,7 +17,7 @@
 
       // dependencies
       vm.$rootScope = $rootScope;
-      vm.$location = $location;
+      vm.$element = $element;
       vm.$log = $log;
 
       // initialization
@@ -25,7 +25,11 @@
     }
 
     CategoryListController.prototype.init = function() {
-      // var vm = this;
+      var vm = this;
+
+      if(!vm.isCollapsed){
+        vm.isCollapsed = false;
+      }
     };
 
     CategoryListController.prototype.selectCategory = function(category, $event) {
@@ -45,6 +49,17 @@
       vm.$rootScope.$broadcast('change-selectedCategory', vm.selectedCategory);
     };
 
+
+    CategoryListController.prototype.toogleList = function() {
+      var vm = this;
+
+      if(!vm._listGroup){
+        vm._listGroup = vm.$element.find('.list-group');
+      }
+
+      vm._listGroup.slideToggle();
+    };
+
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/category-list/category-list.html',
@@ -53,7 +68,7 @@
         selectedCategory: '@'
       },
       controller: CategoryListController,
-      controllerAs: 'categoryListCtrl',
+      controllerAs: 'vm',
       bindToController: true
     };
 

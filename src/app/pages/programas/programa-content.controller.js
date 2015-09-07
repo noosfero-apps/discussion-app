@@ -54,22 +54,28 @@
       }
 
       vm.DialogaService.getProposalsByTopicId(vm.article.id, {}, function(data){
-        vm.proposals = data.children;
-        vm.proposalsTopRated = [
-          {abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique consectetur neque, at tincidunt enim volutpat sit amet. Integer sed cursus metus, non luctus risus. Mauris elementum est quis vehicula ullamcorper.'},
-          {abstract: 'Mauris elementum est quis vehicula ullamcorper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique consectetur neque, at tincidunt enim volutpat sit amet. Integer sed cursus metus, non luctus risus.'},
-          {abstract: 'Integer sed cursus metus, non luctus risus. Mauris elementum est quis vehicula ullamcorper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tristique consectetur neque, at tincidunt enim volutpat sit amet.'},
-        ];
+        vm.proposals = data.articles;
+        vm.proposalsTopRated = vm.proposals.slice(0, 3);
       }, function (error) {
         vm.$log.error(error);
       });
-      
+
+      // get random proposal
+      vm.DialogaService.getProposalsByTopicId(vm.article.id, {
+        'order': 'random()',
+        'limit': '1'
+      }, function(data){
+        vm.randomProposal = data.articles[0];
+      }, function (error) {
+        vm.$log.error(error);
+      });
+
       vm.loading = false;
     }, function(error) {
       vm.$log.error(error);
       vm.error = error;
       vm.loading = false;
-      
+
       // vm.$log.info('Rollback to home page.');
       // vm.$state.go('inicio', {}, {location: true});
     });

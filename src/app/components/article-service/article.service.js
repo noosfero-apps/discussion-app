@@ -32,7 +32,8 @@
       var url = service.apiArticles + articleId;
       var paramsExtended = angular.extend({}, params);
 
-      UtilService.get(url, {params: paramsExtended}).then(function(data){
+      UtilService.get(url, {params: paramsExtended})
+      .then(function(data){
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);
@@ -47,43 +48,38 @@
       throw { name: 'NotImplementedYet', message: 'The service "getArticleBySlug" is not implemented yet.'};
     }
 
-    function getCategories (articleId, cbSuccess, cbError) {
+    function getCategories (articleId, params, cbSuccess, cbError) {
       // Ex.: /api/v1/articles/103358?fields=
 
       var url = service.apiArticles + articleId;
-
-      UtilService.get(url, {params: {
+      var paramsExtended = angular.extend({
         'fields[]': ['id', 'categories']
-      }}).then(function(data){
+      }, params);
+
+      UtilService.get(url, {params: paramsExtended})
+      .then(function(data){
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);
       });
     }
 
-    function getCategoryBySlug () {
+    function getCategoryBySlug (/*slug, params, cbSuccess, cbError*/) {
       throw { name: 'NotImplementedYet', message: 'The service "getArticleBySlug" is not implemented yet.'};
     }
 
-    function getTopics (cbSuccess, cbError) {
+    function getTopics (params, cbSuccess, cbError) {
       // Ex.: /api/v1/articles/103358/children?fields=
-
-      var url = service.apiArticles + API.articleId.home + '/children';
-
-      UtilService.get(url, {params: {
-        'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits']
-      }}).then(function(data){
-        cbSuccess(data);
-      }).catch(function(error){
-        cbError(error);
-      });
+      getTopicById(API.articleId.home);
     }
 
-    function getTopicById (topicId, cbSuccess, cbError) {
-      // Ex.: /api/v1/articles/103358/children/121521?fields=
+    function getTopicById (topicId, params, cbSuccess, cbError) {
+      // Ex.: /api/v1/articles/103358/children?fields=
 
-      // var url = service.apiArticles + API.articleId.home + '/children/' + topicId; // dont need to chain
-      var url = service.apiArticles + topicId;
+      var url = service.apiArticles + topicId + '/children';
+      var paramsExtended = angular.extend({
+        'fields[]': ['id', 'categories']
+      }, params);
 
       UtilService.get(url, {params: {
         'fields[]': ['id', 'title', 'body', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits']
@@ -111,11 +107,23 @@
       });
     }
 
+    /**
+     * Ex.: /api/v1/articles/[article_id]/children?[params]content_type=ProposalsDiscussionPlugin::Proposal
+     * Ex.: /api/v1/articles/103644/children?limit=20&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal
+     *
+     * @param  {Integer}  topicId   topic where has those proposals
+     * @param  {Object}   params    params for pagination ant others
+     * @param  {Function} cbSuccess callback for success
+     * @param  {Function} cbError   callback for error
+     * @return {Array}           [description]
+     */
     function getProposalsByTopicId (topicId, params, cbSuccess, cbError) {
-      var url = service.apiArticles + topicId;
+      var url = service.apiArticles + topicId + '/children';
 
       var paramsExtended = angular.extend({
         'fields[]': ['id', 'title', 'abstract', 'children', 'children_count'],
+        'limit':'20',
+        'page':'1',
         'content_type':'ProposalsDiscussionPlugin::Proposals'
       }, params);
 
@@ -126,11 +134,10 @@
       });
     }
 
-    function getRandomProposal (cbSuccess, cbError) {}
-    
     function getEvents (community_id, params, cbSuccess, cbError) {
+      // Ex.: /api/v1/communities/19195/articles?categories_ids[]=' + cat_id + '&content_type=Event';
       // Ex.: /api/v1/communities/' + community_id + '/articles?categories_ids[]=' + cat_id + '&content_type=Event';
-      
+
       var url = service.apiCommunities + community_id + '/articles';
       var paramsExtended = angular.extend({
         'fields[]': ['id', 'slug', 'title', 'abstract', 'body', 'categories', 'created_at', 'start_date', 'end_date', 'hits'],

@@ -1,34 +1,29 @@
-/**
- * Controlador das páginas:
- * - Propostas
- * - Ranking
- */
 (function() {
   'use strict';
 
   angular
     .module('dialoga')
-    .controller('PropostasPageController', PropostasPageController);
+    .controller('ProgramasPageController', ProgramasPageController);
 
   /** @ngInject */
-  function PropostasPageController(DialogaService, $log) {
+  function ProgramasPageController(DialogaService, $log) {
     var vm = this;
 
     vm.DialogaService = DialogaService;
     vm.$log = $log;
 
     vm.init();
-    $log.debug('PropostasPageController');
+    $log.debug('ProgramasPageController');
   }
 
-  PropostasPageController.prototype.init = function () {
+  ProgramasPageController.prototype.init = function () {
     var vm = this;
 
     vm.article = null;
     vm.themes = null;
     vm.selectedTheme = null;
-    vm.proposals = null;
-    vm.filtredProposals = null;
+    vm.programs = null;
+    vm.filtredPrograms = null;
     vm.query = null;
 
     vm.loading = null;
@@ -38,21 +33,21 @@
   };
 
 
-  PropostasPageController.prototype.loadData = function () {
+  ProgramasPageController.prototype.loadData = function () {
     var vm = this;
 
     vm.loading = true;
 
-    // load Proposals
-    vm.loadingProposals = true;
-    vm.DialogaService.getProposalsByTopicId(103644, {}, function(data){
-      vm.proposals = data.articles;
-      vm.filtredProposals = vm.proposals;
-      vm.loadingProposals = false;
+    // load Programs
+    vm.loadingPrograms = true;
+    vm.DialogaService.getPrograms(function(programs){
+      vm.programs = programs;
+      vm.filtredPrograms = vm.programs;
+      vm.loadingPrograms = false;
     }, function (error) {
       vm.error = error;
       vm.$log.error(error);
-      vm.loadingProposals = false;
+      vm.loadingPrograms = false;
     });
 
     // load themes

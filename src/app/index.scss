@@ -47,6 +47,29 @@ body {
     }
 }
 
+// Form
+.input-group-search {
+    .icon-circle {
+        color: #fff;
+        padding: 5px;
+        margin-top: -5px;
+    }
+    button {
+        border-left: none;
+    }
+}
+
+// Header
+.header {
+    position: relative;
+
+    button {
+        position: absolute;
+        right: 0;
+        top: 2px;
+    }
+}
+
 // Commons
 .button--themed {
     // padding: 20px;

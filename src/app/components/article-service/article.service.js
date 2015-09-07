@@ -96,8 +96,8 @@
       var url = service.apiArticles + API.articleId.home;
 
       var paramsExtended = angular.extend({
-        'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits'],
-        'content_type':'ProposalsDiscussionPlugin::Proposals'
+        // 'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children', 'children_count'],
+        'content_type':'ProposalsDiscussionPlugin::Proposal'
       }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){

@@ -6,27 +6,27 @@
   </div>
 </div>
 
-<div class="page--programas">
+<div class="page--propostas">
   <section class="section--info">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <h1>Programas de governo</h1>
+          <h1>Ranking</h1>
         </div>
       </div>
     </div>
   </section>
-  <section class="section--articles section-gray section-space-up" ng-if="pageProgramas.programs">
+  <section class="section--articles section-gray section-space-up" ng-if="pageRanking.proposals">
     <div class="container">
-      <div id="lista-de-programas" class="row">
+      <div id="lista-de-propostas" class="row">
         <div class="col-sm-4 col-md-3">
           <div class="row visible-xs">
             <div class="col-xs-12">
               <div class="input-group input-group-lg input-group-search">
-                <label for="articleQueryFilter" class="control-label sr-only">Buscar programas:</label>
-                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pageProgramas.query" placeholder="Buscar programas" aria-label="Buscar programas" >
+                <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
+                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pageRanking.query" placeholder="Buscar propostas" aria-label="Buscar propostas" >
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="pageProgramas.search()">
+                  <button type="button" class="btn btn-default" ng-click="pageRanking.search()">
                     <span class="icon-circle icon-small color-theme-common-bg">
                       <span class="glyphicon glyphicon-search"></span>
                     </span>
@@ -37,15 +37,15 @@
               <br/>
             </div>
           </div>
-          <div ng-if="pageProgramas.themes">
-            <category-list categories="pageProgramas.themes" selected-category="pageProgramas.selectedTheme"></category-list>
+          <div ng-if="pageRanking.themes">
+            <category-list categories="pageRanking.themes" selected-category="pageRanking.selectedTheme"></category-list>
           </div>
-          <div ng-if="!pageProgramas.themes && pageProgramas.loadingThemes">
+          <div ng-if="!pageRanking.themes && pageRanking.loadingThemes">
             <div class="alert alert-info" role="alert">
               Carregando temas.
             </div>
           </div>
-          <div ng-if="!pageProgramas.themes && pageProgramas.themesError">
+          <div ng-if="!pageRanking.themes && pageRanking.themesError">
             <div class="alert alert-danger" role="alert">
               Não foi possível carregar a lista de temas neste momento.
             </div>
@@ -55,10 +55,10 @@
           <div class="row hidden-xs">
             <div class="col-xs-12">
               <div class="input-group input-group-lg input-group-search">
-                <label for="articleQueryFilter" class="control-label sr-only">Buscar programas:</label>
-                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pageProgramas.query" placeholder="Buscar programas" aria-label="Buscar programas" >
+                <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
+                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pageRanking.query" placeholder="Buscar propostas" aria-label="Buscar propostas" >
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="pageProgramas.search()">
+                  <button type="button" class="btn btn-default" ng-click="pageRanking.search()">
                     <span class="icon-circle icon-small color-theme-common-bg">
                       <span class="glyphicon glyphicon-search"></span>
                     </span>
@@ -71,26 +71,23 @@
           <div class="row">
             <div class="col-sm-12">
               <header class="header">
-                <h2>Conheça os programas</h2>
-                <button type="button" class="btn btn-link" ng-click="pageProgramas.showAll($event)">
-                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Ver todos os {{::pageProgramas.programs.length}} programas
-                </button>
+                <h2>Total de Propostas as propostas: "<span>{{::pageRanking.proposals.length}} propostas</span>"</h2>
               </header>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-sm-12" ng-if="pageProgramas.programs">
-              <article-grid articles="pageProgramas.filtredPrograms"></article-grid>
+            <div class="col-sm-12" ng-if="pageRanking.proposals">
+              <proposal-list proposals="pageRanking.filtredProposals"></proposal-list>
             </div>
-            <div ng-if="!pageProgramas.programs && pageProgramas.loadingPrograms">
+            <div ng-if="!pageRanking.proposals && pageRanking.loadingProposals">
               <div class="alert alert-info" role="alert">
-                Carregando programas.
+                Carregando propostas.
               </div>
             </div>
-            <div ng-if="!pageProgramas.programs && pageProgramas.programsError">
+            <div ng-if="!pageRanking.proposals && pageRanking.proposalsError">
               <div class="alert alert-danger" role="alert">
-                Não foi possível carregar a lista de programas neste momento.
+                Não foi possível carregar a lista de propostas neste momento.
               </div>
             </div>
           </div>

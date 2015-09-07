@@ -124,7 +124,7 @@
         'fields[]': ['id', 'title', 'abstract', 'children', 'children_count'],
         'limit':'20',
         'page':'1',
-        'content_type':'ProposalsDiscussionPlugin::Proposals'
+        'content_type':'ProposalsDiscussionPlugin::Proposal'
       }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){

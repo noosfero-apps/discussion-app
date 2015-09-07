@@ -1,3 +1,41 @@
-<div class="proposal-related">
-  Proposta
+<div class="proposal-related" ng-class="{'focus':vm.isFocused}">
+  <div class="proposal-related--top">
+  	<div class="proposal-related--theme color-theme-bg-darker">[Nome do Tema]</div>
+  	<div class="proposal-related--program color-theme-bg">[Nome do Programa]</div>
+  </div>
+  <div class="proposal-related--middle">
+  	<div class="proposal-related--content">[Conteúdo ad proposta enviada]</div>
+  	<div class="proposal-related--actions">
+  		<div class="row">
+  			<div class="col-sm-4">
+  				<div class="action vote_for" title="Apoiar">
+  					<div class="icon-circle">
+  						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+  					</div>
+  					<div class="sr-only">Apoiar proposta</div>
+  				</div>
+  			</div>
+  			<div class="col-sm-4">
+  				<div class="action next" title="Pular proposta">
+  					<div class="icon-circle">
+  						<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+  					</div>
+  					<div class="sr-only">Pular proposta</div>
+  				</div>
+  			</div>
+  			<div class="col-sm-4">
+  				<div class="action vote_against" title="Não apoiar">
+  					<div class="icon-circle">
+  						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+  					</div>
+  					<div class="sr-only">Não apoiar</div>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+  <div class="proposal-related--bottom">
+  	<div class="proposal-related--share">[SHARE]</div>
+  	<div class="proposal-related--ranking">[RANKING]</div>
+  </div>
 </div>

@@ -1,6 +1,11 @@
 .a11y-bar {
     font-size: 12px;
     padding: 5px 0;
+
+    @media (max-width: $screen-md) {
+        font-size: 11px;
+    }
+
     span {
         color: #fff;
         padding: 0 5px;

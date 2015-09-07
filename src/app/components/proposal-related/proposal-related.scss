@@ -1,7 +1,7 @@
 .proposal-related {
 	background-color: #f1f1f1;
 	border-radius: 5px;
-	overflow: hidden;
+	// overflow: hidden;
 
 	&.focus {
 		border: 7px solid #000;
@@ -25,7 +25,8 @@
 	&--bottom {
 		border-bottom-left-radius: 5px;
 		border-bottom-right-radius: 5px;
-		overflow: hidden;
+		// overflow: hidden;
+        border-bottom: 5px solid #dadada;
 	}
 
 	&--theme {
@@ -38,6 +39,25 @@
 
     &--content {
         padding-bottom: 20px;
+    }
+
+    &--share {
+        padding: 15px 0;
+        background-color: #e8e8e8;
+    }
+
+    &--ranking {
+        font-weight: bold;
+        padding: 10px 0;
+        background-color: #dadada;
+    }
+
+    .action-label {
+        margin-top: 10px;
+    }
+
+    .dropdown {
+        display: inline-block;
     }
 
 	.glyphicon {

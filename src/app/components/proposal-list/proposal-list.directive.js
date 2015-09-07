@@ -46,7 +46,7 @@
       // requeue to wait until DOM be created
       vm.$timeout(function(){
         attachPopover.call(vm);
-      }, 100);
+      }, 1000);
     };
 
     function attachPopover(){

@@ -1,3 +1,8 @@
+/**
+ * Controlador das páginas:
+ * - Propostas
+ * - Ranking
+ */
 (function() {
   'use strict';
 

@@ -130,6 +130,19 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
+      .state('ranking', {
+        url: '/ranking',
+        ncyBreadcrumb: {label: 'Propostas'},
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': {
+            templateUrl: 'app/pages/propostas/ranking.html',
+            controller: 'PropostasPageController',
+            controllerAs: 'pageRanking'
+          },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
       // apenas para teste do cadastro das propostas
       .state('cadastro-propostas', {
         url: '/cadastro-propostas',

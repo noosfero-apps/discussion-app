@@ -9,7 +9,6 @@
   function ProgramasPageController(DialogaService, $log) {
     var vm = this;
 
-    // alias
     vm.DialogaService = DialogaService;
     vm.$log = $log;
 
@@ -44,18 +43,22 @@
     vm.DialogaService.getPrograms(function(programs){
       vm.programs = programs;
       vm.filtredPrograms = vm.programs;
+      vm.loadingPrograms = false;
     }, function (error) {
       vm.error = error;
       vm.$log.error(error);
+      vm.loadingPrograms = false;
     });
 
     // load themes
     vm.loadingThemes = true;
     vm.DialogaService.getThemes(function(themes){
       vm.themes = themes;
+      vm.loadingThemes = false;
     }, function (error) {
       vm.error = error;
       vm.$log.error(error);
+      vm.loadingThemes = false;
     });
   };
 })();

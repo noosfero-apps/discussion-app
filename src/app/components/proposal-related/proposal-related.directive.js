@@ -9,10 +9,11 @@
   function proposalRelated() {
 
     /** @ngInject */
-    function ProposalRelatedController($log) {
+    function ProposalRelatedController($state, $log) {
       $log.debug('ProposalRelatedController');
 
       var vm = this;
+      vm.$state = $state;
       vm.$log = $log;
 
       vm.init();
@@ -21,6 +22,16 @@
     ProposalRelatedController.prototype.init = function () {
       // initial values
       // var vm = this;
+    };
+
+    ProposalRelatedController.prototype.showContent = function (program) {
+      var vm = this;
+
+      vm.$state.go('programa-conteudo', {
+        slug: program.slug
+      }, {
+        location: true
+      });
     };
 
     var directive = {

@@ -53,7 +53,7 @@
       }
 
       loadAfterHome();
-      
+
       vm.loading = false;
     }, function(error) {
       vm.$log.error('Error on getHome.', error);
@@ -80,9 +80,9 @@
       });
 
       // Load program list
-      vm.DialogaService.getProgramsRandom(function(data) {
+      vm.DialogaService.getProgramsRandom({}, function(data) {
         vm.programs = vm.article.children;
-        vm.filtredPrograms = data;
+        vm.filtredPrograms = data.articles;
         vm.loadingPrograms = false;
       }, function(error) {
         vm.$log.error('Error on getPrograms.', error);

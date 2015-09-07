@@ -23,21 +23,35 @@
         <li role="separator" class="divider hidden-xs hidden-sm"><span>|</span></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compartilhar <span class="icon icon-social-share-small"></span></a>
-          <ul class="dropdown-menu dropdown-menu-right dropdown-menu-social">
+          <social-share class="dropdown-menu dropdown-menu-right"></social-share>
+          <!-- <ul class="dropdown-menu dropdown-menu-right dropdown-menu-social">
             <li>
-              <a social-facebook custom-url="http://dialoga.gov.br" title="Compartilhar no Facebook">
+              <a socialshare
+                socialshare-provider="facebook"
+                socialshare-url="http://dialoga.gov.br"
+                socialshare-text="Conheça o Dialoga Brasil. Dialoga Brasil | O País fica melhor quando VOCÊ PARTICIPA."
+                title="Compartilhar no Facebook">
                 <span class="icon-circle icon-small icon-circle-social-facebook"><span class="icon icon-social-facebook"></span></span>
                 <span class="sr-only">Compartilhar no Facebook</span>
               </a>
             </li>
             <li>
-              <a social-twitter custom-url="http://dialoga.gov.br" status="This status is #{{ vm.status }}" title="Compartilhar no Twitter">
+              <a socialshare
+                socialshare-provider="twitter"
+                socialshare-url="http://dialoga.gov.br"
+                socialshare-text="Conheça o Dialoga Brasil. Dialoga Brasil | O País fica melhor quando VOCÊ PARTICIPA."
+                socialshare-hastags="dialogabrasil"
+                title="Compartilhar no Twitter">
                 <span class="icon-circle icon-small icon-circle-social-twitter"><span class="icon icon-social-twitter"></span></span>
                 <span class="sr-only">Compartilhar no Twitter</span>
               </a>
             </li>
             <li>
-              <a social-gplus custom-url="http://dialoga.gov.br" title="Compartilhar no Google Plus">
+              <a socialshare
+                socialshare-provider="gplus"
+                socialshare-url="http://dialoga.gov.br"
+                socialshare-text="Conheça o Dialoga Brasil. Dialoga Brasil | O País fica melhor quando VOCÊ PARTICIPA."
+                title="Compartilhar no Google Plus">
                 <span class="icon-circle icon-small icon-circle-social-googleplus"><span class="icon icon-social-googleplus"></span></span>
                 <span class="sr-only">Compartilhar no Google Plus</span>
               </a>
@@ -48,7 +62,7 @@
                 <span class="sr-only">Enviar por email</span>
               </a>
             </li>
-          </ul>
+          </ul> -->
         </li>
       </ul>
     </div>

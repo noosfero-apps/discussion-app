@@ -51,6 +51,12 @@
         position: relative;
     }
 
+    .program-preview--share-label,
+    .program-preview--share-directive {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
     h2,
     h3{
         font-weight: bold;

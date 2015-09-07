@@ -6,7 +6,7 @@
     .controller('ProgramaContentPageController', ProgramaContentPageController);
 
   /** @ngInject */
-  function ProgramaContentPageController(DialogaService, $state, $scope, $rootScope, $log) {
+  function ProgramaContentPageController(DialogaService, $state, $scope, $rootScope, $element, $log) {
     $log.debug('ProgramaContentPageController');
 
     var vm = this;
@@ -15,6 +15,7 @@
     vm.$state = $state;
     vm.$scope = $scope;
     vm.$rootScope = $rootScope;
+    vm.$element = $element;
     vm.$log = $log;
 
     vm.init();
@@ -79,14 +80,17 @@
       // vm.$log.info('Rollback to home page.');
       // vm.$state.go('inicio', {}, {location: true});
     });
-
   };
 
   ProgramaContentPageController.prototype.attachListeners = function() {
     var vm = this;
 
     vm.$scope.$on('proposal-carousel:toProposals', function() {
-      vm.$log.warn('TODO: handle see proposals / ranking');
+      if(!vm._proposal_list){
+        vm._proposal_list = vm.$element.find('.proposal-ranking-section');
+      }
+
+      vm._proposal_list.slideToggle();
     });
   };
 

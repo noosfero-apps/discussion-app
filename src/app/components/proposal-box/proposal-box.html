@@ -1,4 +1,4 @@
-<div class="proposal-box" ng-class="{'focus':vm.isFocused}">
+<div class="proposal-box" ng-class="[{'focus': vm.isFocused}, vm.category.slug]">
   <div class="proposal-box--top">
     <div class="proposal-box--theme color-theme-bg-darker">{{::vm.category.name}}</div>
     <div class="proposal-box--program color-theme-bg">{{::vm.topic.title}}</div>
@@ -7,10 +7,10 @@
     <div class="proposal-box--content">
      <div class="proposal-box--content-inner" ng-bind-html="vm.proposal.abstract"></div>
    </div>
-   <div ng-if="vm.vote==false" class="proposal-box--join">
-    <button class="btn btn-link" ng-click="vm.showContent(vm.topic)">Participe</button>
+   <div ng-show="!vm.vote" class="proposal-box--join">
+    <button class="btn btn-link" ng-click="vm.showContent2(vm.topic)">Participe</button>
   </div>
-  <div ng-if="vm.vote==true"class="proposal-box--actions text-center">
+  <div ng-show="vm.vote"class="proposal-box--actions text-center">
     <div class="row">
       <div class="col-xs-4">
         <div class="action vote_for">

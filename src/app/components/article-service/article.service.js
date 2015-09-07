@@ -121,13 +121,14 @@
       var url = service.apiArticles + topicId + '/children';
 
       var paramsExtended = angular.extend({
-        'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
-        'limit':'20',
-        'page':'1',
+        // 'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
+        // 'limit':'20',
+        // 'page':'1',
         'content_type':'ProposalsDiscussionPlugin::Proposal'
       }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
+        _pipeInjectSlugIntoParentProgram(data);
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);
@@ -179,6 +180,16 @@
       }).catch(function(error){
         cbError(error);
       });
+    }
+
+    function _pipeInjectSlugIntoParentProgram(data){
+      var proposals = data.articles;
+      for (var i = proposals.length - 1; i >= 0; i--) {
+        var proposal = proposals[i];
+        if(proposal.parent && !proposal.parent.slug){
+          proposal.parent.slug = Slug.slugify(proposal.parent.title);
+        }
+      };
     }
   }
 })();

@@ -48,7 +48,7 @@
             <div ng-if="pageInicio.loading && !pageInicio.error">
               <div class="alert alert-info" role="alert">Carregando conteúdo...</div>
             </div>
-          
+
             <div ng-if="pageInicio.error">
               <div class="alert alert-danger" role="alert">
                 Erro ao carregar o conteúdo principal.
@@ -89,7 +89,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-6 col-sm-7 col-md-9">
+            <div class="col-xs-12">
               <label for="articleQueryFilter" class="control-label sr-only">Buscar programas:</label>
               <input id="articleQueryFilter" type="search" class="form-control" ng-model="pageInicio.query" placeholder="Buscar programas" aria-label="Buscar programas" >
             </div>

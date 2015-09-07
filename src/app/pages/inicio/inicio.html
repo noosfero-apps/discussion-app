@@ -63,6 +63,23 @@
     <div class="container">
       <div id="lista-de-programas" class="row">
         <div class="col-sm-4 col-md-3">
+          <div class="row visible-xs">
+            <div class="col-xs-12">
+              <div class="input-group input-group-lg input-group-search">
+                <label for="articleQueryFilter" class="control-label sr-only">Buscar programas:</label>
+                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pageInicio.query" placeholder="Buscar programas" aria-label="Buscar programas" >
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="pageInicio.search()">
+                    <span class="icon-circle icon-small color-theme-common-bg">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </span>
+                    <span class="sr-only">Buscar</span>
+                  </button>
+                </span>
+              </div>
+              <br/>
+            </div>
+          </div>
           <div ng-if="pageInicio.themes">
             <category-list categories="pageInicio.themes" selected-category="pageInicio.selectedTheme"></category-list>
           </div>
@@ -78,20 +95,30 @@
           </div>
         </div>
         <div class="col-sm-8 col-md-9">
+          <div class="row hidden-xs">
+            <div class="col-xs-12">
+              <div class="input-group input-group-lg input-group-search">
+                <label for="articleQueryFilter" class="control-label sr-only">Buscar programas:</label>
+                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pageInicio.query" placeholder="Buscar programas" aria-label="Buscar programas" >
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="pageInicio.search()">
+                    <span class="icon-circle icon-small color-theme-common-bg">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </span>
+                    <span class="sr-only">Buscar</span>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-sm-12">
               <header class="header">
-                <h2>Conheça os programas <span class="small">({{pageInicio.filtredPrograms.length}}/{{::pageInicio.programs.length}})</span></h2>
+                <h2>Programas</h2>
                 <button type="button" class="btn btn-link" ng-click="pageInicio.showAll($event)">
                   <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Ver todos os {{::pageInicio.programs.length}} programas
                 </button>
               </header>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-              <label for="articleQueryFilter" class="control-label sr-only">Buscar programas:</label>
-              <input id="articleQueryFilter" type="search" class="form-control" ng-model="pageInicio.query" placeholder="Buscar programas" aria-label="Buscar programas" >
             </div>
           </div>
 

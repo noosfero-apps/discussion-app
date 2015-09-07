@@ -1,5 +1,5 @@
 .page--inicio {
-    
+
     .section-video {
       padding: 20px 0;
       // background-color: #919191;
@@ -9,8 +9,6 @@
 
       .header {
           position: relative;
-          height: 40px;
-          margin-bottom: 10px;
 
           button {
               position: absolute;
@@ -25,6 +23,20 @@
               width: 100%;
           }
       }
+    }
+
+    .input-group-search {
+        .icon-circle {
+            color: #fff;
+            padding: 5px;
+            margin-top: -5px;
+        }
+        button {
+            border-left: none;
+        }
+    }
+    .input-group-btn {
+        background-color: #fff;
     }
 }
 

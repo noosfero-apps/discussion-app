@@ -28,12 +28,13 @@
                 <div class="form-group">
                   <label for="inputLoginUsername">E-mail*</label>
                   <input type="email" id="inputLoginUsername" name="inputLoginUsername" class="form-control input-lg" ng-class="{ 'has-error' : loginForm.inputLoginUsername.$invalid && loginForm.inputLoginUsername.$touched }" ng-model="pageSignin.credentials.username" required/>
-                  <form-messages field="loginForm.inputLoginUsername"></show-message>
+                  <!-- Diretiva validation-messages -->
+                  <validation-messages field="loginForm.inputLoginUsername"/>
                 </div>
                 <div class="form-group">
                   <label for="inputLoginPassword">Senha*</label>
                   <input type="password" id="inputLoginPassword" name="inputLoginPassword" class="form-control input-lg" ng-class="{ 'has-error' : loginForm.inputLoginPassword.$invalid && loginForm.inputLoginPassword.$touched }" ng-model="pageSignin.credentials.password" required>
-                  <form-messages field="loginForm.inputLoginPassword" ></show-message>
+                  <validation-messages field="loginForm.inputLoginPassword"/>
                 </div>
                 <div class="form-group">
                   <button class="btn btn-lg btn-block btn-submit" type="submit">Entrar</button>
@@ -123,37 +124,26 @@
                     <label for="inputNome">Nome:</label>
                     <span class="pull-right">*Dados obrigatórios</span>
                     <input type="text" id="inputNome" name="inputNome" class="form-control input-lg" ng-class="{ 'has-error' : cadastroForm.inputNome.$invalid && cadastroForm.inputNome.$touched }" ng-model="nome" ng-minlength="" ng-maxlength="" required>
-                    <form-messages field="cadastroForm.inputNome" ></show-message>
-                  </div>
-                  <div class="form-group">
-                    <p>Descrição da proposta*</p>
-                    <textarea id="proposta" name="proposta" class="texto-proposta form-control"  ng-class="{ 'has-error' : cadastroForm.proposta.$invalid && cadastroForm.proposta.$touched }" ng-model="vm.proposta" required ng-maxlength="200" ></textarea>
-                    <div ng-show="cadastroForm.proposta.$touched">
-                      <div ng-messages="cadastroForm.proposta.$error">
-                        <form-messages field="cadastroForm.proposta" ></show-message>
-                      </div>
-                    </div>
-                    <span class="pull-left">*Dados obrigatórios</span>
-                    <span class="pull-right">Máx. 200 caracteres</span>
+                    <validation-messages field="cadastroForm.inputNome"/>
                   </div>
                   <div class="form-group">
                     <label for="inputEmail">E-mail*</label>
                     <input type="email" id="inputEmail" name="inputEmail" class="form-control input-lg" ng-class="{ 'has-error' : cadastroForm.inputEmail.$invalid && cadastroForm.inputEmail.$touched }" ng-model="email" ng-minlength="" ng-maxlength="" required>
-                    <form-messages field="cadastroForm.inputEmail" ></show-message>
+                    <validation-messages field="cadastroForm.inputEmail"/>
                   </div>
                   <div class="row">
                     <div class="col-sm-6">
                       <div class="form-group">
                         <label for="inputPassword">Senha:</label>
                         <input type="password" id="inputPassword" name="inputPassword" class="form-control input-lg" ng-class="{ 'has-error' : cadastroForm.inputPassword.$invalid && cadastroForm.inputPassword.$touched }" ng-model="senha" ng-minlength="" ng-maxlength="" required>
-                        <form-messages field="cadastroForm.inputPassword" ></show-message>
+                        <validation-messages field="cadastroForm.inputPassword"/>
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="form-group">
                         <label for="inputRepeatPassword">Confirmar Senha:</label>
                         <input type="password" id="inputRepeatPassword" name="inputRepeatPassword" class="form-control input-lg" ng-class="{ 'has-error' : cadastroForm.inputRepeatPassword.$invalid && cadastroForm.inputRepeatPassword.$touched }" ng-model="senhaRepetida" ng-minlength="" ng-maxlength="" required>
-                        <form-messages field="cadastroForm.inputRepeatPassword" ></show-message>
+                        <validation-messages field="cadastroForm.inputRepeatPassword"/>
                       </div>
                     </div>
                   </div>
@@ -170,7 +160,7 @@
                     <a href="">Termos de Uso</a>
                     e concordo com os mesmos*
                   </input>
-                  <form-messages field="cadastroForm.termosDeUso" ></show-message>
+                  <validation-messages field="cadastroForm.termosDeUso"/>
                 </div>
                 <div class="form-group">
                   <span>Digite o texto da imagem</span>

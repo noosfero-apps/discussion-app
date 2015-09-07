@@ -20,21 +20,21 @@
       <div class="row linha-proposta">
         <div class="col-sm-8">
           <span>Descrição da proposta*</span>
-              <a tabindex="0" class="btn btn-link link-popover" role="button" data-toggle="popover" data-trigger="focus">?</a>
+          <div class="teste"><a tabindex="0" class="btn btn-link link-popover" role="button" data-toggle="popover" data-trigger="focus">?</a></div>
           <textarea id="proposta" name="proposta" class="texto-proposta form-control"
-           ng-class="{ 'has-error' : testeForm.proposta.$invalid && testeForm.proposta.$touched }"
-           ng-model="proposta"
-           required ng-maxlength="200" ></textarea>
-           <form-messages field="testeForm.proposta" maxlength="'Ops, esse campo não pode ser maior que 200 caracteres.'"/>
+          ng-class="{ 'has-error' : testeForm.proposta.$invalid && testeForm.proposta.$touched }"
+          ng-model="proposta"
+          required ng-maxlength="200" ></textarea>
+          <validation-messages field="testeForm.proposta" maxlength="'Ops, esse campo não pode ser maior que 200 caracteres.'"/>
           <span class="pull-left">*Dados obrigatórios</span>
           <span class="pull-right">Máx. 200 caracteres</span>
         </div>
       </div>
     </div>
     <div class="form-group">
-       <div class="col-sm-4">
-        <button class="btn btn-lg btn-block btn-submit" type="submit">Enviar Proposta</button>
-      </div>
+     <div class="col-sm-4">
+      <button class="btn btn-lg btn-block btn-submit" type="submit">Enviar Proposta</button>
     </div>
-  </form>
+  </div>
+</form>
 </div>

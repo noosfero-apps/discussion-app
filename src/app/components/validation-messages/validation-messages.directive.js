@@ -3,14 +3,14 @@
 
   angular
   .module('dialoga')
-  .directive('formMessages', formMessages);
+  .directive('validationMessages', validationMessages);
 
   /** @ngInject */
-  function formMessages() {
+  function validationMessages() {
 
     /** @ngInject */
-    function FormMessagesController($log) {
-      $log.debug('FormMessagesController');
+    function validationMessagesController($log) {
+      $log.debug('validationMessagesController');
 
       var vm = this;
       vm.$log = $log;
@@ -19,7 +19,7 @@
 
     }
 
-    FormMessagesController.prototype.init = function () {
+    validationMessagesController.prototype.init = function () {
       // async values
       var vm = this;
 
@@ -32,7 +32,7 @@
 
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/components/form-messages/form-messages.html',
+      templateUrl: 'app/components/validation-messages/validation-messages.html',
       scope: {
         field: '=',
         required: '=',
@@ -40,7 +40,7 @@
         maxlength: '=',
         email: '='
       },
-      controller: FormMessagesController,
+      controller: validationMessagesController,
       controllerAs: 'vm',
       bindToController: true
     };

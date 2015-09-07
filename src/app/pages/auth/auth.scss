@@ -7,31 +7,33 @@
     }
 
     .btn-social {
-      color: #fff;
-      font-weight: bold;
-      padding: 15px 16px;
-      font-size: 16px;
-      white-space: normal;
-
-      &:hover,
-      &:focus {color: #fff;}
-
-      &.btn-facebook {
-        background-color: #496AA0;
+        color: #fff;
+        font-weight: bold;
+        padding: 15px 16px;
+        font-size: 16px;
+        white-space: normal;
 
         &:hover,
-        &:focus {background-color: #304373; }
-        &:active {background-color: #33477a; }
-      }
-      &.btn-google-plus {
-        background-color: #b92d25;
-        &:hover,
-        &:focus {background-color: #b12b23; }
-        &:active {background-color: #b92d25; }
-      }
-      @media (max-width: 991px) {
-        margin-bottom: 20px;
-      }
+        &:focus {color: #fff;}
+
+        &.btn-facebook {
+            background-color: #496AA0;
+
+            &:hover,
+            &:focus {background-color: #304373; }
+            &:active {background-color: #33477a; }
+        }
+
+        &.btn-google-plus {
+            background-color: #b92d25;
+            &:hover,
+            &:focus {background-color: #b12b23; }
+            &:active {background-color: #b92d25; }
+        }
+
+        @media (max-width: 991px) {
+            margin-bottom: 20px;
+        }
     }
 
     .btn {
@@ -39,6 +41,7 @@
             color: #fff;
         }
     }
+
     .btn-primary {
         .contraste & {
             background-color: #262626;
@@ -47,66 +50,66 @@
     }
 
     .glyphicon {
-      &.icon-white {
-        fill: white;
-      }
+        &.icon-white {
+            fill: white;
+        }
     }
 
     .border-social-icon {
-      border-radius: 25px;
-      padding: 7px 9px;
-      width: 40px;
-      height: 40px;
-      display: inline-block;
+        border-radius: 25px;
+        padding: 7px 9px;
+        width: 40px;
+        height: 40px;
+        display: inline-block;
 
-      &.border-social-facebook {
-        background: #547BBC;
-      }
+        &.border-social-facebook {
+            background: #547BBC;
+        }
 
-      &.border-social-googlePlus {
-        background: #D44105;
-      }
+        &.border-social-googlePlus {
+            background: #D44105;
+        }
     }
 
     .separator {
-      border-top: 2px solid #d8d8d8;
-      text-align: center;
-      font-weight: bold;
-      margin-top: 20px;
-      margin-bottom: 35px;
+        border-top: 2px solid #d8d8d8;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 35px;
 
-      &:after {
-          position: absolute;
-          top: 4px;
-          margin-left: -26px;
-          font-size: 20px;
-          line-height: 30px;
-          padding: 0 0.25em;
-          background: $gray;
+        &:after {
+            position: absolute;
+            top: -15px;
+            margin-left: -26px;
+            font-size: 20px;
+            line-height: 30px;
+            padding: 0 0.25em;
+            background: $gray;
 
             .contraste & {
-              background: #000;
+                background: #000;
             }
-      }
+        }
 
-      &.separator-or:after {
-        content: "ou";
-        left: 51%;
-      }
+        &.separator-or:after {
+            content: "ou";
+            left: 50%;
+            margin-left: -17px;
 
-      &.separator-cadastro:after {
-        content: "ou preencha o formulario";
-        left: 31%;
-      }
+            @media (min-width: 992px) {
+                top: 4px;
+            }
+        }
 
-    }
+        &.separator-cadastro:after {
+            content: "ou preencha o formulario";
+            left: 50%;
+            margin-left: -133px;
 
-    input[type="checkbox"] {
-      display:inline-block;
-      width:18px;
-      height:18px;
-      margin:-1px 4px 0 0;
-      vertical-align:middle;
-      cursor:pointer;
+            @media (min-width: 768px) {
+                top: 4px;
+            }
+        }
     }
 }

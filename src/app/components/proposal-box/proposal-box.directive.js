@@ -3,28 +3,31 @@
 
   angular
     .module('dialoga')
-    .directive('proposalRelated', proposalRelated);
+    .directive('proposalBox', proposalBox);
 
   /** @ngInject */
-  function proposalRelated() {
+  function proposalBox() {
 
     /** @ngInject */
-    function ProposalRelatedController($state, $log) {
-      $log.debug('ProposalRelatedController');
+    function ProposalBoxController($state, $log) {
+      $log.debug('ProposalBoxController');
 
       var vm = this;
       vm.$state = $state;
       vm.$log = $log;
 
-      vm.init();
+      vm.init($log);
     }
 
-    ProposalRelatedController.prototype.init = function () {
-      // initial values
-      // var vm = this;
+    ProposalBoxController.prototype.init = function () {
+
+      var vm = this;
+
+      if (!vm.vote) { vm.vote = false};
+
     };
 
-    ProposalRelatedController.prototype.showContent = function (program) {
+    ProposalBoxController.prototype.showContent = function (program) {
       var vm = this;
 
       vm.$state.go('programa-conteudo', {
@@ -36,13 +39,14 @@
 
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/components/proposal-related/proposal-related.html',
+      templateUrl: 'app/components/proposal-box/proposal-box.html',
       scope: {
         proposal: '=',
         topic: '=',
-        category: '='
+        category: '=',
+        vote: '='
       },
-      controller: ProposalRelatedController,
+      controller: ProposalBoxController,
       controllerAs: 'vm',
       bindToController: true
     };

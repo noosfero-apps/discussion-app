@@ -58,7 +58,7 @@
               </div>
               <div class="col-md-4">
                 <div class="row">
-                  <div class="col-xs-12" ng-if="pageProgramaContent.proposalsTopRated && pageProgramaContent.proposalsTopRated.lenght > 0">
+                  <div class="col-xs-12" ng-if="pageProgramaContent.proposalsTopRated && pageProgramaContent.proposalsTopRated.length > 0">
                     <h3 class="color-theme-fg">Propostas mais votadas</h3>
                     <proposal-carousel proposals="pageProgramaContent.proposalsTopRated"></proposal-carousel>
                   </div>
@@ -66,7 +66,7 @@
                     <h3 class="color-theme-fg">Propostas nesse programa</h3>
                     <proposal-related proposal="pageProgramaContent.randomProposal" topic="pageProgramaContent.article" category="pageProgramaContent.category"></proposal-related>
                   </div>
-                  <div class="col-xs-12" ng-if="!pageProgramaContent.randomProposal && !(pageProgramaContent.proposalsTopRated && pageProgramaContent.proposalsTopRated.lenght > 0)">
+                  <div class="col-xs-12" ng-if="!pageProgramaContent.randomProposal && !(pageProgramaContent.proposalsTopRated && pageProgramaContent.proposalsTopRated.length > 0)">
                     <h3>Programas sem propostas</h3>
                     <p>
                       Este programa ainda não possui nenhuma proposta.
@@ -82,12 +82,12 @@
       </div>
     </section>
 
-    <section class="proposal-ranking-section">
+    <section class="proposal-ranking-section" ng-if="pageProgramaContent.proposals && pageProgramaContent.proposals.length > 0">
       <div class="container">
         <div class="proposal-ranking-section-header">
           <h3 class="color-theme-fg">Resultados de propostas mais votadas</h3>
         </div>
-        <div class="proposal-ranking-section-table" ng-if="pageProgramaContent.proposals">
+        <div class="proposal-ranking-section-table">
           <proposal-list proposals="pageProgramaContent.proposals"></proposal-list>
         </div>
       </div>

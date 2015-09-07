@@ -23,7 +23,7 @@
       <div class="container">
         <div class="row">
           <article class="program-preview">
-            
+
               <div class="col-md-12">
                 <h1 class="program-preview--title color-theme-fg">{{::pageProgramaContent.article.title}}</h1>
               </div>
@@ -41,10 +41,8 @@
                       <p>Lorem ipsum dolor sit amet, ea veniam mucius ocurreret vix, ius ex nisl vidisse partiendo. Blandit nominavi cum ei, paulo quaestio his ei, eum minim salutandi in. Civibus albucius in quo, et eam posse facilisis. Debet suavitate sea ut, his ei feugiat fastidii eleifend. Quo ex quando maiestatis voluptatum, mel te perpetua maiestatis, sit ceteros legendos deserunt ea. Enim dolores moderatius eu pro, ad quo ignota aliquid meliore.</p>
                     </div>
                     <div class="program-preview--share">
-                      <ul class="list-inline">
-                        <li>Compartilhe este programa:</li>
-                        <li><social-share class="program-preview--share-directive"></social-share></li>
-                      </ul>
+                      <div class="program-preview--share-label">Compartilhe este programa:</div>
+                      <social-share class="program-preview--share-directive"></social-share>
                     </div>
                     <div class="program-preview--make-proposal">
                       <div class="row">
@@ -60,15 +58,22 @@
               </div>
               <div class="col-md-4">
                 <div class="row">
-                  <div class="col-xs-12">
+                  <div class="col-xs-12" ng-if="pageProgramaContent.proposalsTopRated && pageProgramaContent.proposalsTopRated.length > 0">
                     <h3 class="color-theme-fg">Propostas mais votadas</h3>
-                    <div ng-if="pageProgramaContent.proposalsTopRated">
-                      <proposal-carousel proposals="pageProgramaContent.proposalsTopRated"></proposal-carousel>
-                    </div>
+                    <proposal-carousel proposals="pageProgramaContent.proposalsTopRated"></proposal-carousel>
                   </div>
-                  <div class="col-xs-12">
+                  <div class="col-xs-12" ng-if="pageProgramaContent.randomProposal">
                     <h3 class="color-theme-fg">Propostas nesse programa</h3>
-                    <proposal-related article="pageProgramaContent.article"></proposal-related>
+                    <proposal-related proposal="pageProgramaContent.randomProposal" topic="pageProgramaContent.article" category="pageProgramaContent.category"></proposal-related>
+                  </div>
+                  <div class="col-xs-12" ng-if="!pageProgramaContent.randomProposal && !(pageProgramaContent.proposalsTopRated && pageProgramaContent.proposalsTopRated.length > 0)">
+                    <h3>Programas sem propostas</h3>
+                    <p>
+                      Este programa ainda não possui nenhuma proposta.
+                      <div class="button--themed">
+                        <button type="button" class="btn btn-block" ng-click="pageProgramaContent.makeProposal()">Faça uma proposta</button>
+                      </div>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -77,17 +82,17 @@
       </div>
     </section>
 
-    <section class="proposal-ranking-section">
+    <section class="proposal-ranking-section" style="display:none;" ng-if="pageProgramaContent.proposals && pageProgramaContent.proposals.length > 0">
       <div class="container">
         <div class="proposal-ranking-section-header">
           <h3 class="color-theme-fg">Resultados de propostas mais votadas</h3>
         </div>
-        <div class="proposal-ranking-section-table" ng-if="pageProgramaContent.proposals">
+        <div class="proposal-ranking-section-table">
           <proposal-list proposals="pageProgramaContent.proposals"></proposal-list>
         </div>
       </div>
     </section>
-    
+
     <section class="section-content">
       <article class="program-content" ng-if="pageProgramaContent.article">
           <div ng-bind-html="pageProgramaContent.article.body"></div>

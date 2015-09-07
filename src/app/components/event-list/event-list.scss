@@ -17,8 +17,8 @@
         transition: .3s linear all;
 
         &.ng-hide {
-            height: 0px;
-            line-height: 0px;
+            height: 0;
+            line-height: 0;
         }
 
         // .event-list--header {
@@ -55,7 +55,12 @@
         text-align: center;
         line-height: 20px;
         cursor: pointer;
-        transition: .3s linear all;
+
+        -webkit-transition: -webkit-transform 0.3s linear all;
+        -moz-transition: -moz-transform 0.3s linear all;
+        -o-transition: -o-transform 0.3s linear all;
+        transition: transform 0.3s linear all;
+
         overflow: hidden;
         z-index: 100;
 
@@ -72,6 +77,7 @@
 
     .event-bar--trigger {
         color: #fff;
+        cursor: pointer;
 
         h1 {
             margin-bottom: 20px;

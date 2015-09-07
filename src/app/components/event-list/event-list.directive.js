@@ -19,18 +19,24 @@
       vm.$log = $log;
 
       vm.init();
+      // vm.attachListeners();
     }
 
     EventListController.prototype.init = function () {
       var vm = this;
 
-      vm.eventList = [];
-      vm.isListVisible = false;
+      if(!vm.events){
+        throw { name: 'NotDefined', message: 'The attribute "events" is undefined.'};
+      }
+
+      if(!vm.isCollapsed){
+        vm.isCollapsed = true;
+      }
     };
 
     EventListController.prototype.toggleView = function () {
       var vm = this;
-      vm.isListVisible = !vm.isListVisible;
+      vm.isCollapsed = !vm.isCollapsed;
     };
 
     EventListController.prototype.subscribe = function (data) {
@@ -42,8 +48,12 @@
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/event-list/event-list.html',
+      scope: {
+        events: '=',
+        isCollapsed: '='
+      },
       controller: EventListController,
-      controllerAs: 'eventListCtrl',
+      controllerAs: 'vm',
       bindToController: true
     };
 

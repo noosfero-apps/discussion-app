@@ -46,6 +46,16 @@
       vm.activeIndex = (vm.activeIndex > 0) ? --vm.activeIndex : vm.proposalsLength - 1;
     };
 
+    ProposalCarouselController.prototype.switchProposal = function (index) {
+      var vm = this;
+
+      if(index >= 0 && index < vm.proposalsLength) {
+        vm.activeIndex = index;
+      }else{
+        vm.$log.warn('[switchProposal] "index" not handled:', index);
+      }
+    };
+
     ProposalCarouselController.prototype.showProposals = function () {
       var vm = this;
 

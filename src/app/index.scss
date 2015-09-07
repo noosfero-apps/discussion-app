@@ -132,8 +132,44 @@ body {
     }
 }
 
+
+.social-share {
+    min-width: 200px;
+    background-color: #eee;
+    padding: 5px;
+    height: 47px;
+
+    &:after {
+        clear: both;
+    }
+
+    li {
+        float: left;
+        padding: 0;
+        margin: 0;
+        width: 45px;
+        text-align: center;
+
+        & > a {
+            padding: 0;
+        }
+
+        &:first-child {
+            // margin-left: 5px;
+        }
+    }
+
+    .icon {
+        transform: scale(0.7);
+        position: relative;
+        top: -10px;
+        left: -10px;
+    }
+}
+
 .icon {
-    display: block;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .icon-wrapper-rounded {
@@ -141,11 +177,53 @@ body {
     border-radius: 100%;
 }
 
+.icon-circle {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    // border: 1px solid #eee;
+    border-radius: 100%;
+    overflow: hidden;
+
+    &.icon-small {
+        width: 35px;
+        height: 35px;
+    }
+
+    .vote_for &,
+    .next &,
+    .vote_against & {
+        padding-top: 12px;
+    }
+
+    .vote_for & {
+        background-color: #4AC97A;
+    }
+    .next & {
+        background-color: #EEB453;
+    }
+    .vote_against & {
+        background-color: #EC4C68;
+    }
+}
+
+.icon-circle-social-facebook {background-color: #537ab5; }
+.icon-circle-social-twitter {background-color: #77cbef; }
+.icon-circle-social-googleplus {background-color: #d23b00; }
+.icon-circle-social-whatsapp {background-color: #10ad08; }
+.icon-circle-social-youtube {background-color: #c63635; }
+.icon-circle-social-flickr {background-color: #eaeaea; }
+.icon-circle-mail {background-color: #ecb24e; }
+
 // Theme
 @each $category, $color in $categories {
     .#{$category} {
         .color-theme-fg { color: $color; }
         .color-theme-bg { background-color: $color;}
+        .color-theme-bg-darker { background-color: darken($color, 10%);}
 
         .contraste & .color-theme-fg { color: #fff; }
         .contraste & .color-theme-bg { background-color: #000;}

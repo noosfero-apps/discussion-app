@@ -9,7 +9,7 @@
   function socialShare() {
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/components/socialShare/socialShare.html',
+      templateUrl: 'app/components/social-share/social-share.html',
       scope: {
       },
       controller: SocialShareController,

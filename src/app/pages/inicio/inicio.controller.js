@@ -53,20 +53,23 @@
       }
 
       loadAfterHome();
-      
+
       vm.loading = false;
     }, function(error) {
       vm.$log.error('Error on getHome.', error);
     });
 
+    // Load event list
+    vm.DialogaService.getEvents({}, function(events) {
+      vm.events = events;
+      vm.loadingEvents = false;
+    }, function(error) {
+      vm.$log.error('Error on getEvents.', error);
+      vm.loadingEvents = false;
+      vm.eventsError = true;
+    });
+
     function loadAfterHome () {
-      // Load event list
-      // vm.DialogaService.getEvents(function(data) {
-      //   vm.events = data;
-      //   vm.loadingEvents = false;
-      // }, function(error) {
-      //   vm.$log.error('Error on getEvents.', error);
-      // });
 
       // Load theme list
       vm.DialogaService.getThemes(function(data) {
@@ -77,9 +80,9 @@
       });
 
       // Load program list
-      vm.DialogaService.getProgramsRandom(function(data) {
+      vm.DialogaService.getProgramsRandom({}, function(data) {
         vm.programs = vm.article.children;
-        vm.filtredPrograms = data;
+        vm.filtredPrograms = data.articles;
         vm.loadingPrograms = false;
       }, function(error) {
         vm.$log.error('Error on getPrograms.', error);

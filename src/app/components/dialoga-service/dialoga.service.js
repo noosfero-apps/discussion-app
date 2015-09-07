@@ -9,24 +9,24 @@
   function DialogaService($rootScope, $sce, API, ArticleService, UtilService, Slug, $log) {
     $log.debug('DialogaService');
 
-    var service = {
-      getHome: getHome,
-      getAbout: getAbout,
-      getThemes: getThemes,
-      getPrograms: getPrograms,
-      getProgramBySlug: getProgramBySlug,
-      getProgramsRandom: getProgramsRandom,
-      getProposals: getProposals,
-      getProposalsByTopicId: getProposalsByTopicId,
-      getEvents: getEvents,
-      getQuestions: getQuestions,
-      searchProgram: searchProgram,
-      searchProposal: searchProposal,
-    };
+    var extendedService = angular.extend({}, ArticleService);
+
+    extendedService.serviceDialoga = $rootScope.basePath + '/api/v1/dialoga_plugin/';
+    extendedService.getHome = getHome;
+    extendedService.getAbout = getAbout;
+    extendedService.getTerms = getTerms;
+    extendedService.getThemes = getThemes;
+    extendedService.getPrograms = getPrograms;
+    extendedService.getProgramBySlug = getProgramBySlug;
+    extendedService.getProgramsRandom = getProgramsRandom;
+    extendedService.getEvents = getEvents; // override
+    extendedService.getQuestions = getQuestions;
+    extendedService.searchPrograms = searchPrograms;
+    extendedService.searchProposals = searchProposals;
 
     var CACHE = {};
 
-    return service;
+    return extendedService;
 
     function getHome (cbSuccess, cbError) {
       if( !!CACHE.home ){
@@ -62,6 +62,19 @@
       }
     }
 
+    function getTerms (cbSuccess, cbError) {
+      if( !!CACHE.terms ){
+        cbSuccess(CACHE.terms);
+      }else{
+        // load article content
+        ArticleService.getArticleById(API.articleId.terms, {}, function (article){
+          CACHE.terms = article;
+
+          cbSuccess(CACHE.terms);
+        }, cbError);
+      }
+    }
+
     function getThemes (cbSuccess, cbError) {
       if( !!CACHE.themes ){
         cbSuccess(CACHE.themes);
@@ -91,11 +104,11 @@
     }
 
     function getProgramBySlug (slug, cbSuccess, cbError) {
-      
+
       if( !CACHE.programs ){
         getPrograms(_getProgramBySlug, cbError);
       } else {
-       _getProgramBySlug(); 
+       _getProgramBySlug();
       }
 
       function _getProgramBySlug(){
@@ -110,58 +123,46 @@
       }
     }
 
-    function getProgramsRandom (cbSuccess, cbError) {
-      getPrograms(cbSuccess, cbError);
-      // TODO: get endpoint for production
-      // if( !!CACHE.programsRandom ){
-      //   cbSuccess(CACHE.programsRandom);
-      // }else{
-      //   // load article content
-      //   // UtilService.get(API.random_topics, {params: {
-      //   ArticleService.getArticleById(API.articleId.home, {params: {
-      //     'fields[]': [
-      //       'id', 'title', 'slug', 'abstract', 'children_count'],
-      //     'content_type': 'ProposalsDiscussionPlugin::Topic'
-      //   }}).then(function(data){
-      //     CACHE.programsRandom = data;
+    // Ex.: /api/v1/dialoga_plugin/random_topics/103358
+    // TODO: get endpoint for production
+    // TODO: put at cache?
+    function getProgramsRandom(params, cbSuccess, cbError) {
 
-      //     cbSuccess(data);
-      //   }).catch(function(error){
-      //     cbError(error);
-      //   });
-      // }
-    }
-
-    function getProposals (param, cbSuccess, cbError) {
-      ArticleService.getProposals(param, function (data){
-        CACHE.proposals = data;
-
-        cbSuccess(CACHE.proposals);
-      }, cbError);
-    }
-
-    function getProposalsByTopicId (topicId, params, cbSuccess, cbError) {
-      ArticleService.getProposalsByTopicId(topicId, params, function (data){
-        CACHE.proposals = data;
-
-        cbSuccess(CACHE.proposals);
-      }, cbError);
-    }
-
-    function getEvents (cbSuccess, cbError) {
-      if( !!CACHE.events ){
-        cbSuccess(CACHE.events);
+      if( !!CACHE.programsRandom ){
+        cbSuccess(CACHE.programsRandom);
       }else{
-        // load main content
-        getHome(function(){
-          if(!CACHE.hasOwnProperty('events')){
-            throw { name: 'NotFound', message: '"events" is not defined. "article.categories" was loaded?'};
-          }
-          cbSuccess(CACHE.events);
-        },cbError);
+        var mapFromCache = !!CACHE.programs;
+
+        var url = extendedService.serviceDialoga + 'random_topics/' + API.articleId.home;
+        var fields = null;
+
+        if (mapFromCache){
+          // get only references
+          fields = ['id', 'title', 'slug'];
+        }else{
+          // get all content
+          fields = [];
+        }
+
+        var paramsExtended = angular.extend({
+          'fields[]': fields
+        }, params);
+
+        UtilService.get(url, {params: paramsExtended}).then(function(data){
+          _pipeHandleProgramsRandomFromCache(mapFromCache, data, cbSuccess);
+        }).catch(function(error){
+          cbError(error);
+        });
       }
     }
 
+    function getEvents (params, cbSuccess, cbError) {
+      var paramsExtended = angular.extend({}, params);
+
+      ArticleService.getEvents(API.communityId, paramsExtended, cbSuccess, cbError);
+    }
+
+    // TODO: implement
     function getQuestions (cbSuccess/*, cbError*/) {
       if( !!CACHE.questions ){
         cbSuccess(CACHE.questions);
@@ -174,9 +175,13 @@
       }
     }
 
-    function searchProgram (cbSuccess, cbError) {}
+    function searchPrograms (query, cbSuccess, cbError) {
+      ArticleService.searchTopics({query: query}, cbSuccess, cbError);
+    }
 
-    function searchProposal (cbSuccess, cbError) {}
+    function searchProposals (query, cbSuccess, cbError) {
+      ArticleService.searchProposals({query: query}, cbSuccess, cbError);
+    }
 
     function _pipeHandleYoutube (data) {
       var abstract = data.article.abstract;
@@ -241,6 +246,30 @@
         //   }
         // };
       }
+    }
+
+    function _pipeHandleProgramsRandomFromCache (mapFromCache, data, cbSuccess){
+
+      if(mapFromCache){
+        var result = [];
+        var refPrograms = data.articles;
+
+        for (var i = CACHE.programs.length - 1; i >= 0; i--) {
+          var cachedProgram = CACHE.programs[i];
+
+          for (var j = refPrograms.length - 1; j >= 0; j--) {
+            var refProgram = refPrograms[j];
+
+            if(refProgram.id === cachedProgram.id){
+              result.push(cachedProgram);
+            }
+          }
+        }
+
+        data.articles = result;
+      }
+
+      cbSuccess(data);
     }
 
     function forceIframeParams(abstract) {

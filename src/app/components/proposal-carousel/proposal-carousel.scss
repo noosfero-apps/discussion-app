@@ -2,6 +2,7 @@
     background-color: #f1f1f1;
     border-radius: 5px;
     overflow: hidden;
+    margin-bottom: 30px;
 
     &-top {
         position: relative;
@@ -57,21 +58,20 @@
             font-weight: bold;
             line-height: 116px;
             z-index: 1;
-
         }
     }
 
     &-bottom {
         position: relative;
         color: #fff;
-        padding: 10px;
+        padding: 15px 30px;
         font-weight: bold;
         cursor: pointer;
         z-index: 10;
 
         &-icon {
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 15px;
 
             .glyphicon {

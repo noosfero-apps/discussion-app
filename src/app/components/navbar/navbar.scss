@@ -1,7 +1,6 @@
 .app-navbar {
 
     border-bottom: 2px solid #f1f1f1;
-    margin-bottom: 20px;
 
     .navbar {
         margin-bottom: 0;
@@ -12,13 +11,26 @@
         height: auto;
         padding-bottom: 0;
         padding-left: 0;
+
+        @media screen and (max-width: $screen-md) {
+            padding: 20px 0;
+            margin: 20px 0;
+        }
     }
 
     .navbar-toggle {
+        padding: 12px 10px;
         margin-top: 20px;
+        border-radius: 100%;
+        background-color: #5e749d;
 
         .icon-bar {
             height: 3px;
+            background-color: #fff;
+        }
+
+        @media screen and (max-width: $screen-md) {
+            margin-top: 45px;
         }
     }
 
@@ -27,9 +39,13 @@
         margin: 53px 10px 0 10px;
         display: block;
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: $screen-md) {
             display: none;
         }
+    }
+
+    .dropdown-menu {
+        padding: 0;
     }
 
     .navbar-nav > li {
@@ -49,40 +65,29 @@
             .contraste & {
                 color: #fff;
             }
+
+            @media screen and (max-width: $screen-md) {
+                margin-top: 5px;
+            }
         }
 
         &.active > a {
             border-bottom: 3px solid #77BB34;
 
-            @media screen and (max-width: 768px) {
+            @media screen and (max-width: $screen-md) {
                 border: none;
                 background-color: #eee;
                 padding: 10px 0 10px 0px;
             }
         }
 
-        .dropdown-menu {
-            min-width: 190px;
+        .dropdown-toggle {
+            margin-top: 50px;
 
-            li {
-                float: left;
-                padding: 0;
-                margin: 0;
-                width: 45px;
-
-                & > a {
-                    padding: 0;
-                }
-
-                &:first-child {
-                    margin-left: 5px;
-                }
+            @media screen and (max-width: $screen-md) {
+                margin-top: 0px;
             }
         }
-    }
-
-    .navbar-toggle .icon-bar {
-        background-color: #333;
     }
 
     .contraste & {

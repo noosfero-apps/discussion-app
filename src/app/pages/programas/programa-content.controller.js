@@ -39,6 +39,13 @@
 
     // Get program by slug
     var slug = vm.$state.params.slug;
+
+    if(!slug){
+      vm.$log.error('slug not defined.');
+      vm.$log.info('Rollback to home page.');
+      vm.$state.go('inicio', {}, {location: true});
+    }
+
     vm.DialogaService.getProgramBySlug(slug, function(article) {
       vm.article = article;
       vm.category = vm.article.categories[0];

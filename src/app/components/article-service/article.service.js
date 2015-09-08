@@ -70,7 +70,7 @@
 
     function getTopics (params, cbSuccess, cbError) {
       // Ex.: /api/v1/articles/103358/children?fields=
-      getTopicById(API.articleId.home);
+      getTopicById(API.articleId.home, params, cbSuccess, cbError);
     }
 
     function getTopicById (topicId, params, cbSuccess, cbError) {
@@ -79,11 +79,11 @@
       var url = service.apiArticles + topicId + '/children';
       var paramsExtended = angular.extend({
         'fields[]': ['id', 'categories']
+        // 'fields[]': ['id', 'title', 'body', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits']
       }, params);
 
-      UtilService.get(url, {params: {
-        'fields[]': ['id', 'title', 'body', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits']
-      }}).then(function(data){
+      UtilService.get(url, {params: paramsExtended})
+      .then(function(data){
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);
@@ -121,13 +121,14 @@
       var url = service.apiArticles + topicId + '/children';
 
       var paramsExtended = angular.extend({
-        'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
-        'limit':'20',
-        'page':'1',
+        // 'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
+        // 'limit':'20',
+        // 'page':'1',
         'content_type':'ProposalsDiscussionPlugin::Proposal'
       }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
+        _pipeInjectSlugIntoParentProgram(data);
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);
@@ -179,6 +180,16 @@
       }).catch(function(error){
         cbError(error);
       });
+    }
+
+    function _pipeInjectSlugIntoParentProgram(data){
+      var proposals = data.articles;
+      for (var i = proposals.length - 1; i >= 0; i--) {
+        var proposal = proposals[i];
+        if(proposal.parent && !proposal.parent.slug){
+          proposal.parent.slug = Slug.slugify(proposal.parent.title);
+        }
+      }
     }
   }
 })();

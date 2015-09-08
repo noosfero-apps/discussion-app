@@ -23,15 +23,15 @@
 
       var vm = this;
 
-      if (!vm.vote) { vm.vote = false};
+      if (!vm.vote) { vm.vote = false; }
 
     };
 
-    ProposalBoxController.prototype.showContent = function (program) {
+    ProposalBoxController.prototype.showContent2 = function (topic) {
       var vm = this;
 
       vm.$state.go('programa-conteudo', {
-        slug: program.slug
+        slug: topic.slug
       }, {
         location: true
       });

@@ -7,12 +7,14 @@
     .controller('InicioPageController', InicioPageController);
 
   /** @ngInject */
-  function InicioPageController(DialogaService, $scope, $sce, $log) {
+  function InicioPageController(DialogaService, $scope, $location, $filter, $sce, $log) {
     var vm = this;
 
     // aliases
     vm.DialogaService = DialogaService;
     vm.$scope = $scope;
+    vm.$location = $location;
+    vm.$filter = $filter;
     vm.$sce = $sce;
     vm.$log = $log;
 
@@ -29,6 +31,7 @@
     vm.programs = null;
     vm.filtredPrograms = null;
     vm.query = null;
+    vm.search = vm.$location.search();
 
     vm.error = null;
 
@@ -39,12 +42,9 @@
   InicioPageController.prototype.loadData = function() {
     var vm = this;
 
-    vm.loading = true;
-    vm.loadingEvents = true;
-    vm.loadingThemes = true;
-    vm.loadingPrograms = true;
 
     // Load main content
+    vm.loading = true;
     vm.DialogaService.getHome(function(data) {
       vm.article = data.article;
 
@@ -52,7 +52,7 @@
         hideBackground(2000);
       }
 
-      loadAfterHome();
+      _loadAfterHome();
 
       vm.loading = false;
     }, function(error) {
@@ -60,6 +60,7 @@
     });
 
     // Load event list
+    vm.loadingEvents = true;
     vm.DialogaService.getEvents({}, function(events) {
       vm.events = events;
       vm.loadingEvents = false;
@@ -69,9 +70,10 @@
       vm.eventsError = true;
     });
 
-    function loadAfterHome () {
+    function _loadAfterHome () {
 
       // Load theme list
+      vm.loadingThemes = true;
       vm.DialogaService.getThemes(function(data) {
         vm.themes = data;
         vm.loadingThemes = false;
@@ -80,6 +82,7 @@
       });
 
       // Load program list
+      vm.loadingPrograms = true;
       vm.DialogaService.getProgramsRandom({}, function(data) {
         vm.programs = vm.article.children;
         vm.filtredPrograms = data.articles;
@@ -87,6 +90,8 @@
       }, function(error) {
         vm.$log.error('Error on getPrograms.', error);
       });
+
+      vm.filter();
     }
 
   };
@@ -112,10 +117,160 @@
   InicioPageController.prototype.attachListeners = function() {
     var vm = this;
 
-    vm.$scope.$on('change-selectedCategory', function (selectedCategory) {
+    vm.$scope.$on('change-selectedCategory', function (event, selectedCategory) {
       vm.selectedTheme = selectedCategory;
     });
+
+    vm.$scope.$watch('pageInicio.selectedTheme', function(newValue/*, oldValue*/) {
+      vm.search.tema = newValue ? newValue.slug : null;
+      vm.$location.search('tema', vm.search.tema);
+      vm.filtredPrograms = vm.getFiltredPrograms();
+    });
+
+    vm.$scope.$watch('pageInicio.query', function(newValue/*, oldValue*/) {
+      vm.search.filtro = newValue ? newValue : null;
+      vm.$location.search('filtro', vm.search.filtro);
+      vm.filtredPrograms = vm.getFiltredPrograms();
+    });
   };
+
+  InicioPageController.prototype.filter = function() {
+    var vm = this;
+
+    if (vm.search && vm.search.tema) {
+      var slug = vm.search.tema;
+      vm.$log.debug('filter by theme', slug);
+
+      vm.DialogaService.getThemeBySlug(slug, function(theme){
+        vm.selectedTheme = theme;
+        vm.$log.debug('getThemeBySlug.slug', slug);
+        vm.$log.debug('getThemeBySlug.selectedTheme', theme);
+      }, function(error){
+        vm.$log.error('Error when try to "getThemeBySlug"', error);
+      });
+    }
+  };
+
+  InicioPageController.prototype.showAllPrograms = function($event) {
+    var vm = this;
+    $event.stopPropagation();
+
+    vm.resetFilterValues();
+
+    vm.filtredPrograms = vm.getFiltredPrograms();
+  };
+
+  InicioPageController.prototype.resetFilterValues = function() {
+    var vm = this;
+
+    vm.query = null;
+    vm.selectedTheme = null;
+  };
+
+  InicioPageController.prototype.getFiltredPrograms = function() {
+    var vm = this;
+
+    if(!vm.programs){
+      vm.$log.warn('No programs loaded yet. Abort.');
+      return null;
+    }
+
+    var input = vm.programs;
+    var output = input;
+    var query = vm.query;
+    var selectedTheme = vm.selectedTheme;
+    
+    var filter = vm.$filter('filter');
+    
+    if (selectedTheme) {
+      output = _filterByCategory(output, selectedTheme);
+    }
+
+    if (query) {
+      output = filter(output, query, false);
+    }
+
+    if(!query && !selectedTheme){
+      output = _balanceByCategory(output);
+    }
+
+    return output;
+  };
+
+  function _filterByCategory (input, category) {
+    input = input || [];
+
+    if (!category) {
+      // no filter
+      return input;
+    }
+
+    var out = [];
+    for (var i = 0; i < input.length; i++) {
+      var program = input[i];
+      if (program.categories[0].slug === category.slug) {
+        out.push(program);
+      }
+    }
+
+    return out;
+  }
+
+  function _balanceByCategory (input) {
+    var result = [];
+    var resultByCategory = {};
+
+    // divide by categories
+    for (var i = 0; i < input.length; i++) {
+      var program = input[i];
+      var categorySlug = program.categories[0].slug;
+
+      if (!resultByCategory[categorySlug]) {
+        resultByCategory[categorySlug] = [];
+      }
+
+      resultByCategory[categorySlug].push(program);
+    }
+
+    // shuffle each array
+    var prop = null;
+    var categoryWithPrograms = null;
+    // for (prop in resultByCategory) {
+    //   if (resultByCategory.hasOwnProperty(prop)) {
+    //     categoryWithPrograms = resultByCategory[prop];
+    //     resultByCategory[prop] = shuffle(categoryWithPrograms);
+    //   }
+    // }
+
+    // Concat all into result array
+    // > while has program at Lists on resultByCategory
+    var hasProgram = true;
+    while (hasProgram) {
+
+      var foundProgram = false;
+      // each categoryList with array of program
+      prop = null;
+      categoryWithPrograms = null;
+      for (prop in resultByCategory) {
+
+        if (resultByCategory.hasOwnProperty(prop)) {
+          categoryWithPrograms = resultByCategory[prop];
+
+          if (categoryWithPrograms.length > 0) {
+            var pivotProgram = categoryWithPrograms.pop();
+            result.push(pivotProgram);
+            foundProgram = true;
+          }
+        }
+      }
+
+      if (!foundProgram) {
+        hasProgram = false;
+      }
+    }
+
+    return result;
+  }
 
   function injectIframeApiJs() {
     var tag = document.createElement('script');

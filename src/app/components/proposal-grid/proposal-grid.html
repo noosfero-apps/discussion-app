@@ -1,6 +1,6 @@
 <div class="proposal-grid row">
   <div ng-repeat="proposal in vm.proposals as results">
-    <proposal-box proposal="proposal" category="proposal.categories[0]" class="col-xs-12 col-sm-6"></proposal-box>
+    <proposal-box proposal="proposal" topic="proposal.parent" category="proposal.parent.categories[0]" class="col-xs-12 col-sm-6"></proposal-box>
     <div ng-if="$odd" class="clearfix"></div>
   </div>
   <div class="animate-repeat" ng-if="results.length == 0">

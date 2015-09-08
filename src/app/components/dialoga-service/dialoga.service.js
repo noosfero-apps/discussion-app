@@ -16,6 +16,7 @@
     extendedService.getAbout = getAbout;
     extendedService.getTerms = getTerms;
     extendedService.getThemes = getThemes;
+    extendedService.getThemeBySlug = getThemeBySlug;
     extendedService.getPrograms = getPrograms;
     extendedService.getProgramBySlug = getProgramBySlug;
     extendedService.getProgramsRandom = getProgramsRandom;
@@ -86,6 +87,28 @@
           }
           cbSuccess(CACHE.themes);
         },cbError);
+      }
+    }
+    function getThemeBySlug (slug, cbSuccess, cbError) {
+      if( !!CACHE.themes ){
+        _getThemeBySlug(CACHE.themes);
+      }else{
+        getThemes(_getThemeBySlug, cbError);
+      }
+
+      function _getThemeBySlug () {
+        var result = null;
+
+        for (var i = CACHE.themes.length - 1; i >= 0; i--) {
+          var theme = CACHE.themes[i];
+
+          if(theme && theme.slug && theme.slug === slug){
+            result = theme;
+            break;
+          }
+        }
+
+        cbSuccess(result);
       }
     }
 

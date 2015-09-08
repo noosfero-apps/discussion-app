@@ -1,0 +1,36 @@
+.page--duvidas {
+
+    .num-duvida {
+      color: #FFF;
+      background-color: $defaultblue;
+      display: inline-block;
+      text-align: center;
+      width: 45px;
+      height: 45px;
+      margin-left: 10px;
+      padding: 0;
+      border-radius: 100%;
+      font-size: 18px;
+      padding-top: 10px;
+  }
+
+  .panel-default > .panel-heading {
+      background-color: #fff;
+      border-color: #ddd;
+  }
+
+  .mensagem-text-area {
+      width: 100%;
+      height: 200px;
+      resize: none;
+  }
+
+  .dark-input {
+    background-color: #DADADA;
+  }
+
+  .light-input {
+    background-color: #F1F1F1;
+  }
+
+}

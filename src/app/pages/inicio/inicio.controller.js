@@ -37,18 +37,14 @@
 
     vm.loadData();
     vm.attachListeners();
-    vm.filter();
   };
 
   InicioPageController.prototype.loadData = function() {
     var vm = this;
 
-    vm.loading = true;
-    vm.loadingEvents = true;
-    vm.loadingThemes = true;
-    vm.loadingPrograms = true;
 
     // Load main content
+    vm.loading = true;
     vm.DialogaService.getHome(function(data) {
       vm.article = data.article;
 
@@ -64,6 +60,7 @@
     });
 
     // Load event list
+    vm.loadingEvents = true;
     vm.DialogaService.getEvents({}, function(events) {
       vm.events = events;
       vm.loadingEvents = false;
@@ -76,6 +73,7 @@
     function _loadAfterHome () {
 
       // Load theme list
+      vm.loadingThemes = true;
       vm.DialogaService.getThemes(function(data) {
         vm.themes = data;
         vm.loadingThemes = false;
@@ -84,6 +82,7 @@
       });
 
       // Load program list
+      vm.loadingPrograms = true;
       vm.DialogaService.getProgramsRandom({}, function(data) {
         vm.programs = vm.article.children;
         vm.filtredPrograms = data.articles;
@@ -91,6 +90,8 @@
       }, function(error) {
         vm.$log.error('Error on getPrograms.', error);
       });
+
+      vm.filter();
     }
 
   };
@@ -138,10 +139,14 @@
 
     if (vm.search && vm.search.tema) {
       var slug = vm.search.tema;
-      vm.ArticleService.getCategoryBySlug(slug, function(category){
-        vm.selectedTheme = category;
+      vm.$log.debug('filter by theme', slug);
+
+      vm.DialogaService.getThemeBySlug(slug, function(theme){
+        vm.selectedTheme = theme;
+        vm.$log.debug('getThemeBySlug.slug', slug);
+        vm.$log.debug('getThemeBySlug.selectedTheme', theme);
       }, function(error){
-        vm.$log.error('Error when try to "getCategoryBySlug"', error);
+        vm.$log.error('Error when try to "getThemeBySlug"', error);
       });
     }
   };

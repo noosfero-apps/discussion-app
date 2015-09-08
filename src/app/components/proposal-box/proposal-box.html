@@ -5,10 +5,13 @@
   </div>
   <div class="proposal-box--middle">
     <div class="proposal-box--content">
-     <div class="proposal-box--content-inner" ng-bind-html="vm.proposal.abstract"></div>
+     <div class="proposal-box--content-inner">{{::vm.proposal.abstract}}</div>
    </div>
-   <div ng-show="!vm.vote" class="proposal-box--join">
-    <button class="btn btn-link" ng-click="vm.showContent2(vm.topic)">Participe</button>
+   <div ng-hide="vm.vote" class="proposal-box--join">
+    <button class="btn btn-link color-theme-common-fg" ng-click="vm.showContent(vm.topic.slug)">
+      Participe
+      <span class="glyphicon glyphicon-menu-right color-theme-common-fg" aria-hidde="true"></span>
+    </button>
   </div>
   <div ng-show="vm.vote"class="proposal-box--actions text-center">
     <div class="row">

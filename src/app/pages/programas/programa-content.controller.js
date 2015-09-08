@@ -6,13 +6,14 @@
     .controller('ProgramaContentPageController', ProgramaContentPageController);
 
   /** @ngInject */
-  function ProgramaContentPageController(DialogaService, $state, $scope, $rootScope, $element, $log) {
+  function ProgramaContentPageController(DialogaService, $state, $location, $scope, $rootScope, $element, $log) {
     $log.debug('ProgramaContentPageController');
 
     var vm = this;
 
     vm.DialogaService = DialogaService;
     vm.$state = $state;
+    vm.$location = $location;
     vm.$scope = $scope;
     vm.$rootScope = $rootScope;
     vm.$element = $element;
@@ -28,6 +29,7 @@
 
     vm.article = null;
     vm.category = null;
+    vm.search = vm.$location.search();
 
     vm.error = false;
   };
@@ -68,15 +70,33 @@
         vm.$log.error(error);
       });
 
-      // get random proposal
-      vm.DialogaService.getProposalsByTopicId(vm.article.id, {
-        'order': 'random()',
-        'limit': '1'
-      }, function(data){
-        vm.randomProposal = data.articles[0];
-      }, function (error) {
+      if(vm.search.proposal_id){
+        var proposalUrlId = vm.search.proposal_id;
+        vm.DialogaService.getProposalById(proposalUrlId, {
+          'limit': '1'
+        }, _handleSuccessGetProposal, _handleErrorGetProposal);
+
+      }else{
+        // get random proposal
+        vm.DialogaService.getProposalsByTopicId(vm.article.id, {
+          'order': 'random()',
+          'limit': '1'
+        }, _handleSuccessGetProposal, _handleErrorGetProposal);
+      }
+
+      function _handleSuccessGetProposal(data){
+        if(data && data.articles){
+          vm.randomProposal = data.articles[0];
+        }
+
+        if(data && data.article){
+          vm.randomProposal = data.article;
+        }
+      }
+
+      function _handleErrorGetProposal(error){
         vm.$log.error(error);
-      });
+      }
 
       vm.loading = false;
     }, function(error) {

@@ -19,6 +19,7 @@
       getTopics: getTopics,
       getTopicById: getTopicById,
       getProposals: getProposals,
+      getProposalById: getProposalById,
       getProposalsByTopicId: getProposalsByTopicId,
       getEvents: getEvents,
       subscribeToEvent: subscribeToEvent,
@@ -108,7 +109,28 @@
       // });
 
       //
-      searchTopics(params, cbSuccess, cbError);
+      searchProposals({
+        query: ''
+      }, cbSuccess, cbError);
+    }
+
+    function getProposalById (proposalId, params, cbSuccess, cbError) {
+      var url = service.apiArticles + proposalId;
+
+      var paramsExtended = angular.extend({
+        // 'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
+        // 'per_page':'1',
+        'limit':'1',
+        'content_type':'ProposalsDiscussionPlugin::Proposal'
+      }, params);
+
+      UtilService.get(url, {params: paramsExtended}).then(function(data){
+        _pipeInjectSlugIntoParentProgram(data);
+        cbSuccess(data);
+      }).catch(function(error){
+        cbError(error);
+      });
+
     }
 
     /**
@@ -122,21 +144,7 @@
      * @return {Array}           [description]
      */
     function getProposalsByTopicId (topicId, params, cbSuccess, cbError) {
-      var url = service.apiArticles + topicId + '/children';
-
-      var paramsExtended = angular.extend({
-        // 'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
-        // 'limit':'20',
-        // 'per_page':'1',
-        'content_type':'ProposalsDiscussionPlugin::Proposal'
-      }, params);
-
-      UtilService.get(url, {params: paramsExtended}).then(function(data){
-        _pipeInjectSlugIntoParentProgram(data);
-        cbSuccess(data);
-      }).catch(function(error){
-        cbError(error);
-      });
+      getProposalById(topicId + '/children', params, cbSuccess, cbError);
     }
 
     function getEvents (community_id, params, cbSuccess, cbError) {
@@ -205,11 +213,12 @@
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
       var url = '/api/v1/search/article';
       var paramsExtended = angular.extend({
-        'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits'],
+        // 'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits'],
         'type': 'ProposalsDiscussionPlugin::Proposal'
       }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
+        _pipeInjectSlugIntoParentProgram(data);
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);
@@ -217,6 +226,9 @@
     }
 
     function _pipeInjectSlugIntoParentProgram(data){
+      if(!data.articles && data.article){
+        data.articles = [data.article];
+      }
       var proposals = data.articles;
       for (var i = proposals.length - 1; i >= 0; i--) {
         var proposal = proposals[i];

@@ -88,7 +88,7 @@
         }
       })
       .state('programa-conteudo', {
-        url: '/programa/:slug',
+        url: '/programa/:slug?proposal_id',
         ncyBreadcrumb: {
           label: '{{$parent.$root.contentTitle}}',
           parent: 'programas'

@@ -27,11 +27,12 @@
 
     };
 
-    ProposalBoxController.prototype.showContent2 = function (topic) {
+    ProposalBoxController.prototype.showContent = function (slug) {
       var vm = this;
 
       vm.$state.go('programa-conteudo', {
-        slug: topic.slug
+        slug: slug,
+        proposal_id: vm.proposal.id
       }, {
         location: true
       });

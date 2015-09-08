@@ -41,7 +41,6 @@
 
           _pipeHandleYoutube(data);
           _pipeHandleSlug(data);
-          _pipeSetAbout(data);
           _pipeSetThemes(data);
           _pipeSetPrograms(data);
 
@@ -229,12 +228,6 @@
         if(!program.slug){
           program.slug = Slug.slugify(program.title);
         }
-      }
-    }
-
-    function _pipeSetAbout (data) {
-      if(!CACHE.hasOwnProperty('about')){
-        CACHE.about = data.article.body;
       }
     }
 

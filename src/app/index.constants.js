@@ -6,9 +6,7 @@
     .module('dialoga')
     .constant('API', {
       token: null,
-      hostDev: '',
-      hostHom: 'http://hom.dialoga.gov.br',
-      hostProd: 'http://login.dialoga.gov.br',
+      host: 'http://hom.dialoga.gov.br',
       articleId: {
         home: '103358',
         about: '108073',
@@ -19,7 +17,14 @@
     .constant('AUTH_EVENTS', {
       loginSuccess: 'auth-login-success',
       loginFailed: 'auth-login-failed',
-      logoutSuccess: 'auth-logout-success',
+      registerSuccess: 'auth-register-success',
+      registerFailed: 'auth-register-failed',
+      activateSuccess: 'auth-activate-success',
+      activateFailed: 'auth-activate-failed',
+      changePasswordSuccess: 'auth-changePassword-success',
+      changePasswordFailed: 'auth-changePassword-failed',
+      forgotPassowrdSuccess: 'auth-forgotPassowrd-success',
+      forgotPassowrdFailed: 'auth-forgotPassowrd-failed',
       sessionTimeout: 'auth-session-timeout',
       notAuthenticated: 'auth-not-authenticated',
       notAuthorized: 'auth-not-authorized'

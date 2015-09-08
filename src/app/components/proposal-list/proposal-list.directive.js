@@ -36,6 +36,8 @@
         vm.per_page = 5;
       }
 
+      vm.proposalsPerPage = vm.getProposalsPerPage(0);
+
       vm.proposalsLength = vm.proposals.length;
     };
 
@@ -47,6 +49,20 @@
       vm.$timeout(function(){
         attachPopover.call(vm);
       }, 1000);
+    };
+
+    ProposalListController.prototype.getProposalsPerPage = function (pageIndex) {
+      var vm = this;
+
+      var initialIndex = pageIndex * vm.per_page;
+      var finalIndex = initialIndex + vm.per_page;
+
+      return vm.proposals.slice(initialIndex, finalIndex);
+    };
+
+    ProposalListController.prototype.showPage = function (pageIndex) {
+      var vm = this;
+      vm.proposalsPerPage = vm.getProposalsPerPage(pageIndex);
     };
 
     function attachPopover(){

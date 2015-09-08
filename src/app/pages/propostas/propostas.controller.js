@@ -45,7 +45,7 @@
 
     // load Proposals
     vm.loadingProposals = true;
-    vm.DialogaService.getProposalsByTopicId(103644, {}, function(data){
+    vm.DialogaService.getProposals({}, function(data){
       vm.proposals = data.articles;
       vm.filtredProposals = vm.proposals;
       vm.loadingProposals = false;

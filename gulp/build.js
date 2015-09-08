@@ -44,6 +44,7 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe($.rev())
     .pipe(jsFilter)
     .pipe($.replace('$logProvider.debugEnabled(true);', '$logProvider.debugEnabled(false);'))
+    .pipe($.replace('http://hom.dialoga.gov.br', 'http://login.dialoga.gov.br'))
     .pipe($.ngAnnotate())
     .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
     .pipe(jsFilter.restore())

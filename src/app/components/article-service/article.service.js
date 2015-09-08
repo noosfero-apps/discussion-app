@@ -70,7 +70,7 @@
 
     function getTopics (params, cbSuccess, cbError) {
       // Ex.: /api/v1/articles/103358/children?fields=
-      getTopicById(API.articleId.home);
+      getTopicById(API.articleId.home, params, cbSuccess, cbError);
     }
 
     function getTopicById (topicId, params, cbSuccess, cbError) {
@@ -79,11 +79,11 @@
       var url = service.apiArticles + topicId + '/children';
       var paramsExtended = angular.extend({
         'fields[]': ['id', 'categories']
+        // 'fields[]': ['id', 'title', 'body', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits']
       }, params);
 
-      UtilService.get(url, {params: {
-        'fields[]': ['id', 'title', 'body', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits']
-      }}).then(function(data){
+      UtilService.get(url, {params: paramsExtended})
+      .then(function(data){
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);
@@ -189,7 +189,7 @@
         if(proposal.parent && !proposal.parent.slug){
           proposal.parent.slug = Slug.slugify(proposal.parent.title);
         }
-      };
+      }
     }
   }
 })();

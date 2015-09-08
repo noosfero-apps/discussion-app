@@ -23,14 +23,12 @@
 
       var vm = this;
 
-      if (!vm.vote) { vm.vote = false};
+      if (!vm.vote) { vm.vote = false; }
 
     };
 
     ProposalBoxController.prototype.showContent2 = function (topic) {
       var vm = this;
-
-      console.log('topic', topic);
 
       vm.$state.go('programa-conteudo', {
         slug: topic.slug

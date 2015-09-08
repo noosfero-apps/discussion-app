@@ -10,10 +10,8 @@
 
     /** @ngInject */
     function ShowMessageController($log) {
+      // var vm = this;
       $log.debug('ShowMessageController');
-
-      var vm = this;
-
     }
 
     var directive = {

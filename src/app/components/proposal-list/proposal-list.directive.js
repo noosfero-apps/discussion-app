@@ -9,11 +9,12 @@
   function proposalList() {
 
     /** @ngInject */
-    function ProposalListController(ArticleService, $scope, $element, $timeout, $log) {
+    function ProposalListController(ArticleService, $state, $scope, $element, $timeout, $log) {
       $log.debug('ProposalListController');
 
       var vm = this;
       vm.ArticleService = ArticleService;
+      vm.$state = $state;
       vm.$scope = $scope;
       vm.$element = $element;
       vm.$timeout = $timeout;
@@ -49,7 +50,7 @@
         vm.pages =  (vm.proposalsLength / vm.per_page) +1;
       };
 
-      vm.arraypages = new Array(vm.pages);
+      vm.arraypages = new Array(Math.ceil(vm.pages));
 
     };
 
@@ -86,6 +87,18 @@
       vm.proposalsPerPage = vm.getProposalsPerPage(pageIndex);
       vm.currentPageIndex = pageIndex;
     };
+
+    ProposalListController.prototype.showContent = function (proposal) {
+      var vm = this;
+
+      vm.$state.go('programa-conteudo', {
+        slug: proposal.parent.slug,
+        proposal_id: proposal.id
+      }, {
+        location: true
+      });
+
+    }
 
     function attachPopover(){
       var vm = this;

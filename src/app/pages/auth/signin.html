@@ -157,7 +157,7 @@
                   <div class="form-group">
                     <input type="checkbox" id="termosDeUso" name="termosDeUso" value="aceito"  ng-model="termosDeUso" required>
                     Já li os
-                    <a href="">Termos de Uso</a>
+                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalTermosDeUso">Termos de Uso</button>
                     e concordo com os mesmos*
                   </input>
                   <validation-messages field="cadastroForm.termosDeUso"/>
@@ -176,3 +176,22 @@
       </div>
     </div>
   </section>
+
+
+<div class="modal fade" id="modalTermosDeUso" tabindex="-1" role="dialog" aria-labelledby="termosDeUsoLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-termos-uso-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="modal-fechar-pequeno">FECHAR</span>
+          <span aria-hidden="true" class="modal-fechar-grande">X</span>
+        </button>
+      </div>
+      <div class="modal-body modal-termos-uso-body">
+        <div class="modal-termos-uso-body-inner" ng-if="pageSignin.terms">
+          <div ng-bind-html="pageSignin.terms.body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

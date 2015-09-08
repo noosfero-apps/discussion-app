@@ -52,7 +52,7 @@
     }
 
     function handleError (error) {
-      vm.$log.debug('handleSuccess.error', error);
+      // vm.$log.debug('handleSuccess.error', error);
       vm.loading = false;
       vm.error = error;
     }

@@ -26,9 +26,15 @@
 	<article>
 		<header class="container">
       <div class="row">
-        <h1>{{::pageArticle.article.title}}</h1>
+        <div class="col-sm-12">
+          <h1>{{::pageArticle.article.title}}</h1>
+        </div>
       </div>
 		</header>
-		<div ng-bind-html="pageArticle.article.body"></div>
+    <article>
+      <div class="container">
+		    <div ng-bind-html="pageArticle.article.body"></div>
+      </div>
+    </article>
 	</article>
 </div>

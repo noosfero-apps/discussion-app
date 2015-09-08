@@ -23,7 +23,7 @@
         }
       })
       .state('entrar', {
-        url: '/entrar',
+        url: '/entrar?redirect_uri',
         ncyBreadcrumb: {label: 'Entrar'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },

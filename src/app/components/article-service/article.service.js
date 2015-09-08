@@ -156,14 +156,31 @@
       });
     }
 
-    function subscribeToEvent (event_id, params, cbSuccess, cbError) {
-      var url = service.apiArticles + event_id + '/follow';
+    function getSubscribers (event_id, params, cbSuccess, cbError) {
+      var url = service.apiArticles + event_id + '/followers?_=' + new Date().getTime();
       var paramsExtended = angular.extend({
-        private_token: API.token
+        // 'fields[]': ['id', 'slug', 'title', 'abstract', 'body', 'categories', 'created_at', 'start_date', 'end_date', 'hits'],
+        'content_type':'Event'
       }, params);
 
-      UtilService.post(url, {params: paramsExtended}).then(function(data){
+      UtilService.get(url, {params: paramsExtended}).then(function(data){
         cbSuccess(data.articles);
+      }).catch(function(error){
+        cbError(error);
+      });
+    }
+
+    function subscribeToEvent (event_id, params, cbSuccess, cbError) {
+
+      if(!$rootScope.currentUser){
+        cbError({message: 'Usuário não logado.'});
+      }
+
+      var url = service.apiArticles + event_id + '/follow';
+      var encodedParams = 'private_token=' + $rootScope.currentUser.private_token;
+
+      UtilService.post(url, encodedParams).then(function(response){
+        cbSuccess(response);
       }).catch(function(error){
         cbError(error);
       });

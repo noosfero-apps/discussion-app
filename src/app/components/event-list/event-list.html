@@ -59,12 +59,14 @@
                     <span class="theme">{{::event.categories[0].name}}</span>
                   </td>
                   <td align="right">
-                    <b>(?)</b>
-                    <br/>
-                    <span>Inscritos</span>
+                    <div ng-if="!event.subscribers_count">
+                      <b>(?)</b>
+                      <br/>
+                      <span>Inscritos</span>
+                    </div>
                   </td>
                   <td align="left">
-                    <button type="button" class="btn color-theme-common-bg" ng-click="vm.subscribe('EVENT_ID')">
+                    <button type="button" class="btn color-theme-common-bg" ng-click="vm.subscribe(event.id)">
                       Inscreva-se
                       <span class="sr-only">no bate-papo com (ministro) no dia {event.start_date | date : "dd/MM/yyyy"}} as {{event.start_date | date : "HH:mm"}} horas</span>
                     </button>

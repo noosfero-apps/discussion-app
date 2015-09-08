@@ -21,6 +21,7 @@
       getProposals: getProposals,
       getProposalsByTopicId: getProposalsByTopicId,
       getEvents: getEvents,
+      subscribeToEvent: subscribeToEvent,
       searchTopics: searchTopics,
       searchProposals: searchProposals
     };
@@ -93,18 +94,21 @@
     function getProposals (params, cbSuccess, cbError) {
       // Ex.: /api/v1/articles/103358?fields=
 
-      var url = service.apiArticles + API.articleId.home;
+      // var url = service.apiArticles + API.articleId.home;
 
-      var paramsExtended = angular.extend({
-        // 'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children', 'children_count'],
-        'content_type':'ProposalsDiscussionPlugin::Proposal'
-      }, params);
+      // var paramsExtended = angular.extend({
+      //   // 'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children', 'children_count'],
+      //   'content_type':'ProposalsDiscussionPlugin::Proposal'
+      // }, params);
 
-      UtilService.get(url, {params: paramsExtended}).then(function(data){
-        cbSuccess(data);
-      }).catch(function(error){
-        cbError(error);
-      });
+      // UtilService.get(url, {params: paramsExtended}).then(function(data){
+      //   cbSuccess(data);
+      // }).catch(function(error){
+      //   cbError(error);
+      // });
+
+      //
+      searchTopics(params, cbSuccess, cbError);
     }
 
     /**
@@ -146,6 +150,19 @@
       }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
+        cbSuccess(data.articles);
+      }).catch(function(error){
+        cbError(error);
+      });
+    }
+
+    function subscribeToEvent (event_id, params, cbSuccess, cbError) {
+      var url = service.apiArticles + event_id + '/follow';
+      var paramsExtended = angular.extend({
+        private_token: API.token
+      }, params);
+
+      UtilService.post(url, {params: paramsExtended}).then(function(data){
         cbSuccess(data.articles);
       }).catch(function(error){
         cbError(error);

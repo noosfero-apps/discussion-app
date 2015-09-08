@@ -1,62 +1,62 @@
 <div class="proposal-list">
-  <div class="table-responsive" ng-if="vm.loading">
-    <div class="table-responsive">Carregando...</div>
-  </div>
-  <div class="table-responsive" ng-if="!vm.loading && vm.proposalsPerPage">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>
-            Colocação
-            <a tabindex="0" class="btn btn-link btn-question" role="button" data-toggle="popover" data-trigger="focus">?</a>
-          </th>
-          <th>{{vm.proposals.length}} PROPOSTAS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="proposal in vm.proposalsPerPage">
-          <td class="color-theme-fg">
-            <span class="position">{{::($index+1)}}º</span>
-          </td>
-          <td>
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="abstract" ng-bind-html="proposal.abstract"></div>
-              </div>
-            </div>
-            <div class="row row-actions">
-              <div class="col-md-9">
-                <button type="button" class="btn btn-link btn-rate color-theme-common-fg">
-                  Avalie esta proposta
-                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                </button>
-              </div>
-              <div class="col-md-3">
-                <proposal-stats views="{{::proposal.hits}}" up="{{::proposal.votes_for}}" down="{{::proposal.votes_against}}"></proposal-stats>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <nav>
-      <ul class="pagination">
-        <li>
-          <a href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li><a href="#" ng-click="vm.showPage(1)">1</a></li>
-        <li><a href="#" ng-click="vm.showPage(2)">2</a></li>
-        <li><a href="#" ng-click="vm.showPage(3)">3</a></li>
-        <li><a href="#" ng-click="vm.showPage(4)">4</a></li>
-        <li><a href="#" ng-click="vm.showPage(5)">5</a></li>
-        <li>
-          <a href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+	<div class="table-responsive" ng-if="vm.loading">
+		<div class="table-responsive">Carregando...</div>
+	</div>
+	<div class="table-responsive" ng-if="!vm.loading && vm.proposalsPerPage">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>
+						Colocação
+						<a tabindex="0" class="btn btn-link btn-question" role="button" data-toggle="popover" data-trigger="focus">?</a>
+					</th>
+					<th>{{vm.proposals.length}} PROPOSTAS</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="proposal in vm.proposalsPerPage">
+					<td class="color-theme-fg">
+						<span class="position">{{::($index+1)}}º</span>
+					</td>
+					<td>
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="abstract" ng-bind-html="proposal.abstract"></div>
+							</div>
+						</div>
+						<div class="row row-actions">
+							<div class="col-md-9">
+								<button type="button" class="btn btn-link btn-rate color-theme-common-fg">
+									Avalie esta proposta
+									<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+								</button>
+							</div>
+							<div class="col-md-3">
+								<proposal-stats views="{{::proposal.hits}}" up="{{::proposal.votes_for}}" down="{{::proposal.votes_against}}"></proposal-stats>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<nav>
+			<ul class="pagination">
+
+				<li ng-class="{ 'disabled' : vm.currentPageIndex == 0}">
+					<a href="#" aria-label="Previous" ng-click="vm.showPage(vm.currentPageIndex-1)">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+				<li ng-repeat="paginas in vm.arraypages track by $index" ng-class="{ 'active' : ($index) == vm.currentPageIndex }" >
+					<a href="#" ng-click="vm.showPage($index)">{{::($index)+1}}</a>
+				</li>
+				<li  ng-class="{ 'disabled' : vm.currentPageIndex == (vm.arraypages.length -1)}">
+					<a href="#" aria-label="Next" ng-click="vm.showPage(vm.currentPageIndex+1)">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+
+			</ul>
+		</nav>
+	</div>
 </div>

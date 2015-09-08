@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('dialoga')
-    .directive('proposalList', proposalList);
+  .module('dialoga')
+  .directive('proposalList', proposalList);
 
   /** @ngInject */
   function proposalList() {
@@ -36,9 +36,21 @@
         vm.per_page = 5;
       }
 
+      vm.currentPageIndex = 0;
+
       vm.proposalsPerPage = vm.getProposalsPerPage(0);
 
       vm.proposalsLength = vm.proposals.length;
+
+
+      if ((vm.proposalsLength % vm.per_page) == 0) {
+        vm.pages =  vm.proposalsLength / vm.per_page;
+      } else{
+        vm.pages =  (vm.proposalsLength / vm.per_page) +1;
+      };
+
+      vm.arraypages = new Array(vm.pages);
+
     };
 
     ProposalListController.prototype.loadData = function () {
@@ -62,7 +74,17 @@
 
     ProposalListController.prototype.showPage = function (pageIndex) {
       var vm = this;
+
+      if (pageIndex < 0) {
+        pageIndex = 0;
+      }
+
+      if (pageIndex > (vm.arraypages.length-1)) {
+        pageIndex = vm.arraypages.length-1;
+      }
+
       vm.proposalsPerPage = vm.getProposalsPerPage(pageIndex);
+      vm.currentPageIndex = pageIndex;
     };
 
     function attachPopover(){

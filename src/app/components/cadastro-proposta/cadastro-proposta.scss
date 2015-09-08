@@ -1,55 +1,49 @@
 .envio-proposta {
 
-    .titulo-envio-proposta{
-        color: #2D7B66;
-    }
+  .titulo-envio-proposta{
+    color: #2D7B66;
+    font-size: 30px
+  }
 
-    .bloco-programa {
-        border-color: gray;
-        border-width: 1px;
-        border-style: solid;
-        border-radius: 5px;
-        padding: 15px;
-    }
+  .bloco-programa {
+    border-color: gray;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 15px;
+  }
 
-    .texto-programa {
-        font-weight: 600;
-    }
+  .texto-programa {
+    font-weight: 600;
+  }
 
-    .linha-proposta {
-        margin-bottom: 40px;
-    }
+  .linha-proposta {
+    margin-bottom: 40px;
+  }
 
-    .texto-proposta {
-        width: 100%;
-        height: 200px;
-        resize: none;
-    }
+  .texto-proposta {
+    width: 100%;
+    height: 200px;
+    resize: none;
+  }
 
-    .popover .fade .right .in {
-        top: 0px!important;
-    }
+  .popover .fade .right .in {
+    top: 0px!important;
+  }
 
-    .popover-content {
-        width: 300px;
-    }
+  .popover-content {
+    width: 300px;
+  }
 
-    .popover-title {
-        display: none;
-    }
-
-    .teste {
-      border-radius: 10px;
-      width: 20px;
-      height: 20px;
-      display: inline-block;
-      background-color: lightyellow;
+  .popover-title {
+    display: none;
   }
 
   .link-popover {
-      font-size: 15px;
-      color: gray;
-      padding: 0px 7px;
-      border-style: none;
+    font-size: 15px;
+    color: gray;
+    padding: 0px 7px;
+    border-style: none;
   }
+
 }

@@ -6,67 +6,40 @@
     </div>
   </div>
 </div>
-<section
-  role="main"
-  class="section-gray auth-content">
+<section role="main" class="section-gray">
   <div class="container">
     <div class="row">
-      <!-- Mostra só se estiver logado  -->
       <div ng-if="pageSignin.currentUser">
         <div class="row">
           <div class="col-sm-8 col-sm-offset-2">
             <h3>Você está logado!</h3>
             <button
-              type="button"
-              ng-click="pageSignin.onClickLogout()"
-              class="btn btn-primary">Sair</button>
+            type="button"
+            ng-click="pageSignin.onClickLogout()"
+            class="btn btn-primary">Sair</button>
           </div>
         </div>
       </div>
-      <!-- Mostra só se não estiver logado  -->
       <div ng-if="!pageSignin.currentUser">
         <br>
         <div class="col-sm-8 col-sm-offset-2">
           <div class="row">
             <div class="col-md-12">
-              <form
-                name="changePassForm"
-                ng-submit="">
+              <form name="changePassForm" ng-submit="">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="inputPassword">Senha*</label>
-                      <input
-                        type="password"
-                        id="inputPassword"
-                        name="inputPassword"
-                        class="form-control input-lg"
-                        ng-class="{ 'has-error' : changePassForm.inputPassword.$invalid && changePassForm.inputPassword.$touched }"
-                        ng-model="password"
-                        required>
-                      <div ng-show="changePassForm.inputPassword.$touched">
-                        <div ng-messages="changePassForm.inputPassword.$error">
-                          <div ng-messages-include="app/pages/geral/error-messages.html"></div>
-                        </div>
-                      </div>
+                      <input type="password" id="inputPassword" name="inputPassword" class="form-control input-lg" ng-class="{ 'has-error' : changePassForm.inputPassword.$invalid && changePassForm.inputPassword.$touched }" ng-model="password" required>
+                      <validation-messages field="changePassForm.inputPassword"/>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="inputRepeatPassword">Confirmar senha*</label>
                       <input
-                        type="password"
-                        id="inputRepeatPassword"
-                        name="inputRepeatPassword"
-                        class="form-control input-lg"
-                        ng-class="{ 'has-error' : changePassForm.inputRepeatPassword.$invalid && changePassForm.inputRepeatPassword.$touched }"
-                        ng-model="repeatPassword"
-                        required>
-                      <div ng-show="changePassForm.inputRepeatPassword.$touched">
-                        <div ng-messages="changePassForm.inputRepeatPassword.$error">
-                          <div ng-messages-include="app/pages/geral/error-messages.html"></div>
-                        </div>
-                      </div>
+                      type="password" id="inputRepeatPassword" name="inputRepeatPassword" class="form-control input-lg" ng-class="{ 'has-error' : changePassForm.inputRepeatPassword.$invalid && changePassForm.inputRepeatPassword.$touched }" ng-model="repeatPassword" required>
+                      <validation-messages field="changePassForm.inputRepeatPassword"/>
                     </div>
                   </div>
                 </div>
@@ -82,8 +55,8 @@
                   <div class="col-md-6 col-sm-offset-3">
                     <div class="form-group">
                       <button
-                        class="btn btn-lg btn-block btn-submit"
-                        type="submit">Confirmar alteração de senha</button>
+                      class="btn btn-lg btn-block btn-submit"
+                      type="submit">Confirmar alteração de senha</button>
                     </div>
                   </div>
                 </div>
@@ -91,7 +64,8 @@
             </div>
           </div>
         </div>
-        <br></div>
+        <br>
+      </div>
     </div>
   </div>
 </section>

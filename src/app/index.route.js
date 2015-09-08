@@ -35,20 +35,6 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
-      // apenas para teste das mensagens
-      .state('mensagem', {
-        url: '/mensagem',
-        ncyBreadcrumb: {label: 'Mensagem'},
-        views: {
-          'header': { templateUrl: 'app/pages/header/header.html' },
-          'main': {
-            templateUrl: 'app/pages/auth/message.html',
-            controller: 'AuthPageController',
-            controllerAs: 'pageSignin'
-          },
-          'footer': { templateUrl: 'app/pages/footer/footer.html' }
-        }
-      })
       .state('recuperar', {
         url: '/recuperar',
         ncyBreadcrumb: {label: 'Recuperar'},
@@ -139,20 +125,6 @@
             templateUrl: 'app/pages/propostas/ranking.html',
             controller: 'PropostasPageController',
             controllerAs: 'pageRanking'
-          },
-          'footer': { templateUrl: 'app/pages/footer/footer.html' }
-        }
-      })
-      // apenas para teste do cadastro das propostas
-      .state('cadastro-propostas', {
-        url: '/cadastro-propostas',
-        ncyBreadcrumb: {label: 'Cadastro de Propostas'},
-        views: {
-          'header': { templateUrl: 'app/pages/header/header.html' },
-          'main': {
-            templateUrl: 'app/pages/propostas/cadastro-proposta.html',
-            controller: 'PropostasPageController',
-            controllerAs: 'pagePropostas'
           },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }

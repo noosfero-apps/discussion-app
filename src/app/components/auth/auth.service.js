@@ -65,7 +65,7 @@
 
           // 'Usuário ativado com sucesso'
           $rootScope.$broadcast(AUTH_EVENTS.activateSuccess, response);
-          return currentUser;
+          return response;
         }, function(response) {
           // 'Erro: O código de ativação é inválido.'
           $log.debug('AuthService.activate [FAIL] response', response);
@@ -91,7 +91,7 @@
 
           // 'Senha alterada com sucesso.'
           $rootScope.$broadcast(AUTH_EVENTS.changePasswordSuccess, response);
-          return currentUser;
+          return response;
         }, function(response) {
           // 'Não foi possível trocar a senha com os dados informados.'
           $log.debug('AuthService.changePassword [FAIL] response', response);
@@ -111,7 +111,7 @@
 
           // 'Verifique seu email para efetuar a troca da senha.'
           $rootScope.$broadcast(AUTH_EVENTS.forgotPasswordSuccess, response);
-          return currentUser;
+          return response;
         }, function(response) {
           // 'Não foi possível requisitar a troca de senha para os dados informados.'
           $log.debug('AuthService.forgotPassword [FAIL] response', response);

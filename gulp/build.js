@@ -43,6 +43,7 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe(assets = $.useref.assets())
     .pipe($.rev())
     .pipe(jsFilter)
+    .pipe($.replace('$logProvider.debugEnabled(true);', '$logProvider.debugEnabled(false);'))
     .pipe($.ngAnnotate())
     .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
     .pipe(jsFilter.restore())
@@ -68,14 +69,24 @@ gulp.task('html', ['inject', 'partials'], function () {
 
 // Only applies for fonts from bower dependencies
 // Custom fonts are handled by the "other" task
-gulp.task('fonts', function () {
+gulp.task('fonts', ['fonts-bootstrap', 'fonts-opensans']);
+
+gulp.task('fonts-bootstrap', function () {
   return gulp.src([
-      $.mainBowerFiles().concat('bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*'),
-      $.mainBowerFiles().concat('bower_components/open-sans-fontface/fonts/*')
+      'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/**/*'
     ])
     .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
     .pipe($.flatten())
     .pipe(gulp.dest(path.join(conf.paths.dist, '/fonts/')));
+});
+
+gulp.task('fonts-opensans', function () {
+  return gulp.src([
+      'bower_components/open-sans-fontface/fonts/**/*'
+    ])
+    .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
+    // .pipe($.flatten())
+    .pipe(gulp.dest(path.join(conf.paths.dist, '/styles/fonts/')));
 });
 
 gulp.task('other', function () {

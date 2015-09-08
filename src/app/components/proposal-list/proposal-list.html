@@ -2,7 +2,7 @@
   <div class="table-responsive" ng-if="vm.loading">
     <div class="table-responsive">Carregando...</div>
   </div>
-  <div class="table-responsive" ng-if="!vm.loading && vm.proposals">
+  <div class="table-responsive" ng-if="!vm.loading && vm.proposalsPerPage">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -10,18 +10,18 @@
             Colocação
             <a tabindex="0" class="btn btn-link btn-question" role="button" data-toggle="popover" data-trigger="focus">?</a>
           </th>
-          <th>123 PROPOSTAS</th>
+          <th>{{vm.proposals.length}} PROPOSTAS</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="proposal in vm.proposals">
+        <tr ng-repeat="proposal in vm.proposalsPerPage">
           <td class="color-theme-fg">
             <span class="position">{{::($index+1)}}º</span>
           </td>
           <td>
             <div class="row">
               <div class="col-xs-12">
-                <span class="abstract">{{proposal.abstract}}</span>
+                <div class="abstract" ng-bind-html="proposal.abstract"></div>
               </div>
             </div>
             <div class="row row-actions">
@@ -39,5 +39,24 @@
         </tr>
       </tbody>
     </table>
+    <nav>
+      <ul class="pagination">
+        <li>
+          <a href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li><a href="#" ng-click="vm.showPage(1)">1</a></li>
+        <li><a href="#" ng-click="vm.showPage(2)">2</a></li>
+        <li><a href="#" ng-click="vm.showPage(3)">3</a></li>
+        <li><a href="#" ng-click="vm.showPage(4)">4</a></li>
+        <li><a href="#" ng-click="vm.showPage(5)">5</a></li>
+        <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>

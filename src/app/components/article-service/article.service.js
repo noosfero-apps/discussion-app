@@ -127,7 +127,7 @@
       var paramsExtended = angular.extend({
         // 'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
         // 'limit':'20',
-        // 'page':'1',
+        // 'per_page':'1',
         'content_type':'ProposalsDiscussionPlugin::Proposal'
       }, params);
 
@@ -173,7 +173,7 @@
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Topic&query=cisternas
       var url = '/api/v1/search/article';
       var paramsExtended = angular.extend({
-        'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits'],
+        // 'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits'],
         'type': 'ProposalsDiscussionPlugin::Topic'
       }, params);
 

@@ -33,6 +33,14 @@
     vm.query = null;
     vm.search = vm.$location.search();
 
+    if(vm.search && vm.search.tema){
+      vm._filtredByThemeSlug = vm.search.tema;
+    }
+
+    if(vm.search && vm.search.filtro){
+      vm._filtredByQuery = vm.search.filtro;
+    }
+
     vm.error = null;
 
     vm.loadData();
@@ -93,25 +101,6 @@
 
       vm.filter();
     }
-
-  };
-
-  InicioPageController.prototype.showVideo = function() {
-    var vm = this;
-
-    // we need handle home content
-    if (vm.article.videoIsLoaded) {
-      hideBackground(0); // force to hide
-      vm.$log.debug('The content already cached. Show-it!');
-      return;
-    }
-
-    // inject dependencies
-    injectIframeApiJs();
-    window.onYouTubeIframeAPIReady = window.onYouTubeIframeAPIReady || onYouTubeIframeAPIReady;
-    window.onYouTubePlayerReady = window.onYouTubePlayerReady || onYouTubePlayerReady;
-
-    vm.article.videoIsLoaded = true;
   };
 
   InicioPageController.prototype.attachListeners = function() {
@@ -134,20 +123,40 @@
     });
   };
 
+  InicioPageController.prototype.showVideo = function() {
+    var vm = this;
+
+    // we need handle home content
+    if (vm.article.videoIsLoaded) {
+      hideBackground(0); // force to hide
+      vm.$log.debug('The content already cached. Show-it!');
+      return;
+    }
+
+    // inject dependencies
+    injectIframeApiJs();
+    window.onYouTubeIframeAPIReady = window.onYouTubeIframeAPIReady || onYouTubeIframeAPIReady;
+    window.onYouTubePlayerReady = window.onYouTubePlayerReady || onYouTubePlayerReady;
+
+    vm.article.videoIsLoaded = true;
+  };
+
   InicioPageController.prototype.filter = function() {
     var vm = this;
 
-    if (vm.search && vm.search.tema) {
-      var slug = vm.search.tema;
-      vm.$log.debug('filter by theme', slug);
+    // if (vm.search && vm.search.tema) {
+    if (vm._filtredByThemeSlug) {
+      var slug = vm._filtredByThemeSlug;
 
       vm.DialogaService.getThemeBySlug(slug, function(theme){
         vm.selectedTheme = theme;
-        vm.$log.debug('getThemeBySlug.slug', slug);
-        vm.$log.debug('getThemeBySlug.selectedTheme', theme);
       }, function(error){
         vm.$log.error('Error when try to "getThemeBySlug"', error);
       });
+    }
+
+    if (vm._filtredByQuery) {
+      vm.query = vm._filtredByQuery;
     }
   };
 
@@ -179,9 +188,9 @@
     var output = input;
     var query = vm.query;
     var selectedTheme = vm.selectedTheme;
-    
+
     var filter = vm.$filter('filter');
-    
+
     if (selectedTheme) {
       output = _filterByCategory(output, selectedTheme);
     }

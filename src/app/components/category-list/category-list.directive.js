@@ -65,7 +65,7 @@
       templateUrl: 'app/components/category-list/category-list.html',
       scope: {
         categories: '=',
-        selectedCategory: '@'
+        selectedCategory: '='
       },
       controller: CategoryListController,
       controllerAs: 'vm',

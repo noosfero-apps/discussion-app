@@ -75,7 +75,7 @@
         }
       })
       .state('programas', {
-        url: '/programas',
+        url: '/programas?tema',
         ncyBreadcrumb: {label: 'Programas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -104,7 +104,7 @@
         }
       })
       .state('propostas', {
-        url: '/propostas',
+        url: '/propostas?tema',
         ncyBreadcrumb: {label: 'Propostas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -117,7 +117,7 @@
         }
       })
       .state('ranking', {
-        url: '/ranking',
+        url: '/ranking?tema',
         ncyBreadcrumb: {label: 'Propostas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },

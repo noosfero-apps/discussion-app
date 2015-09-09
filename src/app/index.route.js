@@ -189,12 +189,16 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
-      .state('mapa-do-site', {
+     .state('mapa-do-site', {
         url: '/mapa-do-site',
         ncyBreadcrumb: {label: 'Mapa do Site'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
-          'main': { templateUrl: 'app/pages/sitemap/sitemap.html' },
+          'main': {
+            templateUrl: 'app/pages/mapa-do-site/mapa-do-site.html',
+            controller: 'SitemapPageController',
+            controllerAs: 'sitemap'
+          },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
@@ -204,15 +208,6 @@
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': { templateUrl: 'app/pages/erro/erro.html' },
-          'footer': { templateUrl: 'app/pages/footer/footer.html' }
-        }
-      })
-     .state('mapa', {
-        url: '/mapa',
-        ncyBreadcrumb: {label: 'Mapa'},
-        views: {
-          'header': { templateUrl: 'app/pages/header/header.html' },
-          'main': { templateUrl: 'app/pages/mapa/mapa.html' },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })

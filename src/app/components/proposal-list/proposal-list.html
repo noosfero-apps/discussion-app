@@ -39,7 +39,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<nav>
+		<nav ng-if="vm.arraypages.length > 1">
 			<ul class="pagination">
 				<li ng-style="{'visibility': (vm.currentPageIndex === 0) ? 'hidden' : 'visible'}">
 					<a  class="btn-pagination" href="#" aria-label="Previous" ng-click="vm.showPage(vm.currentPageIndex-1)">

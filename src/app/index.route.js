@@ -203,6 +203,15 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
+     .state('mapa', {
+        url: '/mapa',
+        ncyBreadcrumb: {label: 'Mapa'},
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': { templateUrl: 'app/pages/mapa/mapa.html' },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
       ;
 
     $urlRouterProvider.otherwise('/erro');

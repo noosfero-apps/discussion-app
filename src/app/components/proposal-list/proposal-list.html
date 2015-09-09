@@ -41,21 +41,19 @@
 		</table>
 		<nav>
 			<ul class="pagination">
-
 				<li ng-class="{ 'disabled' : vm.currentPageIndex == 0}">
-					<a href="#" aria-label="Previous" ng-click="vm.showPage(vm.currentPageIndex-1)">
-						<span aria-hidden="true">&laquo;</span>
+					<a  class="btn-pagination" href="#" aria-label="Previous" ng-click="vm.showPage(vm.currentPageIndex-1)">
+						<span aria-hidden="true" class="glyphicon glyphicon-chevron-left pagination-icon"></span>
 					</a>
 				</li>
-				<li ng-repeat="pagina in vm.arraypages track by $index" ng-class="{ 'active' : ($index) == vm.currentPageIndex }" >
-					<a href="#" ng-click="vm.showPage($index)">{{::($index)+1}}</a>
+				<li ng-repeat="paginas in vm.arraypages track by $index" ng-class="{ 'active' : ($index) == vm.currentPageIndex }" >
+					<a class="btn-pagination"  href="#" ng-click="vm.showPage($index)">{{::($index)+1}}</a>
 				</li>
 				<li  ng-class="{ 'disabled' : vm.currentPageIndex == (vm.arraypages.length -1)}">
-					<a href="#" aria-label="Next" ng-click="vm.showPage(vm.currentPageIndex+1)">
-						<span aria-hidden="true">&raquo;</span>
+					<a  class="btn-pagination" href="#" aria-label="Next" ng-click="vm.showPage(vm.currentPageIndex+1)">
+						<span aria-hidden="true" class="glyphicon glyphicon-chevron-right pagination-icon"></span>
 					</a>
 				</li>
-
 			</ul>
 		</nav>
 	</div>

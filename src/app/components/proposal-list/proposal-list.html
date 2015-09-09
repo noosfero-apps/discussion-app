@@ -1,8 +1,8 @@
 <div class="proposal-list">
-	<div class="table-responsive" ng-if="vm.loading">
-		<div class="table-responsive">Carregando...</div>
+	<div class="" ng-if="vm.loading">
+		<div class="">Carregando...</div>
 	</div>
-	<div class="table-responsive" ng-if="!vm.loading && vm.proposalsPerPage">
+	<div class="" ng-if="!vm.loading && vm.proposalsPerPage">
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -25,13 +25,13 @@
 							</div>
 						</div>
 						<div class="row row-actions">
-							<div class="col-md-8">
+							<div class="col-sm-8">
 								<button type="button" class="btn btn-link btn-rate color-theme-common-fg" ng-click="vm.showContent(proposal)">
 									Avalie esta proposta
 									<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 								</button>
 							</div>
-							<div class="col-md-4">
+							<div class="col-sm-4">
 								<proposal-stats class="text-right" views="{{::proposal.hits}}" up="{{::proposal.votes_for}}" down="{{::proposal.votes_against}}"></proposal-stats>
 							</div>
 						</div>

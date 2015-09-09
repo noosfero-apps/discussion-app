@@ -85,6 +85,9 @@
       <div class="container">
         <div class="proposal-ranking-section-header">
           <h3 class="color-theme-fg">Resultados de propostas mais votadas</h3>
+          <button class="btn btn-close" ng-click="pagePrograma.hideProposals()">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
         </div>
         <div class="proposal-ranking-section-table">
           <proposal-list proposals="pagePrograma.proposals"></proposal-list>

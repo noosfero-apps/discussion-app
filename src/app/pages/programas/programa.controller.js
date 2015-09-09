@@ -118,14 +118,24 @@
   ProgramaPageController.prototype.attachListeners = function() {
     var vm = this;
 
-    vm.$scope.$on('proposal-carousel:toProposals', function() {
+    vm.$scope.$on('proposal-carousel:showProposals', function() {
       if(!vm._proposal_list){
         vm._proposal_list = vm.$element.find('.proposal-ranking-section');
       }
 
-      vm._proposal_list.slideToggle();
+      vm._proposal_list.slideDown();
       angular.element('body').animate({scrollTop: vm._proposal_list.offset().top}, 'fast');
     });
+  };
+
+  ProgramaPageController.prototype.hideProposals = function() {
+    var vm = this;
+
+    if(!vm._proposal_list){
+      vm._proposal_list = vm.$element.find('.proposal-ranking-section');
+    }
+
+    vm._proposal_list.slideUp();
   };
 
   ProgramaPageController.prototype.makeProposal = function() {

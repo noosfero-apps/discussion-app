@@ -60,7 +60,7 @@
       var vm = this;
 
       // notify parents - handled by parents
-      vm.$scope.$emit('proposal-carousel:toProposals');
+      vm.$scope.$emit('proposal-carousel:showProposals');
     };
 
     var directive = {

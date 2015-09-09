@@ -59,8 +59,8 @@
                     <span class="theme">{{::event.categories[0].name}}</span>
                   </td>
                   <td align="right">
-                    <div ng-if="!event.subscribers_count">
-                      <b>(?)</b>
+                    <div ng-if="event.followers_count > 0">
+                      <b>{{::event.followers_count}}</b>
                       <br/>
                       <span>Inscritos</span>
                     </div>

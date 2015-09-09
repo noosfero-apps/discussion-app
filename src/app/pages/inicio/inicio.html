@@ -80,7 +80,7 @@
               <br/>
             </div>
           </div>
-          <div ng-if="pageInicio.themes">
+          <div ng-if="pageInicio.themes && !vm.loadingFilter">
             <category-list categories="pageInicio.themes" selected-category="pageInicio.selectedTheme"></category-list>
           </div>
           <div ng-if="!pageInicio.themes && pageInicio.loadingThemes">
@@ -123,7 +123,7 @@
           </div>
 
           <div class="row">
-            <div class="col-sm-12" ng-if="pageInicio.programs">
+            <div class="col-sm-12" ng-if="pageInicio.filtredPrograms && !vm.loadingFilter">
               <article-grid articles="pageInicio.filtredPrograms"></article-grid>
             </div>
             <div ng-if="!pageInicio.programs && pageInicio.loadingPrograms">

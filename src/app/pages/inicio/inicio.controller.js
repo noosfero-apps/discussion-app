@@ -33,6 +33,18 @@
     vm.query = null;
     vm.search = vm.$location.search();
 
+    if (vm.search.tema) {
+      vm._filtredByThemeSlug = vm.search.tema;
+    }
+
+    if (vm.search.filtro) {
+      vm._filtredByQuery = vm.search.filtro;
+    }
+
+    if (vm.search.tema || vm.search.filtro) {
+      vm.loadingFilter = true;
+    }
+
     vm.error = null;
 
     vm.loadData();
@@ -41,7 +53,6 @@
 
   InicioPageController.prototype.loadData = function() {
     var vm = this;
-
 
     // Load main content
     vm.loading = true;
@@ -77,6 +88,8 @@
       vm.DialogaService.getThemes(function(data) {
         vm.themes = data;
         vm.loadingThemes = false;
+
+        vm.filter();
       }, function(error) {
         vm.$log.error('Error on getThemes.', error);
       });
@@ -87,13 +100,38 @@
         vm.programs = vm.article.children;
         vm.filtredPrograms = data.articles;
         vm.loadingPrograms = false;
+
+        vm.filter();
       }, function(error) {
         vm.$log.error('Error on getPrograms.', error);
       });
-
-      vm.filter();
     }
+  };
 
+  InicioPageController.prototype.attachListeners = function() {
+    var vm = this;
+
+    vm.$scope.$on('change-selectedCategory', function(event, selectedCategory) {
+      vm.selectedTheme = selectedCategory;
+    });
+
+    vm.$scope.$watch('pageInicio.selectedTheme', function(newValue/*, oldValue*/) {
+      vm.search.tema = newValue ? newValue.slug : null;
+      vm.$location.search('tema', vm.search.tema);
+
+      if (!vm.loadingFilter) {
+        vm.filtredPrograms = vm.getFiltredPrograms();
+      }
+    });
+
+    vm.$scope.$watch('pageInicio.query', function(newValue/*, oldValue*/) {
+      vm.search.filtro = newValue ? newValue : null;
+      vm.$location.search('filtro', vm.search.filtro);
+
+      if (!vm.loadingFilter) {
+        vm.filtredPrograms = vm.getFiltredPrograms();
+      }
+    });
   };
 
   InicioPageController.prototype.showVideo = function() {
@@ -114,40 +152,31 @@
     vm.article.videoIsLoaded = true;
   };
 
-  InicioPageController.prototype.attachListeners = function() {
-    var vm = this;
-
-    vm.$scope.$on('change-selectedCategory', function (event, selectedCategory) {
-      vm.selectedTheme = selectedCategory;
-    });
-
-    vm.$scope.$watch('pageInicio.selectedTheme', function(newValue/*, oldValue*/) {
-      vm.search.tema = newValue ? newValue.slug : null;
-      vm.$location.search('tema', vm.search.tema);
-      vm.filtredPrograms = vm.getFiltredPrograms();
-    });
-
-    vm.$scope.$watch('pageInicio.query', function(newValue/*, oldValue*/) {
-      vm.search.filtro = newValue ? newValue : null;
-      vm.$location.search('filtro', vm.search.filtro);
-      vm.filtredPrograms = vm.getFiltredPrograms();
-    });
-  };
-
   InicioPageController.prototype.filter = function() {
     var vm = this;
 
-    if (vm.search && vm.search.tema) {
-      var slug = vm.search.tema;
-      vm.$log.debug('filter by theme', slug);
+    if (vm.loadingThemes || vm.loadingPrograms) {
+      vm.$log.info('No programs or themes loaded yet. Abort.');
+      return;
+    }
 
-      vm.DialogaService.getThemeBySlug(slug, function(theme){
+    if (vm._filtredByThemeSlug) {
+      var slug = vm._filtredByThemeSlug;
+
+      vm.DialogaService.getThemeBySlug(slug, function(theme) {
         vm.selectedTheme = theme;
-        vm.$log.debug('getThemeBySlug.slug', slug);
-        vm.$log.debug('getThemeBySlug.selectedTheme', theme);
-      }, function(error){
+      }, function(error) {
         vm.$log.error('Error when try to "getThemeBySlug"', error);
       });
+    }
+
+    if (vm._filtredByQuery) {
+      vm.query = vm._filtredByQuery;
+    }
+
+    if (vm._filtredByThemeSlug || vm._filtredByQuery) {
+      vm.filtredPrograms = vm.getFiltredPrograms();
+      vm.loadingFilter = false;
     }
   };
 
@@ -170,7 +199,7 @@
   InicioPageController.prototype.getFiltredPrograms = function() {
     var vm = this;
 
-    if(!vm.programs){
+    if (!vm.programs) {
       vm.$log.warn('No programs loaded yet. Abort.');
       return null;
     }
@@ -179,9 +208,9 @@
     var output = input;
     var query = vm.query;
     var selectedTheme = vm.selectedTheme;
-    
+
     var filter = vm.$filter('filter');
-    
+
     if (selectedTheme) {
       output = _filterByCategory(output, selectedTheme);
     }
@@ -190,7 +219,7 @@
       output = filter(output, query, false);
     }
 
-    if(!query && !selectedTheme){
+    if (!query && !selectedTheme) {
       output = _balanceByCategory(output);
     }
 

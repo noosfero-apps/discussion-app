@@ -2,26 +2,27 @@
   'use strict';
 
   angular
-    .module('dialoga')
-    .directive('proposalList', proposalList);
+  .module('dialoga')
+  .directive('proposalList', proposalList);
 
   /** @ngInject */
   function proposalList() {
 
     /** @ngInject */
-    function ProposalListController(ArticleService, $scope, $element, $timeout, $log) {
+    function ProposalListController(ArticleService, $state, $scope, $element, $timeout, $log) {
       $log.debug('ProposalListController');
 
       var vm = this;
       vm.ArticleService = ArticleService;
+      vm.$state = $state;
       vm.$scope = $scope;
       vm.$element = $element;
       vm.$timeout = $timeout;
       vm.$log = $log;
 
       vm.init();
-
       vm.loadData();
+      vm.attachListeners();
     }
 
     ProposalListController.prototype.init = function () {
@@ -36,9 +37,27 @@
         vm.per_page = 5;
       }
 
+      vm.initPorposalList();
+    };
+
+    ProposalListController.prototype.initPorposalList = function () {
+      var vm = this;
+
+      vm.currentPageIndex = 0;
+
       vm.proposalsPerPage = vm.getProposalsPerPage(0);
 
       vm.proposalsLength = vm.proposals.length;
+
+
+      if ((vm.proposalsLength % vm.per_page) === 0) {
+        vm.pages =  vm.proposalsLength / vm.per_page;
+      } else{
+        vm.pages =  (vm.proposalsLength / vm.per_page) + 1;
+      }
+
+      // vm.arraypages = new Array(Math.ceil(vm.pages));
+      vm.arraypages = new Array(Math.floor(vm.pages));
     };
 
     ProposalListController.prototype.loadData = function () {
@@ -49,6 +68,14 @@
       vm.$timeout(function(){
         attachPopover.call(vm);
       }, 1000);
+    };
+
+    ProposalListController.prototype.attachListeners = function () {
+      var vm = this;
+
+      vm.$scope.$watch('vm.proposals', function(/*newValue, oldValue*/) {
+        vm.initPorposalList();
+      });
     };
 
     ProposalListController.prototype.getProposalsPerPage = function (pageIndex) {
@@ -62,7 +89,28 @@
 
     ProposalListController.prototype.showPage = function (pageIndex) {
       var vm = this;
+
+      if (pageIndex < 0) {
+        pageIndex = 0;
+      }
+
+      if (pageIndex > (vm.arraypages.length-1)) {
+        pageIndex = vm.arraypages.length-1;
+      }
+
       vm.proposalsPerPage = vm.getProposalsPerPage(pageIndex);
+      vm.currentPageIndex = pageIndex;
+    };
+
+    ProposalListController.prototype.showContent = function (proposal) {
+      var vm = this;
+
+      vm.$state.go('programa-conteudo', {
+        slug: proposal.parent.slug,
+        proposal_id: proposal.id
+      }, {
+        location: true
+      });
     };
 
     function attachPopover(){

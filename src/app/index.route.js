@@ -23,7 +23,7 @@
         }
       })
       .state('entrar', {
-        url: '/entrar',
+        url: '/entrar?redirect_uri',
         ncyBreadcrumb: {label: 'Entrar'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -75,7 +75,7 @@
         }
       })
       .state('programas', {
-        url: '/programas',
+        url: '/programas?tema',
         ncyBreadcrumb: {label: 'Programas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -88,7 +88,7 @@
         }
       })
       .state('programa-conteudo', {
-        url: '/programa/:slug',
+        url: '/programa/:slug?proposal_id',
         ncyBreadcrumb: {
           label: '{{$parent.$root.contentTitle}}',
           parent: 'programas'
@@ -104,7 +104,7 @@
         }
       })
       .state('propostas', {
-        url: '/propostas',
+        url: '/propostas?tema',
         ncyBreadcrumb: {label: 'Propostas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -117,14 +117,14 @@
         }
       })
       .state('ranking', {
-        url: '/ranking',
+        url: '/ranking?tema',
         ncyBreadcrumb: {label: 'Propostas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
             templateUrl: 'app/pages/propostas/ranking.html',
             controller: 'PropostasPageController',
-            controllerAs: 'pageRanking'
+            controllerAs: 'pagePropostas'
           },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
@@ -200,6 +200,15 @@
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': { templateUrl: 'app/pages/erro/erro.html' },
+          'footer': { templateUrl: 'app/pages/footer/footer.html' }
+        }
+      })
+     .state('mapa', {
+        url: '/mapa',
+        ncyBreadcrumb: {label: 'Mapa'},
+        views: {
+          'header': { templateUrl: 'app/pages/header/header.html' },
+          'main': { templateUrl: 'app/pages/mapa/mapa.html' },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })

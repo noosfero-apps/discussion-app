@@ -8,11 +8,12 @@
   /** @ngInject */
   function eventList() {
     /** @ngInject */
-    function EventListController($scope, $rootScope, $state, $log) {
+    function EventListController(ArticleService, $scope, $rootScope, $state, $log) {
       $log.debug('EventListController');
 
       var vm = this;
 
+      vm.ArticleService = ArticleService;
       vm.$scope = $scope;
       vm.$rootScope = $rootScope;
       vm.$state = $state;
@@ -39,10 +40,26 @@
       vm.isCollapsed = !vm.isCollapsed;
     };
 
-    EventListController.prototype.subscribe = function (data) {
+    EventListController.prototype.subscribe = function (event_id) {
       var vm = this;
 
-      vm.$log.debug('data', data);
+      vm.$log.debug('event_id', event_id);
+
+      if(!vm.$rootScope.currentUser){
+        vm.$log.warn('User is not logged in. Redirect to Auth page.');
+        vm.$state.go('entrar',{
+          redirect_uri: 'state=inicio&task=subscribe&event_id=' + event_id
+        },{
+          location: true
+        });
+      }else{
+        vm.ArticleService.subscribeToEvent(event_id, {}, function(response){
+          vm.$log.debug('response', response);
+        }, function(error){
+          vm.$log.debug('error', error);
+        })
+      }
+
     };
 
     var directive = {

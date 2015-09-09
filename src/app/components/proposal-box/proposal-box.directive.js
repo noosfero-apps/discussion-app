@@ -24,14 +24,16 @@
       var vm = this;
 
       if (!vm.vote) { vm.vote = false; }
+      if (!vm.focus) { vm.focus = false; }
 
     };
 
-    ProposalBoxController.prototype.showContent2 = function (topic) {
+    ProposalBoxController.prototype.showContent = function (slug) {
       var vm = this;
 
       vm.$state.go('programa-conteudo', {
-        slug: topic.slug
+        slug: slug,
+        proposal_id: vm.proposal.id
       }, {
         location: true
       });
@@ -44,7 +46,11 @@
         proposal: '=',
         topic: '=',
         category: '=',
-        vote: '='
+        vote: '=',
+        focus: '@'
+        // @ -> Text binding / one-way binding
+        // = -> Direct model binding / two-way binding
+        // & -> Behaviour binding / Method binding
       },
       controller: ProposalBoxController,
       controllerAs: 'vm',

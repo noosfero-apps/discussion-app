@@ -130,6 +130,7 @@
           $log.debug('AuthService.login [SUCCESS] response', response);
 
           var currentUser = Session.create(response.data);
+          $rootScope.currentUser = currentUser;
 
           $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, currentUser);
           return currentUser;
@@ -142,7 +143,7 @@
     function logout () {
 
       Session.destroy();
-
+      $rootScope.currentUser = null;
       $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
     }
 

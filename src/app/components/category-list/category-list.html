@@ -15,7 +15,8 @@
         <span class="category-list--icon-circle"  aria-hidden="true" ng-class="category.slug"></span>
         <span class="category-list--icon icon" aria-hidden="true" ng-class="'icon-tema-' + category.slug"></span>
         <span class="category-list--label">{{::category.name}}</span>
-        <span class="category-list--icon--right glyphicon glyphicon-chevron-right hidden-xs"></span>
+        <span class="category-list--icon--right glyphicon glyphicon-chevron-right hidden-xs" ng-hide="vm.selectedCategory.slug === category.slug"></span>
+        <span class="category-list--icon--right glyphicon glyphicon-remove hidden-xs" ng-show="vm.selectedCategory.slug === category.slug"></span>
       </button>
     </div>
   </nav>

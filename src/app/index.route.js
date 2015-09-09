@@ -9,7 +9,7 @@
   function routeConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('inicio', {
-        url: '/?tema&query',
+        url: '/?tema&filtro',
         ncyBreadcrumb: {label: 'Home'},
         reloadOnSearch: false,
         views: {
@@ -75,7 +75,8 @@
         }
       })
       .state('programas', {
-        url: '/programas?tema',
+        url: '/programas?tema&filtro',
+        reloadOnSearch: false,
         ncyBreadcrumb: {label: 'Programas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -89,6 +90,7 @@
       })
       .state('programa-conteudo', {
         url: '/programa/:slug?proposal_id',
+        reloadOnSearch: false,
         ncyBreadcrumb: {
           label: '{{$parent.$root.contentTitle}}',
           parent: 'programas'
@@ -104,7 +106,8 @@
         }
       })
       .state('propostas', {
-        url: '/propostas?tema',
+        url: '/propostas?tema&filtro',
+        reloadOnSearch: false,
         ncyBreadcrumb: {label: 'Propostas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -117,7 +120,8 @@
         }
       })
       .state('ranking', {
-        url: '/ranking?tema',
+        url: '/ranking?tema&programa&filtro',
+        reloadOnSearch: false,
         ncyBreadcrumb: {label: 'Propostas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },

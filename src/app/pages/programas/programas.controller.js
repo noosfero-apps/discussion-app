@@ -32,6 +32,18 @@
     vm.query = null;
     vm.search = vm.$location.search();
 
+    if (vm.search.tema) {
+      vm._filtredByThemeSlug = vm.search.tema;
+    }
+
+    if (vm.search.filtro) {
+      vm._filtredByQuery = vm.search.filtro;
+    }
+
+    if (vm.search.tema || vm.search.filtro) {
+      vm.loadingFilter = true;
+    }
+
     vm.loading = null;
     vm.error = null;
   };
@@ -47,6 +59,8 @@
       vm.programs = programs;
       vm.filtredPrograms = vm.programs;
       vm.loadingPrograms = false;
+
+      vm.filter();
     }, function (error) {
       vm.error = error;
       vm.$log.error(error);
@@ -58,6 +72,8 @@
     vm.DialogaService.getThemes(function(themes){
       vm.themes = themes;
       vm.loadingThemes = false;
+
+      vm.filter();
     }, function (error) {
       vm.error = error;
       vm.$log.error(error);
@@ -76,31 +92,49 @@
     vm.$scope.$watch('pageProgramas.selectedTheme', function(newValue/*, oldValue*/) {
       vm.search.tema = newValue ? newValue.slug : null;
       vm.$location.search('tema', vm.search.tema);
-      vm.filtredPrograms = vm.getFiltredPrograms();
+
+      if (!vm.loadingFilter) {
+        vm.filtredPrograms = vm.getFiltredPrograms();
+      }
     });
 
     vm.$scope.$watch('pageProgramas.query', function(newValue/*, oldValue*/) {
       vm.search.filtro = newValue ? newValue : null;
       vm.$location.search('filtro', vm.search.filtro);
-      vm.filtredPrograms = vm.getFiltredPrograms();
+
+      if (!vm.loadingFilter) {
+        vm.filtredPrograms = vm.getFiltredPrograms();
+      }
     });
   };
 
   ProgramasPageController.prototype.filter = function() {
     var vm = this;
 
-    if (vm.search && vm.search.tema) {
-      var slug = vm.search.tema;
-      vm.$log.debug('filter by theme', slug);
+    if (vm.loadingThemes || vm.loadingPrograms) {
+      vm.$log.info('No programs or themes loaded yet. Abort.');
+      return;
+    }
 
-      vm.DialogaService.getThemeBySlug(slug, function(theme){
+    if (vm._filtredByThemeSlug) {
+      var slug = vm._filtredByThemeSlug;
+
+      vm.DialogaService.getThemeBySlug(slug, function(theme) {
         vm.selectedTheme = theme;
-        vm.$log.debug('getThemeBySlug.slug', slug);
-        vm.$log.debug('getThemeBySlug.selectedTheme', theme);
-      }, function(error){
+      }, function(error) {
         vm.$log.error('Error when try to "getThemeBySlug"', error);
       });
     }
+
+    if (vm._filtredByQuery) {
+      vm.query = vm._filtredByQuery;
+    }
+
+    if (vm._filtredByThemeSlug || vm._filtredByQuery) {
+      vm.filtredPrograms = vm.getFiltredPrograms();
+      vm.loadingFilter = false;
+    }
+
   };
 
   ProgramasPageController.prototype.showAllPrograms = function($event) {
@@ -133,9 +167,9 @@
     var output = input;
     var query = vm.query;
     var selectedTheme = vm.selectedTheme;
-    
+
     var filter = vm.$filter('filter');
-    
+
     if (selectedTheme) {
       output = _filterByCategory(output, selectedTheme);
     }

@@ -19,6 +19,8 @@
     vm.$log = $log;
 
     vm.init();
+    vm.loadData();
+    vm.attachListeners();
     vm.$log.debug('InicioPageController');
   }
 
@@ -45,10 +47,8 @@
       vm.loadingFilter = true;
     }
 
+    vm.loading = null;
     vm.error = null;
-
-    vm.loadData();
-    vm.attachListeners();
   };
 
   InicioPageController.prototype.loadData = function() {

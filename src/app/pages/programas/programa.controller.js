@@ -118,29 +118,58 @@
   ProgramaPageController.prototype.attachListeners = function() {
     var vm = this;
 
-    vm.$scope.$on('proposal-carousel:showProposals', function() {
-      if(!vm._proposal_list){
-        vm._proposal_list = vm.$element.find('.proposal-ranking-section');
-      }
+    vm.$scope.$on('proposal-carousel:showProposalsList', function() {
+      vm.showProposalsList();
+    });
 
-      vm._proposal_list.slideDown();
-      angular.element('body').animate({scrollTop: vm._proposal_list.offset().top}, 'fast');
+    vm.$scope.$on('cadastro-proposa:startSendProposal', function(event, proposal) {
+      // vm.$log.debug('proposal', proposal);
+      vm.creatingProposal = true;
+      vm.DialogaService.createProposal(proposal, vm.article.id, function (response){
+        vm.$log.debug('response', response);
+        vm.creatingProposal = false;
+      }, function (error) {
+        vm.$log.error(error);
+        vm.creatingProposal = false;
+      });
     });
   };
 
-  ProgramaPageController.prototype.hideProposals = function() {
+  ProgramaPageController.prototype.showProposalsList = function() {
     var vm = this;
-
-    if(!vm._proposal_list){
-      vm._proposal_list = vm.$element.find('.proposal-ranking-section');
-    }
-
-    vm._proposal_list.slideUp();
+    vm.findAndShow('#section-proposal-list');
   };
 
-  ProgramaPageController.prototype.makeProposal = function() {
+  ProgramaPageController.prototype.hideProposalsList = function() {
+    var vm = this;
+    vm.findAndHide('#section-proposal-list');
+  };
+
+  ProgramaPageController.prototype.showProposalForm = function() {
+    var vm = this;
+    vm.findAndShow('#section-proposal-form');
+  };
+
+  ProgramaPageController.prototype.hideProposalForm = function() {
+    var vm = this;
+    vm.findAndHide('#section-proposal-form');
+  };
+
+  ProgramaPageController.prototype.findAndShow = function(rule) {
+    var vm = this;
+    var el = vm.$element.find(rule);
+    el.slideDown();
+    angular.element('body').animate({scrollTop: el.offset().top}, 'fast');
+  }
+
+  ProgramaPageController.prototype.findAndHide = function(rule) {
+    var vm = this;
+    vm.$element.find(rule).slideUp();
+  }
+
+  ProgramaPageController.prototype.sendProposal = function() {
     var vm = this;
 
-    vm.$log.warn('Not implemented yet: "makeProposal"');
+    vm.$log.warn('Not implemented yet: "sendProposal"');
   };
 })();

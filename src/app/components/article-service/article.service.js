@@ -6,12 +6,13 @@
     .factory('ArticleService', ArticleService);
 
   /** @ngInject */
-  function ArticleService($http, $q, $rootScope, API, UtilService, Slug, $log) {
+  function ArticleService($http, $q, $rootScope, API, UtilService, Slug, GUID, $log) {
     $log.debug('ArticleService');
 
     var service = {
       apiArticles: $rootScope.basePath + '/api/v1/articles/',
       apiCommunities: $rootScope.basePath + '/api/v1/communities/',
+      apiProposals: $rootScope.basePath + '/api/v1/proposals_discussion_plugin/',
       getArticleById: getArticleById,
       getArticleBySlug: getArticleBySlug,
       getCategories: getCategories,
@@ -21,6 +22,7 @@
       getProposals: getProposals,
       getProposalById: getProposalById,
       getProposalsByTopicId: getProposalsByTopicId,
+      createProposal: createProposal,
       getEvents: getEvents,
       subscribeToEvent: subscribeToEvent,
       searchTopics: searchTopics,
@@ -148,6 +150,28 @@
       getProposalById(topicId + '/children', params, cbSuccess, cbError);
     }
 
+    function createProposal (proposal, targetId, cbSuccess, cbError){
+
+      if(!$rootScope.currentUser){
+        cbError({message: 'Usuário não logado.'});
+      }else{
+        // /api/v1/proposals_discussion_plugin/' + targetId + '/propose
+        var url = service.apiProposals + targetId + '/propose';
+
+        var encodedParams = [];
+        encodedParams.push('private_token=' + $rootScope.currentUser.private_token);
+        encodedParams.push('fields=id');
+        encodedParams.push('article[name]=article_' + GUID.generate());
+        encodedParams = encodedParams.join('&');
+
+        UtilService.post(url, encodedParams).then(function(response){
+          cbSuccess(response);
+        }).catch(function(error){
+          cbError(error);
+        });
+      }
+    }
+
     function getEvents (community_id, params, cbSuccess, cbError) {
       // Ex.: /api/v1/communities/19195/articles?categories_ids[]=' + cat_id + '&content_type=Event';
       // Ex.: /api/v1/communities/' + community_id + '/articles?categories_ids[]=' + cat_id + '&content_type=Event';
@@ -183,16 +207,17 @@
 
       if(!$rootScope.currentUser){
         cbError({message: 'Usuário não logado.'});
+
+      }else{
+        var url = service.apiArticles + event_id + '/follow';
+        var encodedParams = 'private_token=' + $rootScope.currentUser.private_token;
+
+        UtilService.post(url, encodedParams).then(function(response){
+          cbSuccess(response);
+        }).catch(function(error){
+          cbError(error);
+        });
       }
-
-      var url = service.apiArticles + event_id + '/follow';
-      var encodedParams = 'private_token=' + $rootScope.currentUser.private_token;
-
-      UtilService.post(url, encodedParams).then(function(response){
-        cbSuccess(response);
-      }).catch(function(error){
-        cbError(error);
-      });
     }
 
     function searchTopics (params, cbSuccess, cbError) {

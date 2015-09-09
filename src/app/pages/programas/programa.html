@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<div class="page--conheca-o-programa">
+<div class="page--program">
   <section>
     <div class="container">
       <div class="row">
@@ -47,7 +47,7 @@
                       <div class="row">
                         <div class="col-sm-6">
                           <div class="button--themed">
-                            <button type="button" class="btn btn-block" ng-click="pagePrograma.makeProposal()">Faça uma proposta</button>
+                            <button type="button" class="btn btn-block" ng-click="pagePrograma.showProposalForm()">Faça uma proposta</button>
                           </div>
                         </div>
                       </div>
@@ -70,7 +70,7 @@
                     <p>
                       Este programa ainda não possui nenhuma proposta.
                       <div class="button--themed">
-                        <button type="button" class="btn btn-block" ng-click="pagePrograma.makeProposal()">Faça uma proposta</button>
+                        <button type="button" class="btn btn-block" ng-click="pagePrograma.showProposalForm()">Faça uma proposta</button>
                       </div>
                     </p>
                   </div>
@@ -81,16 +81,29 @@
       </div>
     </section>
 
-    <section class="proposal-ranking-section" style="display:none;" ng-if="pagePrograma.proposals && pagePrograma.proposals.length > 0">
+    <section id="section-proposal-list" class="proposal-extended-section" style="display:none;" ng-if="pagePrograma.proposals && pagePrograma.proposals.length > 0">
       <div class="container">
-        <div class="proposal-ranking-section-header">
+        <div class="proposal-extended-section-header">
           <h3 class="color-theme-fg">Resultados de propostas mais votadas</h3>
-          <button class="btn btn-close" ng-click="pagePrograma.hideProposals()">
+          <button type="button" aria-label="Close" class="btn btn-close" ng-click="pagePrograma.hideProposalsList()">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           </button>
         </div>
-        <div class="proposal-ranking-section-table">
+        <div class="proposal-extended-section-content">
           <proposal-list proposals="pagePrograma.proposals"></proposal-list>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-proposal-form" class="proposal-extended-section" style="display:none;">
+      <div class="container">
+        <div class="proposal-extended-section-header">
+          <button type="button" aria-label="Close" class="btn btn-close" ng-click="pagePrograma.hideProposalForm()">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="proposal-extended-section-content">
+          <cadastro-proposta program="pagePrograma.article"></cadastro-proposta>
         </div>
       </div>
     </section>

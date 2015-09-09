@@ -47,7 +47,7 @@
 						<span aria-hidden="true">&laquo;</span>
 					</a>
 				</li>
-				<li ng-repeat="paginas in vm.arraypages track by $index" ng-class="{ 'active' : ($index) == vm.currentPageIndex }" >
+				<li ng-repeat="pagina in vm.arraypages track by $index" ng-class="{ 'active' : ($index) == vm.currentPageIndex }" >
 					<a href="#" ng-click="vm.showPage($index)">{{::($index)+1}}</a>
 				</li>
 				<li  ng-class="{ 'disabled' : vm.currentPageIndex == (vm.arraypages.length -1)}">

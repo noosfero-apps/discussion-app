@@ -21,8 +21,8 @@
       vm.$log = $log;
 
       vm.init();
-
       vm.loadData();
+      vm.attachListeners();
     }
 
     ProposalListController.prototype.init = function () {
@@ -37,6 +37,12 @@
         vm.per_page = 5;
       }
 
+      vm.initPorposalList();
+    };
+
+    ProposalListController.prototype.initPorposalList = function () {
+      var vm = this;
+
       vm.currentPageIndex = 0;
 
       vm.proposalsPerPage = vm.getProposalsPerPage(0);
@@ -44,14 +50,14 @@
       vm.proposalsLength = vm.proposals.length;
 
 
-      if ((vm.proposalsLength % vm.per_page) == 0) {
+      if ((vm.proposalsLength % vm.per_page) === 0) {
         vm.pages =  vm.proposalsLength / vm.per_page;
       } else{
-        vm.pages =  (vm.proposalsLength / vm.per_page) +1;
-      };
+        vm.pages =  (vm.proposalsLength / vm.per_page) + 1;
+      }
 
-      vm.arraypages = new Array(Math.ceil(vm.pages));
-
+      // vm.arraypages = new Array(Math.ceil(vm.pages));
+      vm.arraypages = new Array(Math.floor(vm.pages));
     };
 
     ProposalListController.prototype.loadData = function () {
@@ -62,6 +68,14 @@
       vm.$timeout(function(){
         attachPopover.call(vm);
       }, 1000);
+    };
+
+    ProposalListController.prototype.attachListeners = function () {
+      var vm = this;
+
+      vm.$scope.$watch('vm.proposals', function(/*newValue, oldValue*/) {
+        vm.initPorposalList();
+      });
     };
 
     ProposalListController.prototype.getProposalsPerPage = function (pageIndex) {
@@ -97,7 +111,7 @@
       }, {
         location: true
       });
-    }
+    };
 
     function attachPopover(){
       var vm = this;

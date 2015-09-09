@@ -124,7 +124,7 @@
           'main': {
             templateUrl: 'app/pages/propostas/ranking.html',
             controller: 'PropostasPageController',
-            controllerAs: 'pageRanking'
+            controllerAs: 'pagePropostas'
           },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }

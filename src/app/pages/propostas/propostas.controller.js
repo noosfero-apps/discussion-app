@@ -79,7 +79,6 @@
 
     vm.$scope.$on('change-selectedCategory', function (event, selectedCategory) {
       vm.selectedTheme = selectedCategory;
-      vm.$log.debug('vm.selectedTheme', vm.selectedTheme);
     });
 
     vm.$scope.$watch('pagePropostas.selectedTheme', function(newValue/*, oldValue*/) {

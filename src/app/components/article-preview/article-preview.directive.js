@@ -9,11 +9,12 @@
   function articlePreview($rootScope) {
 
     /** @ngInject */
-    function ArticlePreviewController($state, $log) {
+    function ArticlePreviewController($state, PATH, $log) {
       $log.debug('ArticlePreviewController');
 
       var vm = this;
       vm.$state = $state;
+      vm.PATH = PATH;
       vm.$log = $log;
 
       vm.init();
@@ -32,15 +33,10 @@
 
       if(!vm.banner){
         vm.banner = {
-          src: $rootScope.basePath + vm.article.image.url,
+          src: vm.PATH.image + vm.article.image.url,
           alt: 'Imagem de destaque do programa'
         };
       }
-
-      // if(vm.article.color && !vm.article.bgColor){
-      //   // 15% more darker
-      //   vm.article.colorDarker = window.ColorLuminance(vm.article.color, 0.15);
-      // }
     };
 
     ArticlePreviewController.prototype.showContent = function () {

@@ -110,9 +110,8 @@
   }
 
   /** @ngInject */
-  function runPath($rootScope, API, $window, $log) {
-    // $rootScope.basePath = API.host;
-    $rootScope.basePath = '';
+  function runPath($rootScope, PATH, $window, $log) {
+    $rootScope.basePath = PATH.host;
 
     $log.debug('[RUN] Path end.');
   }

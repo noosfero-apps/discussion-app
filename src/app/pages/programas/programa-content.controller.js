@@ -6,12 +6,13 @@
     .controller('ProgramaContentPageController', ProgramaContentPageController);
 
   /** @ngInject */
-  function ProgramaContentPageController(DialogaService, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
+  function ProgramaContentPageController(DialogaService, PATH, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
     $log.debug('ProgramaContentPageController');
 
     var vm = this;
 
     vm.DialogaService = DialogaService;
+    vm.PATH = PATH;
     vm.$state = $state;
     vm.$location = $location;
     vm.$scope = $scope;
@@ -59,7 +60,7 @@
       // set the banner image with full image path
       if (!vm.banner) {
         vm.banner = {
-          src: vm.$rootScope.basePath + vm.article.image.url,
+          src: vm.PATH.image + vm.article.image.url,
           alt: 'Imagem de destaque do conteúdo'
         };
       }

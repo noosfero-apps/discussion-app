@@ -109,7 +109,8 @@
         slug: proposal.parent.slug,
         proposal_id: proposal.id
       }, {
-        location: true
+        location: true,
+        reload: true
       });
     };
 

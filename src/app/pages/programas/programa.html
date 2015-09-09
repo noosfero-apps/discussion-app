@@ -62,7 +62,7 @@
                     <h3 class="color-theme-fg">Propostas mais votadas</h3>
                     <proposal-carousel proposals="pageProgramaContent.proposalsTopRated" canVote="true"></proposal-carousel>
                   </div>
-                  <div class="col-xs-12" ng-if="pageProgramaContent.randomProposal">
+                  <div class="col-xs-12" ng-if="pageProgramaContent.randomProposal" ng-class="{'focused-proposal': !!pageProgramaContent.search.proposal_id}">
                     <h3 class="color-theme-fg">Propostas nesse programa</h3>
                     <proposal-box proposal="pageProgramaContent.randomProposal" topic="pageProgramaContent.article" category="pageProgramaContent.category" vote="true" focus="{{pageProgramaContent.search.proposal_id}}" ></proposal-box>
                   </div>

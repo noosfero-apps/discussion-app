@@ -6,7 +6,7 @@
     .controller('ProgramaContentPageController', ProgramaContentPageController);
 
   /** @ngInject */
-  function ProgramaContentPageController(DialogaService, $state, $location, $scope, $rootScope, $element, $log) {
+  function ProgramaContentPageController(DialogaService, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
     $log.debug('ProgramaContentPageController');
 
     var vm = this;
@@ -17,6 +17,7 @@
     vm.$scope = $scope;
     vm.$rootScope = $rootScope;
     vm.$element = $element;
+    vm.$timeout = $timeout;
     vm.$log = $log;
 
     vm.init();
@@ -89,8 +90,12 @@
           vm.randomProposal = data.articles[0];
         }
 
-        if(data && data.article){
-          vm.randomProposal = data.article;
+        // scroll to focused proposal
+        if(vm.search.proposal_id){
+          vm.$timeout(function(){
+            var target = angular.element('.focused-proposal');
+            angular.element('body').animate({scrollTop: target.offset().top}, 'fast');
+          }, 300);
         }
       }
 

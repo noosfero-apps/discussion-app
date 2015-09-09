@@ -99,8 +99,8 @@
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
             templateUrl: 'app/pages/programas/programa.html',
-            controller: 'ProgramaContentPageController',
-            controllerAs: 'pageProgramaContent'
+            controller: 'ProgramaPageController',
+            controllerAs: 'pagePrograma'
           },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }

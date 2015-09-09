@@ -3,11 +3,11 @@
 
   angular
     .module('dialoga')
-    .controller('ProgramaContentPageController', ProgramaContentPageController);
+    .controller('ProgramaPageController', ProgramaPageController);
 
   /** @ngInject */
-  function ProgramaContentPageController(DialogaService, PATH, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
-    $log.debug('ProgramaContentPageController');
+  function ProgramaPageController(DialogaService, PATH, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
+    $log.debug('ProgramaPageController');
 
     var vm = this;
 
@@ -26,7 +26,7 @@
     vm.attachListeners();
   }
 
-  ProgramaContentPageController.prototype.init = function() {
+  ProgramaPageController.prototype.init = function() {
     var vm = this;
 
     vm.article = null;
@@ -36,7 +36,7 @@
     vm.error = false;
   };
 
-  ProgramaContentPageController.prototype.loadData = function() {
+  ProgramaPageController.prototype.loadData = function() {
     var vm = this;
 
     vm.loading = true;
@@ -115,7 +115,7 @@
     });
   };
 
-  ProgramaContentPageController.prototype.attachListeners = function() {
+  ProgramaPageController.prototype.attachListeners = function() {
     var vm = this;
 
     vm.$scope.$on('proposal-carousel:toProposals', function() {
@@ -127,7 +127,7 @@
     });
   };
 
-  ProgramaContentPageController.prototype.makeProposal = function() {
+  ProgramaPageController.prototype.makeProposal = function() {
     var vm = this;
 
     vm.$log.warn('Not implemented yet: "makeProposal"');

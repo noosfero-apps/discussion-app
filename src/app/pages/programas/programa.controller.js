@@ -124,6 +124,7 @@
       }
 
       vm._proposal_list.slideToggle();
+      angular.element('body').animate({scrollTop: vm._proposal_list.offset().top}, 'fast');
     });
   };
 

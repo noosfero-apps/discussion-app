@@ -126,6 +126,7 @@
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
         _pipeInjectSlugIntoParentProgram(data);
+        _pipeSortByRankinPosition(data);
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);

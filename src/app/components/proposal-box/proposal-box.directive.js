@@ -24,6 +24,7 @@
       var vm = this;
 
       if (!vm.vote) { vm.vote = false; }
+      if (!vm.focus) { vm.focus = false; }
 
     };
 
@@ -45,7 +46,11 @@
         proposal: '=',
         topic: '=',
         category: '=',
-        vote: '='
+        vote: '=',
+        focus: '@'
+        // @ -> Text binding / one-way binding
+        // = -> Direct model binding / two-way binding
+        // & -> Behaviour binding / Method binding
       },
       controller: ProposalBoxController,
       controllerAs: 'vm',

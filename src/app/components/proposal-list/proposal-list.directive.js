@@ -97,7 +97,6 @@
       }, {
         location: true
       });
-
     }
 
     function attachPopover(){

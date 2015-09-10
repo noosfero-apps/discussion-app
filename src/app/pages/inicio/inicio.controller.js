@@ -68,6 +68,8 @@
       vm.loading = false;
     }, function(error) {
       vm.$log.error('Error on getHome.', error);
+      vm.loading = false;
+      vm.error = error;
     });
 
     // Load event list
@@ -78,7 +80,7 @@
     }, function(error) {
       vm.$log.error('Error on getEvents.', error);
       vm.loadingEvents = false;
-      vm.eventsError = true;
+      vm.eventsError = error;
     });
 
     function _loadAfterHome () {
@@ -92,6 +94,8 @@
         vm.filter();
       }, function(error) {
         vm.$log.error('Error on getThemes.', error);
+        vm.loadingThemes = false;
+        vm.errorThemes = error;
       });
 
       // Load program list
@@ -104,6 +108,8 @@
         vm.filter();
       }, function(error) {
         vm.$log.error('Error on getPrograms.', error);
+        vm.loadingPrograms = false;
+        vm.errorPrograms = error;
       });
     }
   };

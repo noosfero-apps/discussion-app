@@ -35,7 +35,7 @@
     vm.terms = null;
     vm.loadingTerms = null;
     vm.delay = 3; // segundos
-    vm.startRedirect = null;
+    vm.countdown = 0;
 
     vm.search = vm.$location.search();
     var redirect = vm.search.redirect_uri || '';
@@ -89,12 +89,8 @@
       // TODO: mensagens de sucesso
       // 'Cadastro efetuado com sucesso.'
       // 'Verifique seu email para confirmar o cadastro.'
-
-      vm.startRedirect = true;
-      vm.$timeout(function(){
-        vm.redirectBack();
-        vm.startRedirect = false;
-      }, vm.delay * 1000);
+      vm.successMessage = '<h3>Cadastro efetuado com sucesso.</h3>' + '<p>Verifique seu <b>email</b> para confirmar o cadastro.</p>';
+      vm.redirectBack();
     }, function(response){
       vm.$log.debug('register error.response', response);
 
@@ -110,11 +106,8 @@
       // handle view
       vm.$log.debug('user', user);
 
-      vm.startRedirect = true;
-      vm.$timeout(function(){
-        vm.redirectBack();
-        vm.startRedirect = false;
-      }, vm.delay  * 1000);
+      vm.successMessage = 'Login efetuado com sucesso!';
+      vm.redirectBack();
     }, function() {
       // handle view
     });
@@ -128,24 +121,39 @@
       return;
     }
 
-    var state = vm.params.state;
-    switch(state){
-      case 'inicio':
-        vm.$state.go(state, {
-          event_id: vm.params.event_id,
-          task: vm.params.task
-        });
-        break;
-      case 'programa':
-        vm.$state.go(state, {
-          slug: vm.params.slug,
-          task: vm.params.task
-        });
-        break;
-      default:
-        vm.$log.debug('State not handled yet:', state);
-        break;
-    }
+    // start countdown
+    vm.countdown = vm.delay;
+    (function countdown(){
+      vm.$timeout(function(){
+        vm.countdown--;
+        vm.$log.debug('vm.countdown', vm.countdown);
+        if(vm.countdown > 0){
+          countdown();
+        }
+      }, 1000);
+    })();
+
+    vm.$timeout(function(){
+      var state = vm.params.state;
+      switch(state){
+        case 'inicio':
+          vm.$state.go(state, {
+            event_id: vm.params.event_id,
+            task: vm.params.task
+          });
+          break;
+        case 'programa':
+          vm.$state.go(state, {
+            slug: vm.params.slug,
+            task: vm.params.task
+          });
+          break;
+        default:
+          vm.$log.debug('State not handled yet:', state);
+          break;
+      }
+    }, vm.delay * 1000);
+
   }
 
 })();

@@ -13,9 +13,12 @@
           <div class="col-sm-8 col-sm-offset-2">
 
             <div>
-              <h3>Você está logado!</h3>
-              <div ng-if="vm.hasRedirect && vm.startRedirect">
-                Você será redirecionado em menos de <b>3 segundos</b>....
+              <h3 ng-if="!pageSignin.successMessage">Você está logado!</h3>
+              <h3 ng-if="pageSignin.successMessage" ng-bind-html="pageSignin.successMessage"></h3>
+              <div ng-if="pageSignin.countdown > 0">
+                <p>
+                  Você será redirecionado em menos de <b>{{pageSignin.countdown}} segundos</b>...
+                </p>
               </div>
               <button type="button" ng-click="pageSignin.onClickLogout()" class="btn btn-primary">Sair</button>
             </div>

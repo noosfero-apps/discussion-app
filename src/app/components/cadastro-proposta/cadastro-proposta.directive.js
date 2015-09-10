@@ -28,13 +28,20 @@
       // requeue to wait until DOM be created
       vm.$timeout(function(){
         attachPopover.call(vm);
-      }, 100);
+      }, 200);
+    };
+
+    CadastroPropostaController.prototype.sendProposal = function (proposal) {
+      var vm = this;
+
+      // notify parents - handled by parents
+      vm.$scope.$emit('cadastro-proposa:startSendProposal', proposal);
     };
 
     function attachPopover(){
       var vm = this;
 
-      vm.popover = angular.element(vm.$element.find('.link-popover'));
+      vm.popover = angular.element(vm.$element.find('.btn-question'));
       vm.popover.popover({
         html: true,
         placement: 'bottom',
@@ -47,7 +54,9 @@
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/cadastro-proposta/cadastro-proposta.html',
-      scope: {},
+      scope: {
+        program: '='
+      },
       controller: CadastroPropostaController,
       controllerAs: 'vm',
       bindToController: true

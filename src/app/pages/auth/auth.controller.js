@@ -6,13 +6,14 @@
     .controller('AuthPageController', AuthPageController);
 
   /** @ngInject */
-  function AuthPageController($scope, $rootScope, $location, $state, AUTH_EVENTS, AuthService, DialogaService, Session, $log) {
+  function AuthPageController($scope, $rootScope, $location, $state, $timeout, AUTH_EVENTS, AuthService, DialogaService, Session, $log) {
     var vm = this;
 
     vm.$scope = $scope;
     vm.$rootScope = $rootScope;
     vm.$location = $location;
     vm.$state = $state;
+    vm.$timeout = $timeout;
     vm.AUTH_EVENTS = AUTH_EVENTS;
     vm.AuthService = AuthService;
     vm.DialogaService = DialogaService;
@@ -33,11 +34,14 @@
     vm.singup = {};
     vm.terms = null;
     vm.loadingTerms = null;
+    vm.delay = 3; // segundos
+    vm.countdown = 0;
 
     vm.search = vm.$location.search();
     var redirect = vm.search.redirect_uri || '';
     if(redirect && redirect.length > 0){
       vm.params = JSON.parse('{"' + decodeURI(redirect).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+      vm.hasRedirect = true;
     }
 
     // attach events
@@ -85,8 +89,7 @@
       // TODO: mensagens de sucesso
       // 'Cadastro efetuado com sucesso.'
       // 'Verifique seu email para confirmar o cadastro.'
-
-      // TODO: show messagens and redirect timeout
+      vm.successMessage = '<h3>Cadastro efetuado com sucesso.</h3>' + '<p>Verifique seu <b>email</b> para confirmar o cadastro.</p>';
       vm.redirectBack();
     }, function(response){
       vm.$log.debug('register error.response', response);
@@ -102,6 +105,8 @@
     vm.AuthService.login(credentials).then(function(user) {
       // handle view
       vm.$log.debug('user', user);
+
+      vm.successMessage = 'Login efetuado com sucesso!';
       vm.redirectBack();
     }, function() {
       // handle view
@@ -111,19 +116,42 @@
   AuthPageController.prototype.redirectBack = function(){
     var vm = this;
 
-    if(!vm.params){
+    if(!vm.hasRedirect){
       vm.$log.warn('No redirect params defined.');
       return;
     }
-    var state = vm.params.state;
-    switch(state){
-      case 'inicio':
-        vm.$state.go(state, {
-          event_id: vm.params.event_id,
-          task: vm.params.task
-        });
-        break;
-    }
-  }
 
+    // start countdown
+    vm.countdown = vm.delay;
+    (function countdown(){
+      vm.$timeout(function(){
+        vm.countdown--;
+        vm.$log.debug('vm.countdown', vm.countdown);
+        if(vm.countdown > 0){
+          countdown();
+        }
+      }, 1000);
+    })();
+
+    vm.$timeout(function(){
+      var state = vm.params.state;
+      switch(state){
+        case 'inicio':
+          vm.$state.go(state, {
+            event_id: vm.params.event_id,
+            task: vm.params.task
+          });
+          break;
+        case 'programa':
+          vm.$state.go(state, {
+            slug: vm.params.slug,
+            task: vm.params.task
+          });
+          break;
+        default:
+          vm.$log.debug('State not handled yet:', state);
+          break;
+      }
+    }, vm.delay * 1000);
+  };
 })();

@@ -10,7 +10,7 @@ var sprity = require('sprity');
 gulp.task('sprites', function () {
   var src = [
   	path.join(conf.paths.src, '/assets/images/icons/*.png'),
-	path.join('!' + conf.paths.src, '/assets/images/icons/sprite.png')
+	  path.join('!' + conf.paths.src, '/assets/images/icons/sprite.png')
   ];
   var destCss = path.join(conf.paths.tmp, '/serve/app/');
   var destImg = path.join(conf.paths.src, '/assets/images/icons');

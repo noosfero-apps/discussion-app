@@ -19,6 +19,8 @@
     vm.$log = $log;
 
     vm.init();
+    vm.loadData();
+    vm.attachListeners();
     vm.$log.debug('InicioPageController');
   }
 
@@ -26,6 +28,8 @@
     var vm = this;
 
     vm.article = null;
+    vm.events = null;
+    vm.featuredEvent = true;
     vm.themes = null;
     vm.selectedTheme = null;
     vm.programs = null;
@@ -45,10 +49,8 @@
       vm.loadingFilter = true;
     }
 
+    vm.loading = null;
     vm.error = null;
-
-    vm.loadData();
-    vm.attachListeners();
   };
 
   InicioPageController.prototype.loadData = function() {
@@ -68,6 +70,8 @@
       vm.loading = false;
     }, function(error) {
       vm.$log.error('Error on getHome.', error);
+      vm.loading = false;
+      vm.error = error;
     });
 
     // Load event list
@@ -78,7 +82,7 @@
     }, function(error) {
       vm.$log.error('Error on getEvents.', error);
       vm.loadingEvents = false;
-      vm.eventsError = true;
+      vm.eventsError = error;
     });
 
     function _loadAfterHome () {
@@ -92,6 +96,8 @@
         vm.filter();
       }, function(error) {
         vm.$log.error('Error on getThemes.', error);
+        vm.loadingThemes = false;
+        vm.errorThemes = error;
       });
 
       // Load program list
@@ -104,6 +110,8 @@
         vm.filter();
       }, function(error) {
         vm.$log.error('Error on getPrograms.', error);
+        vm.loadingPrograms = false;
+        vm.errorPrograms = error;
       });
     }
   };

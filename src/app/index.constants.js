@@ -4,9 +4,12 @@
 
   angular
     .module('dialoga')
+    .constant('PATH', {
+      host: 'http://hom.dialoga.gov.br',
+      image: 'http://hom.login.dialoga.gov.br'
+    })
     .constant('API', {
       token: null,
-      host: 'http://hom.dialoga.gov.br',
       articleId: {
         home: '103358',
         about: '108073',
@@ -37,7 +40,6 @@
     })
     .constant('Modernizr', window.Modernizr)
     .constant('jQuery', window.jQuery)
-    // .constant('key', value)
     ;
 
 })();

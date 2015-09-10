@@ -6,14 +6,15 @@
     .directive('articleBox', articleBox);
 
   /** @ngInject */
-  function articleBox($rootScope) {
+  function articleBox() {
 
     /** @ngInject */
-    function ArticleBoxController($state, $log) {
+    function ArticleBoxController($state, PATH, $log) {
       $log.debug('ArticleBoxController');
 
       var vm = this;
       vm.$state = $state;
+      vm.PATH = PATH;
       vm.$log = $log;
 
       vm.init();
@@ -32,7 +33,7 @@
 
       if(!vm.image && vm.article.image){
         vm.image = {
-          src: $rootScope.basePath + vm.article.image.url,
+          src: vm.PATH.image + vm.article.image.url,
           alt: 'Imagem de destaque do conteúdo'
         };
       }
@@ -41,7 +42,7 @@
     ArticleBoxController.prototype.showContent = function () {
       var vm = this;
 
-      vm.$state.go('programa-conteudo', {
+      vm.$state.go('programa', {
         slug: vm.article.slug
       }, {
         location: true

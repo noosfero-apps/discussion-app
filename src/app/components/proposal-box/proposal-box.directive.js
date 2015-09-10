@@ -31,7 +31,7 @@
     ProposalBoxController.prototype.showContent = function (slug) {
       var vm = this;
 
-      vm.$state.go('programa-conteudo', {
+      vm.$state.go('programa', {
         slug: slug,
         proposal_id: vm.proposal.id
       }, {

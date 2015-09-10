@@ -29,7 +29,7 @@
     }
 
     ProposalGridController.prototype.init = function() {
-      var vm = this;
+      // var vm = this;
     };
 
     ProposalGridController.prototype.attachListeners = function() {

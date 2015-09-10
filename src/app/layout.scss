@@ -123,6 +123,9 @@
     margin-left: -2px;
 }
 
+.no-space-left { margin-left: 0; padding-left: 0;}
+.no-space-right { margin-right: 0; padding-right: 0;}
+
 .text-center-sm {
     @media screen and (max-width: $screen-sm) {
         text-align: center;

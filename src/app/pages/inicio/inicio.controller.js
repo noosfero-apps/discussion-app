@@ -28,6 +28,8 @@
     var vm = this;
 
     vm.article = null;
+    vm.events = null;
+    vm.featuredEvent = true;
     vm.themes = null;
     vm.selectedTheme = null;
     vm.programs = null;

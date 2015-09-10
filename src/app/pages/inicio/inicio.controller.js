@@ -29,7 +29,7 @@
 
     vm.article = null;
     vm.events = null;
-    vm.featuredEvent = true;
+    vm.featuredEvent = null;
     vm.themes = null;
     vm.selectedTheme = null;
     vm.programs = null;

@@ -162,12 +162,12 @@
     var el = vm.$element.find(rule);
     el.slideDown();
     angular.element('body').animate({scrollTop: el.offset().top}, 'fast');
-  }
+  };
 
   ProgramaPageController.prototype.findAndHide = function(rule) {
     var vm = this;
     vm.$element.find(rule).slideUp();
-  }
+  };
 
   ProgramaPageController.prototype.sendProposal = function() {
     var vm = this;

@@ -189,19 +189,19 @@
       });
     }
 
-    function getSubscribers (event_id, params, cbSuccess, cbError) {
-      var url = service.apiArticles + event_id + '/followers?_=' + new Date().getTime();
-      var paramsExtended = angular.extend({
-        // 'fields[]': ['id', 'slug', 'title', 'abstract', 'body', 'categories', 'created_at', 'start_date', 'end_date', 'hits'],
-        'content_type':'Event'
-      }, params);
+    // function getSubscribers (event_id, params, cbSuccess, cbError) {
+    //   var url = service.apiArticles + event_id + '/followers?_=' + new Date().getTime();
+    //   var paramsExtended = angular.extend({
+    //     // 'fields[]': ['id', 'slug', 'title', 'abstract', 'body', 'categories', 'created_at', 'start_date', 'end_date', 'hits'],
+    //     'content_type':'Event'
+    //   }, params);
 
-      UtilService.get(url, {params: paramsExtended}).then(function(data){
-        cbSuccess(data.articles);
-      }).catch(function(error){
-        cbError(error);
-      });
-    }
+    //   UtilService.get(url, {params: paramsExtended}).then(function(data){
+    //     cbSuccess(data.articles);
+    //   }).catch(function(error){
+    //     cbError(error);
+    //   });
+    // }
 
     function subscribeToEvent (event_id, params, cbSuccess, cbError) {
 

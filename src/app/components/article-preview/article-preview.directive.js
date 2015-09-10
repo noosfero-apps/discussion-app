@@ -6,7 +6,7 @@
     .directive('articlePreview', articlePreview);
 
   /** @ngInject */
-  function articlePreview($rootScope) {
+  function articlePreview() {
 
     /** @ngInject */
     function ArticlePreviewController($state, PATH, $log) {

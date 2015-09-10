@@ -6,7 +6,7 @@
     .directive('articleBox', articleBox);
 
   /** @ngInject */
-  function articleBox($rootScope) {
+  function articleBox() {
 
     /** @ngInject */
     function ArticleBoxController($state, PATH, $log) {

@@ -17,7 +17,7 @@
       var encodedData = '';
       encodedData += 'name=' + data.name;
       encodedData += '&email=' + data.email;
-      encodedData += '&login=' + data.email.substr(0, data.email.indexOf('@')).toLowerCase().replace(/\W+/g,"").substr(0,25) + "-" + Date.now();
+      encodedData += '&login=' + data.email.substr(0, data.email.indexOf('@')).toLowerCase().replace(/\W+/g,'').substr(0,25) + '-' + Date.now();
       encodedData += '&email=' + data.email;
       encodedData += '&password=' + data.password;
       encodedData += '&password_confirmation=' + data.password_confirmation;
@@ -51,10 +51,10 @@
 
     function activate (code) {
       var url = '/api/v1/activate';
-      var data = {
-        private_token: API.token,
-        activation_code: code
-      };
+      // var data = {
+      //   private_token: API.token,
+      //   activation_code: code
+      // };
       var encodedData = 'private_token=' + API.token;
       encodedData += '&activation_code=' + code;
 
@@ -75,11 +75,11 @@
 
     function changePassword (code, newPassword, newPasswordConfirmation){
       var url = '/api/v1/new_password';
-      var data = {
-        code: code,
-        password: newPassword,
-        password_confirmation: newPasswordConfirmation
-      };
+      // var data = {
+      //   code: code,
+      //   password: newPassword,
+      //   password_confirmation: newPasswordConfirmation
+      // };
       var encodedData = 'code=' + code;
       encodedData += '&password=' + newPassword;
       encodedData += '&password_confirmation=' + newPasswordConfirmation;
@@ -159,21 +159,21 @@
       return (service.isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1);
     }
 
-    function _encodeObj(obj){
-      var result = [];
-      var str = null;
-      var p = null;
+    // function _encodeObj(obj){
+    //   var result = [];
+    //   var str = null;
+    //   var p = null;
 
-      for (p in obj) {
-        if (obj.hasOwnProperty(p)) {
-          // str = encodeURIComponent(p) + '=' + obj[p];
-          str = p + '=' + obj[p];
-          result.push(str);
-        }
-      }
+    //   for (p in obj) {
+    //     if (obj.hasOwnProperty(p)) {
+    //       // str = encodeURIComponent(p) + '=' + obj[p];
+    //       str = p + '=' + obj[p];
+    //       result.push(str);
+    //     }
+    //   }
 
-      return result.join('&');
-    }
+    //   return result.join('&');
+    // }
 
     var service = {
       register: register,

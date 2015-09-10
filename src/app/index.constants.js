@@ -32,6 +32,11 @@
       notAuthenticated: 'auth-not-authenticated',
       notAuthorized: 'auth-not-authorized'
     })
+    .constant('STATUS_VOTE', {
+      SUCCESS: 0x1,
+      ERROR: 0x10,
+      LOADING: 0x100
+    })
     .constant('USER_ROLES', {
       all: '*',
       admin: 'admin',

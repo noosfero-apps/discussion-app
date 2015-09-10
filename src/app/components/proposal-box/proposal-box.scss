@@ -3,6 +3,7 @@
 	border-radius: 5px;
 	// overflow: hidden;
     margin-bottom: 20px;
+    position: relative;
 
 	&.focus {
 		border: 7px solid #000;
@@ -68,6 +69,31 @@
     .proposal-box--join {
         .btn {
             font-weight: bold;
+        }
+    }
+
+    .proposal-loading {
+
+        .text {
+            position: absolute;
+            color: #fff;
+            font-size: 24px;
+            z-index: 1000;
+            top: 50%;
+            left: 50%;
+            margin-top: -17px;
+            margin-left: -75px;
+        }
+
+        .shadow {
+            content: "";
+            position: absolute;
+            z-index: 999;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,.4);
         }
     }
 

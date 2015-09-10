@@ -31,6 +31,7 @@
 
     vm.article = null;
     vm.category = null;
+    vm.sendProposalRedirectURI = null;
     vm.search = vm.$location.search();
 
     vm.error = false;
@@ -53,6 +54,7 @@
     vm.DialogaService.getProgramBySlug(slug, function(article) {
       vm.article = article;
       vm.category = vm.article.categories[0];
+      vm.sendProposalRedirectURI = 'state=programa&task=send-proposal&slug=' + slug;
 
       // update the breadcrumb
       vm.$rootScope.contentTitle = vm.article.title;

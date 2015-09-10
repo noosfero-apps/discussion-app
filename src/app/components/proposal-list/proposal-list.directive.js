@@ -105,7 +105,7 @@
     ProposalListController.prototype.showContent = function (proposal) {
       var vm = this;
 
-      vm.$state.go('programa-conteudo', {
+      vm.$state.go('programa', {
         slug: proposal.parent.slug,
         proposal_id: proposal.id
       }, {

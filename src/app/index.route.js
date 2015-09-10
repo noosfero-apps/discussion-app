@@ -75,7 +75,7 @@
         }
       })
       .state('programas', {
-        url: '/programas?tema&filtro',
+        url: '/programas?tema&filtro&task',
         reloadOnSearch: false,
         ncyBreadcrumb: {label: 'Programas'},
         views: {
@@ -88,8 +88,8 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
-      .state('programa-conteudo', {
-        url: '/programa/:slug?proposal_id',
+      .state('programa', {
+        url: '/programa/:slug?proposal_id&task',
         reloadOnSearch: false,
         ncyBreadcrumb: {
           label: '{{$parent.$root.contentTitle}}',

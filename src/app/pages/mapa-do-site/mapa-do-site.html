@@ -24,7 +24,7 @@
             		<a ui-sref="programas({tema: slug})" ui-sref-opts="{location: true}" title="Acesse a lista de programas do {{theme.name}}">{{theme.name}}</a>
             		<ul>
             			<li class="list-sitemap--item level-3" ng-repeat="program in theme.programs">
-            				<a ui-sref="programa-conteudo({slug: program.slug})" ui-sref-opts="{location: true}" title="Acesse o programa {{::program.title}}">{{::program.title}}</a>
+            				<a ui-sref="programa({slug: program.slug})" ui-sref-opts="{location: true}" title="Acesse o programa {{::program.title}}">{{::program.title}}</a>
             			</li>
             		</ul>
             	</li>

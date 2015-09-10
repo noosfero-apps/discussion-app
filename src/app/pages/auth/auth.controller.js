@@ -6,13 +6,14 @@
     .controller('AuthPageController', AuthPageController);
 
   /** @ngInject */
-  function AuthPageController($scope, $rootScope, $location, $state, AUTH_EVENTS, AuthService, DialogaService, Session, $log) {
+  function AuthPageController($scope, $rootScope, $location, $state, $timeout, AUTH_EVENTS, AuthService, DialogaService, Session, $log) {
     var vm = this;
 
     vm.$scope = $scope;
     vm.$rootScope = $rootScope;
     vm.$location = $location;
     vm.$state = $state;
+    vm.$timeout = $timeout;
     vm.AUTH_EVENTS = AUTH_EVENTS;
     vm.AuthService = AuthService;
     vm.DialogaService = DialogaService;
@@ -33,11 +34,14 @@
     vm.singup = {};
     vm.terms = null;
     vm.loadingTerms = null;
+    vm.delay = 3; // segundos
+    vm.startRedirect = null;
 
     vm.search = vm.$location.search();
     var redirect = vm.search.redirect_uri || '';
     if(redirect && redirect.length > 0){
       vm.params = JSON.parse('{"' + decodeURI(redirect).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+      vm.hasRedirect = true;
     }
 
     // attach events
@@ -86,8 +90,11 @@
       // 'Cadastro efetuado com sucesso.'
       // 'Verifique seu email para confirmar o cadastro.'
 
-      // TODO: show messagens and redirect timeout
-      vm.redirectBack();
+      vm.startRedirect = true;
+      vm.$timeout(function(){
+        vm.redirectBack();
+        vm.startRedirect = false;
+      }, vm.delay * 1000);
     }, function(response){
       vm.$log.debug('register error.response', response);
 
@@ -102,7 +109,12 @@
     vm.AuthService.login(credentials).then(function(user) {
       // handle view
       vm.$log.debug('user', user);
-      vm.redirectBack();
+
+      vm.startRedirect = true;
+      vm.$timeout(function(){
+        vm.redirectBack();
+        vm.startRedirect = false;
+      }, vm.delay  * 1000);
     }, function() {
       // handle view
     });
@@ -111,10 +123,11 @@
   AuthPageController.prototype.redirectBack = function(){
     var vm = this;
 
-    if(!vm.params){
+    if(!vm.hasRedirect){
       vm.$log.warn('No redirect params defined.');
       return;
     }
+
     var state = vm.params.state;
     switch(state){
       case 'inicio':
@@ -122,6 +135,15 @@
           event_id: vm.params.event_id,
           task: vm.params.task
         });
+        break;
+      case 'programa':
+        vm.$state.go(state, {
+          slug: vm.params.slug,
+          task: vm.params.task
+        });
+        break;
+      default:
+        vm.$log.debug('State not handled yet:', state);
         break;
     }
   }

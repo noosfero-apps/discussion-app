@@ -246,7 +246,8 @@ body {
     .#{$category} {
         .color-theme-fg { color: $color; }
         .color-theme-bg { background-color: $color;}
-        .color-theme-bg-darker { background-color: darken($color, 10%);}
+        .color-theme-bg-complementar-1 { background-color: lighten($color, 10%);}
+        .color-theme-bg-complementar-2 { background-color: darken($color, 10%);}
 
         .contraste & .color-theme-fg { color: #fff; }
         .contraste & .color-theme-bg { background-color: #000;}
@@ -256,6 +257,8 @@ body {
 $common-color: #5E739E;
 .color-theme-common-fg {color: $common-color; }
 .color-theme-common-bg {background-color: $common-color; }
+.color-fg-white {color: #fff; }
+.color-bg-gray {color: #ccc; }
 
 // Contraste
 .contraste {

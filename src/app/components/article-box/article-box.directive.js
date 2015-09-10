@@ -42,7 +42,7 @@
     ArticleBoxController.prototype.showContent = function () {
       var vm = this;
 
-      vm.$state.go('programa-conteudo', {
+      vm.$state.go('programa', {
         slug: vm.article.slug
       }, {
         location: true

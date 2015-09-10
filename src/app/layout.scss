@@ -123,6 +123,12 @@
     margin-left: -2px;
 }
 
+.text-center-sm {
+    @media screen and (max-width: $screen-sm) {
+        text-align: center;
+    }
+}
+
 .btn-submit {
     background-color: $defaultblue;
     color: #fff;

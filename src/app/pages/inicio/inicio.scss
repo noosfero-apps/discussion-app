@@ -38,6 +38,97 @@
     .input-group-btn {
         background-color: #fff;
     }
+
+    .featured-event--box {
+        display: block;
+        position: relative;
+        background-color: #545454;
+        color: #fff;
+        border-radius: 5px;
+
+        .box-top {
+            text-transform: uppercase;
+
+            .box-title {
+                font-size: 28px;
+            }
+
+            b {
+                color: #FFB91C;
+            }
+        }
+
+        .box-middle {
+            margin: 0;
+            padding: 0;
+
+            .video {
+                width: 100%;
+                min-height: 125px;
+                background-color: #4A4A0E;
+                background-size: cover;
+                background-position: center;
+            }
+        }
+
+        .box-bottom {
+            position: relative;
+            padding: 10px 20px;
+
+            .date {
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            .live {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 80px;
+                text-align: center;
+                font-weight: bold;
+
+                color: #545454;
+                background-color: #FFB91C;
+
+                border-radius: 20px;
+            }
+
+            p { padding: 10px 0;}
+        }
+
+        @media screen and (min-width: $screen-lg) {
+
+        }
+
+        @media screen and (min-width: $screen-md) {
+            // width: 223px;
+            width: 100%;
+            height: 338px;
+        }
+
+        @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
+            width: 100%;
+            height: 125px;
+            margin: 30px 0 10px 0;
+        }
+
+        @media screen and (min-width: $screen-xs) and (max-width: $screen-sm) {
+            margin: 30px 30px 10px 30px;
+
+            .video {
+                height: 290px;
+            }
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            margin: 15px;
+
+            .video {
+                height: 290px;
+            }
+        }
+    }
 }
 
 .section-gray {
@@ -60,6 +151,8 @@
 .video-player {
   position: relative;
   border: 1px solid #333;
+  width: 600px;
+  margin: 0 auto;
 
   .video-background {
     text-align: center;
@@ -124,8 +217,10 @@
     }
   }
 
-  @media screen and (min-width: 992px) {
-    width: 80%;
-    margin: 0 auto;
+  // @media screen and ( min-width: $screen-md ) {
+  //   width: 480px;
+  // }
+  @media screen and (max-width: $screen-md) {
+    width: 100%;
   }
 }

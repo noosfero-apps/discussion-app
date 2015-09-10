@@ -2,7 +2,7 @@
   <section class="section-video">
     <div class="container">
       <div class="row">
-        <div class="col-sm-8" ng-class="{'col-sm-offset-2': !pageInicio.featuredEvent}">
+        <div class="col-md-8" ng-class="{'col-md-offset-2': !pageInicio.featuredEvent}">
           <div class="video-player js-youtube">
             <div class="embed-responsive embed-responsive-16by9">
               <div class="js-iframe" ng-if="pageInicio.article.videoIsLoaded" ng-bind-html="pageInicio.article.abstractTrusted"></div>
@@ -15,9 +15,25 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2" ng-if="pageInicio.featuredEvent">
-          <div class="featured-event--box">
-            Evento em destaque
+        <div class="col-md-4" ng-if="pageInicio.featuredEvent">
+          <div class="row">
+            <div class="featured-event--box">
+              <div class="box-top col-xs-12 col-sm-4 col-md-12">
+                <h2 class="box-title">Bate papo com <b>MINISTR@S</b></h2>
+              </div>
+              <div class="box-middle col-xs-12 col-sm-4 col-md-12">
+                <div class="video" style="background-image: url(/assets/images/event-video-area.png)">
+                </div>
+              </div>
+              <div class="box-bottom col-xs-12 col-sm-4 col-md-12">
+                <div class="date">DD/MM/YYYY</div>
+                <div class="live">AO VIVO</div>
+                <p>
+                  Lorem ipsum dolor sit amet, mei at facete constituto partiendo et.
+                </p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
           </div>
         </div>
       </div>

@@ -97,6 +97,11 @@
 
     <section id="section-proposal-form" class="proposal-extended-section" style="display:none;">
       <div class="container">
+        <div class="proposal-extended-section-header">
+          <button type="button" aria-label="Close" class="btn btn-close" ng-click="pagePrograma.hideProposalForm()">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
+        </div>
         <div ng-if="!pagePrograma.$rootScope.currentUser">
           <show-message
             type="'alert'"
@@ -106,16 +111,11 @@
             <div class="row">
               <div class="col-sm-4"></div>
               <div class="col-sm-8 text-center-sm">
-                <a ui-sref="entrar({redirect_uri: pagePrograma.sendProposalRedirectURI})">Clique aqui para ir para a página de login.</a>
+                <a ui-sref="entrar({redirect_uri: pagePrograma.sendProposalRedirectURI})">Clique aqui para ir para a página de login</a>
               </div>
             </div>
         </div>
         <div ng-if="pagePrograma.$rootScope.currentUser">
-          <div class="proposal-extended-section-header">
-            <button type="button" aria-label="Close" class="btn btn-close" ng-click="pagePrograma.hideProposalForm()">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-            </button>
-          </div>
           <div class="proposal-extended-section-content">
             <cadastro-proposta program="pagePrograma.article"></cadastro-proposta>
           </div>

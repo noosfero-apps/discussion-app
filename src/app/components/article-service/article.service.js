@@ -177,9 +177,12 @@
       var url = service.apiArticles + proposal_id + '/vote';
       var paramsExtended = angular.extend({
         private_token: $rootScope.currentUser.private_token
+        // private_token: 'e2198fdbcc20409f082829b4b5c0848e'
       }, params);
 
-      UtilService.post(url, paramsExtended).then(function(response){
+      var encodedParams = angular.element.param(paramsExtended);
+
+      UtilService.post(url, encodedParams).then(function(response){
         cbSuccess(response);
       }).catch(function(error){
         cbError(error);

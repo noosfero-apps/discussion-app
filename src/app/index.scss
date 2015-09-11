@@ -217,19 +217,34 @@ body {
     }
 
     .vote_for &,
-    .next &,
+    .skip &,
     .vote_against & {
         padding-top: 12px;
     }
 
     .vote_for & {
         background-color: #4AC97A;
+
+        &:hover { background-color: lighten(#4AC97A, 10%); }
+        
+        &:active,
+        &:focus { background-color: darken(#4AC97A, 10%)}
     }
-    .next & {
+    .skip & {
         background-color: #EEB453;
+
+        &:hover { background-color: lighten(#EEB453, 10%); }
+        
+        &:active,
+        &:focus { background-color: darken(#EEB453, 10%)}
     }
     .vote_against & {
         background-color: #EC4C68;
+
+        &:hover { background-color: lighten(#EC4C68, 10%); }
+        
+        &:active,
+        &:focus { background-color: darken(#EC4C68, 10%)}
     }
 }
 

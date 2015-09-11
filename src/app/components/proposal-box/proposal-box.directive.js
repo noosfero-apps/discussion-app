@@ -9,14 +9,15 @@
   function proposalBox() {
 
     /** @ngInject */
-    function ProposalBoxController($scope, $state, STATUS_VOTE, $log) {
+    function ProposalBoxController($scope, $state, VOTE_STATUS, VOTE_OPTIONS, $log) {
       $log.debug('ProposalBoxController');
 
       var vm = this;
       vm.$scope = $scope;
       vm.$state = $state;
+      vm.VOTE_STATUS = VOTE_STATUS;
+      vm.VOTE_OPTIONS = VOTE_OPTIONS;
       vm.$log = $log;
-      vm.STATUS_VOTE = STATUS_VOTE;
 
       vm.init();
       vm.addListeners();
@@ -34,13 +35,15 @@
     ProposalBoxController.prototype.addListeners = function () {
       var vm = this;
 
-      vm.$scope.$on('proposal-vote:success', function(e, data){
-        vm.STATE = vm.STATUS_VOTE.SUCCESS;
-        vm.message = data.message;
-      });
-
-      vm.$scope.$on('proposal-vote:error', function(e, data){
-        vm.STATE = vm.STATUS_VOTE.ERROR;
+      vm.$scope.$on('proposal-box:vote-response', function(e, data){
+        if(data.success) {
+          vm.STATE = vm.VOTE_STATUS.SUCCESS;
+        }
+        
+        if(data.error) {
+          vm.STATE = vm.VOTE_STATUS.ERROR;
+          
+        }
         vm.message = data.message;
       });
     };
@@ -59,24 +62,33 @@
     ProposalBoxController.prototype.voteUp = function () {
       var vm = this;
 
-      vm.STATE = vm.STATUS_VOTE.LOADING;
-      vm.$scope.$emit('proposal-vote:voteUp', vm.proposal.id);
+      vm.STATE = vm.VOTE_STATUS.LOADING;
+      vm.$scope.$emit('proposal-box:vote', {
+        OPTION: vm.VOTE_OPTIONS.UP,
+        proposal_id: vm.proposal.id
+      });
       vm.$log.debug('Sending vote');
     };
 
     ProposalBoxController.prototype.voteDown = function () {
       var vm = this;
 
-      vm.STATE = vm.STATUS_VOTE.LOADING;
-      vm.$scope.$emit('proposal-vote:voteDown', vm.proposal.id);
+      vm.STATE = vm.VOTE_STATUS.LOADING;
+      vm.$scope.$emit('proposal-box:vote', {
+        OPTION: vm.VOTE_OPTIONS.DOWN,
+        proposal_id: vm.proposal.id
+      });
       vm.$log.debug('Sending vote');
     };
 
-    ProposalBoxController.prototype.next = function () {
+    ProposalBoxController.prototype.skip = function () {
       var vm = this;
 
-      vm.STATE = vm.STATUS_VOTE.LOADING;
-      vm.$scope.$emit('proposal-vote:next', vm.proposal.id);
+      vm.STATE = vm.VOTE_STATUS.LOADING;
+      vm.$scope.$emit('proposal-box:vote', {
+        OPTION: vm.VOTE_OPTIONS.SKIP,
+        proposal_id: vm.proposal.id
+      });
       vm.$log.debug('Sending vote');
     };
 

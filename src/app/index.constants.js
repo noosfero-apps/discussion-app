@@ -5,8 +5,8 @@
   angular
     .module('dialoga')
     .constant('PATH', {
-      host: 'http://hom.dialoga.gov.br',
-      image: 'http://hom.login.dialoga.gov.br'
+      host: 'http://dialoga.gov.br',
+      image: 'http://login.dialoga.gov.br'
     })
     .constant('API', {
       token: null,
@@ -32,10 +32,15 @@
       notAuthenticated: 'auth-not-authenticated',
       notAuthorized: 'auth-not-authorized'
     })
-    .constant('STATUS_VOTE', {
+    .constant('VOTE_STATUS', {
       SUCCESS: 0x1,
       ERROR: 0x10,
       LOADING: 0x100
+    })
+    .constant('VOTE_OPTIONS', {
+      UP: 0x1,
+      DOWN: 0x10,
+      SKIP: 0x100
     })
     .constant('USER_ROLES', {
       all: '*',

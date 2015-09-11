@@ -135,6 +135,10 @@
         vm.creatingProposal = false;
       });
     });
+
+    vm.$scope.$on('proposal-box:vote', function(event, params) {
+      
+    });
   };
 
   ProgramaPageController.prototype.showProposalsList = function() {

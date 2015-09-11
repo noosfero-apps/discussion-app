@@ -1,9 +1,9 @@
-<div class="proposal-box" ng-class="[{'focus': (vm.focus || (vm.STATE === vm.STATUS_VOTE.LOADING) )}, vm.category.slug]">
-  <div ng-show="(vm.STATE === vm.STATUS_VOTE.SUCCESS) || (vm.STATE === vm.STATUS_VOTE.ERROR)">
+<div class="proposal-box" ng-class="[{'focus': (vm.focus || (vm.STATE === vm.VOTE_STATUS.LOADING) )}, vm.category.slug]">
+  <div ng-show="(vm.STATE === vm.VOTE_STATUS.SUCCESS) || (vm.STATE === vm.VOTE_STATUS.ERROR)">
     FEEDBACK
   </div>
-  <div ng-hide="(vm.STATE === vm.STATUS_VOTE.SUCCESS) || (vm.STATE === vm.STATUS_VOTE.ERROR)">
-    <div ng-show="vm.STATE === vm.STATUS_VOTE.LOADING">
+  <div ng-hide="(vm.STATE === vm.VOTE_STATUS.SUCCESS) || (vm.STATE === vm.VOTE_STATUS.ERROR)">
+    <div ng-show="vm.STATE === vm.VOTE_STATUS.LOADING">
       <div class="proposal-loading">
         <div class="shadow"></div>
         <div class="text">
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="col-xs-4">
-          <div class="action next" ng-click="vm.next()">
+          <div class="action skip" ng-click="vm.skip()">
             <div class="icon-circle">
               <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
             </div>

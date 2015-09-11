@@ -8,10 +8,10 @@
     .factory('AuthInterceptor', AuthInterceptor);
 
   /** @ngInject */
-  function AuthService($http, $rootScope, Session, AUTH_EVENTS, API, $log) {
+  function AuthService($q, $http, $rootScope, Session, AUTH_EVENTS, API, PATH, $log) {
 
     function register (data){
-      var url = API.host + '/api/v1/register';
+      var url = PATH.host + '/api/v1/register';
       $log.debug('data', data);
       // var encodedData = data;
       var encodedData = '';
@@ -22,6 +22,8 @@
       encodedData += '&password=' + data.password;
       encodedData += '&password_confirmation=' + data.password_confirmation;
       encodedData += '&user_terms_accepted=' + data.user_terms_accepted;
+      encodedData += '&captcha_text=' + data.captcha_text;
+      encodedData += '&txtToken_captcha_serpro_gov_br=' + data.txtToken_captcha_serpro_gov_br;
 
       // var encodedData = _encodeObj(data);
       // var encodedData = angular.element.param(data);
@@ -44,8 +46,8 @@
         }, function(response) {
           $log.debug('AuthService.register [FAIL] response', response);
 
-          $rootScope.$broadcast(AUTH_EVENTS.registerFailed);
-          return response;
+          $rootScope.$broadcast(AUTH_EVENTS.registerFailed, response);
+          return $q.reject(response);
         });
     }
 

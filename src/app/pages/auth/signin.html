@@ -82,92 +82,87 @@
               </p>
             </div>
           </div>
-          <div class="row">
-            <div class="col-xs-6">
-              <button type="button" ng-click="pageSignin.authWithFacebook()" class="btn btn-lg btn-block btn-social btn-facebook">
-                <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-facebook">
-                  <span class="icon icon-social-facebook"></span>
-                </span>
-                <span class="text">Entrar com Facebook</span>
-              </button>
-            </div>
-            <div class="col-xs-6">
-              <button type="button" ng-click="pageSignin.authWithGooglePlus()" class="btn btn-lg btn-block btn-social btn-google-plus">
-                <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-googleplus">
-                  <span class="icon icon-social-googleplus"></span>
-                </span>
-                <span class="text">Entrar com Google+</span>
-              </button>
+          <div class="row" ng-if="pageSignin.errorMessage">
+            <div class="col-sm-12">
+              <div class="alert alert-danger">
+                {{pageSignin.errorMessage}}
+              </div>
+              <div ng-if="vm.internalError">
+                <p>Este erro parece ser um problema interno.<br/>Por favor, tente novamente mais tarde.</p>
+                <p>Caso o problema persista, entre em contato!</p>
+                <p><a ui-sref="duvidas">Ir para página de contato</a></p>
+              </div>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12">
-              <hr class="separator separator-cadastro"></hr>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <form name="signupForm" ng-submit="pageSignin.submitSigup(pageSignin.signup)">
-                  <div class="form-group">
-                    <label for="signup-form--name">Nome*:</label>
-                    <span class="pull-right">*Dados obrigatórios</span>
-                    <input type="text" id="signup-form--name" name="name" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.name.$invalid && signupForm.name.$touched }" ng-model="pageSignin.signup.name" ng-minlength="" ng-maxlength="" required>
-                    <validation-messages field="signupForm.name"/>
-                  </div>
-                  <div class="form-group">
-                    <label for="signup-form--email">E-mail*:</label>
-                    <input type="email" id="signup-form--email" name="email" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$touched }" ng-model="pageSignin.signup.email" ng-minlength="" ng-maxlength="" required>
-                    <validation-messages field="signupForm.email"/>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label for="signup-form--password">Senha*:</label>
-                        <input type="password" id="signup-form--password" name="password" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$touched }" ng-model="pageSignin.signup.password" ng-minlength="" ng-maxlength="" required>
-                        <validation-messages field="signupForm.password"/>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label for="signup-form--password-confirmation">Confirmar Senha*:</label>
-                        <input type="password" id="signup-form--password-confirmation" name="password_confirmation" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.password_confirmation.$invalid && signupForm.password_confirmation.$touched }" ng-model="pageSignin.signup.password_confirmation" ng-minlength="" ng-maxlength="" required>
-                        <validation-messages field="signupForm.password_confirmation"/>
-                      </div>
+              <form name="signupForm" ng-submit="pageSignin.submitSigup(pageSignin.signup)">
+                <div class="form-group">
+                  <label for="signup-form--name">Nome*:</label>
+                  <span class="pull-right">*Dados obrigatórios</span>
+                  <input type="text" id="signup-form--name" name="name" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.name.$invalid && signupForm.name.$touched }" ng-model="pageSignin.signup.name" ng-minlength="" ng-maxlength="" required>
+                  <validation-messages field="signupForm.name"/>
+                </div>
+                <div class="form-group">
+                  <label for="signup-form--email">E-mail*:</label>
+                  <input type="email" id="signup-form--email" name="email" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$touched }" ng-model="pageSignin.signup.email" ng-minlength="" ng-maxlength="" required>
+                  <validation-messages field="signupForm.email"/>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="signup-form--password">Senha*:</label>
+                      <input type="password" id="signup-form--password" name="password" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$touched }" ng-model="pageSignin.signup.password" ng-minlength="" ng-maxlength="" required>
+                      <validation-messages field="signupForm.password"/>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-sm-12" ng-show="(signupForm.password.$viewValue.length > 0 && signupForm.password_confirmation.$viewValue.length > 0) && (signupForm.password.$viewValue !== signupForm.password_confirmation.$viewValue)">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="signup-form--password-confirmation">Confirmar Senha*:</label>
+                      <input type="password" id="signup-form--password-confirmation" name="password_confirmation" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.password_confirmation.$invalid && signupForm.password_confirmation.$touched }" ng-model="pageSignin.signup.password_confirmation" ng-minlength="" ng-maxlength="" required>
+                      <validation-messages field="signupForm.password_confirmation"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12" ng-show="(signupForm.password.$viewValue.length > 0 && signupForm.password_confirmation.$viewValue.length > 0) && (signupForm.password.$viewValue !== signupForm.password_confirmation.$viewValue)">
+                    <div class="error-message">
+                      As senhas estão diferentes.
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <span class="text" ng-show="signupForm.password.$viewValue.length > 0 && signupForm.password.$viewValue.length < 6">
                       <div class="error-message">
-                        As senhas estão diferentes.
+                        A senha deve ter 6 ou mais caracteres e conter números e letras.
                       </div>
-                    </div>
-                    <div class="col-sm-12">
-                      <span class="text" ng-show="signupForm.password.$viewValue.length > 0 && signupForm.password.$viewValue.length < 6">
-                        <div class="error-message">
-                          A senha deve ter 6 ou mais caracteres e conter números e letras.
-                        </div>
-                      </span>
-                    </div>
+                    </span>
                   </div>
-                  <div class="form-group">
-                    <div class="checkbox">
-                      <label for="user_terms_accepted">
-                        <input type="checkbox" id="user_terms_accepted" name="user_terms_accepted" value="aceito"  ng-model="pageSignin.signup.user_terms_accepted" required>
-                        Já li e concordo com os
-                        <button type="button" class="btn btn-link" style="padding:0 0 4px 0;" data-toggle="modal" data-target="#modalTermosDeUso">Termos de Uso</button>
-                      </label>
-                    </div>
-                  </input>
-                  <validation-messages field="signupForm.user_terms_accepted"/>
                 </div>
                 <div class="form-group">
-                  <span>Digite o texto da imagem</span>
-                  <p>O Captcha vai aqui</p>
+                  <div class="checkbox">
+                    <label for="user_terms_accepted">
+                      <input type="checkbox" id="user_terms_accepted" name="user_terms_accepted" value="aceito"  ng-model="pageSignin.signup.user_terms_accepted" required>
+                      Já li e concordo com os
+                      <button type="button" class="btn btn-link" style="padding:0 0 4px 0;" data-toggle="modal" data-target="#modalTermosDeUso">Termos de Uso</button>
+                    </label>
+                  </div>
+                </input>
+                <validation-messages field="signupForm.user_terms_accepted"/>
+              </div>
+              <div class="form-group">
+                <div id="serpro_captcha" class="captcha">
                 </div>
-                <div class="form-group">
-                  <button class="btn btn-lg btn-block btn-submit" ng-class=" {'disabled' : !pageSignin.signup.user_terms_accepted }" type="submit">Cadastrar</button>
+                <div class="captcha">
+                  Digite os caracteres acima:
                 </div>
-              </form>
-            </div>
+                <div class="captcha">
+                  <input type="text" name="captcha_text" id="captcha_text" aria-label="Escreva os caracteres do captcha aqui" ng-model="pageSignin.signup.captcha_text">
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-lg btn-block btn-submit" ng-class=" {'disabled' : !pageSignin.signup.user_terms_accepted }" type="submit">Cadastrar</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

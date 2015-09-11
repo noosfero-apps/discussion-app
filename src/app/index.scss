@@ -181,13 +181,6 @@ body {
             // margin-left: 5px;
         }
     }
-
-    .icon {
-        transform: scale(0.7);
-        position: relative;
-        top: -10px;
-        left: -10px;
-    }
 }
 
 .icon {
@@ -212,24 +205,46 @@ body {
     overflow: hidden;
 
     &.icon-small {
-        width: 35px;
-        height: 35px;
+        width: 40px;
+        height: 40px;
+
+        .icon {
+            // transform: scale(0.7);
+            position: relative;
+            top: -8px;
+            left: -8px;
+        }
     }
 
     .vote_for &,
-    .next &,
+    .skip &,
     .vote_against & {
         padding-top: 12px;
     }
 
     .vote_for & {
         background-color: #4AC97A;
+
+        &:hover { background-color: lighten(#4AC97A, 10%); }
+        
+        &:active,
+        &:focus { background-color: darken(#4AC97A, 10%)}
     }
-    .next & {
+    .skip & {
         background-color: #EEB453;
+
+        &:hover { background-color: lighten(#EEB453, 10%); }
+        
+        &:active,
+        &:focus { background-color: darken(#EEB453, 10%)}
     }
     .vote_against & {
         background-color: #EC4C68;
+
+        &:hover { background-color: lighten(#EC4C68, 10%); }
+        
+        &:active,
+        &:focus { background-color: darken(#EC4C68, 10%)}
     }
 }
 
@@ -246,7 +261,8 @@ body {
     .#{$category} {
         .color-theme-fg { color: $color; }
         .color-theme-bg { background-color: $color;}
-        .color-theme-bg-darker { background-color: darken($color, 10%);}
+        .color-theme-bg-complementar-1 { background-color: lighten($color, 10%);}
+        .color-theme-bg-complementar-2 { background-color: darken($color, 10%);}
 
         .contraste & .color-theme-fg { color: #fff; }
         .contraste & .color-theme-bg { background-color: #000;}
@@ -256,6 +272,8 @@ body {
 $common-color: #5E739E;
 .color-theme-common-fg {color: $common-color; }
 .color-theme-common-bg {background-color: $common-color; }
+.color-fg-white {color: #fff; }
+.color-bg-gray {color: #ccc; }
 
 // Contraste
 .contraste {

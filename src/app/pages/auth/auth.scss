@@ -25,6 +25,14 @@
             &:active {background-color: #b92d25; }
         }
 
+        .text {
+            text-align: left;
+            width: 50%;
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+
         @media (max-width: 991px) {
             margin-bottom: 20px;
         }
@@ -40,28 +48,6 @@
         .contraste & {
             background-color: #262626;
             border-color: #666;
-        }
-    }
-
-    .glyphicon {
-        &.icon-white {
-            fill: white;
-        }
-    }
-
-    .border-social-icon {
-        border-radius: 25px;
-        padding: 7px 9px;
-        width: 40px;
-        height: 40px;
-        display: inline-block;
-
-        &.border-social-facebook {
-            background: #547BBC;
-        }
-
-        &.border-social-googlePlus {
-            background: #D44105;
         }
     }
 

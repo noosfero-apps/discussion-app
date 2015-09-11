@@ -4,9 +4,12 @@
 
   angular
     .module('dialoga')
+    .constant('PATH', {
+      host: 'http://dialoga.gov.br',
+      image: 'http://login.dialoga.gov.br'
+    })
     .constant('API', {
       token: null,
-      host: 'http://hom.dialoga.gov.br',
       articleId: {
         home: '103358',
         about: '108073',
@@ -29,6 +32,16 @@
       notAuthenticated: 'auth-not-authenticated',
       notAuthorized: 'auth-not-authorized'
     })
+    .constant('VOTE_STATUS', {
+      SUCCESS: 0x1,
+      ERROR: 0x10,
+      LOADING: 0x100
+    })
+    .constant('VOTE_OPTIONS', {
+      UP: 1,
+      DOWN: -1,
+      SKIP: 0
+    })
     .constant('USER_ROLES', {
       all: '*',
       admin: 'admin',
@@ -37,7 +50,6 @@
     })
     .constant('Modernizr', window.Modernizr)
     .constant('jQuery', window.jQuery)
-    // .constant('key', value)
     ;
 
 })();

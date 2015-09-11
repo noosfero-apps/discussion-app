@@ -9,7 +9,7 @@
   function routeConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('inicio', {
-        url: '/?tema&query',
+        url: '/?tema&filtro',
         ncyBreadcrumb: {label: 'Home'},
         reloadOnSearch: false,
         views: {
@@ -23,7 +23,7 @@
         }
       })
       .state('entrar', {
-        url: '/entrar?redirect_uri',
+        url: '/entrar?redirect_uri&message',
         ncyBreadcrumb: {label: 'Entrar'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -75,7 +75,8 @@
         }
       })
       .state('programas', {
-        url: '/programas?tema',
+        url: '/programas?tema&filtro&task',
+        reloadOnSearch: false,
         ncyBreadcrumb: {label: 'Programas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -87,8 +88,9 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
-      .state('programa-conteudo', {
-        url: '/programa/:slug?proposal_id',
+      .state('programa', {
+        url: '/programa/:slug?proposal_id&task',
+        reloadOnSearch: false,
         ncyBreadcrumb: {
           label: '{{$parent.$root.contentTitle}}',
           parent: 'programas'
@@ -97,14 +99,15 @@
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': {
             templateUrl: 'app/pages/programas/programa.html',
-            controller: 'ProgramaContentPageController',
-            controllerAs: 'pageProgramaContent'
+            controller: 'ProgramaPageController',
+            controllerAs: 'pagePrograma'
           },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
       .state('propostas', {
-        url: '/propostas?tema',
+        url: '/propostas?tema&filtro',
+        reloadOnSearch: false,
         ncyBreadcrumb: {label: 'Propostas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -117,7 +120,8 @@
         }
       })
       .state('ranking', {
-        url: '/ranking?tema',
+        url: '/ranking?tema&programa&filtro',
+        reloadOnSearch: false,
         ncyBreadcrumb: {label: 'Propostas'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
@@ -185,12 +189,16 @@
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
-      .state('mapa-do-site', {
+     .state('mapa-do-site', {
         url: '/mapa-do-site',
         ncyBreadcrumb: {label: 'Mapa do Site'},
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
-          'main': { templateUrl: 'app/pages/sitemap/sitemap.html' },
+          'main': {
+            templateUrl: 'app/pages/mapa-do-site/mapa-do-site.html',
+            controller: 'SitemapPageController',
+            controllerAs: 'sitemap'
+          },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })
@@ -200,15 +208,6 @@
         views: {
           'header': { templateUrl: 'app/pages/header/header.html' },
           'main': { templateUrl: 'app/pages/erro/erro.html' },
-          'footer': { templateUrl: 'app/pages/footer/footer.html' }
-        }
-      })
-     .state('mapa', {
-        url: '/mapa',
-        ncyBreadcrumb: {label: 'Mapa'},
-        views: {
-          'header': { templateUrl: 'app/pages/header/header.html' },
-          'main': { templateUrl: 'app/pages/mapa/mapa.html' },
           'footer': { templateUrl: 'app/pages/footer/footer.html' }
         }
       })

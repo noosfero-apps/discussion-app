@@ -37,7 +37,7 @@
               <br/>
             </div>
           </div>
-          <div ng-if="pageProgramas.themes">
+          <div ng-if="pageProgramas.themes && !vm.loadingFilter">
             <category-list categories="pageProgramas.themes" selected-category="pageProgramas.selectedTheme"></category-list>
           </div>
           <div ng-if="!pageProgramas.themes && pageProgramas.loadingThemes">
@@ -80,7 +80,7 @@
           </div>
 
           <div class="row">
-            <div class="col-sm-12" ng-if="pageProgramas.programs">
+            <div class="col-sm-12" ng-if="pageProgramas.filtredPrograms && !vm.loadingFilter">
               <article-grid articles="pageProgramas.filtredPrograms"></article-grid>
             </div>
             <div ng-if="!pageProgramas.programs && pageProgramas.loadingPrograms">

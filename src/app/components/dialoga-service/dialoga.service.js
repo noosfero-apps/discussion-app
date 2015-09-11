@@ -35,7 +35,8 @@
       }else{
         // load main content
         ArticleService.getArticleById(API.articleId.home, {
-        'fields[]': ['id','abstract','body','categories','children','children_count','title','image','url']
+        'fields[]': ['id','abstract','body','categories','children','children_count','title','slug','image','url'],
+        'content_type':'ProposalsDiscussionPlugin::DiscussionTopic'
         }, function (data){
           CACHE.home = data;
 

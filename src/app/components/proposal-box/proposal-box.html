@@ -1,61 +1,168 @@
-<div class="proposal-box" ng-class="[{'focus': vm.focus}, vm.category.slug]">
+<div class="proposal-box" ng-class="[{'focus': (vm.focus || (vm.STATE === vm.VOTE_STATUS.LOADING) )}, vm.category.slug]">
+  <div ng-show="(vm.STATE === vm.VOTE_STATUS.SUCCESS) || (vm.STATE === vm.VOTE_STATUS.ERROR)">
+    <div class="proposal-message-panel">
+      <div class="row">
+        <div class="row-height">
+          <div class="col-sm-12 col-height col-middle">
+            <div class="inside inside-full-height">
+              <div class="content text-center show-message">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="message-icon color-fg-white" ng-class="{'success': (vm.STATE === vm.VOTE_STATUS.SUCCESS), 'error': vm.STATE === vm.VOTE_STATUS.ERROR}">
+                      <span ng-if="vm.STATE === vm.VOTE_STATUS.SUCCESS" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      <span ng-if="vm.STATE === vm.VOTE_STATUS.ERROR" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="feedback" ng-if="vm.STATE === vm.VOTE_STATUS.SUCCESS">
+                      <p class="feedback--title">Obrigado por apoiar<br/>esta proposta!</p>
+
+                      <!-- actions -->
+                      <div class="row feedback--message">
+                        <div class="col-xs-6 feedback--share">
+                          <div class="row">
+                            <span>Compartilhe<br/>esta proposta</span>
+                          </div>
+                          <div class="row">
+                            <button class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Mostrar ou esconder a lista redes sociais para compartilhamento">
+                              <span class="icon icon-social-share" aria-hidden="true"></span>
+                            </button>
+                            <social-share
+                              url="vm.getSocialUrl()"
+                              text="vm.getSocialText()"
+                              image="vm.getSocialImage()"
+                              class="dropdown-menu dropdown-menu-right ng-isolate-scope"></social-share>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 feedback--next">
+                          <div class="row">
+                            <span>Próxima<br/>proposta</span>
+                          </div>
+                          <div class="row">
+                            <button class="btn btn-link" aria-label="Ir para próxima proposta" ng-click="vm.skip()">
+                              <div class="icon-circle play">
+                                <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                              </div>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="feedback" ng-if="vm.STATE === vm.VOTE_STATUS.ERROR">
+                      <p class="feedback--title">Erro!</p>
+                      <p class="feedback--message" ng-if="vm.message">
+                        Motivo: {{vm.message}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-show="vm.showAuthMessage">
+    <div class="proposal-message-panel">
+      <div class="row">
+        <div class="row-height">
+          <div class="col-sm-12 col-height col-middle">
+            <div class="inside inside-full-height">
+              <div class="content text-center">
+                <p>Você precisa estar logado para votar na proposta</p>
+                <br>
+                <p>
+                <!-- <a ui-sref="entrar({redirect_uri: vm.voteProposalRedirectURI})">Clique aqui</a> para ir para a página de login. -->
+                <a ui-sref="entrar({redirect_uri: vm.voteProposalRedirectURI})">Clique aqui para ir para a página de login</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-show="vm.STATE === vm.VOTE_STATUS.LOADING">
+    <div class="proposal-message-panel">
+      <div class="row">
+        <div class="row-height">
+          <div class="col-sm-12 col-height col-middle">
+            <div class="inside inside-full-height">
+              <div class="content text-center">
+                <div ng-show="!vm.errorOnSkip">
+                  <p>Carregando...</p>
+                </div>
+                <div ng-show="!vm.errorOnSkip">
+                  <p>Erro ao carregar nova proposta proposta.</p>
+                  <p>{{vm.errorOnSkip}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="proposal-box--top">
-    <div class="proposal-box--theme color-theme-bg-darker">{{::vm.category.name}}</div>
-    <div class="proposal-box--program color-theme-bg">{{::vm.topic.title}}</div>
+    <div class="proposal-box--theme color-theme-bg-complementar-2">{{vm.category.name}}</div>
+    <div class="proposal-box--program color-theme-bg">{{vm.topic.title}}</div>
   </div>
   <div class="proposal-box--middle">
     <div class="proposal-box--content">
-     <div class="proposal-box--content-inner">{{::vm.proposal.abstract}}</div>
-   </div>
-   <div ng-hide="vm.vote" class="proposal-box--join">
-    <button class="btn btn-link color-theme-common-fg" ng-click="vm.showContent(vm.topic.slug)">
-      Participe
-      <span class="glyphicon glyphicon-menu-right color-theme-common-fg" aria-hidde="true"></span>
-    </button>
-  </div>
-  <div ng-show="vm.vote"class="proposal-box--actions text-center">
-    <div class="row">
-      <div class="col-xs-4">
-        <div class="action vote_for">
-          <div class="icon-circle">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+      <div class="proposal-box--content-inner">{{vm.proposal.abstract}}</div>
+    </div>
+    <div ng-hide="vm.canVote" class="proposal-box--join">
+      <button class="btn btn-link color-theme-common-fg" ng-click="vm.showContent(vm.topic.slug)">
+        Participe
+        <span class="glyphicon glyphicon-menu-right color-theme-common-fg" aria-hidde="true"></span>
+      </button>
+    </div>
+    <div ng-show="vm.canVote" class="proposal-box--actions text-center">
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="action vote_for" ng-click="vm.vote(vm.VOTE_OPTIONS.UP)">
+            <div class="icon-circle">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </div>
+            <div class="action-label">Apoio</div>
           </div>
-          <div class="action-label">Apoio</div>
         </div>
-      </div>
-      <div class="col-xs-4">
-        <div class="action next">
-          <div class="icon-circle">
-            <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+        <div class="col-xs-4">
+          <div class="action skip" ng-click="vm.skip()">
+            <div class="icon-circle">
+              <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+            </div>
+            <div class="action-label">Pular</div>
           </div>
-          <div class="action-label">Pular</div>
         </div>
-      </div>
-      <div class="col-xs-4">
-        <div class="action vote_against">
-          <div class="icon-circle">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <div class="col-xs-4">
+          <div class="action vote_against" ng-click="vm.vote(vm.VOTE_OPTIONS.DOWN)">
+            <div class="icon-circle">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </div>
+            <div class="action-label">Não Apoio</div>
           </div>
-          <div class="action-label">Não Apoio</div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="proposal-box--bottom text-center">
-  <div class="proposal-box--share">
-    <span>COMPARTILHE ESSA <b>PROPOSTA</b></span>
-    <div class="dropdown">
-      <button id="dropdown-share-btn" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Mostrar ou esconder a lista redes sociais para compartilhamento"><span class="icon icon-social-share-small" aria-hidden="true"></span></button>
-      <social-share class="dropdown-menu dropdown-menu-right"></social-share>
+  <div class="proposal-box--bottom text-center">
+    <div class="proposal-box--share">
+      <span>COMPARTILHE ESSA <b>PROPOSTA</b></span>
+      <div class="dropdown">
+        <button id="dropdown-share-btn" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Mostrar ou esconder a lista redes sociais para compartilhamento"><span class="icon icon-social-share-small" aria-hidden="true"></span></button>
+        <social-share class="dropdown-menu dropdown-menu-right"></social-share>
+      </div>
+    </div>
+    <div class="proposal-box--ranking">
+      <div class="proposal-box--ranking-inner">
+        <span class="icon icon-small icon-ranking" aria-hidden="true"></span>
+        <span>Colocação nos resultados:</span>
+        <span>{{vm.proposal.ranking_position}}º</span>
+      </div>
     </div>
   </div>
-  <div class="proposal-box--ranking">
-   <div class="proposal-box--ranking-inner">
-     <span class="icon icon-small icon-ranking" aria-hidden="true"></span>
-     <span>Colocação nos resultados:</span>
-     <span>{{::vm.proposal.ranking_position}}º</span>
-   </div>
- </div>
-</div>
 </div>

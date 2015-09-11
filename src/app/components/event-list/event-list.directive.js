@@ -57,9 +57,8 @@
           vm.$log.debug('response', response);
         }, function(error){
           vm.$log.debug('error', error);
-        })
+        });
       }
-
     };
 
     var directive = {
@@ -75,6 +74,5 @@
     };
 
     return directive;
-
   }
 })();

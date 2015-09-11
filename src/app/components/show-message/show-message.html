@@ -1,17 +1,15 @@
 <div id="message" class="show-message">
   <div class="row">
-  <div class="div-center">
-    <div class="col-sm-2 col-sm-offset-2 message-border {{ ::vm.type }}">
-      <span class="glyphicon glyphicon-ok icon-white" aria-hidden="true"></span>
+    <div class="col-sm-2 col-sm-offset-2 message-icon-wrapper text-right text-center-sm">
+      <div class="message-icon text-center color-fg-white" ng-class="[vm.type]">
+        <span ng-if="vm.type === 'success'" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <span ng-if="vm.type === 'alert'" class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+        <span ng-if="vm.type === 'error'" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </div>
     </div>
-  </div>
-    <div class="col-sm-7  div-mensagem">
-      <div class="row">
-        <h3>{{ ::vm.title }}</h3>
-      </div>
-      <div class="row">
-        <h5>{{ ::vm.message }}</h5>
-      </div>
+    <div class="col-sm-8 message-content text-center-sm">
+      <h3>{{ ::vm.title }}</h3>
+      <p>{{ ::vm.message }}</p>
     </div>
   </div>
 </div>

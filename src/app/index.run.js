@@ -5,6 +5,7 @@
   angular
     .module('dialoga')
     .run(runAuth)
+    .run(runSocialAuth)
     .run(runAccessibility)
     .run(runHistory)
     .run(runPath)
@@ -41,6 +42,38 @@
     $rootScope.currentUser = $localStorage.currentUser;
 
     $log.debug('[RUN] Auth end.');
+  }
+
+  /** @ngInject */
+  function runSocialAuth($window, $rootScope, $interval, $log) {
+
+    $window.oauthClientAction = function (url){
+      var child = $window.open(url, '_blank');
+      var interval = $interval(function() {
+        try {
+          if(!child.closed) {
+            child.postMessage({
+              message: 'requestOauthClientPluginResult'
+            }, '*');
+          }
+        } catch(e) {
+          // we're here when the child window has been navigated away or closed
+          if (child.closed) {
+            $interval.cancel(interval);
+            interval = undefined;
+          }
+        }
+      }, 300);
+    };
+
+    $window.addEventListener('message', function(eventMessage) {
+      $log.debug('eventMessage', eventMessage);
+
+      if (eventMessage.data.message === 'oauthClientPluginResult') {
+        $rootScope.$broadcast('oauthClientPluginResult', eventMessage);
+        // eventMessage.source.close();
+      }
+    });
   }
 
   /** @ngInject */
@@ -110,9 +143,8 @@
   }
 
   /** @ngInject */
-  function runPath($rootScope, API, $window, $log) {
-    // $rootScope.basePath = API.host;
-    $rootScope.basePath = '';
+  function runPath($rootScope, PATH, $window, $log) {
+    $rootScope.basePath = PATH.host;
 
     $log.debug('[RUN] Path end.');
   }

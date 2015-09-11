@@ -56,11 +56,11 @@
       }
     };
 
-    ProposalCarouselController.prototype.showProposals = function () {
+    ProposalCarouselController.prototype.showProposalsList = function () {
       var vm = this;
 
       // notify parents - handled by parents
-      vm.$scope.$emit('proposal-carousel:toProposals');
+      vm.$scope.$emit('proposal-carousel:showProposalsList');
     };
 
     var directive = {

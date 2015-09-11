@@ -159,7 +159,8 @@
         case 'programa':
           vm.$state.go(state, {
             slug: vm.params.slug,
-            task: vm.params.task
+            task: vm.params.task,
+            proposal_id: vm.params.proposal_id,
           });
           break;
         default:

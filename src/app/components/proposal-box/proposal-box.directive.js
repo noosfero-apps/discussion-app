@@ -32,6 +32,8 @@
       vm.focus = vm.focus || false;
       vm.STATE = null;
       vm.errorOnSkip = false;
+      vm.showAuthMessage = null;
+      vm.voteProposalRedirectURI = null;
     };
 
     ProposalBoxController.prototype.addListeners = function () {
@@ -43,9 +45,10 @@
         }
 
         if(data.error){
-          vm.errorOnSkip = true;
+          vm.errorOnSkip = data.error;
         }
       });
+
       vm.$scope.$on('proposal-box:vote-response', function(event, data){
         vm.$log.debug('proposal-box:vote-response');
         vm.$log.debug('event', event);
@@ -57,9 +60,17 @@
         
         if(data.error) {
           vm.STATE = vm.VOTE_STATUS.ERROR;
-          
         }
+        
         vm.message = data.message;
+      });
+
+      vm.$scope.$watch('vm.voteProposalRedirectURI', function(newValue, oldValue){
+        if(newValue && newValue !== oldValue){
+          var slug = vm.topic.slug;
+          var proposal_id = vm.proposal.id;
+          vm.voteProposalRedirectURI = 'state=programa&task=vote-proposal&slug=' + slug + '&proposal_id=' + proposal_id;
+        }
       });
     };
 
@@ -85,7 +96,7 @@
         vm.$log.debug('Sending vote', value);
       }else{
         vm.$log.info('Must be logged in...');
-
+        vm.showAuthMessage = true;
       }
     };
 

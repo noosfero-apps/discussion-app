@@ -38,9 +38,9 @@
       LOADING: 0x100
     })
     .constant('VOTE_OPTIONS', {
-      UP: 0x1,
-      DOWN: 0x10,
-      SKIP: 0x100
+      UP: 1,
+      DOWN: -1,
+      SKIP: 0
     })
     .constant('USER_ROLES', {
       all: '*',

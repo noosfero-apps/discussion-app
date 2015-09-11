@@ -6,13 +6,14 @@
     .controller('ProgramaPageController', ProgramaPageController);
 
   /** @ngInject */
-  function ProgramaPageController(DialogaService, PATH, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
+  function ProgramaPageController(DialogaService, PATH, VOTE_OPTIONS, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
     $log.debug('ProgramaPageController');
 
     var vm = this;
 
     vm.DialogaService = DialogaService;
     vm.PATH = PATH;
+    vm.VOTE_OPTIONS = VOTE_OPTIONS;
     vm.$state = $state;
     vm.$location = $location;
     vm.$scope = $scope;
@@ -31,7 +32,11 @@
 
     vm.article = null;
     vm.category = null;
+    vm.loading = null;
+    vm.loadingTopProposals = null;
+    vm.loadingProposalBox = null;
     vm.sendProposalRedirectURI = null;
+    // vm.voteProposalRedirectURI = null;
     vm.search = vm.$location.search();
 
     vm.error = false;
@@ -45,7 +50,7 @@
     // Get program by slug
     var slug = vm.$state.params.slug;
 
-    if(!slug){
+    if (!slug) {
       vm.$log.error('slug not defined.');
       vm.$log.info('Rollback to home page.');
       vm.$state.go('inicio', {}, {location: true});
@@ -55,6 +60,7 @@
       vm.article = article;
       vm.category = vm.article.categories[0];
       vm.sendProposalRedirectURI = 'state=programa&task=send-proposal&slug=' + slug;
+      // vm.voteProposalRedirectURI = 'state=programa&task=vote-proposal&slug=' + slug;
 
       // update the breadcrumb
       vm.$rootScope.contentTitle = vm.article.title;
@@ -67,43 +73,23 @@
         };
       }
 
-      vm.DialogaService.getProposalsByTopicId(vm.article.id, {}, function(data){
+      vm.loadingTopProposals = true;
+      vm.DialogaService.getProposalsByTopicId(vm.article.id, {}, function(data) {
         vm.proposals = data.articles;
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
-      }, function (error) {
+        vm.loadingTopProposals = false;
+      }, function(error) {
         vm.$log.error(error);
+        vm.loadingTopProposals = false;
       });
 
-      if(vm.search.proposal_id){
-        var proposalUrlId = vm.search.proposal_id;
-        vm.DialogaService.getProposalById(proposalUrlId, {
-          'limit': '1'
-        }, _handleSuccessGetProposal, _handleErrorGetProposal);
 
-      }else{
-        // get random proposal
-        vm.DialogaService.getProposalsByTopicId(vm.article.id, {
-          'order': 'random()',
-          'limit': '1'
-        }, _handleSuccessGetProposal, _handleErrorGetProposal);
-      }
-
-      function _handleSuccessGetProposal(data){
-        if(data && data.articles){
-          vm.randomProposal = data.articles[0];
-        }
-
-        // scroll to focused proposal
-        if(vm.search.proposal_id){
-          vm.$timeout(function(){
-            var target = angular.element('.focused-proposal');
-            angular.element('body').animate({scrollTop: target.offset().top}, 'fast');
-          }, 300);
-        }
-      }
-
-      function _handleErrorGetProposal(error){
-        vm.$log.error(error);
+      vm.loadingProposalBox = true;
+      if (vm.search.proposal_id) {
+        vm.loadProposalById(vm.search.proposal_id);
+      }else {
+        // random proposal
+        vm.loadRandomProposal();
       }
 
       vm.loading = false;
@@ -111,9 +97,6 @@
       vm.$log.error(error);
       vm.error = error;
       vm.loading = false;
-
-      // vm.$log.info('Rollback to home page.');
-      // vm.$state.go('inicio', {}, {location: true});
     });
   };
 
@@ -125,21 +108,117 @@
     });
 
     vm.$scope.$on('cadastro-proposa:startSendProposal', function(event, proposal) {
-      // vm.$log.debug('proposal', proposal);
       vm.creatingProposal = true;
-      vm.DialogaService.createProposal(proposal, vm.article.id, function (response){
+      vm.DialogaService.createProposal(proposal, vm.article.id, function(response) {
         vm.$log.debug('response', response);
         vm.creatingProposal = false;
-      }, function (error) {
+      }, function(error) {
         vm.$log.error(error);
         vm.creatingProposal = false;
       });
     });
 
     vm.$scope.$on('proposal-box:vote', function(event, params) {
-      
+      // vm.$log.debug('event', event);
+      // vm.$log.debug('params', params);
+      var proposal_id = params.proposal_id;
+      var OPTION = params.OPTION;
+
+      switch (OPTION){
+        case vm.VOTE_OPTIONS.UP:
+        case vm.VOTE_OPTIONS.DOWN:
+        case vm.VOTE_OPTIONS.SKIP:
+          vm.vote(proposal_id, OPTION);
+        break;
+        default:
+          vm.$log.error('Vote option not handled:', OPTION);
+        break;
+      }
     });
   };
+
+  ProgramaPageController.prototype.loadProposalById = function(proposal_id) {
+    var vm = this;
+
+    vm.DialogaService.getProposalById(proposal_id, {
+      'limit': '1'
+    }, vm._handleSuccessOnGetProposal.bind(vm), vm._handleErrorOnGetProposal.bind(vm));
+  };
+
+  ProgramaPageController.prototype.loadRandomProposal = function() {
+    var vm = this;
+
+    vm.DialogaService.getProposalsByTopicId(vm.article.id, {
+      'order': 'random()',
+      'limit': '1'
+    }, vm._handleSuccessOnGetProposal.bind(vm), vm._handleErrorOnGetProposal.bind(vm));
+  };
+
+  ProgramaPageController.prototype._handleSuccessOnGetProposal = function(data) {
+    var vm = this;
+
+    if (data && data.articles) {
+      var MAX = data.articles.length;
+      vm.randomProposal = data.articles[Math.floor(Math.random() * MAX)];
+      vm.loadingProposalBox = false;
+      vm.$scope.$broadcast('proposal-box:proposal-loaded', { success: true});
+    }
+
+    // scroll to focused proposal
+    if (vm.search.proposal_id) {
+      vm.$timeout(function() {
+        var target = angular.element('.focused-proposal');
+        if (target && target.length > 0) {
+          angular.element('body').animate({scrollTop: target.offset().top}, 'fast');
+        }
+      }, 300);
+    }
+  };
+
+  ProgramaPageController.prototype._handleErrorOnGetProposal = function(error) {
+    var vm = this;
+    vm.$log.error(error);
+    vm.$scope.$broadcast('proposal-box:proposal-loaded', { error: true});
+  };
+
+  ProgramaPageController.prototype.voteSkip = function() {
+    var vm = this;
+    vm.loadRandomProposal();
+  };
+
+  ProgramaPageController.prototype.vote = function(proposal_id, value) {
+    var vm = this;
+
+    if (value === vm.VOTE_OPTIONS.SKIP) {
+      vm.voteSkip();
+      return;
+    }
+
+    if (!vm.$rootScope.currentUser) {
+      // vm.$state.go('entrar', {
+      //   redirect_uri: vm.sendProposalRedirectURI,
+      //   message: 'Você precisa estar logado para votar em uma proposta.'
+      // }, {
+      //   location: true
+      // });
+      return;
+    }
+
+    vm.DialogaService.voteProposal(proposal_id, {
+      value: value
+    }, function(response) {
+      vm.$log.debug('response', response);
+      
+      response.success = true;
+      vm.$scope.$broadcast('proposal-box:vote-response', response);
+    }, function(error) {
+      vm.$log.error('error', error);
+      
+      error.error = true;
+      vm.$scope.$broadcast('proposal-box:vote-response', error);
+    });
+  };
+  ProgramaPageController.prototype.voteHasBeenComputed = function() {};
 
   ProgramaPageController.prototype.showProposalsList = function() {
     var vm = this;

@@ -23,9 +23,11 @@
       <div class="container">
         <div class="row">
           <article class="program-preview">
+              <!-- Preview > Titulo -->
               <div class="col-md-12">
                 <h1 class="program-preview--title color-theme-fg">{{::pagePrograma.article.title}}</h1>
               </div>
+              <!-- Preview > coluna da esquerda -->
               <div class="col-md-8">
                 <div class="program-preview--box contraste-box">
                   <div class="program-preview--banner" ng-style="{'background-image':'url( {{::pagePrograma.banner.src}} )'}"></div>
@@ -55,24 +57,52 @@
                   </div>
                 </div>
               </div>
+              <!-- Preview > coluna da direita -->
               <div class="col-md-4">
                 <div class="row">
-                  <div class="col-xs-12" ng-if="pagePrograma.proposalsTopRated && pagePrograma.proposalsTopRated.length > 0">
-                    <h3 class="color-theme-fg">Propostas mais votadas</h3>
-                    <proposal-carousel proposals="pagePrograma.proposalsTopRated"></proposal-carousel>
-                  </div>
-                  <div class="col-xs-12" ng-if="pagePrograma.randomProposal" ng-class="{'focused-proposal': !!pagePrograma.search.proposal_id}">
-                    <h3 class="color-theme-fg">Propostas nesse programa</h3>
-                    <proposal-box proposal="pagePrograma.randomProposal" topic="pagePrograma.article" category="pagePrograma.category" can-vote="true" focus="{{pagePrograma.search.proposal_id}}" ></proposal-box>
-                  </div>
-                  <div class="col-xs-12" ng-if="!pagePrograma.randomProposal && !(pagePrograma.proposalsTopRated && pagePrograma.proposalsTopRated.length > 0)">
-                    <h3>Programas sem propostas</h3>
-                    <p>
-                      Este programa ainda não possui nenhuma proposta.
-                      <div class="button--themed">
-                        <button type="button" class="btn btn-block" ng-click="pagePrograma.showProposalForm()">Faça uma proposta</button>
+                  
+                  <!-- Top Proposals -->
+                  <div>
+                    <!-- Loading Top Proposals -->
+                    <div ng-if="pagePrograma.loadingTopProposals">
+                      <div class="alert alert-info" role="alert">
+                        Carregando propostas mais votadas...
                       </div>
-                    </p>
+                    </div>
+                    
+                    <!-- Top Proposals > Carousel -->
+                    <div class="col-xs-12" ng-if="!pagePrograma.loadingTopProposals && pagePrograma.proposalsTopRated && pagePrograma.proposalsTopRated.length > 0">
+                      <h3 class="color-theme-fg">Propostas mais votadas</h3>
+                      <proposal-carousel proposals="pagePrograma.proposalsTopRated"></proposal-carousel>
+                    </div>
+                  </div>
+
+                  <!-- Proposal Box -->
+                  <div>
+                    <div class="col-xs-12" ng-if="!pagePrograma.loadingProposalBox && pagePrograma.randomProposal" ng-class="{'focused-proposal': !!pagePrograma.search.proposal_id}">
+                      <h3 class="color-theme-fg">Propostas nesse programa</h3>
+                      <proposal-box proposal="pagePrograma.randomProposal" topic="pagePrograma.article" category="pagePrograma.category" can-vote="true" focus="{{pagePrograma.search.proposal_id}}" ></proposal-box>
+                    </div>
+                    
+                    <!-- Loading Proposal Box -->
+                    <div ng-if="pagePrograma.loadingProposalBox">
+                      <div class="alert alert-info" role="alert">
+                        Carregando propostas nesse programa...
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- No Proposals? okay! -->
+                  <div ng-if="!pagePrograma.loadingTopProposals && !pagePrograma.loadingProposalBox">
+                    <div class="col-xs-12" ng-if="!pagePrograma.randomProposal && !(pagePrograma.proposalsTopRated && pagePrograma.proposalsTopRated.length > 0)">
+                      <h3>Programas sem propostas</h3>
+                      <p>
+                        Este programa ainda não possui nenhuma proposta.
+                        <div class="button--themed">
+                          <button type="button" class="btn btn-block" ng-click="pagePrograma.showProposalForm()">Faça uma proposta</button>
+                        </div>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

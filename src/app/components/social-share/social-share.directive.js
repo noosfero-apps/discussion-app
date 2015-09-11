@@ -11,6 +11,9 @@
       restrict: 'E',
       templateUrl: 'app/components/social-share/social-share.html',
       scope: {
+        url: '=',
+        image: '=',
+        text: '=',
       },
       controller: SocialShareController,
       controllerAs: 'vm',

@@ -54,7 +54,7 @@
           </div>
           <div class="row">
             <div class="col-xs-6">
-              <button type="button" class="btn btn-lg btn-block btn-social btn-facebook">
+              <button type="button" ng-click="pageSignin.authWithFacebook()" class="btn btn-lg btn-block btn-social btn-facebook">
                 <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-facebook">
                   <span class="icon icon-social-facebook"></span>
                 </span>
@@ -62,7 +62,7 @@
               </button>
             </div>
             <div class="col-xs-6">
-              <button type="button" class="btn btn-lg btn-block btn-social btn-google-plus">
+              <button type="button" ng-click="pageSignin.authWithGooglePlus()" class="btn btn-lg btn-block btn-social btn-google-plus">
                 <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-googleplus">
                   <span class="icon icon-social-googleplus"></span>
                 </span>
@@ -84,7 +84,7 @@
           </div>
           <div class="row">
             <div class="col-xs-6">
-              <button type="button" class="btn btn-lg btn-block btn-social btn-facebook">
+              <button type="button" ng-click="pageSignin.authWithFacebook()" class="btn btn-lg btn-block btn-social btn-facebook">
                 <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-facebook">
                   <span class="icon icon-social-facebook"></span>
                 </span>
@@ -92,7 +92,7 @@
               </button>
             </div>
             <div class="col-xs-6">
-              <button type="button" class="btn btn-lg btn-block btn-social btn-google-plus">
+              <button type="button" ng-click="pageSignin.authWithGooglePlus()" class="btn btn-lg btn-block btn-social btn-google-plus">
                 <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-googleplus">
                   <span class="icon icon-social-googleplus"></span>
                 </span>
@@ -152,9 +152,8 @@
                     <div class="checkbox">
                       <label for="user_terms_accepted">
                         <input type="checkbox" id="user_terms_accepted" name="user_terms_accepted" value="aceito"  ng-model="pageSignin.signup.user_terms_accepted" required>
-                        Já li os
+                        Já li e concordo com os
                         <button type="button" class="btn btn-link" style="padding:0 0 4px 0;" data-toggle="modal" data-target="#modalTermosDeUso">Termos de Uso</button>
-                        e concordo com os mesmos*
                       </label>
                     </div>
                   </input>

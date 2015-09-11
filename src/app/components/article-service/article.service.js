@@ -23,6 +23,7 @@
       getProposalById: getProposalById,
       getProposalsByTopicId: getProposalsByTopicId,
       createProposal: createProposal,
+      voteProposal: voteProposal,
       getEvents: getEvents,
       subscribeToEvent: subscribeToEvent,
       searchTopics: searchTopics,
@@ -170,6 +171,19 @@
           cbError(error);
         });
       }
+    }
+
+    function voteProposal (proposal_id, params, cbSuccess, cbError){
+      var url = service.apiArticles + proposal_id + '/vote';
+      var paramsExtended = angular.extend({
+        private_token: $rootScope.currentUser.private_token
+      }, params);
+
+      UtilService.post(url, paramsExtended).then(function(response){
+        cbSuccess(response);
+      }).catch(function(error){
+        cbError(error);
+      });
     }
 
     function getEvents (community_id, params, cbSuccess, cbError) {

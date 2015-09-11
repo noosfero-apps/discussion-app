@@ -78,11 +78,12 @@
             position: absolute;
             color: #fff;
             font-size: 24px;
+            line-height: 24px;
             z-index: 1000;
+            width: 100%
             top: 50%;
-            left: 50%;
-            margin-top: -17px;
-            margin-left: -75px;
+            left: 0;
+            margin-top: -12px;
         }
 
         .shadow {

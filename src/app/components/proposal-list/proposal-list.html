@@ -16,7 +16,7 @@
 			<tbody>
 				<tr ng-repeat="proposal in vm.proposalsPerPage">
 					<td class="color-theme-fg">
-						<span class="position">{{::($index+1)}}º</span>
+						<span class="position">{{::proposal.ranking_position}}º</span>
 					</td>
 					<td>
 						<div class="row">
@@ -25,14 +25,14 @@
 							</div>
 						</div>
 						<div class="row row-actions">
-							<div class="col-md-9">
-								<button type="button" class="btn btn-link btn-rate color-theme-common-fg">
+							<div class="col-md-8">
+								<button type="button" class="btn btn-link btn-rate color-theme-common-fg" ng-click="vm.showContent(proposal)">
 									Avalie esta proposta
 									<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 								</button>
 							</div>
-							<div class="col-md-3">
-								<proposal-stats views="{{::proposal.hits}}" up="{{::proposal.votes_for}}" down="{{::proposal.votes_against}}"></proposal-stats>
+							<div class="col-md-4">
+								<proposal-stats class="text-right" views="{{::proposal.hits}}" up="{{::proposal.votes_for}}" down="{{::proposal.votes_against}}"></proposal-stats>
 							</div>
 						</div>
 					</td>
@@ -41,7 +41,6 @@
 		</table>
 		<nav>
 			<ul class="pagination">
-
 				<li ng-class="{ 'disabled' : vm.currentPageIndex == 0}">
 					<a  class="btn-pagination" href="#" aria-label="Previous" ng-click="vm.showPage(vm.currentPageIndex-1)">
 						<span aria-hidden="true" class="glyphicon glyphicon-chevron-left pagination-icon"></span>
@@ -55,7 +54,6 @@
 						<span aria-hidden="true" class="glyphicon glyphicon-chevron-right pagination-icon"></span>
 					</a>
 				</li>
-
 			</ul>
 		</nav>
 	</div>

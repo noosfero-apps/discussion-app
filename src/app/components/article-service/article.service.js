@@ -19,6 +19,7 @@
       getTopics: getTopics,
       getTopicById: getTopicById,
       getProposals: getProposals,
+      getProposalById: getProposalById,
       getProposalsByTopicId: getProposalsByTopicId,
       getEvents: getEvents,
       subscribeToEvent: subscribeToEvent,
@@ -108,7 +109,28 @@
       // });
 
       //
-      searchTopics(params, cbSuccess, cbError);
+      searchProposals({
+        query: ''
+      }, cbSuccess, cbError);
+    }
+
+    function getProposalById (proposalId, params, cbSuccess, cbError) {
+      var url = service.apiArticles + proposalId;
+
+      var paramsExtended = angular.extend({
+        // 'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
+        // 'per_page':'1',
+        'limit':'1',
+        'content_type':'ProposalsDiscussionPlugin::Proposal'
+      }, params);
+
+      UtilService.get(url, {params: paramsExtended}).then(function(data){
+        _pipeInjectSlugIntoParentProgram(data);
+        cbSuccess(data);
+      }).catch(function(error){
+        cbError(error);
+      });
+
     }
 
     /**
@@ -122,21 +144,7 @@
      * @return {Array}           [description]
      */
     function getProposalsByTopicId (topicId, params, cbSuccess, cbError) {
-      var url = service.apiArticles + topicId + '/children';
-
-      var paramsExtended = angular.extend({
-        // 'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
-        // 'limit':'20',
-        // 'per_page':'1',
-        'content_type':'ProposalsDiscussionPlugin::Proposal'
-      }, params);
-
-      UtilService.get(url, {params: paramsExtended}).then(function(data){
-        _pipeInjectSlugIntoParentProgram(data);
-        cbSuccess(data);
-      }).catch(function(error){
-        cbError(error);
-      });
+      getProposalById(topicId + '/children', params, cbSuccess, cbError);
     }
 
     function getEvents (community_id, params, cbSuccess, cbError) {
@@ -145,7 +153,21 @@
 
       var url = service.apiCommunities + community_id + '/articles';
       var paramsExtended = angular.extend({
-        'fields[]': ['id', 'slug', 'title', 'abstract', 'body', 'categories', 'created_at', 'start_date', 'end_date', 'hits'],
+        // 'fields[]': ['id', 'slug', 'title', 'abstract', 'body', 'categories', 'created_at', 'start_date', 'end_date', 'hits'],
+        'content_type':'Event'
+      }, params);
+
+      UtilService.get(url, {params: paramsExtended}).then(function(data){
+        cbSuccess(data.articles);
+      }).catch(function(error){
+        cbError(error);
+      });
+    }
+
+    function getSubscribers (event_id, params, cbSuccess, cbError) {
+      var url = service.apiArticles + event_id + '/followers?_=' + new Date().getTime();
+      var paramsExtended = angular.extend({
+        // 'fields[]': ['id', 'slug', 'title', 'abstract', 'body', 'categories', 'created_at', 'start_date', 'end_date', 'hits'],
         'content_type':'Event'
       }, params);
 
@@ -157,13 +179,16 @@
     }
 
     function subscribeToEvent (event_id, params, cbSuccess, cbError) {
-      var url = service.apiArticles + event_id + '/follow';
-      var paramsExtended = angular.extend({
-        private_token: API.token
-      }, params);
 
-      UtilService.post(url, {params: paramsExtended}).then(function(data){
-        cbSuccess(data.articles);
+      if(!$rootScope.currentUser){
+        cbError({message: 'Usuário não logado.'});
+      }
+
+      var url = service.apiArticles + event_id + '/follow';
+      var encodedParams = 'private_token=' + $rootScope.currentUser.private_token;
+
+      UtilService.post(url, encodedParams).then(function(response){
+        cbSuccess(response);
       }).catch(function(error){
         cbError(error);
       });
@@ -188,11 +213,13 @@
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
       var url = '/api/v1/search/article';
       var paramsExtended = angular.extend({
-        'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits'],
+        // 'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits'],
         'type': 'ProposalsDiscussionPlugin::Proposal'
       }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
+        _pipeInjectSlugIntoParentProgram(data);
+        _pipeSortByRankinPosition(data);
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);
@@ -200,6 +227,9 @@
     }
 
     function _pipeInjectSlugIntoParentProgram(data){
+      if(!data.articles && data.article){
+        data.articles = [data.article];
+      }
       var proposals = data.articles;
       for (var i = proposals.length - 1; i >= 0; i--) {
         var proposal = proposals[i];
@@ -207,6 +237,15 @@
           proposal.parent.slug = Slug.slugify(proposal.parent.title);
         }
       }
+    }
+
+    function _pipeSortByRankinPosition(data){
+      if(!data.articles && data.article){
+        data.articles = [data.article];
+      }
+      data.articles = data.articles.sort(function(pA, pB){
+        return pA.ranking_position - pB.ranking_position;
+      });
     }
   }
 })();

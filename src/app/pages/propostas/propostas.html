@@ -7,7 +7,26 @@
 </div>
 
 <div class="page--propostas">
-  <section class="section--info">
+
+  <section class="section-info" ng-if="pagePropostas.loading || pagePropostas.error">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div ng-if="pagePropostas.loading && !pagePropostas.error">
+            <div class="alert alert-info" role="alert">Carregando conteúdo...</div>
+          </div>
+
+          <div ng-if="pagePropostas.error">
+            <div class="alert alert-danger" role="alert">
+              Erro ao carregar o conteúdo principal.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--header" ng-if="pagePropostas.proposals || pagePropostas.themes">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
@@ -16,7 +35,8 @@
       </div>
     </div>
   </section>
-  <section class="section--articles section-gray section-space-up" ng-if="pagePropostas.proposals">
+
+  <section class="section--articles section-gray section-space-up" ng-if="pagePropostas.proposals || pagePropostas.themes">
     <div class="container">
       <div id="lista-de-propostas" class="row">
         <div class="col-sm-4 col-md-3">
@@ -52,7 +72,7 @@
           </div>
         </div>
         <div class="col-sm-8 col-md-9">
-          <div class="row hidden-xs">
+          <div class="row hidden-xs" ng-if="pagePropostas.proposals">
             <div class="col-xs-12">
               <div class="input-group input-group-lg input-group-search">
                 <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
@@ -68,10 +88,11 @@
               </div>
             </div>
           </div>
-          <div class="row">
+
+          <div class="row" ng-if="pagePropostas.proposals">
             <div class="col-sm-12">
               <header class="header">
-                <h2>Total de Propostas as propostas: "<span>{{::pagePropostas.proposals.length}} propostas</span>"</h2>
+                <h2>Total de Propostas: "<b>{{pagePropostas.filtredProposals.length}} propostas</b>"</h2>
               </header>
             </div>
           </div>

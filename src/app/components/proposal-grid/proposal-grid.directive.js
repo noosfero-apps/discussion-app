@@ -22,7 +22,6 @@
       vm.$location = $location;
       vm.$filter = $filter;
       vm.$log = $log;
-      vm.defaultLimit = 6;
 
       // initialization
       vm.init();
@@ -30,8 +29,7 @@
     }
 
     ProposalGridController.prototype.init = function() {
-      // var vm = this;
-      // vm.programs = null; // scope var
+      var vm = this;
     };
 
     ProposalGridController.prototype.attachListeners = function() {

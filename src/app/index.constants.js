@@ -5,8 +5,8 @@
   angular
     .module('dialoga')
     .constant('PATH', {
-      host: 'http://dialoga.gov.br',
-      image: 'http://login.dialoga.gov.br'
+      host: 'http://hom.dialoga.gov.br',
+      image: 'http://hom.login.dialoga.gov.br'
     })
     .constant('API', {
       token: null,

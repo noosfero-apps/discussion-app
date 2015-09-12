@@ -5,4 +5,6 @@ bower_components/
 .tmp/
 dist/
 .editorconfig
-.gitignore
+
+# ignore generated sprite
+src/assets/images/icons/sprite.png

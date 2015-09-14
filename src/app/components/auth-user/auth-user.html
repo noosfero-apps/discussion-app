@@ -1,6 +1,7 @@
 <div class="auth-user">
   <div ng-if="vm.currentUser" class="pull-right">
-    <span>{{::vm.currentUser.login}}</span>
+    <span ng-if="vm.currentUser.person">{{::vm.currentUser.person.name}}</span>
+    <span ng-if="!vm.currentUser.person">{{::vm.currentUser.login}}</span>
     <span>|</span>
     <button type="button" class="btn btn-link" ng-click="vm.onClickLogout()">Sair</button>
   </div>

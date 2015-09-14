@@ -36,7 +36,7 @@
 
     // init variables
     vm.signin = {};
-    vm.singup = {};
+    vm.signup = {};
     vm.terms = null;
     vm.loadingTerms = null;
     vm.delay = 3; // segundos
@@ -121,16 +121,26 @@
     vm.AuthService.logout();
   };
 
-  AuthPageController.prototype.submitSingup = function(credentials) {
+  AuthPageController.prototype.submitSignup = function($event, credentials) {
     var vm = this;
 
+    vm.$log.debug('submiting form $event', $event);
+    vm.$log.debug('submiting form credentials', credentials);
+
+    var target = $event.target;
+    var $target = angular.element(target);
+    var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
+    credentials.txtToken_captcha_serpro_gov_br = $captcha.val();
+
+    // vm.signupFormStatus = 'SENDIN';
     vm.AuthService.register(credentials).then(function(response) {
       vm.$log.debug('register success.response', response);
 
       // TODO: mensagens de sucesso
       // 'Cadastro efetuado com sucesso.'
       // 'Verifique seu email para confirmar o cadastro.'
-      vm.successMessage = '<h3>Cadastro efetuado com sucesso.</h3>' + '<p>Verifique seu <b>email</b> para confirmar o cadastro.</p>';
+      vm.messageTitle = 'Cadastro efetuado com sucesso!';
+      vm.successMessage = 'Verifique seu e-mail para confirmar o cadastro.';
       vm.redirectBack();
     }, function(response) {
       vm.$log.debug('register error.response', response);

@@ -11,10 +11,11 @@
               Agenda <b>Dialoga Brasil</b>
             </h1>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-6 text-right">
             <h2 class="event-bar--trigger-toggle text-right">
               <span><b>18</b> bate papos <b>agendados</b></span>
-              <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+              <span ng-if="vm.isCollapsed" class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+              <span ng-if="!vm.isCollapsed" class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
             </h2>
           </div>
         </div>
@@ -25,20 +26,6 @@
 
   <section class="section-table">
     <div class="container">
-      <!-- <div class="event-tab--trigger" ng-show="vm.isCollapsed" ng-click="vm.toggleView()">
-        <div class="event-tab--header">
-          <div class="event-tab--icon">
-            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-          </div>
-          <div class="event-tab--title">Bate-Papo com ministr@s</div>
-        </div>
-        <button class="btn btn-link event-tab--button">
-          <span class="event-tab--total-scheduled">18</span>
-          <span>bate-papos agendados</span>
-          <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-        </button>
-      </div> -->
-
       <div class="event-list--panel ng-hide" ng-show="!vm.isCollapsed">
         <div class="event-list--table-wrapper">
           <div class="row row-level-1" ng-repeat="event in vm.events | orderBy:'start_date':false">

@@ -6,7 +6,7 @@
     .controller('AuthPageController', AuthPageController);
 
   /** @ngInject */
-  function AuthPageController($scope, $rootScope, $window, $location, $state, $timeout, AUTH_EVENTS, AuthService, DialogaService, Session, $log) {
+  function AuthPageController($scope, $rootScope, $window, $location, $state, $timeout, $interval, AUTH_EVENTS, AuthService, DialogaService, Session, $log) {
     var vm = this;
 
     vm.$scope = $scope;
@@ -15,6 +15,7 @@
     vm.$location = $location;
     vm.$state = $state;
     vm.$timeout = $timeout;
+    vm.$interval = $interval;
     vm.AUTH_EVENTS = AUTH_EVENTS;
     vm.AuthService = AuthService;
     vm.DialogaService = DialogaService;
@@ -25,6 +26,8 @@
     vm.loadData();
     vm.attachListeners();
 
+    vm.$rootScope.focusMainContent();
+
     vm.$log.debug('AuthPageController');
   }
 
@@ -33,7 +36,7 @@
 
     // init variables
     vm.signin = {};
-    vm.singup = {};
+    vm.signup = {};
     vm.terms = null;
     vm.loadingTerms = null;
     vm.delay = 3; // segundos
@@ -78,14 +81,38 @@
   AuthPageController.prototype.attachListeners = function() {
     var vm = this;
 
+    vm.$scope.$on(vm.AUTH_EVENTS.registerSuccess, function(event, response) {
+      vm.$log.debug('TODO: handle register success');
+      vm.$log.debug('[register success] response', response);
+    });
+
+    vm.$scope.$on(vm.AUTH_EVENTS.registerFailed, function(event, response) {
+      vm.$log.debug('TODO: handle register error');
+      vm.$log.debug('[register error] response', response);
+
+      var reason = response.data.message;
+      vm.errorMessage = reason;
+    });
+
     vm.$scope.$on('oauthClientPluginResult', function(event, response) {
       vm.$log.debug('response', response);
 
       // var logged_id = response.data.logged_id;
       // var private_token = response.data.private_token;
       // var user = response.data.user;
-
     });
+
+    var stop = null;
+    stop = vm.$interval(function(){
+      var $el = angular.element('#serpro_captcha');
+
+      if ($el && $el.length > 0 ){
+        vm.$window.initCaptcha($el[0]);
+        vm.$interval.cancel(stop);
+        stop = undefined;
+      }
+
+    }, 200);
   };
 
   AuthPageController.prototype.onClickLogout = function() {
@@ -94,22 +121,43 @@
     vm.AuthService.logout();
   };
 
-  AuthPageController.prototype.submitSigup = function(credentials) {
+  AuthPageController.prototype.submitSignup = function($event, credentials) {
     var vm = this;
 
+    vm.$log.debug('submiting form $event', $event);
+    vm.$log.debug('submiting form credentials', credentials);
+
+    var target = $event.target;
+    var $target = angular.element(target);
+    var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
+    credentials.txtToken_captcha_serpro_gov_br = $captcha.val();
+
+    // vm.signupFormStatus = 'SENDIN';
     vm.AuthService.register(credentials).then(function(response) {
       vm.$log.debug('register success.response', response);
 
       // TODO: mensagens de sucesso
       // 'Cadastro efetuado com sucesso.'
       // 'Verifique seu email para confirmar o cadastro.'
-      vm.successMessage = '<h3>Cadastro efetuado com sucesso.</h3>' + '<p>Verifique seu <b>email</b> para confirmar o cadastro.</p>';
+      vm.messageTitle = 'Cadastro efetuado com sucesso!';
+      vm.successMessage = 'Verifique seu e-mail para confirmar o cadastro.';
       vm.redirectBack();
     }, function(response) {
       vm.$log.debug('register error.response', response);
 
+      var message = response.data.message;
+      vm.errorMessage = message;
+
+      if(response.data.code === 500){
+        vm.internalError = true;
+      }
+
+
       // TODO: mensagens de erro
       // TODO: tratar multiplos erros
+
+      // javascript_console_message: "Unable to reach Serpro's Captcha validation service"
+      // message: "Internal captcha validation error"
     });
   };
 
@@ -137,15 +185,14 @@
 
     // start countdown
     vm.countdown = vm.delay;
-    (function countdown() {
-      vm.$timeout(function() {
-        vm.countdown--;
-        vm.$log.debug('vm.countdown', vm.countdown);
-        if (vm.countdown > 0) {
-          countdown();
-        }
-      }, 1000);
-    })();
+    var stop = null;
+    stop = vm.$interval(function() {
+      vm.countdown--;
+      if (vm.countdown <= 0) {
+        vm.$interval.cancel(stop);
+        stop = undefined;
+      }
+    }, 1000);
 
     vm.$timeout(function() {
       var state = vm.params.state;

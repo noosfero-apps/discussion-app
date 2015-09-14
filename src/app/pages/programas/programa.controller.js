@@ -7,8 +7,6 @@
 
   /** @ngInject */
   function ProgramaPageController(DialogaService, PATH, VOTE_OPTIONS, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
-    $log.debug('ProgramaPageController');
-
     var vm = this;
 
     vm.DialogaService = DialogaService;
@@ -25,6 +23,9 @@
     vm.init();
     vm.loadData();
     vm.attachListeners();
+    vm.$rootScope.focusMainContent();
+
+    vm.$log.debug('ProgramaPageController');
   }
 
   ProgramaPageController.prototype.init = function() {
@@ -76,6 +77,7 @@
       vm.loadingTopProposals = true;
       vm.DialogaService.getProposalsByTopicId(vm.article.id, {}, function(data) {
         vm.proposals = data.articles;
+        vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
         vm.loadingTopProposals = false;
       }, function(error) {

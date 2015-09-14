@@ -4,12 +4,13 @@
 
   angular
     .module('dialoga')
-    .run(runAuth)
-    .run(runSocialAuth)
     .run(runAccessibility)
+    .run(runAuth)
+    .run(runCaptcha)
+    .run(runColorUtils)
     .run(runHistory)
     .run(runPath)
-    .run(runColorUtils)
+    .run(runSocialAuth)
     .run(runUtils)
     .run(runBlock);
 
@@ -45,18 +46,53 @@
   }
 
   /** @ngInject */
+  function runCaptcha($window, $log, GUID) {
+    var serpro_captcha_clienteId = 'fdbcdc7a0b754ee7ae9d865fda740f17';
+
+    $window.initCaptcha = function(element) {
+      var $element = angular.element(element);
+
+      // already have a started captcha
+      if ($element.data('captcha')) {
+        $log.info('Captcha already initialized. Abort.');
+        return;
+      }
+
+      // Create a new instance of Captcha
+      var oCaptcha_serpro_gov_br = new $window.captcha_serpro_gov_br();
+
+      // Set the initial data
+      $element.val('');
+      $element.data('captcha', oCaptcha_serpro_gov_br);
+      oCaptcha_serpro_gov_br.clienteId = serpro_captcha_clienteId;
+      // oCaptcha_serpro_gov_br.url = "/serprocaptcha";
+      oCaptcha_serpro_gov_br.criarUI(element, 'css', 'serpro_captcha_component_', GUID.generate());
+    };
+
+    $window.reloadCaptcha = function(element) {
+      var $element = angular.element(element);
+
+      if ($element.data('captcha')) {
+        $element.data('captcha').recarregar();
+      }
+    };
+
+    $log.debug('runCaptcha');
+  }
+
+  /** @ngInject */
   function runSocialAuth($window, $rootScope, $interval, $log) {
 
-    $window.oauthClientAction = function (url){
+    $window.oauthClientAction = function(url) {
       var child = $window.open(url, '_blank');
       var interval = $interval(function() {
         try {
-          if(!child.closed) {
+          if (!child.closed) {
             child.postMessage({
               message: 'requestOauthClientPluginResult'
             }, '*');
           }
-        } catch(e) {
+        } catch (e) {
           // we're here when the child window has been navigated away or closed
           if (child.closed) {
             $interval.cancel(interval);
@@ -106,7 +142,7 @@
 
       if (mainContentArea) {
         $timeout(function() {
-          $rootScope.scrollTo(mainContentArea, $event);
+          $rootScope.scrollTo(angular.element(mainContentArea), $event);
         }, 90); // force queue
       } else {
         $log.warn('role="main" not found.');
@@ -118,7 +154,7 @@
       // prevent skip link from redirecting
       if ($event) { $event.preventDefault(); }
 
-      if(angular.isString(target)){
+      if (angular.isString(target)) {
         target = angular.element(target);
       }
 
@@ -137,7 +173,7 @@
       $rootScope.$previousState.splice(-MAX_HISTORY, MAX_HISTORY);
     });
 
-    $rootScope.goBack = $rootScope.goBack || function () {
+    $rootScope.goBack = $rootScope.goBack || function() {
       return $rootScope.$previousState.pop();
     };
   }
@@ -178,7 +214,7 @@
 
   /** @ngInject */
   function runUtils($rootScope) {
-    $rootScope.stripHtml = function (text) {
+    $rootScope.stripHtml = function(text) {
       return String(text).replace(/<[^>]+>/gm, '');
     };
   }

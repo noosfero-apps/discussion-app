@@ -33,8 +33,8 @@
         throw { name: 'NotDefined', message: 'The attribute "proposals" is undefined.'};
       }
 
-      if(!vm.per_page){
-        vm.per_page = 5;
+      if(!vm.perPage){
+        vm.perPage = 5;
       }
 
       vm.initPorposalList();
@@ -50,10 +50,10 @@
       vm.proposalsLength = vm.proposals.length;
 
 
-      if ((vm.proposalsLength % vm.per_page) === 0) {
-        vm.pages =  vm.proposalsLength / vm.per_page;
+      if ((vm.proposalsLength % vm.perPage) === 0) {
+        vm.pages =  vm.proposalsLength / vm.perPage;
       } else{
-        vm.pages =  (vm.proposalsLength / vm.per_page) + 1;
+        vm.pages =  (vm.proposalsLength / vm.perPage) + 1;
       }
 
       // vm.arraypages = new Array(Math.ceil(vm.pages));
@@ -81,8 +81,8 @@
     ProposalListController.prototype.getProposalsPerPage = function (pageIndex) {
       var vm = this;
 
-      var initialIndex = pageIndex * vm.per_page;
-      var finalIndex = initialIndex + vm.per_page;
+      var initialIndex = pageIndex * vm.perPage;
+      var finalIndex = initialIndex + vm.perPage;
 
       return vm.proposals.slice(initialIndex, finalIndex);
     };
@@ -132,7 +132,7 @@
       templateUrl: 'app/components/proposal-list/proposal-list.html',
       scope: {
         proposals: '=',
-        per_page: '='
+        perPage: '='
       },
       controller: ProposalListController,
       controllerAs: 'vm',

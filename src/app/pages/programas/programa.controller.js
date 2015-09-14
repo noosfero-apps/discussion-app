@@ -76,6 +76,7 @@
       vm.loadingTopProposals = true;
       vm.DialogaService.getProposalsByTopicId(vm.article.id, {}, function(data) {
         vm.proposals = data.articles;
+        vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
         vm.loadingTopProposals = false;
       }, function(error) {

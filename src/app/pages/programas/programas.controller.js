@@ -6,11 +6,12 @@
     .controller('ProgramasPageController', ProgramasPageController);
 
   /** @ngInject */
-  function ProgramasPageController(DialogaService, $scope, $location, $filter, $log) {
+  function ProgramasPageController(DialogaService, $scope, $rootScope, $location, $filter, $log) {
     var vm = this;
 
     vm.DialogaService = DialogaService;
     vm.$scope = $scope;
+    vm.$rootScope = $rootScope;
     vm.$location = $location;
     vm.$filter = $filter;
     vm.$log = $log;
@@ -18,8 +19,9 @@
     vm.init();
     vm.loadData();
     vm.attachListeners();
+    vm.$rootScope.focusMainContent();
 
-    $log.debug('ProgramasPageController');
+    vm.$log.debug('ProgramasPageController');
   }
 
   ProgramasPageController.prototype.init = function () {

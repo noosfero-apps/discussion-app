@@ -26,6 +26,8 @@
     vm.loadData();
     vm.attachListeners();
 
+    vm.$rootScope.focusMainContent();
+
     vm.$log.debug('AuthPageController');
   }
 

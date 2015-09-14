@@ -7,8 +7,6 @@
 
   /** @ngInject */
   function ProgramaPageController(DialogaService, PATH, VOTE_OPTIONS, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
-    $log.debug('ProgramaPageController');
-
     var vm = this;
 
     vm.DialogaService = DialogaService;
@@ -25,6 +23,9 @@
     vm.init();
     vm.loadData();
     vm.attachListeners();
+    vm.$rootScope.focusMainContent();
+
+    vm.$log.debug('ProgramaPageController');
   }
 
   ProgramaPageController.prototype.init = function() {

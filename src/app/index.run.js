@@ -142,7 +142,7 @@
 
       if (mainContentArea) {
         $timeout(function() {
-          $rootScope.scrollTo(mainContentArea, $event);
+          $rootScope.scrollTo(angular.element(mainContentArea), $event);
         }, 90); // force queue
       } else {
         $log.warn('role="main" not found.');

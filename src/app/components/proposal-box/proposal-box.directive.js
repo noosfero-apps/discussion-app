@@ -34,6 +34,10 @@
       vm.errorOnSkip = false;
       vm.showAuthMessage = null;
       vm.voteProposalRedirectURI = null;
+
+      var slug = vm.topic.slug;
+      var proposal_id = vm.proposal.id;
+      vm.voteProposalRedirectURI = 'state=programa&task=vote-proposal&slug=' + slug + '&proposal_id=' + proposal_id;
     };
 
     ProposalBoxController.prototype.addListeners = function () {
@@ -63,14 +67,6 @@
         }
 
         vm.message = data.message;
-      });
-
-      vm.$scope.$watch('vm.voteProposalRedirectURI', function(newValue, oldValue){
-        if(newValue && newValue !== oldValue){
-          var slug = vm.topic.slug;
-          var proposal_id = vm.proposal.id;
-          vm.voteProposalRedirectURI = 'state=programa&task=vote-proposal&slug=' + slug + '&proposal_id=' + proposal_id;
-        }
       });
     };
 

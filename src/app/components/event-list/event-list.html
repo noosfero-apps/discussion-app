@@ -11,10 +11,11 @@
               Agenda <b>Dialoga Brasil</b>
             </h1>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-6 text-right">
             <h2 class="event-bar--trigger-toggle text-right">
               <span><b>18</b> bate papos <b>agendados</b></span>
-              <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+              <span ng-if="vm.isCollapsed" class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+              <span ng-if="!vm.isCollapsed" class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
             </h2>
           </div>
         </div>
@@ -25,36 +26,26 @@
 
   <section class="section-table">
     <div class="container">
-      <!-- <div class="event-tab--trigger" ng-show="vm.isCollapsed" ng-click="vm.toggleView()">
-        <div class="event-tab--header">
-          <div class="event-tab--icon">
-            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-          </div>
-          <div class="event-tab--title">Bate-Papo com ministr@s</div>
-        </div>
-        <button class="btn btn-link event-tab--button">
-          <span class="event-tab--total-scheduled">18</span>
-          <span>bate-papos agendados</span>
-          <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-        </button>
-      </div> -->
-
       <div class="event-list--panel ng-hide" ng-show="!vm.isCollapsed">
         <div class="event-list--table-wrapper">
           <div class="row row-level-1" ng-repeat="event in vm.events | orderBy:'start_date':false">
-            <div class="col-xs-12 col-sm-4 col-md-6 vcenter">
-              <span class="glyphicon glyphicon-calendar"></span>
-              <span class="date">{{event.start_date | date : "dd/MM/yyyy"}}</span>
-              <span class="separator">-</span>
-              <span class="glyphicon glyphicon-time"></span>
-              <span class="time">{{event.start_date | date : "HH:mm"}}</span>
-              <span class="separator">-</span>
+            <div class="col-xs-12 col-sm-4 col-md-3 vcenter">
+              <span class="date-wrapper">
+                <span class="glyphicon glyphicon-calendar"></span>
+                <span class="date">{{event.start_date | date : "dd/MM/yyyy"}}</span>
+              </span>
+              <span class="time-wrapper">
+                <span class="glyphicon glyphicon-time"></span>
+                <span class="time">{{event.start_date | date : "HH:mm"}}</span>
+              </span>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-5 vcenter">
               <span class="description">{{::event.title}}</span>
             </div>
-            <div class="col-xs-12 col-sm-4 col-md-3 text-center vcenter">
+            <!-- <div class="col-xs-12 col-sm-4 col-md-3 text-center vcenter">
               <span class="theme">{{::event.categories[0].name}}</span>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-3 text-right vcenter" style="padding-right: 20px;">
+            </div> -->
+            <div class="col-xs-12 col-sm-4 col-md-4 text-right vcenter" style="padding-right: 20px;">
               <div class="row">
                 <div class="col-xs-6 text-right" ng-class="{'col-xs-12': event.isOld}">
                   <div ng-if="event.followers_count > 50">
@@ -71,6 +62,18 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="visible-xs" ng-show="!vm.isCollapsed">
+      <div class="minimize color-theme-common-bg" ng-click="vm.toggleView()">
+        <div class="row">
+          <div class="col-xs-6">
+            <button type="button" class="btn btn-link" ng-click="">MINIMIZAR</button>
+          </div>
+          <div class="col-xs-5 text-right">
+            <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
           </div>
         </div>
       </div>

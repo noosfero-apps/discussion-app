@@ -6,12 +6,13 @@
     .controller('ProgramaPageController', ProgramaPageController);
 
   /** @ngInject */
-  function ProgramaPageController(DialogaService, PATH, VOTE_OPTIONS, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
+  function ProgramaPageController(DialogaService, PATH, VOTE_OPTIONS, PROPOSAL_STATUS, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
     var vm = this;
 
     vm.DialogaService = DialogaService;
     vm.PATH = PATH;
     vm.VOTE_OPTIONS = VOTE_OPTIONS;
+    vm.PROPOSAL_STATUS = PROPOSAL_STATUS;
     vm.$state = $state;
     vm.$location = $location;
     vm.$scope = $scope;
@@ -47,6 +48,7 @@
     var vm = this;
 
     vm.loading = true;
+    vm.proposalStatus = null;
 
     // Get program by slug
     var slug = vm.$state.params.slug;
@@ -110,13 +112,17 @@
     });
 
     vm.$scope.$on('cadastro-proposa:startSendProposal', function(event, proposal) {
-      vm.creatingProposal = true;
+
+      vm.proposalStatus = vm.PROPOSAL_STATUS.SENDING;
+
       vm.DialogaService.createProposal(proposal, vm.article.id, function(response) {
         vm.$log.debug('response', response);
-        vm.creatingProposal = false;
+        // vm.proposalStatus = vm.PROPOSAL_STATUS.SENT | vm.PROPOSAL_STATUS.SUCCESS;
+        vm.proposalStatus = vm.PROPOSAL_STATUS.SUCCESS;
       }, function(error) {
         vm.$log.error(error);
-        vm.creatingProposal = false;
+        // vm.proposalStatus = vm.PROPOSAL_STATUS.SENT | vm.PROPOSAL_STATUS.ERROR;
+        vm.proposalStatus = vm.PROPOSAL_STATUS.ERROR;
       });
     });
 
@@ -254,9 +260,15 @@
     vm.$element.find(rule).slideUp();
   };
 
-  ProgramaPageController.prototype.sendProposal = function() {
+  ProgramaPageController.prototype.sendAnotherProposal = function() {
     var vm = this;
 
-    vm.$log.warn('Not implemented yet: "sendProposal"');
+    vm.proposalStatus = null;
   };
+
+  // ProgramaPageController.prototype.sendProposal = function() {
+  //   var vm = this;
+
+  //   vm.$log.warn('Not implemented yet: "sendProposal"');
+  // };
 })();

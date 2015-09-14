@@ -39,6 +39,7 @@
 
           var currentUser = Session.create(response.data);
 
+          $rootScope.currentUser = currentUser;
           $rootScope.$broadcast(AUTH_EVENTS.registerSuccess, currentUser);
           $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, currentUser);
 

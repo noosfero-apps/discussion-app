@@ -124,9 +124,6 @@
   AuthPageController.prototype.submitSignup = function($event, credentials) {
     var vm = this;
 
-    vm.$log.debug('submiting form $event', $event);
-    vm.$log.debug('submiting form credentials', credentials);
-
     var target = $event.target;
     var $target = angular.element(target);
     var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');

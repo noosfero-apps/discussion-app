@@ -66,7 +66,7 @@
       vm.$rootScope.contentTitle = vm.article.title;
 
       // set the banner image with full image path
-      if (!vm.banner) {
+      if (!vm.banner && vm.article.image) {
         vm.banner = {
           src: vm.PATH.image + vm.article.image.url,
           alt: 'Imagem de destaque do conteúdo'
@@ -209,12 +209,12 @@
       value: value
     }, function(response) {
       vm.$log.debug('response', response);
-      
+
       response.success = true;
       vm.$scope.$broadcast('proposal-box:vote-response', response);
     }, function(error) {
       vm.$log.error('error', error);
-      
+
       error.error = true;
       vm.$scope.$broadcast('proposal-box:vote-response', error);
     });

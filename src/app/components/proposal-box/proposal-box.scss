@@ -81,6 +81,8 @@
         z-index: 1000;
         background-color: #f5f5f5;
         background-color: rgba(245, 245, 245, 0.9);
+        border: 7px solid #5E769C;
+        border-radius: 5px;
 
         .row { height: 100%; }
         .inside { position: relative; }
@@ -92,7 +94,41 @@
             line-height: 24px;
             padding: 10px 30px;
         }
+
+        .message-icon {
+            .glyphicon {
+                top: 8px;
+            }
+        }
     }
+
+    .feedback {
+        padding: 20px;
+
+        &--title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        &--message {
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 20px;
+            margin-top: 48px;
+        }
+
+        .icon-circle {
+            &.play {
+                background-color: #5e769c;
+            }
+
+            .glyphicon {
+                top: 12px;
+                color: #fff;
+            }
+        }
+    }
+
 
     .action {
         .glyphicon {

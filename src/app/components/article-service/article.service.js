@@ -177,9 +177,12 @@
       var url = service.apiArticles + proposal_id + '/vote';
       var paramsExtended = angular.extend({
         private_token: $rootScope.currentUser.private_token
+        // private_token: 'e2198fdbcc20409f082829b4b5c0848e'
       }, params);
 
-      UtilService.post(url, paramsExtended).then(function(response){
+      var encodedParams = angular.element.param(paramsExtended);
+
+      UtilService.post(url, encodedParams).then(function(response){
         cbSuccess(response);
       }).catch(function(error){
         cbError(error);
@@ -197,6 +200,7 @@
       }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
+        _pipeIsInThePast(data);
         cbSuccess(data.articles);
       }).catch(function(error){
         cbError(error);
@@ -286,6 +290,27 @@
       data.articles = data.articles.sort(function(pA, pB){
         return pA.ranking_position - pB.ranking_position;
       });
+    }
+
+    function _pipeIsInThePast(data){
+      if(!data.articles && data.article){
+        data.articles = [data.article];
+      }
+      var now = (new Date()).getTime();
+      var eventDate = null;
+      var events = data.articles;
+
+      for (var i = events.length - 1; i >= 0; i--) {
+        var event = events[i];
+
+        if(event.end_date){
+          eventDate = new Date(event.end_date);
+        }
+
+        if(eventDate.getTime() < now){
+          event.isOld = true;
+        }
+      }
     }
   }
 })();

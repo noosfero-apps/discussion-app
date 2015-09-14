@@ -41,7 +41,7 @@
 
       vm.$scope.$on('proposal-box:proposal-loaded', function(event, data){
         if(data.success){
-          vm.STATE = null;  
+          vm.STATE = null;
         }
 
         if(data.error){
@@ -57,11 +57,11 @@
         if(data.success) {
           vm.STATE = vm.VOTE_STATUS.SUCCESS;
         }
-        
+
         if(data.error) {
           vm.STATE = vm.VOTE_STATUS.ERROR;
         }
-        
+
         vm.message = data.message;
       });
 
@@ -123,6 +123,15 @@
       vm.$log.debug('Sending vote');
     };
 
+    ProposalBoxController.prototype.getSocialUrl = function () {
+      var vm = this;
+
+      return vm.$state.href('programa', {
+        slug: vm.topic.slug,
+        proposal_id: vm.proposal.id,
+      });
+    };
+
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/proposal-box/proposal-box.html',
@@ -140,7 +149,6 @@
       controllerAs: 'vm',
       bindToController: true
     };
-
 
     return directive;
   }

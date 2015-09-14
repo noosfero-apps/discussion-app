@@ -78,7 +78,7 @@
 
 					<div class="row">
 						<div class="col-sm-12" ng-if="pagePropostas.proposals">
-							<proposal-list proposals="pagePropostas.filtredProposals"></proposal-list>
+							<proposal-list proposals="pagePropostas.filtredProposals" per-page="10"></proposal-list>
 						</div>
 						<div ng-if="!pagePropostas.proposals && pagePropostas.loadingProposals">
 							<div class="alert alert-info" role="alert">

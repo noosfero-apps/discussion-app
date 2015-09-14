@@ -103,3 +103,17 @@
         }
     }
 }
+
+#dialoga-nas-redes {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+
+    .text {
+        position: absolute;
+        top: 5px;
+        right: 210px;
+        width: 100px;
+    }
+}

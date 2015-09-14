@@ -111,7 +111,7 @@
       </div>
     </section>
 
-    <section id="section-proposal-list" class="proposal-extended-section" style="display:none;" ng-if="pagePrograma.proposals && pagePrograma.proposals.length > 0">
+    <section id="section-proposal-list" class="proposal-extended-section" style="display:none;" ng-if="pagePrograma.proposalsTopFive && pagePrograma.proposalsTopFive.length > 0">
       <div class="container">
         <div class="proposal-extended-section-header">
           <h3 class="color-theme-fg">Resultados de propostas mais votadas</h3>
@@ -120,7 +120,7 @@
           </button>
         </div>
         <div class="proposal-extended-section-content">
-          <proposal-list proposals="pagePrograma.proposals"></proposal-list>
+          <proposal-list proposals="pagePrograma.proposalsTopFive"></proposal-list>
         </div>
       </div>
     </section>

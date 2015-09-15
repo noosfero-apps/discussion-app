@@ -32,14 +32,14 @@
       }
     };
 
-    CategoryListController.prototype._canUnselect = function() {
+    CategoryListController.prototype._disableUnselect = function() {
       var vm = this;
 
-      if(vm.canUnselect && vm.canUnselect === 'false'){
-        return false;
+      if(vm.disableUnselect && vm.disableUnselect === 'true'){
+        return true;
       }
 
-      return true;
+      return false;
     };
 
 
@@ -53,7 +53,7 @@
         vm.selectedCategory = category;
       }else{
 
-        if(!vm._canUnselect()){
+        if(vm._disableUnselect()){
           vm.$log.info('Unselect is disabled.');
           return;
         }
@@ -82,7 +82,7 @@
       scope: {
         categories: '=',
         selectedCategory: '=',
-        canUnselect: '@'
+        disableUnselect: '@'
       },
       controller: CategoryListController,
       controllerAs: 'vm',

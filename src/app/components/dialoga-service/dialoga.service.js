@@ -19,6 +19,7 @@
     extendedService.getThemeBySlug = getThemeBySlug;
     extendedService.getPrograms = getPrograms;
     extendedService.getProgramBySlug = getProgramBySlug;
+    extendedService.getProgramsByThemeId = getProgramsByThemeId;
     extendedService.getProgramsRandom = getProgramsRandom;
     extendedService.getEvents = getEvents; // override
     extendedService.getQuestions = getQuestions;
@@ -89,6 +90,7 @@
         },cbError);
       }
     }
+
     function getThemeBySlug (slug, cbSuccess, cbError) {
       if( !!CACHE.themes ){
         _getThemeBySlug(CACHE.themes);
@@ -143,6 +145,28 @@
         });
 
         cbSuccess(result[0]);
+      }
+    }
+
+    function getProgramsByThemeId (themeId, cbSuccess, cbError) {
+
+      if( !CACHE.programs ){
+        getPrograms(_getProgramsByThemeId, cbError);
+      } else {
+       _getProgramsByThemeId();
+      }
+
+      function _getProgramsByThemeId(){
+        var result = CACHE.programs.filter(function filterProgramBySlug (program) {
+          var category = program.categories[0];
+
+          if(angular.equals(category.id, themeId)) {
+            return true;
+          }
+          return false;
+        });
+
+        cbSuccess(result);
       }
     }
 

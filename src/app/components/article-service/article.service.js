@@ -100,21 +100,17 @@
 
       // var url = service.apiArticles + API.articleId.home;
 
-      // var paramsExtended = angular.extend({
-      //   // 'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children', 'children_count'],
-      //   'content_type':'ProposalsDiscussionPlugin::Proposal'
-      // }, params);
-
       // UtilService.get(url, {params: paramsExtended}).then(function(data){
       //   cbSuccess(data);
       // }).catch(function(error){
       //   cbError(error);
       // });
 
-      //
-      searchProposals({
+      var paramsExtended = angular.extend({
         query: ''
-      }, cbSuccess, cbError);
+      }, params);
+
+      searchProposals(paramsExtended, cbSuccess, cbError);
     }
 
     function getProposalById (proposalId, params, cbSuccess, cbError) {

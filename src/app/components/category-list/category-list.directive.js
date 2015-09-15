@@ -30,6 +30,12 @@
       if(!vm.isCollapsed){
         vm.isCollapsed = false;
       }
+
+      if(angular.isUndefined(vm.canUnselect) || vm.canUnselect === null){
+        vm.canUnselect = true;
+      } else {
+        vm.canUnselect = !(vm.canUnselect == 'false');
+      }
     };
 
     CategoryListController.prototype.selectCategory = function(category, $event) {
@@ -38,11 +44,13 @@
       // prevent glitch
       $event.stopPropagation();
 
+      if(!category && !vm.canUnselect){
+        vm.$log.info('Unselect is disabled.');
+        return;
+      }
+
       if (category !== vm.selectedCategory) {
-        // selected new filter
         vm.selectedCategory = category;
-      } else {
-        vm.selectedCategory = null;
       }
 
       // send event to all controllers
@@ -65,7 +73,8 @@
       templateUrl: 'app/components/category-list/category-list.html',
       scope: {
         categories: '=',
-        selectedCategory: '='
+        selectedCategory: '=',
+        canUnselect: '@'
       },
       controller: CategoryListController,
       controllerAs: 'vm',

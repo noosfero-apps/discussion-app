@@ -40,9 +40,15 @@
       vm.isCollapsed = !vm.isCollapsed;
     };
 
-    EventListController.prototype.subscribe = function (event_id) {
+    EventListController.prototype.subscribe = function (event) {
       var vm = this;
 
+      if(event.isOld){
+        vm.$log.debug('Event already happened. Abort.');
+        return;
+      }
+
+      var event_id = event.id;
       vm.$log.debug('event_id', event_id);
 
       if(!vm.$rootScope.currentUser){

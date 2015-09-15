@@ -40,22 +40,22 @@
               </span>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-5 vcenter">
-              <span class="description">{{::event.title}}</span>
+              <span class="description">{{::event.title.split('-')[0]}}</span>
             </div>
             <!-- <div class="col-xs-12 col-sm-4 col-md-3 text-center vcenter">
               <span class="theme">{{::event.categories[0].name}}</span>
             </div> -->
             <div class="col-xs-12 col-sm-4 col-md-4 text-right vcenter" style="padding-right: 20px;">
               <div class="row">
-                <div class="col-xs-6 text-right" ng-class="{'col-xs-12': event.isOld}">
+                <div class="col-xs-6 text-right">
                   <div ng-if="event.followers_count > 50">
                     <b>{{::event.followers_count}}</b>
                     <br/>
                     <span>Inscritos</span>
                   </div>
                 </div>
-                <div class="col-xs-6" ng-if="!event.isOld">
-                  <button type="button" class="btn color-theme-common-bg" ng-click="vm.subscribe(event.id)">
+                <div class="col-xs-6">
+                  <button type="button" class="btn color-theme-common-bg btn-disabled" disabled ng-click="vm.subscribe(event)">
                     Inscreva-se
                     <span class="sr-only">no bate-papo com (ministro) no dia {event.start_date | date : "dd/MM/yyyy"}} as {{event.start_date | date : "HH:mm"}} horas</span>
                   </button>

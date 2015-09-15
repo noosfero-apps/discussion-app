@@ -53,6 +53,11 @@ body {
         color: #fff;
         padding: 5px;
         margin-top: -5px;
+
+        &.icon-small {
+          width: 35px;
+          height: 35px;
+        }
     }
     button {
         border-left: none;
@@ -198,7 +203,7 @@ body {
         background-color: #4AC97A;
 
         &:hover { background-color: lighten(#4AC97A, 10%); }
-        
+
         &:active,
         &:focus { background-color: darken(#4AC97A, 10%)}
     }
@@ -206,7 +211,7 @@ body {
         background-color: #EEB453;
 
         &:hover { background-color: lighten(#EEB453, 10%); }
-        
+
         &:active,
         &:focus { background-color: darken(#EEB453, 10%)}
     }
@@ -214,7 +219,7 @@ body {
         background-color: #EC4C68;
 
         &:hover { background-color: lighten(#EC4C68, 10%); }
-        
+
         &:active,
         &:focus { background-color: darken(#EC4C68, 10%)}
     }

@@ -176,7 +176,7 @@
     var vm = this;
 
     if (!vm.hasRedirect) {
-      vm.$log.warn('No redirect params defined.');
+      vm.$log.debug('No redirect params defined.');
       return;
     }
 

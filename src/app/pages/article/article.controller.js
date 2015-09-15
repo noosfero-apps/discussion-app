@@ -44,7 +44,7 @@
         vm.DialogaService.getTerms(handleSuccess, handleError);
         break;
       default:
-        vm.$log.warn('Page not handled:', vm.page);
+        vm.$log.debug('Page not handled:', vm.page);
         break;
     }
 

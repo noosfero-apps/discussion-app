@@ -115,20 +115,6 @@
           }
         }
       })
-      .state('propostas-conteudo', {
-        url: '/propostas/:id',
-        ncyBreadcrumb: {
-          label: '{{$parent.$root.contentTitle}}',
-          parent: 'propostas'
-        },
-        views: {
-          'main': {
-            templateUrl: 'app/pages/propostas/proposta.html',
-            controller: 'PropostasPageController',
-            controllerAs: 'pagePropostas'
-          }
-        }
-      })
       .state('duvidas', {
         url: '/duvidas',
         ncyBreadcrumb: {label: 'Dúvidas'},

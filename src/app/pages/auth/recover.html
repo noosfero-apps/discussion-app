@@ -1,51 +1,70 @@
-<div class="container">
-	<div class="row">
-		<div class="col-sm-12">
-			<h2>Esqueci minha senha</h2>
-			<h5>
-				Calma, podemos ajudar! Informe o seu e-mail que a gente envia um link de alteração.
-			</h5>
-		</div>
-	</div>
-</div>
-<section role="main" class="section-gray">
+<div class="page--recover">
 	<div class="container">
 		<div class="row">
-			<div ng-if="pageSignin.currentUser">
-				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
-						<h3>Você está logado!</h3>
-						<button type="button" ng-click="pageSignin.onClickLogout()" class="btn btn-primary">Sair</button>
-					</div>
-				</div>
-			</div>
-			<div ng-if="!pageSignin.currentUser">
-				<br>
-				<div class="col-sm-8 col-sm-offset-2">
-					<div class="row">
-						<div class="col-md-12">
-							<form name="recoverPassForm" ng-submit="pageSignin.login(pageSignin.credentials)">
-								<div class="form-group">
-									<label for="inputUsername">E-mail*</label>
-									<input type="email" id="inputUsername" name="inputUsername" class="form-control input-lg" ng-class="{ 'has-error' : recoverPassForm.inputUsername.$invalid && recoverPassForm.inputUsername.$touched }" ng-model="pageSignin.credentials.username" required />
-									<validation-messages field=" recoverPassForm.inputUsername"/>
-								</div>
-								<div class="form-group">
-									<div class="input-group">
-										<label for="inputPassword">Digite o texto desta imagem</label>
-										<br>
-										<span>Aqui vai um CAPTCHA</span>
-									</div>
-								</div>
-								<div class="form-group">
-									<button class="btn btn-lg btn-block btn-submit" 	type="submit">Solicitar alteração de senha</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-				<br>
+			<div class="col-sm-12">
+				<h2>Esqueci minha senha</h2>
+				<h5>
+					Calma, podemos ajudar! Informe o seu e-mail que a gente envia um link de alteração.
+				</h5>
 			</div>
 		</div>
 	</div>
-</section>
+	<section role="main" class="section-gray">
+		<div class="container">
+			<div class="row">
+	      <div ng-if="pageSignin.successRecoverMessage">
+					<div class="col-sm-8 col-sm-offset-2">
+		        <div class="feedback-message">
+		          <show-message
+		          type="'success'"
+		          title="pageSignin.successRecoverMessageTitle || 'Pronto!'"
+		          message="pageSignin.successRecoverMessage"
+		          ></show-message>
+		        </div>
+		      </div>
+	      </div>
+				<div ng-if="!pageSignin.currentUser">
+					<br>
+					<div class="col-sm-8 col-sm-offset-2">
+		        <div class="row" ng-if="pageSignin.errorRecoverMessage">
+		          <div class="col-sm-12">
+		            <div class="alert alert-danger">{{pageSignin.errorRecoverMessage}}</div>
+		            <div ng-if="vm.internalError">
+		              <p>Este erro parece ser um problema interno.<br/>Por favor, tente novamente mais tarde.</p>
+		              <p>Caso o problema persista, entre em contato!</p>
+		              <p><a ui-sref="duvidas">Ir para página de contato</a></p>
+		            </div>
+		          </div>
+		        </div>
+						<div class="row">
+							<div class="col-md-12">
+								<form name="recoverPassForm" ng-submit="pageSignin.submitRecover(pageSignin.credentials)">
+									<div class="form-group">
+										<label for="inputUsername">E-mail*</label>
+										<input type="email" id="inputUsername" name="inputUsername" class="form-control input-lg" ng-class="{ 'has-error' : recoverPassForm.inputUsername.$invalid && recoverPassForm.inputUsername.$touched }" ng-model="pageSignin.credentials.username" required />
+										<validation-messages field=" recoverPassForm.inputUsername"></validation-messages>
+									</div>
+	                <div class="form-group">
+	                  <div id="serpro_captcha" class="captcha">
+	                  </div>
+	                  <div class="captcha">
+	                    Digite os caracteres acima:
+	                  </div>
+	                  <div class="captcha">
+	                    <input type="text" name="captcha_text" id="captcha_text" aria-label="Escreva os caracteres do captcha aqui" ng-model="pageSignin.signup.captcha_text" ng-minlength="" ng-maxlength="" required>
+	                    <validation-messages field="signupForm.captcha_text"></validation-messages>
+	                  </div>
+	                </div>
+									<div class="form-group">
+										<button class="btn btn-lg btn-submit" type="submit">Solicitar alteração de senha</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<br>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

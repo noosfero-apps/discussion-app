@@ -21,6 +21,16 @@
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
+
+
+
+        @media screen and (max-width: $screen-xs) {
+            // height: 15px;
+
+            // .video {
+            //     height: 290px;
+            // }
+        }
     }
 
     .program-preview--icon {

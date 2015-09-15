@@ -137,19 +137,7 @@
           }
         }
       })
-      .state('termos-de-uso', {
-        url: '/termos-de-uso',
-        ncyBreadcrumb: {label: 'Termos de Uso'},
-        controller: 'ArticlePageController',
-        views: {
-          'main': {
-            templateUrl: 'app/pages/article/article.html',
-            controller: 'ArticlePageController',
-            controllerAs: 'pageArticle'
-          }
-        }
-      })
-     .state('mapa-do-site', {
+      .state('mapa-do-site', {
         url: '/mapa-do-site',
         ncyBreadcrumb: {label: 'Mapa do Site'},
         views: {

@@ -20,23 +20,6 @@
 		<div class="container">
 			<div id="lista-de-propostas" class="row">
 				<div class="col-sm-4 col-md-3">
-					<div class="row visible-xs">
-						<div class="col-xs-12">
-							<div class="input-group input-group-lg input-group-search">
-								<label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
-								<input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pagePropostas.query" placeholder="Buscar propostas" aria-label="Buscar propostas" >
-								<span class="input-group-btn">
-									<button type="button" class="btn btn-default" ng-click="pagePropostas.search()">
-										<span class="icon-circle icon-small color-theme-common-bg">
-											<span class="glyphicon glyphicon-search"></span>
-										</span>
-										<span class="sr-only">Buscar</span>
-									</button>
-								</span>
-							</div>
-							<br/>
-						</div>
-					</div>
 					<div ng-if="pagePropostas.themes">
 						<category-list categories="pagePropostas.themes" selected-category="pagePropostas.selectedTheme" disable-unselect="true"></category-list>
 					</div>
@@ -55,26 +38,10 @@
 					</div>
 				</div>
 				<div class="col-sm-8 col-md-9">
-					<div class="row hidden-xs">
-						<div class="col-xs-12">
-							<div class="input-group input-group-lg input-group-search">
-								<label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
-								<input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pagePropostas.query" placeholder="Buscar propostas" aria-label="Buscar propostas" >
-								<span class="input-group-btn">
-									<button type="button" class="btn btn-default" ng-click="pagePropostas.search()">
-										<span class="icon-circle icon-small color-theme-common-bg">
-											<span class="glyphicon glyphicon-search"></span>
-										</span>
-										<span class="sr-only">Buscar</span>
-									</button>
-								</span>
-							</div>
-						</div>
-					</div>
 					<div class="row">
 						<div class="col-sm-12">
 							<header class="header">
-								<h2>Total de Propostas: "<span>{{pagePropostas.filtredProposals.length}} propostas</span>"</h2>
+								<h2 style="margin-top:0;">Total de Propostas: "<span>{{pagePropostas.filtredProposals.length}} propostas</span>"</h2>
 							</header>
 						</div>
 					</div>

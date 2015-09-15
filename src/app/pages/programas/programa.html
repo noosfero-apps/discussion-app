@@ -121,6 +121,14 @@
         </div>
         <div class="proposal-extended-section-content">
           <proposal-list proposals="pagePrograma.proposalsTopFive"></proposal-list>
+          <div class="row">
+            <div class="col-xs-12">
+              <a ui-sref="ranking({tema: pagePrograma.category.slug, programa: pagePrograma.article.slug})" class="btn btn-link">
+                <span ng-if="pagePrograma.proposals.length > 1">Veja todas as {{pagePrograma.proposals.length}} propostas</span>
+                <span ng-if="pagePrograma.proposals.length === 1">Ir para a página de ranking</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>

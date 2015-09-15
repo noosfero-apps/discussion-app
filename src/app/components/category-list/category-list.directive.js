@@ -30,13 +30,18 @@
       if(!vm.isCollapsed){
         vm.isCollapsed = false;
       }
-
-      if(angular.isUndefined(vm.canUnselect) || vm.canUnselect === null){
-        vm.canUnselect = true;
-      } else {
-        vm.canUnselect = !(vm.canUnselect == 'false');
-      }
     };
+
+    CategoryListController.prototype._canUnselect = function() {
+      var vm = this;
+
+      if(vm.canUnselect && vm.canUnselect === 'false'){
+        return false;
+      }
+
+      return true;
+    };
+
 
     CategoryListController.prototype.selectCategory = function(category, $event) {
       var vm = this;
@@ -44,13 +49,16 @@
       // prevent glitch
       $event.stopPropagation();
 
-      if(!category && !vm.canUnselect){
-        vm.$log.info('Unselect is disabled.');
-        return;
-      }
-
       if (category !== vm.selectedCategory) {
         vm.selectedCategory = category;
+      }else{
+
+        if(!vm._canUnselect()){
+          vm.$log.info('Unselect is disabled.');
+          return;
+        }
+
+        vm.selectedCategory = null;
       }
 
       // send event to all controllers

@@ -6,7 +6,7 @@
     .controller('ProgramaPageController', ProgramaPageController);
 
   /** @ngInject */
-  function ProgramaPageController(DialogaService, PATH, VOTE_OPTIONS, PROPOSAL_STATUS, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
+  function ProgramaPageController(DialogaService, PATH, VOTE_OPTIONS, PROPOSAL_STATUS, $state, $location, $scope, $rootScope, $element, $timeout, $sce, $log) {
     var vm = this;
 
     vm.DialogaService = DialogaService;
@@ -19,6 +19,7 @@
     vm.$rootScope = $rootScope;
     vm.$element = $element;
     vm.$timeout = $timeout;
+    vm.$sce = $sce;
     vm.$log = $log;
 
     vm.init();
@@ -74,6 +75,10 @@
           src: vm.PATH.image + vm.article.image.url,
           alt: 'Imagem de destaque do conteúdo'
         };
+      }
+
+      if(vm.article.body && !vm.article.bodyTrusted){
+        vm.article.bodyTrusted = vm.$sce.trustAsHtml(vm.article.body);
       }
 
       vm.loadingTopProposals = true;

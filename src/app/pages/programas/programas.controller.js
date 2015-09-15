@@ -161,7 +161,7 @@
     var vm = this;
 
     if(!vm.programs){
-      vm.$log.warn('No programs loaded yet. Abort.');
+      vm.$log.info('No programs loaded yet. Abort.');
       return null;
     }
 

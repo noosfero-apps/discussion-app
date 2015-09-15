@@ -133,7 +133,7 @@
     var vm = this;
 
     if(!vm.proposals){
-      vm.$log.warn('No proposals loaded yet. Abort.');
+      vm.$log.info('No proposals loaded yet. Abort.');
       return null;
     }
 

@@ -145,7 +145,7 @@
           $rootScope.scrollTo(angular.element(mainContentArea), $event);
         }, 90); // force queue
       } else {
-        $log.warn('role="main" not found.');
+        $log.info('role="main" not found.');
       }
     };
 

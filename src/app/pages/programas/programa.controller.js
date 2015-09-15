@@ -270,10 +270,4 @@
 
     vm.proposalStatus = null;
   };
-
-  // ProgramaPageController.prototype.sendProposal = function() {
-  //   var vm = this;
-
-  //   vm.$log.warn('Not implemented yet: "sendProposal"');
-  // };
 })();

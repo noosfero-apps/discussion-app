@@ -24,23 +24,19 @@
     }
 
     TopicsSelectController.prototype.init = function() {
-      var vm = this;
-
-      // vm.topics = null;
-      // vm.selectedTopic = null;
-      vm.topicFilter = vm.selectedTopic;
+      // var vm = this;
     };
 
     TopicsSelectController.prototype.selectTopic = function() {
       var vm = this;
 
-      if (vm.topicFilter === null) {
+      if (vm.selectedTopic === null) {
         vm.$log.debug('Default topic selected.');
         return;
       }
 
       // send event to all controllers
-      vm.$rootScope.$broadcast('change-selectedTopic', vm.topicFilter);
+      vm.$rootScope.$broadcast('change-selectedTopic', vm.selectedTopic);
     };
 
     var directive = {

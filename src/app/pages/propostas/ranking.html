@@ -23,7 +23,7 @@
 					<div ng-if="pagePropostas.themes">
 						<category-list categories="pagePropostas.themes" selected-category="pagePropostas.selectedTheme" disable-unselect="true"></category-list>
 					</div>
-					<div ng-if="pagePropostas.filtredPrograms" class="topics-select--wrapper">
+					<div ng-if="pagePropostas.filtredPrograms && pagePropostas.selectedProgram" class="topics-select--wrapper">
 						<topics-select topics="pagePropostas.filtredPrograms" selected-topic="pagePropostas.selectedProgram"></topics-select>
 					</div>
 					<div ng-if="!pagePropostas.themes && pagePropostas.loadingThemes">

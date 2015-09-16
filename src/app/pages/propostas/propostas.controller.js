@@ -100,7 +100,6 @@
     var vm = this;
 
     vm.DialogaService.getProgramsByThemeId(themeId, function (programs){
-      vm.$log.debug('programs', programs);
 
       vm.filtredPrograms = programs;
 
@@ -164,12 +163,16 @@
     vm.$scope.$watch('pagePropostas.selectedTheme', function(newValue, oldValue) {
       vm.search.tema = newValue ? newValue.slug : null;
       vm.$location.search('tema', vm.search.tema);
-      vm.filtredProposals = vm.getFiltredProposals();
+
+      if(vm.selectedTheme && vm.selectedTheme.id){
+        vm.loadPrograms(vm.selectedTheme.id, function(){
+          vm.filtredProposals = vm.getFiltredProposals();
+        });
+      }
     });
 
     vm.$scope.$on('change-selectedTopic', function (event, selectedTopic) {
       vm.selectedProgram = selectedTopic;
-      vm.$log.debug('change-selectedTopic', selectedTopic);
     });
 
     vm.$scope.$watch('pagePropostas.selectedProgram', function(newValue, oldValue) {
@@ -184,23 +187,6 @@
       vm.filtredProposals = vm.getFiltredProposals();
     });
   };
-
-  // PropostasPageController.prototype.filter = function() {
-  //   var vm = this;
-
-  //   if (vm.search && vm.search.tema) {
-  //     var slug = vm.search.tema;
-  //     vm.$log.debug('filter by theme', slug);
-
-  //     vm.DialogaService.getThemeBySlug(slug, function(theme){
-  //       vm.selectedTheme = theme;
-  //       vm.$log.debug('getThemeBySlug.slug', slug);
-  //       vm.$log.debug('getThemeBySlug.selectedTheme', theme);
-  //     }, function(error){
-  //       vm.$log.error('Error when try to "getThemeBySlug"', error);
-  //     });
-  //   }
-  // };
 
   PropostasPageController.prototype.showAllPrograms = function($event) {
     var vm = this;

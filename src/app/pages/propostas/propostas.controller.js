@@ -1,8 +1,3 @@
-/**
- * Controlador das páginas:
- * - Propostas
- * - Ranking
- */
 (function() {
   'use strict';
 
@@ -50,10 +45,7 @@
 
     // Behaviour:
     // 1. Load themes
-    // 2. Select a Random Theme (T)
-    // 3. Load programs of T
-    // 4. Select a random program of T
-    // 5. Filter the list of proposals
+    // 1. Load Proposals per_page
     // END.
 
     // 1. Load themes
@@ -63,30 +55,8 @@
       vm.loadingThemes = false;
       vm.loading = false;
 
-      // 2. Select a Random Theme (T)
-      var selectedTheme = null;
-      if(vm.search.tema){
-
-        // vanilla filter
-        var results = vm.themes.filter(function(t){
-          return t.slug === vm.search.tema;
-        });
-
-        if(results && results.length > 0){
-          selectedTheme = results[0];
-          vm.selectedTheme = selectedTheme;
-        }
-      }
-
-      if(!selectedTheme){
-        vm.selectedTheme = vm.themes[Math.floor(Math.random() * vm.themes.length)];
-      }
-
-      // 3. Load programs of T
-      // (AND 4)
-      var themeId = vm.selectedTheme.id;
-      vm.loadPrograms(themeId, function(){
-        vm.loadProposals();
+      vm.loadProposals(function (){
+        vm.attachListeners();
       });
     }, function (error) {
       vm.error = error;
@@ -96,44 +66,7 @@
     });
   };
 
-  PropostasPageController.prototype.loadPrograms = function (themeId, cb) {
-    var vm = this;
-
-    vm.DialogaService.getProgramsByThemeId(themeId, function (programs){
-
-      vm.filtredPrograms = programs;
-
-      // 4. Select a random program of T
-      var selectedProgram = null;
-      if(vm.search.programa){
-
-        // vanilla filter
-        var results = vm.filtredPrograms.filter(function(p){
-          return p.slug === vm.search.programa;
-        });
-
-        if(results && results.length > 0){
-          selectedProgram = results[0];
-          vm.selectedProgram = selectedProgram;
-        }
-      }
-
-      if(!selectedProgram){
-        vm.selectedProgram = vm.filtredPrograms[Math.floor(Math.random() * vm.filtredPrograms.length)];
-      }
-
-      if(cb){
-        cb();
-      }
-    }, function(error){
-      vm.$log.error(error);
-      if(cb){
-        cb();
-      }
-    });
-  };
-
-  PropostasPageController.prototype.loadProposals = function () {
+  PropostasPageController.prototype.loadProposals = function (cb) {
     var vm = this;
 
     // load Proposals
@@ -144,7 +77,9 @@
       vm.loadingProposals = false;
       vm.loading = false;
 
-      vm.attachListeners();
+      if(cb){
+        cb();
+      }
     }, function (error) {
       vm.error = error;
       vm.$log.error(error);
@@ -163,12 +98,7 @@
     vm.$scope.$watch('pagePropostas.selectedTheme', function(newValue, oldValue) {
       vm.search.tema = newValue ? newValue.slug : null;
       vm.$location.search('tema', vm.search.tema);
-
-      if(vm.selectedTheme && vm.selectedTheme.id){
-        vm.loadPrograms(vm.selectedTheme.id, function(){
-          vm.filtredProposals = vm.getFiltredProposals();
-        });
-      }
+      vm.filtredProposals = vm.getFiltredProposals();
     });
 
     vm.$scope.$on('change-selectedTopic', function (event, selectedTopic) {
@@ -186,17 +116,6 @@
       vm.$location.search('filtro', vm.search.filtro);
       vm.filtredProposals = vm.getFiltredProposals();
     });
-  };
-
-  PropostasPageController.prototype.showAllPrograms = function($event) {
-    var vm = this;
-    $event.stopPropagation();
-
-    vm.resetFilterValues();
-
-    vm._showAllFlag = true;
-
-    vm.filtredPrograms = vm.getFiltredPrograms();
   };
 
   PropostasPageController.prototype.resetFilterValues = function() {

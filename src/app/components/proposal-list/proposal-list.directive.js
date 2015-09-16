@@ -44,16 +44,13 @@
       var vm = this;
 
       vm.currentPageIndex = 0;
-
       vm.proposalsPerPage = vm.getProposalsPerPage(0);
-
-      vm.proposalsLength = vm.proposals.length;
-
+      vm.proposalsLength = vm.total || vm.proposals.length;
 
       if ((vm.proposalsLength % vm.perPage) === 0) {
-        vm.pages =  vm.proposalsLength / vm.perPage;
+        vm.pages = vm.proposalsLength / vm.perPage;
       } else{
-        vm.pages =  (vm.proposalsLength / vm.perPage) + 1;
+        vm.pages = (vm.proposalsLength / vm.perPage) + 1;
       }
 
       // vm.arraypages = new Array(Math.ceil(vm.pages));
@@ -98,7 +95,11 @@
         pageIndex = vm.arraypages.length-1;
       }
 
-      vm.proposalsPerPage = vm.getProposalsPerPage(pageIndex);
+      if(vm.changePage){
+        vm.changePage({pageIndex: (pageIndex + 1 )});
+      }else{
+        vm.proposalsPerPage = vm.getProposalsPerPage(pageIndex);
+      }
       vm.currentPageIndex = pageIndex;
     };
 
@@ -132,7 +133,10 @@
       templateUrl: 'app/components/proposal-list/proposal-list.html',
       scope: {
         proposals: '=',
-        perPage: '='
+        page: '=',
+        perPage: '=',
+        total: '=',
+        changePage: '&'
       },
       controller: ProposalListController,
       controllerAs: 'vm',

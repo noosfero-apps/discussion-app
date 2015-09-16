@@ -16,22 +16,22 @@
 			</div>
 		</div>
 	</section>
-	<section class="section--articles section-gray section-space-up" ng-if="pagePropostas.proposals">
+	<section class="section--articles section-gray section-space-up" ng-if="pageRanking.proposals">
 		<div class="container">
 			<div id="lista-de-propostas" class="row">
 				<div class="col-sm-4 col-md-3">
-					<div ng-if="pagePropostas.themes">
-						<category-list categories="pagePropostas.themes" selected-category="pagePropostas.selectedTheme" disable-unselect="true"></category-list>
+					<div ng-if="pageRanking.themes">
+						<category-list categories="pageRanking.themes" selected-category="pageRanking.selectedTheme" disable-unselect="true"></category-list>
 					</div>
-					<div ng-if="pagePropostas.filtredPrograms && pagePropostas.selectedProgram" class="topics-select--wrapper">
-						<topics-select topics="pagePropostas.filtredPrograms" selected-topic="pagePropostas.selectedProgram"></topics-select>
+					<div ng-if="pageRanking.filtredPrograms && pageRanking.selectedProgram" class="topics-select--wrapper">
+						<topics-select topics="pageRanking.filtredPrograms" selected-topic="pageRanking.selectedProgram"></topics-select>
 					</div>
-					<div ng-if="!pagePropostas.themes && pagePropostas.loadingThemes">
+					<div ng-if="!pageRanking.themes && pageRanking.loadingThemes">
 						<div class="alert alert-info" role="alert">
 							Carregando temas.
 						</div>
 					</div>
-					<div ng-if="!pagePropostas.themes && pagePropostas.themesError">
+					<div ng-if="!pageRanking.themes && pageRanking.themesError">
 						<div class="alert alert-danger" role="alert">
 							Não foi possível carregar a lista de temas neste momento.
 						</div>
@@ -41,21 +41,21 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<header class="header">
-								<h2 style="margin-top:0;">Total de Propostas: "<span>{{pagePropostas.filtredProposals.length}} propostas</span>"</h2>
+								<h2 style="margin-top:0;">Total de Propostas: "<span>{{pageRanking.total_proposals}} propostas</span>"</h2>
 							</header>
 						</div>
 					</div>
 
 					<div class="row">
-						<div class="col-sm-12" ng-if="pagePropostas.proposals">
-							<proposal-list proposals="pagePropostas.filtredProposals" per-page="10"></proposal-list>
+						<div class="col-sm-12" ng-if="pageRanking.proposals">
+							<proposal-list proposals="pageRanking.filtredProposals" per-page="pageRanking.per_page" total="pageRanking.total_proposals" change-page="pageRanking.changePage(pageIndex)"></proposal-list>
 						</div>
-						<div ng-if="!pagePropostas.proposals && pagePropostas.loadingProposals">
+						<div class="col-sm-12" ng-if="pageRanking.loadingProposals">
 							<div class="alert alert-info" role="alert">
 								Carregando propostas.
 							</div>
 						</div>
-						<div ng-if="!pagePropostas.proposals && pagePropostas.proposalsError">
+						<div class="col-sm-12" ng-if="pageRanking.proposalsError">
 							<div class="alert alert-danger" role="alert">
 								Não foi possível carregar a lista de propostas neste momento.
 							</div>

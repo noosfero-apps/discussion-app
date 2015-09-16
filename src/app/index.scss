@@ -23,8 +23,42 @@ $defaultblue: #5E749D;
 // -------------
 
 //   1.4 - dicionarios
-$categories: (saude: #3449b7, seguranca-publica: #e34748, educacao: #f39720, reducao-da-pobreza: #3ebb8f, cultura: #a63738);
-$categories-descriptions: (saude: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.", seguranca-publica: "A segurança pública é um direito fundamental dos cidadãos. A proteção da vida, a disseminação da cultura da paz e a integração dos órgãos e instituições municipais, estaduais e federais são os maiores compromissos dessa política pública.", educacao: "Uma pátria educadora se faz com oportunidades para todos. Nos últimos anos, o Brasil criou esse caminho de oportunidades. Ampliamos o acesso à educação em todos os níveis de ensino – da creche à pós-graduação – e para todos os brasileiros, independentemente de sua classe social. E ainda há muito a fazer. O Plano Nacional de Educação (PNE) estabelece novas metas para que o governo federal trabalhe em parceria com a sociedade, com os estados e os municípios na construção de um futuro melhor. Queremos agora um salto na qualidade do ensino.", reducao-da-pobreza: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, 36 milhões de pessoas superaram a miséria na última década e o país saiu do Mapa da Fome das Nações Unidas.", cultura: "O que nos singulariza no conjunto das nações é, em última instância, nossa cultura. É por ela que nos identificamos como brasileiros de norte a sul deste país. Uma grande nação precisa ter um desenvolvimento cultural à altura de sua grandeza, contemplando as dimensões simbólica, econômica e cidadã da cultura, que são parte central do projeto de um país democrático e plural. A pluralidade é nossa singularidade.");
+$categories: (
+    saude: #3359a7,
+    seguranca-publica: #e95052,
+    educacao: #cc6cd9,
+    reducao-da-pobreza: #38c7a4,
+    cultura: #a63738,
+    esporte: #f15b31,
+    meio-ambiente: #111
+);
+
+$categories-complementary-1: (
+    saude: #4f8add,
+    seguranca-publica: #fb7c7f,
+    educacao: #ee9cff,
+    reducao-da-pobreza: #57e9cd,
+    cultura: #dc5557,
+    esporte: #fd8d4c,
+    meio-ambiente: #222
+);
+
+$categories-complementary-2: (
+    saude: #2a4781,
+    seguranca-publica: #c43e3e,
+    educacao: #93549e,
+    reducao-da-pobreza: #2a9677,
+    cultura: #862f2f,
+    esporte: #ce472c,
+    meio-ambiente: #000
+);
+
+// $categories-descriptions: (
+//     saude: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.",
+//     seguranca-publica: "A segurança pública é um direito fundamental dos cidadãos. A proteção da vida, a disseminação da cultura da paz e a integração dos órgãos e instituições municipais, estaduais e federais são os maiores compromissos dessa política pública.",
+//     educacao: "Uma pátria educadora se faz com oportunidades para todos. Nos últimos anos, o Brasil criou esse caminho de oportunidades. Ampliamos o acesso à educação em todos os níveis de ensino – da creche à pós-graduação – e para todos os brasileiros, independentemente de sua classe social. E ainda há muito a fazer. O Plano Nacional de Educação (PNE) estabelece novas metas para que o governo federal trabalhe em parceria com a sociedade, com os estados e os municípios na construção de um futuro melhor. Queremos agora um salto na qualidade do ensino.",
+//     reducao-da-pobreza: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, 36 milhões de pessoas superaram a miséria na última década e o país saiu do Mapa da Fome das Nações Unidas.",
+//     cultura: "O que nos singulariza no conjunto das nações é, em última instância, nossa cultura. É por ela que nos identificamos como brasileiros de norte a sul deste país. Uma grande nação precisa ter um desenvolvimento cultural à altura de sua grandeza, contemplando as dimensões simbólica, econômica e cidadã da cultura, que são parte central do projeto de um país democrático e plural. A pluralidade é nossa singularidade.");
 
 // Programs
 $scale: 1.1;
@@ -95,7 +129,7 @@ body {
         @each $category, $color in $categories {
             .#{$category} & {
                 background-color: $color;
-                border-bottom: 3px solid darken($color, $darken);
+                border-bottom: 3px solid map-get($categories-complementary-2, $category);
             }
         }
 
@@ -103,7 +137,7 @@ body {
         &:focus {
             @each $category, $color in $categories {
                 .#{$category} & {
-                    background-color: darken($color, $darken);
+                    background-color: map-get($categories-complementary-2, $category);
                 }
             }
         }
@@ -238,8 +272,8 @@ body {
     .#{$category} {
         .color-theme-fg { color: $color; }
         .color-theme-bg { background-color: $color;}
-        .color-theme-bg-complementar-1 { background-color: lighten($color, 10%);}
-        .color-theme-bg-complementar-2 { background-color: darken($color, 10%);}
+        .color-theme-bg-complementar-1 { background-color: map-get($categories-complementary-1, $category);}
+        .color-theme-bg-complementar-2 { background-color: map-get($categories-complementary-2, $category);}
 
         .contraste & .color-theme-fg { color: #fff; }
         .contraste & .color-theme-bg { background-color: #000;}

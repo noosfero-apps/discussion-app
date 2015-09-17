@@ -160,6 +160,10 @@
     vm.article.videoIsLoaded = true;
   };
 
+  InicioPageController.prototype.submitSearch = function() {
+    vm.$log.warn('No implemented yet.');
+  };
+
   InicioPageController.prototype.filter = function() {
     var vm = this;
 

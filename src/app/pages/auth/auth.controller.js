@@ -6,7 +6,7 @@
     .controller('AuthPageController', AuthPageController);
 
   /** @ngInject */
-  function AuthPageController($scope, $rootScope, $window, $location, $state, $timeout, $interval, AUTH_EVENTS, AuthService, DialogaService, Session, $log) {
+  function AuthPageController($scope, $rootScope, $window, $location, $state, $timeout, $interval, APP, AUTH_EVENTS, AuthService, DialogaService, Session, $log) {
     var vm = this;
 
     vm.$scope = $scope;
@@ -16,6 +16,7 @@
     vm.$state = $state;
     vm.$timeout = $timeout;
     vm.$interval = $interval;
+    vm.APP = APP;
     vm.AUTH_EVENTS = AUTH_EVENTS;
     vm.AuthService = AuthService;
     vm.DialogaService = DialogaService;
@@ -216,14 +217,15 @@
 
   AuthPageController.prototype.authWithFacebook = function() {
     var vm = this;
-    var url = 'http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1';
+    // var url = 'http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1';
+    var url = 'http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=' + vm.APP.facebook_app_id;
     vm.$window.oauthClientAction(url);
   };
 
   AuthPageController.prototype.authWithGooglePlus = function() {
     var vm = this;
 
-    var url = 'http://login.dialoga.gov.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=4';
+    var url = 'http://login.dialoga.gov.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=' + vm.APP.goople_app_id;
     vm.$window.oauthClientAction(url);
   };
 })();

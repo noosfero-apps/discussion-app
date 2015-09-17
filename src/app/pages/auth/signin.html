@@ -21,14 +21,14 @@
               <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-8 text-center-sm">
-                  <!-- <div ng-if="pageSignin.redirect > 0">
-                  </div> -->
                   <div ng-if="pageSignin.countdown > 0">
                     <p>
                       Você será redirecionado em menos de <b>{{pageSignin.countdown}} segundos</b>...
                     </p>
                   </div>
-                  <button type="button" ng-click="pageSignin.onClickLogout()" class="btn btn-primary">Sair</button>
+                  <div ng-if="!pageSignin.hasRedirect">
+                    <a ui-sref="inicio" class="btn btn-primary">Ir para a Página Inicial</a>
+                  </div>
                 </div>
               </div>
             </div>

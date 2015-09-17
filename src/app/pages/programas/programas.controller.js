@@ -173,7 +173,7 @@
     var filter = vm.$filter('filter');
 
     if (selectedTheme) {
-      output = _filterByCategory(output, selectedTheme);
+      output = vm._filterByCategory(output, selectedTheme);
     }
 
     if (query) {
@@ -181,13 +181,15 @@
     }
 
     if(!query && !selectedTheme && vm._showAllFlag){
-      output = _balanceByCategory(output);
+      output = vm._balanceByCategory(output);
     }
 
     return output;
   };
 
-  function _filterByCategory (input, category) {
+  ProgramasPageController.prototype._filterByCategory = function (input, category) {
+    var vm = this;
+
     input = input || [];
 
     if (!category) {
@@ -198,6 +200,12 @@
     var out = [];
     for (var i = 0; i < input.length; i++) {
       var program = input[i];
+
+      if(!program.categories || program.categories.length === 0){
+        vm.$log.warn('Program without theme (category)', program.slug);
+        continue;
+      }
+
       if (program.categories[0].slug === category.slug) {
         out.push(program);
       }
@@ -206,13 +214,21 @@
     return out;
   }
 
-  function _balanceByCategory (input) {
+  ProgramasPageController.prototype._balanceByCategory = function (input) {
+    var vm = this;
+
     var result = [];
     var resultByCategory = {};
 
     // divide by categories
     for (var i = 0; i < input.length; i++) {
       var program = input[i];
+
+      if(!program.categories || program.categories.length === 0){
+        vm.$log.warn('Program without theme (category)', program.slug);
+        continue;
+      }
+
       var categorySlug = program.categories[0].slug;
 
       if (!resultByCategory[categorySlug]) {

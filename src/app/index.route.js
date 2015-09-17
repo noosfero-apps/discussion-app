@@ -33,7 +33,7 @@
       })
       .state('recuperar', {
         url: '/recuperar',
-        ncyBreadcrumb: {label: 'Recuperar'},
+        ncyBreadcrumb: {label: 'Recuperar senha'},
         views: {
           'main': {
             templateUrl: 'app/pages/auth/recover.html',
@@ -106,12 +106,12 @@
       .state('ranking', {
         url: '/ranking?tema&programa&filtro',
         reloadOnSearch: false,
-        ncyBreadcrumb: {label: 'Propostas'},
+        ncyBreadcrumb: {label: 'Ranking'},
         views: {
           'main': {
-            templateUrl: 'app/pages/propostas/ranking.html',
-            controller: 'PropostasPageController',
-            controllerAs: 'pagePropostas'
+            templateUrl: 'app/pages/ranking/ranking.html',
+            controller: 'RankingPageController',
+            controllerAs: 'pageRanking'
           }
         }
       })

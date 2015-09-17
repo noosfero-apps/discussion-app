@@ -160,7 +160,7 @@
         var result = CACHE.programs.filter(function filterProgramBySlug (program) {
           var category = program.categories[0];
 
-          if(angular.equals(category.id, themeId)) {
+          if(category && angular.equals(category.id, themeId)) {
             return true;
           }
           return false;
@@ -226,8 +226,8 @@
       ArticleService.searchTopics({query: query}, cbSuccess, cbError);
     }
 
-    function searchProposals (query, cbSuccess, cbError) {
-      ArticleService.searchProposals({query: query}, cbSuccess, cbError);
+    function searchProposals (params, cbSuccess, cbError) {
+      ArticleService.searchProposals(params, cbSuccess, cbError);
     }
 
     function _pipeHandleYoutube (data) {

@@ -6,7 +6,7 @@
     .controller('AuthPageController', AuthPageController);
 
   /** @ngInject */
-  function AuthPageController($scope, $rootScope, $window, $location, $state, $timeout, $interval, AUTH_EVENTS, AuthService, DialogaService, Session, $log) {
+  function AuthPageController($scope, $rootScope, $window, $location, $state, $timeout, $interval, APP, AUTH_EVENTS, AuthService, DialogaService, Session, $log) {
     var vm = this;
 
     vm.$scope = $scope;
@@ -16,6 +16,7 @@
     vm.$state = $state;
     vm.$timeout = $timeout;
     vm.$interval = $interval;
+    vm.APP = APP;
     vm.AUTH_EVENTS = AUTH_EVENTS;
     vm.AuthService = AuthService;
     vm.DialogaService = DialogaService;
@@ -172,6 +173,41 @@
     });
   };
 
+  AuthPageController.prototype.submitRecover = function($event, recoverForm) {
+    var vm = this;
+
+    // get form data
+    var data = {
+      login: recoverForm.login.$modelValue,
+      captcha_text: recoverForm.captcha_text.$modelValue
+    };
+
+    // get captcha token
+    var target = $event.target;
+    var $target = angular.element(target);
+    var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
+    data.txtToken_captcha_serpro_gov_br = $captcha.val();
+
+    vm.AuthService.forgotPassword(data).then(function(response) {
+      vm.$log.debug('recover success.response', response);
+
+      vm.successRecoverMessageTitle = 'Pedido enviado sucesso!';
+      vm.successRecoverMessage = 'Verifique seu e-mail. Em instantes você receberá um e-mail com um link para redefinir sua senha.';
+      // vm.redirectBack();
+    }, function(response){
+      vm.$log.debug('recover error.response', response);
+
+      var message = response.data.message;
+      vm.errorRecoverMessage = message;
+
+      if(response.data.code === 500){
+        vm.internalError = true;
+      }
+    }).catch(function(error){
+      vm.$log.debug('recover catch.error', error);
+    });
+  };
+
   AuthPageController.prototype.redirectBack = function() {
     var vm = this;
 
@@ -216,14 +252,15 @@
 
   AuthPageController.prototype.authWithFacebook = function() {
     var vm = this;
-    var url = 'http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1';
+    // var url = 'http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1';
+    var url = 'http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=' + vm.APP.facebook_app_id;
     vm.$window.oauthClientAction(url);
   };
 
   AuthPageController.prototype.authWithGooglePlus = function() {
     var vm = this;
 
-    var url = 'http://login.dialoga.gov.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=4';
+    var url = 'http://login.dialoga.gov.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=' + vm.APP.goople_app_id;
     vm.$window.oauthClientAction(url);
   };
 })();

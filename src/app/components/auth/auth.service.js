@@ -102,10 +102,13 @@
         });
     }
 
-    function forgotPassword (form){
-      var url = '/api/v1/forgot_password';
-      var data = form.serialize();
-      var encodedData = data;
+    function forgotPassword (data){
+      var url = 'http://hom.login.dialoga.gov.br/api/v1/forgot_password';
+      var encodedData = ([
+        'value=' + data.login,
+        'captcha_text=' + data.captcha_text,
+        'txtToken_captcha_serpro_gov_br=' + data.txtToken_captcha_serpro_gov_br
+        ]).join('&');
 
       return $http
         .post(url, encodedData)
@@ -114,11 +117,14 @@
 
           // 'Verifique seu email para efetuar a troca da senha.'
           $rootScope.$broadcast(AUTH_EVENTS.forgotPasswordSuccess, response);
+
           return response;
         }, function(response) {
           // 'Não foi possível requisitar a troca de senha para os dados informados.'
           $log.debug('AuthService.forgotPassword [FAIL] response', response);
           $rootScope.$broadcast(AUTH_EVENTS.forgotPasswordFailed);
+
+          return response;
         });
     }
 

@@ -142,11 +142,11 @@
     var filter = vm.$filter('filter');
 
     if (selectedTheme) {
-      output = _filterByCategory(output, selectedTheme);
+      output = vm._filterByCategory(output, selectedTheme);
     }
 
     if (selectedProgram) {
-      output = _filterByProgram(output, selectedProgram);
+      output = vm._filterByProgram(output, selectedProgram);
     }
 
     if (query) {
@@ -160,7 +160,9 @@
     return output;
   };
 
-  function _filterByCategory (input, category) {
+  PropostasPageController.prototype._filterByCategory = function (input, category) {
+    var vm = this;
+
     input = input || [];
 
     if (!category) {
@@ -179,7 +181,9 @@
     return out;
   }
 
-  function _filterByProgram (input, program) {
+  PropostasPageController.prototype._filterByProgram = function (input, program) {
+    var vm = this;
+
     input = input || [];
 
     if (!program) {

@@ -192,40 +192,72 @@
   border-radius: 100%;
 }
 
-.destaque-cinza {
-  background-color: #F1F1F1;
-  padding: 30px;
+ul.list-color {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.destaque-biodiversidade {
-  background-color: #3CC667;
-  padding: 30px;
-  color: white;
-}
+ul.list-color li:before {
 
-.destaque-biodiversidade-nobg {
-  color: gray;
-}
-
-.destaque-cultura-viva {
-  background-color: #F8F8F8;
-  padding: 0px;
-  padding-left: 30px;
-}
-
-.left-border-gray {
-  border-left: 3px solid #eeeeee;
-  margin-bottom: 10px;
-
-  @media (max-width: 768px) {
-    border: none;
+  @each $category, $color in $categories {
+    .#{$category} & {
+      color: $color;
+    }
   }
 }
 
-.right-border-gray {
-  border-right: 3px solid #eeeeee;
-  margin-bottom: 10px;
+ul.list-color li:before {
+  content: "• ";
+  font-weight: bold;
+  font-size: 20px;
+  position: relative;
+  top: 2px;
+}
 
+ul.list-color li {
+  padding-left: 2em;
+  padding-bottom: 10px;
+  text-indent: -0.7em;
+}
+
+.destaque-bg-cinza {
+  background-color: #F1F1F1;
+}
+
+.destaque-padding {
+  padding: 20px;
+}
+
+.destaque-font {
+  font-size: 130%;
+}
+
+.font-140 {
+  font-size: 140%;
+}
+
+.font-115 {
+  font-size: 115%;
+}
+
+.font-180 {
+  font-size: 180%;
+}
+
+.destaque-bg-lightgray {
+  background-color: #F8F8F8;
+}
+
+.margin-15 {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.left-border-gray {
+  border-left: 4px solid #d1d6d9;
+  margin-bottom: 10px;
+  ul.list-color li:last-child { padding-bottom: 0; }
   @media (max-width: 768px) {
     border: none;
   }
@@ -242,54 +274,8 @@
   padding: 30px;
 }
 
-ul.list-color {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-ul.list-color li:before {
-
-  @each $category, $color in $categories {
-    .#{$category} & {
-      color: $color;
-    }
-  }
-
-}
-
-ul.list-color li:before {
-  content: "• ";
-  font-weight: bold;
-  font-size: 20px;
-  position: relative;
-  top: 2px;
-}
-
-ul.list-color li {
-  padding-left: 2em;
-  padding-bottom: 20px;
-  text-indent: -0.7em;
-}
-
-.right-block {
-  float: right;
-}
-
 a.link-black {
   color: black;
-}
-
-.inline-block {
-  display: inline-block;
-}
-
-.no-margin-bottom {
-  margin-bottom: 0px!important;
-}
-
-.margin-20 {
-  margin: 20px;
 }
 
 article.program-content {
@@ -304,30 +290,37 @@ article.program-content h3 {
   margin-bottom: 15px;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 blockquote {
-  border-left: none;
-  padding-left: 50px;
-  font-size: 20px;
+  border-left: medium none;
+  font-size: 140%;
+  padding: 50px 0 0 50px;
+  position: relative;
 
   &:before {
-    @each $category, $color in $categories {
-      .#{$category} & {
-        color: $color;
-      }
-    }
-    color: #ECAAAB;
     content: "⌜";
     font-size: 200px;
     left: -2px;
     position: absolute;
     top: -50px;
     font-weight: bolder;
+    left: -17px;
+    top: -68px;
+    @each $category, $color in $categories {
+      .#{$category} & {
+        color: $color;
+      }
+    }
   }
+
 }
 
-.destaque-sinesp {
-  font-size:18px;
-}
+// .cultura blockquote::before {
+//   color: #cd999b;
+// }
 
 // Sobreescreve a classe do bootstrap
 .close {
@@ -339,3 +332,20 @@ blockquote {
 // .img-responsive {
 //   width: 100%;
 // }
+
+strong {
+  @each $category, $color in $categories {
+    .#{$category} & {
+      color: $color;
+    }
+  }
+}
+
+.top-border-theme {
+  @each $category, $color in $categories {
+    .#{$category} & {
+      border-color: $color;
+    }
+  }
+  border-top: 20px solid;
+}

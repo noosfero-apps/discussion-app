@@ -9,7 +9,7 @@
 			</div>
 		</div>
 	</div>
-	<section role="main" class="section-gray">
+	<section role="main" class="section-gray vertical-padding">
 		<div class="container">
 			<div class="row">
 	      <div ng-if="pageSignin.successRecoverMessage">
@@ -20,10 +20,15 @@
 		          title="pageSignin.successRecoverMessageTitle || 'Pronto!'"
 		          message="pageSignin.successRecoverMessage"
 		          ></show-message>
+		          <div class="row">
+		          	<div class="col-sm-8 col-sm-offset-4">
+              		<p><a ui-sref="inicio">Ir para página inicial</a></p>
+		          	</div>
+		          </div>
 		        </div>
 		      </div>
 	      </div>
-				<div ng-if="!pageSignin.currentUser">
+				<div ng-if="!pageSignin.successRecoverMessage">
 					<br>
 					<div class="col-sm-8 col-sm-offset-2">
 		        <div class="row" ng-if="pageSignin.errorRecoverMessage">
@@ -38,11 +43,11 @@
 		        </div>
 						<div class="row">
 							<div class="col-md-12">
-								<form name="recoverPassForm" ng-submit="pageSignin.submitRecover(pageSignin.credentials)">
+								<form name="recoverPassForm" ng-submit="pageSignin.submitRecover($event, recoverPassForm)">
 									<div class="form-group">
-										<label for="inputUsername">E-mail*</label>
-										<input type="email" id="inputUsername" name="inputUsername" class="form-control input-lg" ng-class="{ 'has-error' : recoverPassForm.inputUsername.$invalid && recoverPassForm.inputUsername.$touched }" ng-model="pageSignin.credentials.username" required />
-										<validation-messages field=" recoverPassForm.inputUsername"></validation-messages>
+										<label for="recover-login">E-mail*</label>
+										<input type="email" id="recover-login" name="login" class="form-control input-lg" ng-class="{ 'has-error' : recoverPassForm.login.$invalid && recoverPassForm.login.$touched }" ng-model="pageSignin.credentials.username" required />
+										<validation-messages field=" recoverPassForm.login"></validation-messages>
 									</div>
 	                <div class="form-group">
 	                  <div id="serpro_captcha" class="captcha">
@@ -52,7 +57,7 @@
 	                  </div>
 	                  <div class="captcha">
 	                    <input type="text" name="captcha_text" id="captcha_text" aria-label="Escreva os caracteres do captcha aqui" ng-model="pageSignin.signup.captcha_text" ng-minlength="" ng-maxlength="" required>
-	                    <validation-messages field="signupForm.captcha_text"></validation-messages>
+	                    <validation-messages field="recoverPassForm.captcha_text"></validation-messages>
 	                  </div>
 	                </div>
 									<div class="form-group">

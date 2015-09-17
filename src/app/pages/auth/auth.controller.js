@@ -173,11 +173,39 @@
     });
   };
 
-  AuthPageController.prototype.submitRecover = function(recoverForm) {
+  AuthPageController.prototype.submitRecover = function($event, recoverForm) {
     var vm = this;
 
-    vm.$log.debug('submitRecover');
-    vm.$log.debug('recoverForm', recoverForm);
+    // get form data
+    var data = {
+      login: recoverForm.login.$modelValue,
+      captcha_text: recoverForm.captcha_text.$modelValue
+    };
+
+    // get captcha token
+    var target = $event.target;
+    var $target = angular.element(target);
+    var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
+    data.txtToken_captcha_serpro_gov_br = $captcha.val();
+
+    vm.AuthService.forgotPassword(data).then(function(response) {
+      vm.$log.debug('recover success.response', response);
+
+      vm.successRecoverMessageTitle = 'Pedido enviado sucesso!';
+      vm.successRecoverMessage = 'Verifique seu e-mail. Em instantes você receberá um e-mail com um link para redefinir sua senha.';
+      // vm.redirectBack();
+    }, function(response){
+      vm.$log.debug('recover error.response', response);
+
+      var message = response.data.message;
+      vm.errorRecoverMessage = message;
+
+      if(response.data.code === 500){
+        vm.internalError = true;
+      }
+    }).catch(function(error){
+      vm.$log.debug('recover catch.error', error);
+    });
   };
 
   AuthPageController.prototype.redirectBack = function() {

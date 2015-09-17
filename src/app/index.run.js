@@ -81,7 +81,7 @@
   }
 
   /** @ngInject */
-  function runSocialAuth($window, $rootScope, $interval, $log) {
+  function runSocialAuth($window, $rootScope, $interval) {
 
     $window.oauthClientAction = function(url) {
       var child = $window.open(url, '_blank');
@@ -103,7 +103,7 @@
     };
 
     $window.addEventListener('message', function(eventMessage) {
-      $log.debug('eventMessage', eventMessage);
+      // $log.debug('eventMessage', eventMessage);
 
       if (eventMessage.data.message === 'oauthClientPluginResult') {
         $rootScope.$broadcast('oauthClientPluginResult', eventMessage);

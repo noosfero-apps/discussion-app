@@ -29,21 +29,21 @@
     table-layout: fixed;
     height: 100%;
     width: 100%;
-}
-.col-xs-height {
+  }
+  .col-xs-height {
     display: table-cell;
     float: none;
     height: 100%;
-}
-.col-xs-top {
+  }
+  .col-xs-top {
     vertical-align: top;
-}
-.col-xs-middle {
+  }
+  .col-xs-middle {
     vertical-align: middle;
-}
-.col-xs-bottom {
+  }
+  .col-xs-bottom {
     vertical-align: bottom;
-}
+  }
 }
 
 @media (min-width: 768px) {
@@ -52,21 +52,21 @@
     table-layout: fixed;
     height: 100%;
     width: 100%;
-}
-.col-sm-height {
+  }
+  .col-sm-height {
     display: table-cell;
     float: none;
     height: 100%;
-}
-.col-sm-top {
+  }
+  .col-sm-top {
     vertical-align: top;
-}
-.col-sm-middle {
+  }
+  .col-sm-middle {
     vertical-align: middle;
-}
-.col-sm-bottom {
+  }
+  .col-sm-bottom {
     vertical-align: bottom;
-}
+  }
 }
 
 @media (min-width: 992px) {
@@ -75,21 +75,21 @@
     table-layout: fixed;
     height: 100%;
     width: 100%;
-}
-.col-md-height {
+  }
+  .col-md-height {
     display: table-cell;
     float: none;
     height: 100%;
-}
-.col-md-top {
+  }
+  .col-md-top {
     vertical-align: top;
-}
-.col-md-middle {
+  }
+  .col-md-middle {
     vertical-align: middle;
-}
-.col-md-bottom {
+  }
+  .col-md-bottom {
     vertical-align: bottom;
-}
+  }
 }
 
 @media (min-width: 1200px) {
@@ -98,29 +98,29 @@
     table-layout: fixed;
     height: 100%;
     width: 100%;
-}
-.col-lg-height {
+  }
+  .col-lg-height {
     display: table-cell;
     float: none;
     height: 100%;
-}
-.col-lg-top {
+  }
+  .col-lg-top {
     vertical-align: top;
-}
-.col-lg-middle {
+  }
+  .col-lg-middle {
     vertical-align: middle;
-}
-.col-lg-bottom {
+  }
+  .col-lg-bottom {
     vertical-align: bottom;
-}
+  }
 }
 
 .vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-    margin-right: -2px;
-    margin-left: -2px;
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+  margin-right: -2px;
+  margin-left: -2px;
 }
 
 .vertical-padding {
@@ -132,9 +132,9 @@
 .no-space-right { margin-right: 0; padding-right: 0;}
 
 .text-center-sm {
-    @media screen and (max-width: $screen-sm) {
-        text-align: center;
-    }
+  @media screen and (max-width: $screen-sm) {
+    text-align: center;
+  }
 }
 
 .btn-submit {
@@ -162,9 +162,9 @@
     position: relative;
     top: -30px;
     right: 0px;
-}
+  }
 
-&-body {
+  &-body {
     padding: 25px 35px;
     height: 500px;
 
@@ -173,8 +173,8 @@
       overflow-y: auto;
       padding: 15px;
       height: 440px;
+    }
   }
-}
 }
 
 .modal-fechar-pequeno {
@@ -183,13 +183,6 @@
 
 .modal-fechar-grande {
   font-size: 24px;
-}
-
-// Sobreescreve a classe do bootstrap
-.close {
-  color: white;
-  opacity: 1;
-  font-weight: normal;
 }
 
 .btn-question {
@@ -204,24 +197,6 @@
   border-radius: 100%;
 }
 
-.destaque-cinza {
-  background-color: #F1F1F1;
-  padding: 30px;
-}
-
-.destaque-cinza-claro {
-  background-color: #F8F8F8;
-  padding: 30px;
-}
-
-.left-border-gray {
-  border-left: 3px solid #eeeeee;
-
-  @media (max-width: 768px) {
-    border: none;
-}
-}
-
 ul.list-color {
   list-style: none;
   padding: 0;
@@ -233,9 +208,8 @@ ul.list-color li:before {
   @each $category, $color in $categories {
     .#{$category} & {
       color: $color;
+    }
   }
-}
-
 }
 
 ul.list-color li:before {
@@ -248,18 +222,135 @@ ul.list-color li:before {
 
 ul.list-color li {
   padding-left: 2em;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   text-indent: -0.7em;
 }
 
-.right-block {
-  float: right;
+.destaque-bg-cinza {
+  background-color: #F1F1F1;
+}
+
+.destaque-padding {
+  padding: 20px;
+}
+
+.destaque-font {
+  font-size: 130%;
+}
+
+.font-140 {
+  font-size: 140%;
+}
+
+.font-115 {
+  font-size: 115%;
+}
+
+.font-180 {
+  font-size: 180%;
+}
+
+.destaque-bg-lightgray {
+  background-color: #F8F8F8;
+}
+
+.margin-15 {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.left-border-gray {
+  border-left: 4px solid #d1d6d9;
+  margin-bottom: 10px;
+  ul.list-color li:last-child { padding-bottom: 0; }
+  @media (max-width: 768px) {
+    border: none;
+  }
+}
+
+.bottom-border-gray {
+  border-bottom: 1px lightgray;
+  border-bottom-style: solid;
+  margin: 0px!important;
+  padding: 30px;
+}
+
+.padding-30 {
+  padding: 30px;
 }
 
 a.link-black {
   color: black;
 }
 
+article.program-content {
+  margin-top: 40px;
+}
+
+article.program-content div.ng-binding div.container div.row {
+  margin-bottom: 40px;
+}
+
+article.program-content h3 {
+  margin-bottom: 15px;
+}
+
 .inline-block {
-    display: inline-block;
+  display: inline-block;
+}
+
+blockquote {
+  border-left: medium none;
+  font-size: 140%;
+  padding: 50px 0 0 50px;
+  position: relative;
+
+  &:before {
+    content: "⌜";
+    font-size: 200px;
+    left: -2px;
+    position: absolute;
+    top: -50px;
+    font-weight: bolder;
+    left: -17px;
+    top: -68px;
+    @each $category, $color in $categories {
+      .#{$category} & {
+        color: $color;
+      }
+    }
+  }
+
+}
+
+// .cultura blockquote::before {
+//   color: #cd999b;
+// }
+
+// Sobreescreve a classe do bootstrap
+.close {
+  color: white;
+  opacity: 1;
+  font-weight: normal;
+}
+
+// .img-responsive {
+//   width: 100%;
+// }
+
+strong {
+  @each $category, $color in $categories {
+    .#{$category} & {
+      color: $color;
+    }
+  }
+}
+
+.top-border-theme {
+  @each $category, $color in $categories {
+    .#{$category} & {
+      border-color: $color;
+    }
+  }
+  border-top: 20px solid;
 }

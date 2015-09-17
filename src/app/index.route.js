@@ -33,7 +33,7 @@
       })
       .state('recuperar', {
         url: '/recuperar',
-        ncyBreadcrumb: {label: 'Recuperar'},
+        ncyBreadcrumb: {label: 'Recuperar senha'},
         views: {
           'main': {
             templateUrl: 'app/pages/auth/recover.html',

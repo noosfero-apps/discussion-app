@@ -173,6 +173,13 @@
     });
   };
 
+  AuthPageController.prototype.submitRecover = function(recoverForm) {
+    var vm = this;
+
+    vm.$log.debug('submitRecover');
+    vm.$log.debug('recoverForm', recoverForm);
+  };
+
   AuthPageController.prototype.redirectBack = function() {
     var vm = this;
 

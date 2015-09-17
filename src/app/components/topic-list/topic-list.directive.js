@@ -31,7 +31,7 @@
       var vm = this;
 
       if (!vm.article) {
-        vm.$log.warn('no article to display. Tip: use a ng-if before use this directive');
+        vm.$log.debug('no article to display. Tip: use a ng-if before use this directive');
         return;
       }
 

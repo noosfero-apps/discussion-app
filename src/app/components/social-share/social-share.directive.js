@@ -14,6 +14,7 @@
         url: '=',
         image: '=',
         text: '=',
+        arrowClass: '@',
       },
       controller: SocialShareController,
       controllerAs: 'vm',

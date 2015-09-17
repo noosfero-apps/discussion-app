@@ -9,11 +9,12 @@
   function proposalCarousel() {
 
     /** @ngInject */
-    function ProposalCarouselController($scope, $element, $timeout, $log) {
+    function ProposalCarouselController($scope, $state, $element, $timeout, $log) {
       $log.debug('ProposalCarouselController');
 
       var vm = this;
       vm.$scope = $scope;
+      vm.$state = $state;
       vm.$element = $element;
       vm.$timeout = $timeout;
       vm.$log = $log;
@@ -61,6 +62,18 @@
 
       // notify parents - handled by parents
       vm.$scope.$emit('proposal-carousel:showProposalsList');
+    };
+
+    ProposalCarouselController.prototype.showContent = function (proposal) {
+      var vm = this;
+
+      vm.$state.go('programa', {
+        slug: proposal.parent.slug,
+        proposal_id: proposal.id
+      }, {
+        location: true,
+        reload: true
+      });
     };
 
     var directive = {

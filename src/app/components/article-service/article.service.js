@@ -96,25 +96,11 @@
     }
 
     function getProposals (params, cbSuccess, cbError) {
-      // Ex.: /api/v1/articles/103358?fields=
-
-      // var url = service.apiArticles + API.articleId.home;
-
-      // var paramsExtended = angular.extend({
-      //   // 'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children', 'children_count'],
-      //   'content_type':'ProposalsDiscussionPlugin::Proposal'
-      // }, params);
-
-      // UtilService.get(url, {params: paramsExtended}).then(function(data){
-      //   cbSuccess(data);
-      // }).catch(function(error){
-      //   cbError(error);
-      // });
-
-      //
-      searchProposals({
+      var paramsExtended = angular.extend({
         query: ''
-      }, cbSuccess, cbError);
+      }, params);
+
+      searchProposals(paramsExtended, cbSuccess, cbError);
     }
 
     function getProposalById (proposalId, params, cbSuccess, cbError) {
@@ -257,8 +243,9 @@
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
       var url = '/api/v1/search/article';
       var paramsExtended = angular.extend({
-        // 'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits'],
-        'type': 'ProposalsDiscussionPlugin::Proposal'
+        page: 1,
+        per_page: 20,
+        type: 'ProposalsDiscussionPlugin::Proposal'
       }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){

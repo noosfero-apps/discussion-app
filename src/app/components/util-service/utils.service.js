@@ -48,6 +48,7 @@
      */
     function handleSuccess (response) {
       $log.debug('[SUCCESS]', response);
+      response.data._obj = response;
       return response.data;
     }
 

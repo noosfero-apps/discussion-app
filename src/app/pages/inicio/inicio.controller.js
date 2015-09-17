@@ -208,7 +208,7 @@
     var vm = this;
 
     if (!vm.programs) {
-      vm.$log.warn('No programs loaded yet. Abort.');
+      vm.$log.debug('No programs loaded yet. Abort.');
       return null;
     }
 
@@ -220,7 +220,7 @@
     var filter = vm.$filter('filter');
 
     if (selectedTheme) {
-      output = _filterByCategory(output, selectedTheme);
+      output = vm._filterByCategory(output, selectedTheme);
     }
 
     if (query) {
@@ -234,7 +234,9 @@
     return output;
   };
 
-  function _filterByCategory (input, category) {
+  InicioPageController.prototype._filterByCategory = function (input, category) {
+    var vm = this;
+
     input = input || [];
 
     if (!category) {
@@ -245,6 +247,12 @@
     var out = [];
     for (var i = 0; i < input.length; i++) {
       var program = input[i];
+
+      if(!program.categories || program.categories.length === 0){
+        vm.$log.warn('Program without theme (category)', program.slug);
+        continue;
+      }
+
       if (program.categories[0].slug === category.slug) {
         out.push(program);
       }

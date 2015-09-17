@@ -1,8 +1,3 @@
-/**
- * Controlador das páginas:
- * - Propostas
- * - Ranking
- */
 (function() {
   'use strict';
 
@@ -22,7 +17,7 @@
 
     vm.init();
     vm.loadData();
-    vm.attachListeners();
+    // vm.attachListeners(); // attach listeners after load data (SYNC)
 
     $log.debug('PropostasPageController');
   }
@@ -32,6 +27,8 @@
 
     vm.themes = null;
     vm.selectedTheme = null;
+    vm.filtredPrograms = null;
+    vm.selectedProgram = null;
     vm.proposals = null;
     vm.filtredProposals = null;
     vm.query = null;
@@ -46,6 +43,32 @@
 
     vm.loading = true;
 
+    // Behaviour:
+    // 1. Load themes
+    // 1. Load Proposals per_page
+    // END.
+
+    // 1. Load themes
+    vm.loadingThemes = true;
+    vm.DialogaService.getThemes(function(themes){
+      vm.themes = themes;
+      vm.loadingThemes = false;
+      vm.loading = false;
+
+      vm.loadProposals(function (){
+        vm.attachListeners();
+      });
+    }, function (error) {
+      vm.error = error;
+      vm.$log.error(error);
+      vm.loadingThemes = false;
+      vm.loading = false;
+    });
+  };
+
+  PropostasPageController.prototype.loadProposals = function (cb) {
+    var vm = this;
+
     // load Proposals
     vm.loadingProposals = true;
     vm.DialogaService.getProposals({}, function(data){
@@ -53,23 +76,14 @@
       vm.filtredProposals = vm.proposals;
       vm.loadingProposals = false;
       vm.loading = false;
+
+      if(cb){
+        cb();
+      }
     }, function (error) {
       vm.error = error;
       vm.$log.error(error);
       vm.loadingProposals = false;
-      vm.loading = false;
-    });
-
-    // load themes
-    vm.loadingThemes = true;
-    vm.DialogaService.getThemes(function(themes){
-      vm.themes = themes;
-      vm.loadingThemes = false;
-      vm.loading = false;
-    }, function (error) {
-      vm.error = error;
-      vm.$log.error(error);
-      vm.loadingThemes = false;
       vm.loading = false;
     });
   };
@@ -81,9 +95,19 @@
       vm.selectedTheme = selectedCategory;
     });
 
-    vm.$scope.$watch('pagePropostas.selectedTheme', function(newValue/*, oldValue*/) {
+    vm.$scope.$watch('pagePropostas.selectedTheme', function(newValue, oldValue) {
       vm.search.tema = newValue ? newValue.slug : null;
       vm.$location.search('tema', vm.search.tema);
+      vm.filtredProposals = vm.getFiltredProposals();
+    });
+
+    vm.$scope.$on('change-selectedTopic', function (event, selectedTopic) {
+      vm.selectedProgram = selectedTopic;
+    });
+
+    vm.$scope.$watch('pagePropostas.selectedProgram', function(newValue, oldValue) {
+      vm.search.programa = newValue ? newValue.slug : null;
+      vm.$location.search('programa', vm.search.programa);
       vm.filtredProposals = vm.getFiltredProposals();
     });
 
@@ -92,34 +116,6 @@
       vm.$location.search('filtro', vm.search.filtro);
       vm.filtredProposals = vm.getFiltredProposals();
     });
-  };
-
-  PropostasPageController.prototype.filter = function() {
-    var vm = this;
-
-    if (vm.search && vm.search.tema) {
-      var slug = vm.search.tema;
-      vm.$log.debug('filter by theme', slug);
-
-      vm.DialogaService.getThemeBySlug(slug, function(theme){
-        vm.selectedTheme = theme;
-        vm.$log.debug('getThemeBySlug.slug', slug);
-        vm.$log.debug('getThemeBySlug.selectedTheme', theme);
-      }, function(error){
-        vm.$log.error('Error when try to "getThemeBySlug"', error);
-      });
-    }
-  };
-
-  PropostasPageController.prototype.showAllPrograms = function($event) {
-    var vm = this;
-    $event.stopPropagation();
-
-    vm.resetFilterValues();
-
-    vm._showAllFlag = true;
-
-    vm.filtredPrograms = vm.getFiltredPrograms();
   };
 
   PropostasPageController.prototype.resetFilterValues = function() {
@@ -133,7 +129,7 @@
     var vm = this;
 
     if(!vm.proposals){
-      vm.$log.warn('No proposals loaded yet. Abort.');
+      vm.$log.info('No proposals loaded yet. Abort.');
       return null;
     }
 
@@ -141,11 +137,16 @@
     var output = input;
     var query = vm.query;
     var selectedTheme = vm.selectedTheme;
+    var selectedProgram = vm.selectedProgram;
 
     var filter = vm.$filter('filter');
 
     if (selectedTheme) {
-      output = _filterByCategory(output, selectedTheme);
+      output = vm._filterByCategory(output, selectedTheme);
+    }
+
+    if (selectedProgram) {
+      output = vm._filterByProgram(output, selectedProgram);
     }
 
     if (query) {
@@ -159,7 +160,9 @@
     return output;
   };
 
-  function _filterByCategory (input, category) {
+  PropostasPageController.prototype._filterByCategory = function (input, category) {
+    var vm = this;
+
     input = input || [];
 
     if (!category) {
@@ -171,6 +174,27 @@
     for (var i = 0; i < input.length; i++) {
       var proposal = input[i];
       if (proposal.parent.categories[0].slug === category.slug) {
+        out.push(proposal);
+      }
+    }
+
+    return out;
+  }
+
+  PropostasPageController.prototype._filterByProgram = function (input, program) {
+    var vm = this;
+
+    input = input || [];
+
+    if (!program) {
+      // no filter
+      return input;
+    }
+
+    var out = [];
+    for (var i = 0; i < input.length; i++) {
+      var proposal = input[i];
+      if (proposal.parent.id === program.id) {
         out.push(proposal);
       }
     }

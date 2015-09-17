@@ -43,9 +43,13 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe(assets = $.useref.assets())
     .pipe($.rev())
     .pipe(jsFilter)
-    .pipe($.if($.util.env.server === 'production', $.replace('$logProvider.debugEnabled(true);', '$logProvider.debugEnabled(false);')))
-    .pipe($.if($.util.env.server === 'production', $.replace('http://hom.dialoga.gov.br', 'http://login.dialoga.gov.br')))
-    .pipe($.if($.util.env.server === 'production', $.replace('http://hom.login.dialoga.gov.br', 'http://login.dialoga.gov.br')))
+    // production
+    .pipe($.if($.util.env.production, $.replace('$logProvider.debugEnabled(true);', '$logProvider.debugEnabled(false);')))
+    .pipe($.if($.util.env.production, $.replace('http://hom.dialoga.gov.br', 'http://login.dialoga.gov.br')))
+    .pipe($.if($.util.env.production, $.replace('http://hom.login.dialoga.gov.br', 'http://login.dialoga.gov.br')))
+    // staging
+    .pipe($.if($.util.env.staging, $.replace('http://dialoga.gov.br', 'http://hom.dialoga.gov.br')))
+    .pipe($.if($.util.env.staging, $.replace('http://login.dialoga.gov.br', 'http://hom.login.dialoga.gov.br')))
     .pipe($.ngAnnotate())
     .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
     .pipe(jsFilter.restore())

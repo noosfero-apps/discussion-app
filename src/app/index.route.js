@@ -33,7 +33,7 @@
       })
       .state('recuperar', {
         url: '/recuperar',
-        ncyBreadcrumb: {label: 'Recuperar'},
+        ncyBreadcrumb: {label: 'Recuperar senha'},
         views: {
           'main': {
             templateUrl: 'app/pages/auth/recover.html',
@@ -106,26 +106,12 @@
       .state('ranking', {
         url: '/ranking?tema&programa&filtro',
         reloadOnSearch: false,
-        ncyBreadcrumb: {label: 'Propostas'},
+        ncyBreadcrumb: {label: 'Ranking'},
         views: {
           'main': {
-            templateUrl: 'app/pages/propostas/ranking.html',
-            controller: 'PropostasPageController',
-            controllerAs: 'pagePropostas'
-          }
-        }
-      })
-      .state('propostas-conteudo', {
-        url: '/propostas/:id',
-        ncyBreadcrumb: {
-          label: '{{$parent.$root.contentTitle}}',
-          parent: 'propostas'
-        },
-        views: {
-          'main': {
-            templateUrl: 'app/pages/propostas/proposta.html',
-            controller: 'PropostasPageController',
-            controllerAs: 'pagePropostas'
+            templateUrl: 'app/pages/ranking/ranking.html',
+            controller: 'RankingPageController',
+            controllerAs: 'pageRanking'
           }
         }
       })
@@ -151,19 +137,7 @@
           }
         }
       })
-      .state('termos-de-uso', {
-        url: '/termos-de-uso',
-        ncyBreadcrumb: {label: 'Termos de Uso'},
-        controller: 'ArticlePageController',
-        views: {
-          'main': {
-            templateUrl: 'app/pages/article/article.html',
-            controller: 'ArticlePageController',
-            controllerAs: 'pageArticle'
-          }
-        }
-      })
-     .state('mapa-do-site', {
+      .state('mapa-do-site', {
         url: '/mapa-do-site',
         ncyBreadcrumb: {label: 'Mapa do Site'},
         views: {

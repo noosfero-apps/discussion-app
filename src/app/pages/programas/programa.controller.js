@@ -6,25 +6,28 @@
     .controller('ProgramaPageController', ProgramaPageController);
 
   /** @ngInject */
-  function ProgramaPageController(DialogaService, PATH, VOTE_OPTIONS, $state, $location, $scope, $rootScope, $element, $timeout, $log) {
-    $log.debug('ProgramaPageController');
-
+  function ProgramaPageController(DialogaService, PATH, VOTE_OPTIONS, PROPOSAL_STATUS, $state, $location, $scope, $rootScope, $element, $timeout, $sce, $log) {
     var vm = this;
 
     vm.DialogaService = DialogaService;
     vm.PATH = PATH;
     vm.VOTE_OPTIONS = VOTE_OPTIONS;
+    vm.PROPOSAL_STATUS = PROPOSAL_STATUS;
     vm.$state = $state;
     vm.$location = $location;
     vm.$scope = $scope;
     vm.$rootScope = $rootScope;
     vm.$element = $element;
     vm.$timeout = $timeout;
+    vm.$sce = $sce;
     vm.$log = $log;
 
     vm.init();
     vm.loadData();
     vm.attachListeners();
+    vm.$rootScope.focusMainContent();
+
+    vm.$log.debug('ProgramaPageController');
   }
 
   ProgramaPageController.prototype.init = function() {
@@ -46,6 +49,7 @@
     var vm = this;
 
     vm.loading = true;
+    vm.proposalStatus = null;
 
     // Get program by slug
     var slug = vm.$state.params.slug;
@@ -71,6 +75,10 @@
           src: vm.PATH.image + vm.article.image.url,
           alt: 'Imagem de destaque do conteúdo'
         };
+      }
+
+      if(vm.article.body && !vm.article.bodyTrusted){
+        vm.article.bodyTrusted = vm.$sce.trustAsHtml(vm.article.body);
       }
 
       vm.loadingTopProposals = true;
@@ -109,13 +117,17 @@
     });
 
     vm.$scope.$on('cadastro-proposa:startSendProposal', function(event, proposal) {
-      vm.creatingProposal = true;
+
+      vm.proposalStatus = vm.PROPOSAL_STATUS.SENDING;
+
       vm.DialogaService.createProposal(proposal, vm.article.id, function(response) {
         vm.$log.debug('response', response);
-        vm.creatingProposal = false;
+        // vm.proposalStatus = vm.PROPOSAL_STATUS.SENT | vm.PROPOSAL_STATUS.SUCCESS;
+        vm.proposalStatus = vm.PROPOSAL_STATUS.SUCCESS;
       }, function(error) {
         vm.$log.error(error);
-        vm.creatingProposal = false;
+        // vm.proposalStatus = vm.PROPOSAL_STATUS.SENT | vm.PROPOSAL_STATUS.ERROR;
+        vm.proposalStatus = vm.PROPOSAL_STATUS.ERROR;
       });
     });
 
@@ -253,9 +265,9 @@
     vm.$element.find(rule).slideUp();
   };
 
-  ProgramaPageController.prototype.sendProposal = function() {
+  ProgramaPageController.prototype.sendAnotherProposal = function() {
     var vm = this;
 
-    vm.$log.warn('Not implemented yet: "sendProposal"');
+    vm.proposalStatus = null;
   };
 })();

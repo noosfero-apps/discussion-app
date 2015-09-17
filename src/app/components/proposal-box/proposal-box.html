@@ -75,7 +75,6 @@
                 <p>Você precisa estar logado para votar na proposta</p>
                 <br>
                 <p>
-                <!-- <a ui-sref="entrar({redirect_uri: vm.voteProposalRedirectURI})">Clique aqui</a> para ir para a página de login. -->
                 <a ui-sref="entrar({redirect_uri: vm.voteProposalRedirectURI})">Clique aqui para ir para a página de login</a>
                 </p>
               </div>
@@ -95,9 +94,8 @@
                 <div ng-show="!vm.errorOnSkip">
                   <p>Carregando...</p>
                 </div>
-                <div ng-show="!vm.errorOnSkip">
+                <div ng-show="vm.errorOnSkip">
                   <p>Erro ao carregar nova proposta proposta.</p>
-                  <p>{{vm.errorOnSkip}}</p>
                 </div>
               </div>
             </div>
@@ -117,7 +115,6 @@
     <div ng-hide="vm.canVote" class="proposal-box--join">
       <button class="btn btn-link color-theme-common-fg" ng-click="vm.showContent(vm.topic.slug)">
         Participe
-        <span class="glyphicon glyphicon-menu-right color-theme-common-fg" aria-hidde="true"></span>
       </button>
     </div>
     <div ng-show="vm.canVote" class="proposal-box--actions text-center">

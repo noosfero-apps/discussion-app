@@ -26,7 +26,7 @@
     var vm = this;
 
     vm.page = 1;
-    vm.per_page = 3;
+    vm.per_page = 20;
     vm.themes = null;
     vm.selectedTheme = null;
     vm.filtredPrograms = null;
@@ -135,7 +135,10 @@
 
     // load Proposals
     vm.loadingProposals = true;
-    vm.DialogaService.getProposals({}, function(data){
+    vm.DialogaService.getProposals({
+      page: vm.page,
+      per_page: vm.per_page
+    }, function(data){
       vm.proposals = data.articles;
       vm.filtredProposals = vm.proposals;
       vm.loadingProposals = false;
@@ -155,7 +158,7 @@
       vm.selectedTheme = selectedCategory;
     });
 
-    vm.$scope.$watch('pageRanking.selectedTheme', function(newValue, oldValue) {
+    vm.$scope.$watch('pageRanking.selectedTheme', function(newValue/*, oldValue*/) {
       vm.search.tema = newValue ? newValue.slug : null;
       vm.$location.search('tema', vm.search.tema);
 
@@ -170,7 +173,7 @@
       vm.selectedProgram = selectedTopic;
     });
 
-    vm.$scope.$watch('pageRanking.selectedProgram', function(newValue, oldValue) {
+    vm.$scope.$watch('pageRanking.selectedProgram', function(newValue/*, oldValue*/) {
       vm.search.programa = newValue ? newValue.slug : null;
       vm.$location.search('programa', vm.search.programa);
       vm.filterProposals();
@@ -193,6 +196,7 @@
   RankingPageController.prototype.changePage = function(pageIndex) {
     var vm = this;
 
+    vm.page = pageIndex;
     vm.filterProposals(pageIndex);
   };
 
@@ -206,13 +210,8 @@
 
     var page = _page || vm.page;
     var per_page = _per_page || vm.per_page;
-    var input = vm.proposals;
-    var output = input;
     var query = vm.query;
-    var selectedTheme = vm.selectedTheme;
     var selectedProgram = vm.selectedProgram;
-
-    var filter = vm.$filter('filter');
 
     if (selectedProgram) {
       var params = {
@@ -225,7 +224,7 @@
 
       vm.loadingProposals = true;
       vm.DialogaService.searchProposals(params, function(data){
-        vm.total_proposals = data._obj.headers('total');
+        vm.total_proposals = parseInt(data._obj.headers('total'));
         vm.filtredProposals = data.articles;
         vm.loadingProposals = false;
       }, function (error) {

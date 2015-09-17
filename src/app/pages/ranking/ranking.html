@@ -47,8 +47,14 @@
 					</div>
 
 					<div class="row">
-						<div class="col-sm-12" ng-if="pageRanking.proposals">
-							<proposal-list proposals="pageRanking.filtredProposals" per-page="pageRanking.per_page" total="pageRanking.total_proposals" change-page="pageRanking.changePage(pageIndex)"></proposal-list>
+						<div class="col-sm-12" ng-if="pageRanking.filtredProposals && pageRanking.total_proposals">
+							<proposal-list proposals="pageRanking.filtredProposals" per-page="pageRanking.per_page" total="pageRanking.total_proposals"></proposal-list>
+							<app-paginator
+								page="pageRanking.page"
+								per-page="pageRanking.per_page"
+								total="pageRanking.total_proposals"
+								change-page="pageRanking.changePage(pageIndex)"
+							></app-paginator>
 						</div>
 						<div class="col-sm-12" ng-if="pageRanking.loadingProposals">
 							<div class="alert alert-info" role="alert">

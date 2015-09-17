@@ -1,15 +1,15 @@
-<nav ng-if="vm.arraypages.length > 1">
+<nav class="app-paginator" ng-if="vm.arraypages.length > 1">
   <ul class="pagination">
-    <li ng-style="{'visibility': (vm.currentPageIndex === 0) ? 'hidden' : 'visible'}">
-      <a  class="btn-pagination" href="#" aria-label="Previous" ng-click="vm.showPage(vm.currentPageIndex-1)">
+    <li ng-style="{'visibility': (vm.page === 1) ? 'hidden' : 'visible'}">
+      <a  class="btn-pagination" href="#" aria-label="Previous" ng-click="vm.showPage(vm.page-1)">
         <span aria-hidden="true" class="glyphicon glyphicon-chevron-left pagination-icon"></span>
       </a>
     </li>
-    <li ng-repeat="paginas in vm.arraypages track by $index" ng-class="{ 'active' : ($index) == vm.currentPageIndex }" >
-      <a class="btn-pagination"  href="#" ng-click="vm.showPage($index)">{{::($index)+1}}</a>
+    <li ng-repeat="paginas in vm.arraypages track by $index" ng-class="{ 'active' : ($index) === (vm.page - 1) }" >
+      <a class="btn-pagination"  href="#" ng-click="vm.showPage($index + 1)">{{::($index)+1}}</a>
     </li>
-    <li ng-style="{'visibility': (vm.currentPageIndex === (vm.arraypages.length -1)) ? 'hidden' : 'visible'}">
-      <a  class="btn-pagination" href="#" aria-label="Next" ng-click="vm.showPage(vm.currentPageIndex+1)">
+    <li ng-style="{'visibility': (vm.page === vm.arraypages.length) ? 'hidden' : 'visible'}">
+      <a  class="btn-pagination" href="#" aria-label="Next" ng-click="vm.showPage(vm.page+1)">
         <span aria-hidden="true" class="glyphicon glyphicon-chevron-right pagination-icon"></span>
       </a>
     </li>

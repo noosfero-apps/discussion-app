@@ -19,31 +19,36 @@
       $log.debug('AppPaginatorController');
     }
 
-    AppPaginatorController.prototype.init = function () {
+    AppPaginatorController.prototype.init = function() {
       var vm = this;
 
       vm.page = vm.page || 1;
       vm.perPage = vm.perPage || 20;
       vm.total = vm.total || 0;
+
+      if ((vm.total % vm.perPage) === 0) {
+        vm.pages =  vm.total / vm.perPage;
+      } else {
+        vm.pages =  (vm.total / vm.perPage) + 1;
+      }
+
+      vm.arraypages = new Array(Math.floor(vm.pages));
     };
 
-    AppPaginatorController.prototype.showPage = function (pageIndex) {
+    AppPaginatorController.prototype.showPage = function(pageIndex) {
       var vm = this;
 
-      if (pageIndex < 0) {
-        pageIndex = 0;
+      if (pageIndex < 1) {
+        pageIndex = 1;
       }
 
-      if (pageIndex > (vm.arraypages.length-1)) {
-        pageIndex = vm.arraypages.length-1;
+      if (pageIndex > vm.pages) {
+        pageIndex = vm.pages;
       }
 
-      if(vm.changePage){
-        vm.changePage({pageIndex: (pageIndex + 1 )});
-      }else{
-        vm.proposalsPerPage = vm.getProposalsPerPage(pageIndex);
+      if (vm.changePage) {
+        vm.changePage({pageIndex: pageIndex});
       }
-      vm.currentPageIndex = pageIndex;
     };
 
     var directive = {
@@ -59,7 +64,6 @@
       controllerAs: 'vm',
       bindToController: true
     };
-
 
     return directive;
   }

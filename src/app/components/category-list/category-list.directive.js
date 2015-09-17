@@ -32,6 +32,17 @@
       }
     };
 
+    CategoryListController.prototype._disableUnselect = function() {
+      var vm = this;
+
+      if(vm.disableUnselect && vm.disableUnselect === 'true'){
+        return true;
+      }
+
+      return false;
+    };
+
+
     CategoryListController.prototype.selectCategory = function(category, $event) {
       var vm = this;
 
@@ -39,9 +50,14 @@
       $event.stopPropagation();
 
       if (category !== vm.selectedCategory) {
-        // selected new filter
         vm.selectedCategory = category;
-      } else {
+      }else{
+
+        if(vm._disableUnselect()){
+          vm.$log.info('Unselect is disabled.');
+          return;
+        }
+
         vm.selectedCategory = null;
       }
 
@@ -65,7 +81,8 @@
       templateUrl: 'app/components/category-list/category-list.html',
       scope: {
         categories: '=',
-        selectedCategory: '='
+        selectedCategory: '=',
+        disableUnselect: '@'
       },
       controller: CategoryListController,
       controllerAs: 'vm',

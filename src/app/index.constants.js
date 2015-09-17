@@ -8,6 +8,10 @@
       host: 'http://hom.dialoga.gov.br',
       image: 'http://hom.login.dialoga.gov.br'
     })
+    .constant('APP', {
+      facebook_app_id: '1',
+      google_app_id: '4',
+    })
     .constant('API', {
       token: null,
       articleId: {
@@ -33,14 +37,23 @@
       notAuthorized: 'auth-not-authorized'
     })
     .constant('VOTE_STATUS', {
-      SUCCESS: 0x1,
-      ERROR: 0x10,
-      LOADING: 0x100
+      SUCCESS: 1,
+      ERROR: 2,
+      LOADING: 4,
+      LOADED: 8
     })
     .constant('VOTE_OPTIONS', {
       UP: 1,
       DOWN: -1,
       SKIP: 0
+    })
+    .constant('PROPOSAL_STATUS', {
+      SUCCESS: 1,
+      ERROR: 2,
+      LOADING: 4,
+      LOADED: 8,
+      SENDING: 16,
+      SENT: 32
     })
     .constant('USER_ROLES', {
       all: '*',

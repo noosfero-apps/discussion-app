@@ -18,8 +18,8 @@
     </div>
   </section>
 
-  <div ng-if="pagePrograma.article.body" ng-class="pagePrograma.category.slug">
-    <section>
+  <div role="main">
+    <section ng-if="pagePrograma.article.body" ng-class="pagePrograma.category.slug">
       <div class="container">
         <div class="row">
           <article class="program-preview">
@@ -121,6 +121,14 @@
         </div>
         <div class="proposal-extended-section-content">
           <proposal-list proposals="pagePrograma.proposalsTopFive"></proposal-list>
+          <div class="row">
+            <div class="col-xs-12">
+              <a ui-sref="ranking({tema: pagePrograma.category.slug, programa: pagePrograma.article.slug})" class="btn btn-link">
+                <span ng-if="pagePrograma.proposals.length > 1">Veja todas as {{pagePrograma.proposals.length}} propostas</span>
+                <span ng-if="pagePrograma.proposals.length === 1">Ir para a página de ranking</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -138,16 +146,34 @@
             title="'Você não está logado!'"
             message="'Você precisa estar logado para enviar uma proposta.'"
             ></show-message>
-            <div class="row">
-              <div class="col-sm-4"></div>
-              <div class="col-sm-8 text-center-sm">
-                <a ui-sref="entrar({redirect_uri: pagePrograma.sendProposalRedirectURI})">Clique aqui para ir para a página de login</a>
-              </div>
+          <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-8 text-center-sm">
+              <a ui-sref="entrar({redirect_uri: pagePrograma.sendProposalRedirectURI})">Clique aqui para ir para a página de login</a>
             </div>
+          </div>
         </div>
         <div ng-if="pagePrograma.$rootScope.currentUser">
           <div class="proposal-extended-section-content">
-            <cadastro-proposta program="pagePrograma.article"></cadastro-proposta>
+            <div ng-if="pagePrograma.proposalStatus === pagePrograma.PROPOSAL_STATUS.SUCCESS">
+              <show-message
+                type="'success'"
+                title="'Proposta enviada com sucesso!'"
+                message="'Sua proposta foi enviada para a nossa equipe de moderação. Em aproximadamente 72 horas você receberá em seu endereço de e-mail uma resposta sobre a sua proposta.'"
+                ></show-message>
+              <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8 text-center-sm">
+                  <button type="button" class="btn btn-link" ng-click="pagePrograma.sendAnotherProposal()">
+                    Clique aqui para enviar outra proposta
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div ng-if="pagePrograma.proposalStatus === pagePrograma.PROPOSAL_STATUS.ERROR"></div>
+            <div ng-if="!pagePrograma.proposalStatus">
+              <cadastro-proposta program="pagePrograma.article" status="pagePrograma.proposalStatus"></cadastro-proposta>
+            </div>
           </div>
         </div>
       </div>
@@ -155,7 +181,7 @@
 
     <section class="section-content">
       <article class="program-content" ng-if="pagePrograma.article">
-          <div ng-bind-html="pagePrograma.article.body"></div>
+          <div ng-bind-html="pagePrograma.article.bodyTrusted"></div>
       </article>
     </section>
   </div>

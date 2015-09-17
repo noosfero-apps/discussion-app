@@ -6,16 +6,19 @@
     .controller('ArticlePageController', ArticlePageController);
 
   /** @ngInject */
-  function ArticlePageController(DialogaService, $state, $sce, $log) {
+  function ArticlePageController(DialogaService, $rootScope, $state, $sce, $log) {
     var vm = this;
 
     vm.DialogaService = DialogaService;
+    vm.$rootScope = $rootScope;
     vm.$state = $state;
     vm.$sce = $sce;
     vm.$log = $log;
 
     vm.init();
     vm.loadData();
+
+    vm.$rootScope.focusMainContent();
 
     vm.$log.debug('ArticlePageController');
   }
@@ -41,7 +44,7 @@
         vm.DialogaService.getTerms(handleSuccess, handleError);
         break;
       default:
-        vm.$log.warn('Page not handled:', vm.page);
+        vm.$log.debug('Page not handled:', vm.page);
         break;
     }
 

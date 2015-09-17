@@ -333,13 +333,13 @@ blockquote {
 //   width: 100%;
 // }
 
-strong {
-  @each $category, $color in $categories {
-    .#{$category} & {
-      color: $color;
-    }
-  }
-}
+//strong {
+//  @each $category, $color in $categories {
+//    .#{$category} & {
+//      color: $color;
+//    }
+//  }
+//}
 
 .top-border-theme {
   @each $category, $color in $categories {

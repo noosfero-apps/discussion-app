@@ -212,7 +212,7 @@
     }
 
     return out;
-  }
+  };
 
   ProgramasPageController.prototype._balanceByCategory = function (input) {
     var vm = this;
@@ -276,5 +276,5 @@
     }
 
     return result;
-  }
+  };
 })();

@@ -259,7 +259,7 @@
     }
 
     return out;
-  }
+  };
 
   function _balanceByCategory (input) {
     var result = [];

@@ -25,6 +25,8 @@
     extendedService.getQuestions = getQuestions;
     extendedService.searchPrograms = searchPrograms;
     extendedService.searchProposals = searchProposals;
+    extendedService.filterProposalsByCategorySlug = filterProposalsByCategorySlug;
+    extendedService.filterProposalsByProgramId = filterProposalsByProgramId;
 
     var CACHE = {};
 
@@ -228,6 +230,52 @@
 
     function searchProposals (params, cbSuccess, cbError) {
       ArticleService.searchProposals(params, cbSuccess, cbError);
+    }
+
+    function filterProposalsByCategorySlug (input, categorySlug) {
+
+      if(!angular.isArray(input)){
+        $log.error('Input is not a Array.');
+        return [];
+      }
+
+      // Use native array filter
+      return input.filter(function(value/*, index, arr*/) {
+
+        if (!value.parent) {
+          $log.warn('Proposal without a parent.');
+          return false;
+        }
+
+        if (!value.parent.categories || value.parent.categories.length === 0) {
+          $log.warn('Proposal parent has no categories.');
+          return false;
+        }
+
+        // match?!
+        return value.parent.categories[0].slug === categorySlug;
+      });
+    }
+
+    function filterProposalsByProgramId (input, program_id) {
+      var vm = this;
+
+      if(!angular.isArray(input)){
+        $log.error('Input is not a Array.');
+        return [];
+      }
+
+      // Use native array filter
+      return input.filter(function(value) {
+        if (!value.parent || !value.parent.id) {
+          $log.warn('Proposal has no parent.');
+
+          return false;
+        }
+
+        // match?!
+        return value.parent.id === program_id;
+      });
     }
 
     function _pipeHandleYoutube (data) {

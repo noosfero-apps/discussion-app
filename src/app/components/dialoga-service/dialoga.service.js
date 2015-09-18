@@ -316,6 +316,31 @@
         CACHE.programs = data.article.children;
         CACHE.programs_count = data.article.children_count;
       }
+
+      _pipeHackPrograms(CACHE.programs);
+    }
+
+    function _pipeHackPrograms (programs) {
+
+      if(!angular.isArray(programs)){
+        return;
+      }
+
+      var program = null;
+      var parts = null;
+      for (var i = programs.length - 1; i >= 0; i--) {
+        program = programs[i];
+
+        if(!program.summary){
+          parts = program.abstract.split('<hr />');
+
+          program.summary = $rootScope.stripHtml(parts[0]).trim();
+
+          if(parts.length > 1){
+            program.summaryExtended = parts[1].trim();
+          }
+        }
+      }
     }
 
     // Calculate color pallet

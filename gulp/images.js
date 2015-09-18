@@ -18,7 +18,8 @@ gulp.task('sprites', function () {
   return sprity.src({
     src: src,
     style: 'sprite.css',
-    cssPath: '../assets/images/icons/'
+    cssPath: '../assets/images/icons/',
+    cachebuster: true
   })
   .pipe(gulpif('*.png', gulp.dest(destImg), gulp.dest(destCss)));
 });

@@ -88,7 +88,7 @@
                 <label for="articleQueryFilter1" class="control-label sr-only">Buscar programas:</label>
                 <input id="articleQueryFilter1" type="search" class="form-control input-search" ng-model="pageInicio.query" placeholder="Buscar programas" aria-label="Buscar programas" >
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="pageInicio.search()">
+                  <button type="button" class="btn btn-default" ng-click="pageInicio.submitSearch()">
                     <span class="icon-circle icon-small color-theme-common-bg">
                       <span class="glyphicon glyphicon-search"></span>
                     </span>
@@ -120,7 +120,7 @@
                 <label for="articleQueryFilter2" class="control-label sr-only">Buscar programas:</label>
                 <input id="articleQueryFilter2" type="search" class="form-control input-search" ng-model="pageInicio.query" placeholder="Buscar programas" aria-label="Buscar programas" >
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="pageInicio.search()">
+                  <button type="button" class="btn btn-default" ng-click="pageInicio.submitSearch()">
                     <span class="icon-circle icon-small color-theme-common-bg">
                       <span class="glyphicon glyphicon-search"></span>
                     </span>
@@ -130,12 +130,12 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div id="search-result" class="row">
             <div class="col-sm-12">
               <header class="header">
                 <h2>Programas</h2>
                 <button type="button" class="btn btn-link" ng-click="pageInicio.showAllPrograms($event)">
-                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Ver todos os programas
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Ver todos os {{::pageInicio.programs.length}} programas
                 </button>
               </header>
             </div>

@@ -25,6 +25,8 @@
     extendedService.getQuestions = getQuestions;
     extendedService.searchPrograms = searchPrograms;
     extendedService.searchProposals = searchProposals;
+    extendedService.filterProposalsByCategorySlug = filterProposalsByCategorySlug;
+    extendedService.filterProposalsByProgramId = filterProposalsByProgramId;
 
     var CACHE = {};
 
@@ -230,6 +232,51 @@
       ArticleService.searchProposals(params, cbSuccess, cbError);
     }
 
+    function filterProposalsByCategorySlug (input, categorySlug) {
+
+      if(!angular.isArray(input)){
+        $log.error('Input is not a Array.');
+        return [];
+      }
+
+      // Use native array filter
+      return input.filter(function(value/*, index, arr*/) {
+
+        if (!value.parent) {
+          $log.warn('Proposal without a parent.');
+          return false;
+        }
+
+        if (!value.parent.categories || value.parent.categories.length === 0) {
+          $log.warn('Proposal parent has no categories.');
+          return false;
+        }
+
+        // match?!
+        return value.parent.categories[0].slug === categorySlug;
+      });
+    }
+
+    function filterProposalsByProgramId (input, program_id) {
+
+      if(!angular.isArray(input)){
+        $log.error('Input is not a Array.');
+        return [];
+      }
+
+      // Use native array filter
+      return input.filter(function(value) {
+        if (!value.parent || !value.parent.id) {
+          $log.warn('Proposal has no parent.');
+
+          return false;
+        }
+
+        // match?!
+        return value.parent.id === program_id;
+      });
+    }
+
     function _pipeHandleYoutube (data) {
       var abstract = data.article.abstract;
 
@@ -268,6 +315,31 @@
       if(!CACHE.hasOwnProperty('programs')){
         CACHE.programs = data.article.children;
         CACHE.programs_count = data.article.children_count;
+      }
+
+      _pipeHackPrograms(CACHE.programs);
+    }
+
+    function _pipeHackPrograms (programs) {
+
+      if(!angular.isArray(programs)){
+        return;
+      }
+
+      var program = null;
+      var parts = null;
+      for (var i = programs.length - 1; i >= 0; i--) {
+        program = programs[i];
+
+        if(!program.summary){
+          parts = program.abstract.split('<hr />');
+
+          program.summary = $rootScope.stripHtml(parts[0]).trim();
+
+          if(parts.length > 1){
+            program.summaryExtended = parts[1].trim();
+          }
+        }
       }
     }
 

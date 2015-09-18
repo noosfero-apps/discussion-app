@@ -152,8 +152,8 @@
         <div ng-if="!pagePrograma.$rootScope.currentUser">
           <show-message
             type="'alert'"
-            title="'Você não está logado!'"
-            message="'Você precisa estar logado para enviar uma proposta.'"
+            message="'Você não está logado!'"
+            description="'Você precisa estar logado para enviar uma proposta.'"
             ></show-message>
           <div class="row">
             <div class="col-sm-4"></div>
@@ -167,8 +167,8 @@
             <div ng-if="pagePrograma.proposalStatus === pagePrograma.PROPOSAL_STATUS.SUCCESS">
               <show-message
                 type="'success'"
-                title="'Proposta enviada com sucesso!'"
-                message="'Sua proposta foi enviada para a nossa equipe de moderação. Em aproximadamente 72 horas você receberá em seu endereço de e-mail uma resposta sobre a sua proposta.'"
+                message="'Proposta enviada com sucesso!'"
+                description="'Sua proposta foi enviada para a nossa equipe de moderação. Em aproximadamente 72 horas você receberá em seu endereço de e-mail uma resposta sobre a sua proposta.'"
                 ></show-message>
               <div class="row">
                 <div class="col-sm-4"></div>
@@ -179,7 +179,24 @@
                 </div>
               </div>
             </div>
-            <div ng-if="pagePrograma.proposalStatus === pagePrograma.PROPOSAL_STATUS.ERROR"></div>
+            <div ng-if="pagePrograma.proposalStatus === pagePrograma.PROPOSAL_STATUS.SENDING">
+              Enviando...
+            </div>
+            <div ng-if="pagePrograma.proposalStatus === pagePrograma.PROPOSAL_STATUS.ERROR">
+              <show-message
+                type="'error'"
+                message="'Erro ' + pagePrograma.error.code + '!'"
+                description="pagePrograma.error.message"
+                ></show-message>
+              <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8 text-center-sm">
+                  <button type="button" class="btn btn-link" ng-click="pagePrograma.sendAnotherProposal()">
+                    Clique aqui para enviar outra proposta
+                  </button>
+                </div>
+              </div>
+            </div>
             <div ng-if="!pagePrograma.proposalStatus">
               <cadastro-proposta program="pagePrograma.article" status="pagePrograma.proposalStatus"></cadastro-proposta>
             </div>

@@ -68,7 +68,7 @@
       // nomralized format. However, if the request was not handled by the
       // server (or what not handles properly - ex. server error), then we
       // may have to normalize it on our end, as best we can.
-      if (!angular.isObject(error.data) || !error.data.message) {
+      if (!angular.isObject(error.data)) {
         return $q.reject('An unknown error occurred.');
       }
 

@@ -258,7 +258,6 @@
     }
 
     function filterProposalsByProgramId (input, program_id) {
-      var vm = this;
 
       if(!angular.isArray(input)){
         $log.error('Input is not a Array.');

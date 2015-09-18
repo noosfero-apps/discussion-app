@@ -228,10 +228,12 @@ ul.list-color li:before {
   color: #2a9677;
 }
 
-ul li {
-  padding-left: 2em;
-  padding-bottom: 15px;
-  text-indent: -0.7em;
+.page--program {
+    ul li {
+      padding-left: 2em;
+      padding-bottom: 15px;
+      text-indent: -0.7em;
+    }
 }
 
 .destaque-bg-cinza {

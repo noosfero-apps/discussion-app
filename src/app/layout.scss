@@ -229,10 +229,12 @@ ul.list-color li:before {
 }
 
 .page--program {
-    ul li {
-      padding-left: 2em;
-      padding-bottom: 15px;
-      text-indent: -0.7em;
+    .program-content {
+        ul li {
+          padding-left: 2em;
+          padding-bottom: 15px;
+          text-indent: -0.7em;
+        }
     }
 }
 

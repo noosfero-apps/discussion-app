@@ -283,49 +283,9 @@ a.link-black {
   color: black;
 }
 
-article.program-content {
-  margin-top: 40px;
-}
-
-article.program-content div.ng-binding div.container div.row {
-  margin-bottom: 40px;
-}
-
-article.program-content h3 {
-  margin-bottom: 15px;
-}
-
 .inline-block {
   display: inline-block;
 }
-
-blockquote {
-  border-left: medium none;
-  font-size: 140%;
-  padding: 50px 0 0 50px;
-  position: relative;
-
-  &:before {
-    content: "⌜";
-    font-size: 200px;
-    left: -2px;
-    position: absolute;
-    top: -50px;
-    font-weight: bolder;
-    left: -17px;
-    top: -68px;
-    @each $category, $color in $categories {
-      .#{$category} & {
-        color: $color;
-      }
-    }
-  }
-
-}
-
-// .cultura blockquote::before {
-//   color: #cd999b;
-// }
 
 // Sobreescreve a classe do bootstrap
 .close {
@@ -334,14 +294,31 @@ blockquote {
   font-weight: normal;
 }
 
-// .img-responsive {
-//   width: 100%;
-// }
+blockquote {
+  border-left: none;
+  font-size: 24px;
+  line-height: 28px;
+  padding: 50px 0 0 50px;
+  position: relative;
 
-strong {
   @each $category, $color in $categories {
     .#{$category} & {
       color: $color;
+    }
+  }
+
+  &:before {
+    content: "⌜";
+    font-size: 200px;
+    line-height: 200px;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    font-weight: bolder;
+    @each $category, $color in $categories {
+      .#{$category} & {
+        color: $color;
+      }
     }
   }
 }

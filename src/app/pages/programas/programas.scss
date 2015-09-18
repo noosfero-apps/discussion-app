@@ -117,9 +117,39 @@
             line-height: 36px;
             font-weight: bold;
         }
+    }
+
+    .program-content {
+
+        margin-top: 40px;
 
         h3 {
+            font-size: 22px;
+            line-height: 26px;
+            font-weight: bold;
+
             margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            font-size: 18px;
+            line-height: 24px;
+            font-weight: bold;
+        }
+
+        h5 {
+            font-size: 16px;
+            line-height: 22px;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 18px;
+        }
+
+        .container > .row {
+            margin-bottom: 40px;
         }
     }
 

@@ -19,8 +19,8 @@
       templateUrl: 'app/components/show-message/show-message.html',
       scope: {
         type: '=',
-        title: '=',
-        message: '='
+        message: '=',
+        description: '='
       },
       controller: ShowMessageController,
       controllerAs: 'vm',

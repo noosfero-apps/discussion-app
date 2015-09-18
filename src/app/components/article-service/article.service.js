@@ -146,6 +146,9 @@
         var url = service.apiProposals + targetId + '/propose';
 
         var encodedParams = [];
+        encodedParams.push('article%5Babstract%5D=' + proposal);
+        encodedParams.push('article%5Btype%5D=ProposalsDiscussionPlugin%3A%3AProposal');
+        encodedParams.push('content_type=ProposalsDiscussionPlugin%3A%3AProposal');
         encodedParams.push('private_token=' + $rootScope.currentUser.private_token);
         encodedParams.push('fields=id');
         encodedParams.push('article[name]=article_' + GUID.generate());

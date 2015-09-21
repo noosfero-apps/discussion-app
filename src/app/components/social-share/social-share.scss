@@ -10,6 +10,7 @@
     &.list-inline {
         margin: 0;
     }
+
     li {
         float: left;
         padding: 0;
@@ -33,7 +34,7 @@
         background-color: #E0E0E0;
         border-radius: 5px;
 
-        @media screen and (max-width: $screen-xs) {
+        @media screen and (max-width: $screen-sm) {
             background-color: #fff;
         }
 
@@ -58,6 +59,11 @@
         right: 20px;
         border-width: 0 10px 10px;
         border-bottom-color: #E0E0E0;
+
+
+        @media screen and (max-width: $screen-sm) {
+            border-bottom-color: #fff;
+        }
     }
 
     @media screen and (max-width: $screen-xs) {

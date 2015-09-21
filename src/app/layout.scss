@@ -235,6 +235,16 @@ ul.list-color li:before {
           padding-bottom: 15px;
           text-indent: -0.7em;
         }
+
+        .col-middle {
+            vertical-align: top;
+        }
+
+        @media screen and (min-width: $screen-lg) {
+            img {
+                width: 100%;
+            }
+        }
     }
 }
 

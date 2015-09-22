@@ -25,28 +25,32 @@
 }
 
 // @media (min-width: 480px) {
-.row-xs-height {
+  .row-xs-height {
     display: table;
     table-layout: fixed;
     height: 100%;
     width: 100%;
-}
-.col-xs-height {
+  }
+
+  .col-xs-height {
     display: table-cell;
     float: none;
     height: 100%;
-}
-.col-xs-top {
-    vertical-align: top;
-}
-.col-xs-middle {
-    vertical-align: middle;
-}
-.col-xs-bottom {
-    vertical-align: bottom;
-}
-// }
+  }
 
+  .col-xs-top {
+    vertical-align: top;
+  }
+
+  .col-xs-middle {
+    vertical-align: middle;
+  }
+
+  .col-xs-bottom {
+    vertical-align: bottom;
+  }
+
+// }
 @media (min-width: 768px) {
   .row-sm-height {
     display: table;
@@ -56,109 +60,109 @@
   }
   .col-sm-height {
     display: table-cell;
-    float: none;
-    height: 100%;
-  }
-  .col-sm-top {
-    vertical-align: top;
-  }
-  .col-sm-middle {
-    vertical-align: middle;
-  }
-  .col-sm-bottom {
-    vertical-align: bottom;
-  }
-}
+        // float: none;
+        height: 100%;
+      }
+      .col-sm-top {
+        vertical-align: top;
+      }
+      .col-sm-middle {
+        vertical-align: middle;
+      }
+      .col-sm-bottom {
+        vertical-align: bottom;
+      }
+    }
 
-@media (min-width: 992px) {
-  .row-md-height {
-    display: table;
-    table-layout: fixed;
-    height: 100%;
-    width: 100%;
-  }
-  .col-md-height {
-    display: table-cell;
-    float: none;
-    height: 100%;
-  }
-  .col-md-top {
-    vertical-align: top;
-  }
-  .col-md-middle {
-    vertical-align: middle;
-  }
-  .col-md-bottom {
-    vertical-align: bottom;
-  }
-}
+    @media (min-width: 992px) {
+      .row-md-height {
+        display: table;
+        table-layout: fixed;
+        height: 100%;
+        width: 100%;
+      }
+      .col-md-height {
+        display: table-cell;
+        // float: none;
+        height: 100%;
+      }
+      .col-md-top {
+        vertical-align: top;
+      }
+      .col-md-middle {
+        vertical-align: middle;
+      }
+      .col-md-bottom {
+        vertical-align: bottom;
+      }
+    }
 
-@media (min-width: 1200px) {
-  .row-lg-height {
-    display: table;
-    table-layout: fixed;
-    height: 100%;
-    width: 100%;
-  }
-  .col-lg-height {
-    display: table-cell;
-    float: none;
-    height: 100%;
-  }
-  .col-lg-top {
-    vertical-align: top;
-  }
-  .col-lg-middle {
-    vertical-align: middle;
-  }
-  .col-lg-bottom {
-    vertical-align: bottom;
-  }
-}
+    @media (min-width: 1200px) {
+      .row-lg-height {
+        display: table;
+        table-layout: fixed;
+        height: 100%;
+        width: 100%;
+      }
+      .col-lg-height {
+        display: table-cell;
+        // float: none;
+        height: 100%;
+      }
+      .col-lg-top {
+        vertical-align: top;
+      }
+      .col-lg-middle {
+        vertical-align: middle;
+      }
+      .col-lg-bottom {
+        vertical-align: bottom;
+      }
+    }
 
-.vcenter {
-  display: inline-block;
-  vertical-align: middle;
-  float: none;
-  margin-right: -2px;
-  margin-left: -2px;
-}
+    .vcenter {
+      display: inline-block;
+      vertical-align: middle;
+      float: none;
+      margin-right: -2px;
+      margin-left: -2px;
+    }
 
-.vertical-padding {
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
+    .vertical-padding {
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
 
-.no-space-left {
-  margin-left: 0;
-  padding-left: 0;
-}
+    .no-space-left {
+      margin-left: 0;
+      padding-left: 0;
+    }
 
-.no-space-right {
-  margin-right: 0;
-  padding-right: 0;
-}
+    .no-space-right {
+      margin-right: 0;
+      padding-right: 0;
+    }
 
-.text-center-sm {
-  @media screen and (max-width: $screen-sm) {
-    text-align: center;
-  }
-}
+    .text-center-sm {
+      @media screen and (max-width: $screen-sm) {
+        text-align: center;
+      }
+    }
 
-.btn-submit {
-  background-color: $defaultblue;
-  color: #fff;
-  font-weight: bold;
-  &:hover,
-  &:focus {
-    color: #fff;
-  }
-}
+    .btn-submit {
+      background-color: $defaultblue;
+      color: #fff;
+      font-weight: bold;
+      &:hover,
+      &:focus {
+        color: #fff;
+      }
+    }
 
-.has-error {
-  border-color: #FF0000;
-  border-width: 1px;
-}
+    .has-error {
+      border-color: #FF0000;
+      border-width: 1px;
+    }
 
 // Está com o nome do termos de uso. Deixas genérico ou apenas aqui? Ver como vão ficar esses modais
 .modal-termos-uso {
@@ -229,23 +233,21 @@ ul.list-color li:before {
 }
 
 .page--program {
-    .program-content {
-        ul li {
-          padding-left: 2em;
-          padding-bottom: 15px;
-          text-indent: -0.7em;
-        }
-
-        .col-middle {
-            vertical-align: top;
-        }
-
-        @media screen and (min-width: $screen-lg) {
-            img {
-                width: 100%;
-            }
-        }
+  .program-content {
+    ul li {
+      padding-left: 2em;
+      padding-bottom: 15px;
+      text-indent: -0.7em;
     }
+    .col-middle {
+      vertical-align: top;
+    }
+    @media screen and (min-width: $screen-lg) {
+      img {
+        width: 100%;
+      }
+    }
+  }
 }
 
 .destaque-bg-cinza {
@@ -258,19 +260,26 @@ ul.list-color li:before {
 }
 
 .destaque-font {
-  font-size: 130%;
+  font-size: 130%!important;
 }
 
-.font-140 {
-  font-size: 140%;
-}
+.font {
+  line-height: normal!important;
 
-.font-115 {
-  font-size: 115%;
-}
+  &-140 {
+    @extend .font;
+    font-size: 140%!important;
+  }
 
-.font-180 {
-  font-size: 180%;
+  &-115 {
+    @extend .font;
+    font-size: 115%!important;
+  }
+
+  &-180 {
+    @extend .font;
+    font-size: 180%!important;
+  }
 }
 
 .destaque-bg-lightgray {
@@ -312,7 +321,6 @@ a.link-black {
   display: inline-block;
 }
 
-// Sobreescreve a classe do bootstrap
 .close {
   color: white;
   opacity: 1;
@@ -322,21 +330,11 @@ a.link-black {
 blockquote {
   border-left: medium none;
   font-size: 140%;
-  padding: 45px 0 0 45px;
+  padding: 50px 0 0 50px;
   position: relative;
   margin: 0px;
   border-left: none;
-  font-size: 24px;
   line-height: 28px;
-  padding: 50px 0 0 50px;
-  position: relative;
-
-  @each $category, $color in $categories {
-    .#{$category} & {
-      color: $color;
-    }
-  }
-
   &:before {
     content: "⌜";
     font-size: 200px;
@@ -345,27 +343,13 @@ blockquote {
     top: -10px;
     left: -10px;
     font-weight: bolder;
-    @each $category, $color in $categories {
+    @each $category,
+    $color in $categories {
       .#{$category} & {
         color: $color;
       }
     }
   }
-}
-
-blockquote p {
-  font-size: 140%!important;
-  line-height: normal!important;
-}
-
-// .cultura blockquote::before {
-//   color: #cd999b;
-// }
-// Sobreescreve a classe do bootstrap
-.close {
-  color: white;
-  opacity: 1;
-  font-weight: normal;
 }
 
 .top-border-theme {
@@ -376,4 +360,96 @@ blockquote p {
     }
   }
   border-top: 20px solid;
+}
+
+.pad-right-0 {
+  padding-right: 0px!important;
+}
+
+.pad-left-0 {
+  padding-left: 0px!important;
+}
+
+.bloco-mais-especialidades {
+  @media (max-width: 480px) {
+    padding: 2% 0 0 5%;
+  }
+
+  @media (min-width: 768px) {
+    padding: 2% 0 0 10%;
+  }
+
+  @media (min-width: 992px) {
+    padding: 12% 0 0 10%;
+  }
+
+  @media (max-width: 1200px) {
+    padding: 10% 0 0 10%;
+  }
+}
+
+ul li:last-child {
+  padding-bottom: 0px!important;
+}
+
+// .destaque-esporte ul li {
+//   padding-bottom: 2px!important;
+// }
+
+.bloco1-preparacao-atletas {
+  @media (max-width: 480px) {
+    padding: 2% 0 0 5%;
+  }
+
+  @media (min-width: 768px) {
+    padding: 2% 0 0 10%;
+  }
+
+  @media (min-width: 992px) {
+    padding: 2% 10% 0 10%;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 17% 10% 0 10%;
+  }
+}
+
+.bloco2-preparacao-atletas {
+  @media (min-width: 1200px) {
+    padding: 15% 0% 0 0%;
+  }
+}
+
+.bloco1-futebol {
+  @media (min-width: 992px) {
+    padding: 3% 5% 0 5%;
+  }
+}
+
+.bloco1-esporte-toda-vida {
+  @media (max-width: 992px) {
+    padding: 5% 10% 0 10%;
+  }
+
+  @media (min-width: 992px) {
+    padding: 10% 10% 0 10%;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 18% 10% 0 10%;
+  }
+}
+
+.bloco2-esporte-toda-vida {
+  @media (max-width: 992px) {
+    padding: 5% 10% 0 10%;
+  }
+
+  @media (min-width: 992px) {
+    padding: 10% 10% 0 10%;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 18% 10% 0 10%;
+  }
 }

@@ -312,8 +312,10 @@ article.program-content h3 {
 blockquote {
   border-left: medium none;
   font-size: 140%;
-  padding: 50px 0 0 50px;
+  padding: 45px 0 0 45px;
   position: relative;
+  margin: 0px;
+
   &:before {
     content: "⌜";
     font-size: 200px;
@@ -330,6 +332,11 @@ blockquote {
       }
     }
   }
+}
+
+blockquote p {
+  font-size: 140%!important;
+  line-height: normal!important;
 }
 
 // .cultura blockquote::before {

@@ -312,7 +312,6 @@ a.link-black {
   display: inline-block;
 }
 
-// Sobreescreve a classe do bootstrap
 .close {
   color: white;
   opacity: 1;
@@ -322,23 +321,14 @@ a.link-black {
 blockquote {
   border-left: medium none;
   font-size: 140%;
-  padding: 45px 0 0 45px;
+  padding: 50px 0 0 50px;
   position: relative;
   margin: 0px;
   border-left: none;
-  font-size: 24px;
   line-height: 28px;
-  padding: 50px 0 0 50px;
-  position: relative;
-
-  @each $category, $color in $categories {
-    .#{$category} & {
-      color: $color;
-    }
-  }
 
   &:before {
-    content: "⌜";
+    content: "\231C";
     font-size: 200px;
     line-height: 200px;
     position: absolute;
@@ -351,21 +341,6 @@ blockquote {
       }
     }
   }
-}
-
-blockquote p {
-  font-size: 140%!important;
-  line-height: normal!important;
-}
-
-// .cultura blockquote::before {
-//   color: #cd999b;
-// }
-// Sobreescreve a classe do bootstrap
-.close {
-  color: white;
-  opacity: 1;
-  font-weight: normal;
 }
 
 .top-border-theme {

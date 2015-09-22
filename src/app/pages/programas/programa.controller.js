@@ -122,10 +122,22 @@
 
       vm.DialogaService.createProposal(proposal, vm.article.id, function(response) {
         vm.$log.debug('response', response);
+        // vm.message =
         // vm.proposalStatus = vm.PROPOSAL_STATUS.SENT | vm.PROPOSAL_STATUS.SUCCESS;
         vm.proposalStatus = vm.PROPOSAL_STATUS.SUCCESS;
       }, function(error) {
         vm.$log.error(error);
+
+        vm.error = error;
+
+        if (vm.error.code === 400){
+          // Bad Request
+          vm.error.message = '';
+          vm.error.message += 'Não foi possível enviar a proposta.<br>';
+          vm.error.message += 'Este problema já foi registrado em nossos servidores.<br>';
+          vm.error.message += 'Por favor, tente novamente mais tarde.';
+        }
+
         // vm.proposalStatus = vm.PROPOSAL_STATUS.SENT | vm.PROPOSAL_STATUS.ERROR;
         vm.proposalStatus = vm.PROPOSAL_STATUS.ERROR;
       });

@@ -24,28 +24,28 @@
   vertical-align: bottom;
 }
 
-@media (min-width: 480px) {
-  .row-xs-height {
+// @media (min-width: 480px) {
+.row-xs-height {
     display: table;
     table-layout: fixed;
     height: 100%;
     width: 100%;
-  }
-  .col-xs-height {
+}
+.col-xs-height {
     display: table-cell;
     float: none;
     height: 100%;
-  }
-  .col-xs-top {
-    vertical-align: top;
-  }
-  .col-xs-middle {
-    vertical-align: middle;
-  }
-  .col-xs-bottom {
-    vertical-align: bottom;
-  }
 }
+.col-xs-top {
+    vertical-align: top;
+}
+.col-xs-middle {
+    vertical-align: middle;
+}
+.col-xs-bottom {
+    vertical-align: bottom;
+}
+// }
 
 @media (min-width: 768px) {
   .row-sm-height {
@@ -228,10 +228,24 @@ ul.list-color li:before {
   color: #2a9677;
 }
 
-ul li {
-  padding-left: 2em;
-  padding-bottom: 15px;
-  text-indent: -0.7em;
+.page--program {
+    .program-content {
+        ul li {
+          padding-left: 2em;
+          padding-bottom: 15px;
+          text-indent: -0.7em;
+        }
+
+        .col-middle {
+            vertical-align: top;
+        }
+
+        @media screen and (min-width: $screen-lg) {
+            img {
+                width: 100%;
+            }
+        }
+    }
 }
 
 .destaque-bg-cinza {
@@ -293,20 +307,15 @@ a.link-black {
   color: black;
 }
 
-article.program-content {
-  margin-top: 40px;
-}
-
-article.program-content div.ng-binding div.container div.row {
-  margin-bottom: 40px;
-}
-
-article.program-content h3 {
-  margin-bottom: 15px;
-}
-
 .inline-block {
   display: inline-block;
+}
+
+// Sobreescreve a classe do bootstrap
+.close {
+  color: white;
+  opacity: 1;
+  font-weight: normal;
 }
 
 blockquote {
@@ -315,18 +324,27 @@ blockquote {
   padding: 45px 0 0 45px;
   position: relative;
   margin: 0px;
+  border-left: none;
+  font-size: 24px;
+  line-height: 28px;
+  padding: 50px 0 0 50px;
+  position: relative;
+
+  @each $category, $color in $categories {
+    .#{$category} & {
+      color: $color;
+    }
+  }
 
   &:before {
     content: "⌜";
     font-size: 200px;
-    left: -2px;
+    line-height: 200px;
     position: absolute;
-    top: -50px;
+    top: -10px;
+    left: -10px;
     font-weight: bolder;
-    left: -17px;
-    top: -68px;
-    @each $category,
-    $color in $categories {
+    @each $category, $color in $categories {
       .#{$category} & {
         color: $color;
       }
@@ -349,16 +367,6 @@ blockquote p {
   font-weight: normal;
 }
 
-// .img-responsive {
-//   width: 100%;
-// }
-//strong {
-//  @each $category, $color in $categories {
-//    .#{$category} & {
-//      color: $color;
-//    }
-//  }
-//}
 .top-border-theme {
   @each $category,
   $color in $categories {

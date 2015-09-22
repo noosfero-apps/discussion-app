@@ -8,8 +8,8 @@
       </div>
     </div>
     <div class="col-sm-8 message-content text-center-sm">
-      <h3>{{ ::vm.title }}</h3>
-      <p>{{ ::vm.message }}</p>
+      <h3>{{ ::vm.message }}</h3>
+      <div ng-bind-html="vm.description"></div>
     </div>
   </div>
 </div>

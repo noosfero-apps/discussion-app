@@ -7,81 +7,151 @@
     }
 }
 
-.program-preview {
-
-    .program-preview--box {
-        position: relative;
-        background-color: #f1f1f1;
-    }
-
-    .program-preview--banner {
-        width: 100%;
-        height: 400px;
-
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-
-
-
-        @media screen and (max-width: $screen-xs) {
-            // height: 15px;
-
-            // .video {
-            //     height: 290px;
-            // }
-        }
-    }
-
-    .program-preview--icon {
-        $icon-size: 98px;
-        $icon-scale: 0.7;
-        position: absolute;
-        top: (-1) * ($icon-size / 2);
-        left: 40px;
-
-        width: $icon-size * $icon-scale + 20px;
-        height: $icon-size * $icon-scale + 20px;
-
-        .icon {
-            display: block;
-            position: relative;
-            top: -8px;
-            left: -8px;
-            // transform: scale($icon-scale);
-        }
-
-        .contraste & {
-            border: 1px solid #fff;
-        }
-    }
-
-    .program-preview--box--content-wrapper {
-        padding: 40px;
-        position: relative;
-    }
-
-    .program-preview--share-label,
-    .program-preview--share-directive {
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .program-preview--abstract h2 {
-        font-size: 40px;
-    }
-
-    h2,
-    h3{
-        font-weight: bold;
-    }
-
-    h3 {
-        margin-top: 0;
-    }
-}
-
 .page--program {
+
+    .program-preview {
+
+        .program-preview--box {
+            position: relative;
+            background-color: #f1f1f1;
+        }
+
+        .program-preview--banner {
+            width: 100%;
+            height: 400px;
+
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+
+
+            @media screen and (max-width: $screen-xs) {
+                // height: 15px;
+
+                // .video {
+                //     height: 290px;
+                // }
+            }
+        }
+
+        .program-preview--icon {
+            $icon-size: 80px;
+            $icon-scale: 0.7;
+            position: absolute;
+            top: (-1) * ($icon-size / 2);
+            left: 40px;
+
+            width: $icon-size * $icon-scale + 25px;
+            height: $icon-size * $icon-scale + 25px;
+
+            .icon {
+                display: block;
+                position: relative;
+                top: -2px;
+                left: -2px;
+            }
+
+            .contraste & {
+                border: 1px solid #fff;
+            }
+        }
+
+        .program-preview--box--content-wrapper {
+            padding: 48px;
+            position: relative;
+        }
+
+        .program-preview--abstract {
+            h2 {
+                margin-top: 22px; // parent.margin + this.margin = 48 + 22 = 72px;
+                margin-bottom: 32px;
+            }
+        }
+
+        .program-preview--abstract-details {
+            p {
+                color: #484848;
+                font-size: 14px;
+                line-height: 18px;
+                margin-bottom: 25px;
+            }
+        }
+
+        .program-preview--share {
+            margin-bottom: 20px;
+            position: relative;
+            .dropdown {
+                display: inline-block;
+                position: relative;
+            }
+
+            .dropdown-menu {
+                padding: 0;
+                margin: 0;
+            }
+
+            .social-share {
+                background-color: #fff;
+            }
+
+            .social-share--arrow {
+                border-bottom-color: #fff;
+            }
+        }
+
+        .program-preview--share-label,
+        .program-preview--share-directive {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        h1 {
+            font-size: 38px;
+            line-height: 40px;
+            font-weight: 900;
+        }
+
+        h2 {
+            font-size: 32px;
+            line-height: 36px;
+            font-weight: bold;
+        }
+    }
+
+    .program-content {
+
+        margin-top: 40px;
+
+        h3 {
+            font-size: 22px;
+            line-height: 26px;
+            font-weight: bold;
+
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            font-size: 18px;
+            line-height: 24px;
+            font-weight: bold;
+        }
+
+        h5 {
+            font-size: 16px;
+            line-height: 22px;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 18px;
+        }
+
+        .container > .row {
+            margin-bottom: 40px;
+        }
+    }
 
     .btn-close {
         position: absolute;

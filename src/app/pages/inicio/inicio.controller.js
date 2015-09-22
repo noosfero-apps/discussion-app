@@ -160,6 +160,21 @@
     vm.article.videoIsLoaded = true;
   };
 
+  InicioPageController.prototype.submitSearch = function() {
+    var vm = this;
+
+    vm.loadingFilter = true;
+
+    // scroll to result grid
+    var $searchResult = angular.element('#search-result');
+    if($searchResult && $searchResult.length > 0){
+      angular.element('body').animate({scrollTop: $searchResult.offset().top}, 'fast');
+      vm.filtredPrograms = vm.getFiltredPrograms();
+    }else{
+      vm.$log.warn('#search-result element not found.');
+    }
+  };
+
   InicioPageController.prototype.filter = function() {
     var vm = this;
 
@@ -218,6 +233,7 @@
     var selectedTheme = vm.selectedTheme;
 
     var filter = vm.$filter('filter');
+    vm.loadingFilter = true;
 
     if (selectedTheme) {
       output = vm._filterByCategory(output, selectedTheme);
@@ -231,6 +247,7 @@
       output = _balanceByCategory(output);
     }
 
+    vm.loadingFilter = false;
     return output;
   };
 
@@ -259,7 +276,7 @@
     }
 
     return out;
-  }
+  };
 
   function _balanceByCategory (input) {
     var result = [];

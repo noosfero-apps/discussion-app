@@ -320,12 +320,10 @@ a.link-black {
 
 blockquote {
   border-left: medium none;
-  font-size: 140%;
   padding: 50px 0 0 50px;
   position: relative;
   margin: 0px;
   border-left: none;
-  line-height: 28px;
 
   &:before {
     content: "\231C";
@@ -341,6 +339,12 @@ blockquote {
       }
     }
   }
+
+}
+.page--program .program-content blockquote,
+.page--program .program-content blockquote p {
+    font-size: 24px;
+    line-height: 28px;
 }
 
 .top-border-theme {

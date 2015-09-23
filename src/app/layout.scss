@@ -349,7 +349,6 @@ blockquote {
       }
     }
   }
-
 }
 
 .page--program .program-content blockquote,
@@ -458,4 +457,9 @@ ul li:last-child {
   @media (min-width: 1200px) {
     padding: 18% 10% 0 10%;
   }
+}
+
+.bloco-mais-medicos {
+  background-color: #3D4AB3;
+  padding-top: 25px;
 }

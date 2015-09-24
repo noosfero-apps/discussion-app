@@ -329,19 +329,20 @@ a.link-black {
 
 blockquote {
   border-left: medium none;
-  padding: 50px 0 0 50px;
+  padding: 60px 0 0 65px;
   position: relative;
   margin: 0px;
   border-left: none;
-  line-height: 28px;
+  // line-height: 28px;
   &:before {
     content: "\231C";
-    font-size: 200px;
+    font-size: 300px;
     line-height: 200px;
     position: absolute;
-    top: -10px;
-    left: -10px;
+    top: 25px;
+    left: -25px;
     font-weight: bolder;
+    opacity: 0.5;
     @each $category,
     $color in $categories {
       .#{$category} & {

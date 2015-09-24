@@ -9,7 +9,6 @@
   display: table-cell;
   float: none;
   height: 100%;
-  background-color: #181e21;
 }
 
 .col-top {
@@ -224,7 +223,7 @@ ul.list-color li:before {
 }
 
 ul.list-color li:before {
-  content: "• ";
+  content: "\2022";
   font-weight: bold;
   font-size: 20px;
   position: relative;
@@ -333,7 +332,7 @@ blockquote {
   position: relative;
   margin: 0px;
   border-left: none;
-  // line-height: 28px;
+
   &:before {
     content: "\231C";
     font-size: 300px;

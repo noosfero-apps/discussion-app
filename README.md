@@ -1,6 +1,6 @@
 # Dialoga App
 
-Convenções:
+## Convenções (Dialoga x Noosfero)
 
 - Os *programas* são **topics**;
 - Os *temas* são **categories**;
@@ -8,20 +8,19 @@ Convenções:
 - As *propostas* são **proposals**;
 
 
+## Desenvolvimento
+
 Para iniciar o desenvolvimento:
 
 ```bash
-# dev with no proxy (local data)
-gulp serve && json-server data.js -p 9000 -w data.js
+# dev with staging data
+gulp serve --staging
 
-# dev with proxy to hom server
-gulp serve --target="http://hom.login.dialoga.gov.br"
-
-# dev with proxy to production server
-gulp serve --target="http://login.dialoga.gov.br"
+# dev with production data
+gulp serve --production
 ```
 
-##### Referências
+##### Tecnologias utilizadas
 
 - [generator-gulp-angular](https://github.com/Swiip/generator-gulp-angular)
 - Angular
@@ -30,8 +29,11 @@ gulp serve --target="http://login.dialoga.gov.br"
   - angular-touch
   - angular-sanitize
   - angular-ui-router
-  - restangular
-- gulp (default task: serve)
-- JS old style (no CoffeeScript or ES6 or ...)
-- HTML pure (no JADE or HBS or ...)
-- Bootstrap CSS only (without JS files)
+- gulp
+- JS old style (no CoffeeScript or ES6 or etc.)
+- HTML pure (no JADE or HBS or etc.)
+- Bootstrap 3
+
+## Referências
+
+- Git ([Guia](http://rogerdudler.github.io/git-guide/index.pt_BR.html))

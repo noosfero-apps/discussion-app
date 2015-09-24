@@ -1,0 +1,84 @@
+<div class="page--duvidas">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h2>Dúvidas frequentes</h2>
+				<p>Talvez a sua dúvida já tenha uma resposta. Caso contrário, você pode enviar sua pergunta pelo campo abaixo que em breve responderemos.</p>
+			</div>
+		</div>
+	</div>
+
+	<section role="duvidas" class="section-gray">
+		<div class="container">
+			<div class="row">
+				<div class="panel-group" id="accordion-duvidas" role="tablist" aria-multiselectable="false">
+
+					<div class="panel panel-default">
+						<div class="panel-heading" role="tab" id="duvida-01"  class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-duvidas" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							<span class="num-duvida">1</span>
+							<span class="panel-title">O que é o Dialoga Brasil?</span>
+							<span class="glyphicon glyphicon-chevron-down icon-white pull-right" aria-hidden="true" >
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="duvida-01">
+								<div class="panel-body">
+									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<section role="formulario" >
+			<div class="container">
+				<div class="row">
+					<h2>Tem outras dúvidas ou sugestões?</h2>
+				</div>
+
+				<div class="row">
+					<form role="form" name="duvidasForm" ng-submit="" novalidate>
+						<div class="form-group">
+							<label for="inputAssunto">Assunto*</label>
+							<select id="inputAssunto" name="inputAssunto" class="form-control input-lg dark-input" ng-model="data.inputAssunto" required>
+								<option value="">---Please select---</option>
+								<option value="">---Please select---</option>
+								<option value="">---Please select---</option>
+								<option value="">---Please select---</option>
+								<option value="">---Please select---</option>
+							</select>
+							<validation-messages field="duvidasForm.inputAssunto"/>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<span>Nome*</span>
+									<input type="text" id="inputNome" name="inputNome" class="form-control input-lg light-input" ng-class="{ 'has-error' : duvidasForm.inputNome.$invalid && duvidasForm.inputNome.$touched }" ng-model="senha" ng-minlength="" ng-maxlength="" required>
+									<validation-messages field="duvidasForm.inputNome"/>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<span>E-mail*</span>
+									<input type="email" id="inputEmai" name="inputEmai" class="form-control input-lg light-input" ng-class="{ 'has-error' : duvidasForm.inputEmai.$invalid && duvidasForm.inputEmai.$touched }" ng-model="senhaRepetida" ng-minlength="" ng-maxlength="" required>
+									<validation-messages field="duvidasForm.inputEmai"/>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<span>Mensagem*</span>
+							<textarea id="mensagem" name="mensagem" class="mensagem-text-area form-control light-input" ng-class="{ 'has-error' : duvidasForm.mensagem.$invalid && duvidasForm.mensagem.$touched }" ng-model="mensagem" required ></textarea>
+							<validation-messages field="duvidasForm.mensagem"/>
+						</div>
+						<span class="pull-left">*Dados obrigatórios</span>
+						<div class="row">
+							<div class="col-sm-4 form-group pull-right">
+									<button class="btn btn-lg btn-block btn-submit" type="submit">Enviar Mensagem</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+	</div>

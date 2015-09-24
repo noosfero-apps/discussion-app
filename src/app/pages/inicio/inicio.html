@@ -1,0 +1,163 @@
+<div class="page--inicio" role="main">
+  <section class="section-video">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8" ng-class="{'col-md-offset-2': !pageInicio.featuredEvent}">
+          <div class="video-player js-youtube">
+            <div class="embed-responsive embed-responsive-16by9">
+              <div class="js-iframe" ng-if="pageInicio.article.videoIsLoaded" ng-bind-html="pageInicio.article.abstractTrusted"></div>
+              <div class="video-background" ng-click="pageInicio.showVideo()">
+                <div class="video-thumbnail" aria-hidden="true" style="background-image:url(/assets/images/youtube-background.png)"></div>
+                <button class="video-play-button" aria-live="assertive" aria-label="Assistir o vídeo tutorial Dialoga Brasil">
+                  <svg height="100%" version="1.1" viewbox="0 0 68 48" width="100%"><path class="ytp-play-button-bg" d="m .66,37.62 c 0,0 .66,4.70 2.70,6.77 2.58,2.71 5.98,2.63 7.49,2.91 5.43,.52 23.10,.68 23.12,.68 .00,-1.3e-5 14.29,-0.02 23.81,-0.71 1.32,-0.15 4.22,-0.17 6.81,-2.89 2.03,-2.07 2.70,-6.77 2.70,-6.77 0,0 .67,-5.52 .67,-11.04 l 0,-5.17 c 0,-5.52 -0.67,-11.04 -0.67,-11.04 0,0 -0.66,-4.70 -2.70,-6.77 C 62.03,.86 59.13,.84 57.80,.69 48.28,0 34.00,0 34.00,0 33.97,0 19.69,0 10.18,.69 8.85,.84 5.95,.86 3.36,3.58 1.32,5.65 .66,10.35 .66,10.35 c 0,0 -0.55,4.50 -0.66,9.45 l 0,8.36 c .10,4.94 .66,9.45 .66,9.45 z" fill="#1f1f1e" fill-opacity="0.9"></path><path d="m 26.96,13.67 18.37,9.62 -18.37,9.55 -0.00,-19.17 z" fill="#fff"></path><path d="M 45.02,23.46 45.32,23.28 26.96,13.67 43.32,24.34 45.02,23.46 z" fill="#ccc"></path></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" ng-if="pageInicio.featuredEvent">
+          <div class="row">
+            <div class="featured-event--box">
+              <div class="box-top col-xs-12 col-sm-4 col-md-12">
+                <h2 class="box-title">Bate papo com <b>MINISTROS/AS</b></h2>
+              </div>
+              <div class="box-middle col-xs-12 col-sm-4 col-md-12">
+                <div class="video" style="background-image: url(/assets/images/event-video-area.png)">
+                </div>
+              </div>
+              <div class="box-bottom col-xs-12 col-sm-4 col-md-12">
+                <div class="date">DD/MM/YYYY</div>
+                <div class="live">AO VIVO</div>
+                <p>
+                  Lorem ipsum dolor sit amet, mei at facete constituto partiendo et.
+                </p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-event">
+    <div ng-if="pageInicio.events">
+      <event-list events="pageInicio.events"></event-list>
+    </div>
+    <div ng-if="!pageInicio.events && pageInicio.loadingEvents" class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="alert alert-info" role="alert">Carregando lista de eventos.</div>
+        </div>
+      </div>
+    </div>
+    <div ng-if="!pageInicio.events && pageInicio.eventsError" class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="alert alert-danger" role="alert">Não foi possível carregar a lista de eventos neste momento.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-info" ng-if="pageInicio.loading || pageInicio.error">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div ng-if="pageInicio.loading && !pageInicio.error">
+              <div class="alert alert-info" role="alert">Carregando conteúdo...</div>
+            </div>
+
+            <div ng-if="pageInicio.error">
+              <div class="alert alert-danger" role="alert">
+                Erro ao carregar o conteúdo principal.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section class="section--articles section-gray section-space-up" ng-if="pageInicio.article">
+    <div class="container">
+      <div id="lista-de-programas" class="row">
+        <div class="col-sm-4 col-md-3">
+          <div class="row visible-xs">
+            <div class="col-xs-12">
+              <div class="input-group input-group-lg input-group-search">
+                <label for="articleQueryFilter1" class="control-label sr-only">Buscar programas:</label>
+                <input id="articleQueryFilter1" type="search" class="form-control input-search" ng-model="pageInicio.query" placeholder="Buscar programas" aria-label="Buscar programas" >
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="pageInicio.submitSearch()">
+                    <span class="icon-circle icon-small color-theme-common-bg">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </span>
+                    <span class="sr-only">Buscar</span>
+                  </button>
+                </span>
+              </div>
+              <br/>
+            </div>
+          </div>
+          <div ng-if="pageInicio.themes && !vm.loadingFilter">
+            <category-list categories="pageInicio.themes" selected-category="pageInicio.selectedTheme"></category-list>
+          </div>
+          <div ng-if="!pageInicio.themes && pageInicio.loadingThemes">
+            <div class="alert alert-info" role="alert">
+              Carregando temas.
+            </div>
+          </div>
+          <div ng-if="!pageInicio.themes && pageInicio.themesError">
+            <div class="alert alert-danger" role="alert">
+              Não foi possível carregar a lista de temas neste momento.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-8 col-md-9">
+          <div class="row hidden-xs">
+            <div class="col-xs-12">
+              <div class="input-group input-group-lg input-group-search">
+                <label for="articleQueryFilter2" class="control-label sr-only">Buscar programas:</label>
+                <input id="articleQueryFilter2" type="search" class="form-control input-search" ng-model="pageInicio.query" placeholder="Buscar programas" aria-label="Buscar programas" >
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="pageInicio.submitSearch()">
+                    <span class="icon-circle icon-small color-theme-common-bg">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </span>
+                    <span class="sr-only">Buscar</span>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div id="search-result" class="row">
+            <div class="col-sm-12">
+              <header class="header">
+                <h2>Programas</h2>
+                <button type="button" class="btn btn-link" ng-click="pageInicio.showAllPrograms($event)">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Ver todos os {{::pageInicio.programs.length}} programas
+                </button>
+              </header>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12" ng-if="pageInicio.filtredPrograms && !vm.loadingFilter">
+              <article-grid articles="pageInicio.filtredPrograms"></article-grid>
+            </div>
+            <div ng-if="!pageInicio.programs && pageInicio.loadingPrograms">
+              <div class="alert alert-info" role="alert">
+                Carregando programas.
+              </div>
+            </div>
+            <div ng-if="!pageInicio.programs && pageInicio.programsError">
+              <div class="alert alert-danger" role="alert">
+                Não foi possível carregar a lista de programas neste momento.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

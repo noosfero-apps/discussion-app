@@ -1,0 +1,27 @@
+.custom-breadcrumb {
+
+    .breadcrumb {
+        background: none;
+        padding: 0;
+        margin: 10px 0;
+    }
+
+    .glyphicon {
+        color: #1E3E65;;
+        border: 1px solid #1E3E65;
+        border-radius: 100%;
+        width: 23px;
+        height: 23px;
+        margin: 0;
+        padding: 2px 0 0 3px;
+    }
+
+    .breadcrumb > li + li:before {
+        content: '\00BB';
+    }
+
+    .contraste & .breadcrumb {
+        background-color: #000;
+        border: 1px solid #fff;
+    }
+}

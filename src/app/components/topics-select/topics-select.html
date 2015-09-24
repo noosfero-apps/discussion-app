@@ -1,0 +1,8 @@
+<div class="topics-dropdown">
+  <select
+    ng-model="vm.selectedTopic"
+    ng-change="vm.selectTopic()"
+    ng-options="topic.title for topic in vm.topics track by topic.slug"
+    class="form-control">
+  </select>
+</div>

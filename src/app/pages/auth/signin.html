@@ -1,0 +1,203 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Cadastrar ou entrar</h2>
+    </div>
+  </div>
+</div>
+<section role="main" class="section-gray auth-content">
+  <div class="container">
+    <div class="row">
+      <div ng-if="pageSignin.currentUser">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <div class="feedback-message">
+              <show-message
+              type="'success'"
+              message="pageSignin.messageTitle || 'Você está logado!'"
+              description="pageSignin.successMessage"
+              ></show-message>
+
+              <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8 text-center-sm">
+                  <div ng-if="pageSignin.countdown > 0">
+                    <p>
+                      Você será redirecionado em menos de <b>{{pageSignin.countdown}} segundos</b>...
+                    </p>
+                  </div>
+                  <div ng-if="!pageSignin.hasRedirect">
+                    <a ui-sref="inicio" class="btn btn-primary">Ir para a Página Inicial</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="!pageSignin.currentUser">
+        <div class="col-sm-5">
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Já possui cadastro?</h2>
+              <p>Use seus dados para acessar o Dialoga Brasil</p>
+              <form role="form" name="signinForm" ng-submit="pageSignin.submitSignin(pageSignin.signin)" novalidate>
+                <div class="form-group">
+                  <label for="signin-form--login">E-mail*</label>
+                  <input type="email" id="signin-form--login" name="login" class="form-control input-lg" ng-class="{ 'has-error' : signinForm.login.$invalid && signinForm.login.$touched }" ng-model="pageSignin.signin.username" required/>
+                  <validation-messages field="signinForm.login"></validation-messages>
+                </div>
+                <div class="form-group">
+                  <label for="signin-form--password">Senha*</label>
+                  <input type="password" id="signin-form--password" name="password" class="form-control input-lg" ng-class="{ 'has-error' : signinForm.password.$invalid && signinForm.password.$touched }" ng-model="pageSignin.signin.password" required>
+                  <validation-messages field="signinForm.password"></validation-messages>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-lg btn-block btn-submit" type="submit">Entrar</button>
+                </div>
+                <div class="form-group">
+                  <a ui-sref="recuperar" class="btn btn-lg btn-link">Esqueci minha senha</a>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <hr class="separator separator-or"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <button type="button" ng-click="pageSignin.authWithFacebook()" class="btn btn-lg btn-block btn-social btn-facebook">
+                <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-facebook">
+                  <span class="icon icon-social-facebook"></span>
+                </span>
+                <span class="text">Entrar com Facebook</span>
+              </button>
+            </div>
+            <div class="col-xs-6">
+              <button type="button" ng-click="pageSignin.authWithGooglePlus()" class="btn btn-lg btn-block btn-social btn-google-plus">
+                <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-googleplus">
+                  <span class="icon icon-social-googleplus"></span>
+                </span>
+                <span class="text">Entrar com Google+</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-1">
+        </div>
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-12">
+              <h2>Ou cadastre-se</h2>
+              <p>
+                Para fazer parte do Dialoga Brasil, interagir com as propostas e enviar as suas!
+              </p>
+            </div>
+          </div>
+          <div class="row" ng-if="pageSignin.errorMessage">
+            <div class="col-sm-12">
+              <div class="alert alert-danger">
+                {{pageSignin.errorMessage}}
+              </div>
+              <div ng-if="vm.internalError">
+                <p>Este erro parece ser um problema interno.<br/>Por favor, tente novamente mais tarde.</p>
+                <p>Caso o problema persista, entre em contato!</p>
+                <p><a ui-sref="duvidas">Ir para página de contato</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <form name="signupForm" ng-submit="pageSignin.submitSignup($event, pageSignin.signup)">
+                <div class="form-group">
+                  <label for="signup-form--name">Nome*:</label>
+                  <span class="pull-right">*Dados obrigatórios</span>
+                  <input type="text" id="signup-form--name" name="name" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.name.$invalid && signupForm.name.$touched }" ng-model="pageSignin.signup.name" ng-minlength="" ng-maxlength="" required>
+                  <validation-messages field="signupForm.name"></validation-messages>
+                </div>
+                <div class="form-group">
+                  <label for="signup-form--email">E-mail*:</label>
+                  <input type="email" id="signup-form--email" name="email" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$touched }" ng-model="pageSignin.signup.email" ng-minlength="" ng-maxlength="" required>
+                  <validation-messages field="signupForm.email"></validation-messages>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="signup-form--password">Senha*:</label>
+                      <input type="password" id="signup-form--password" name="password" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$touched }" ng-model="pageSignin.signup.password" ng-minlength="" ng-maxlength="" required>
+                      <validation-messages field="signupForm.password"></validation-messages>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label for="signup-form--password-confirmation">Confirmar Senha*:</label>
+                      <input type="password" id="signup-form--password-confirmation" name="password_confirmation" class="form-control input-lg" ng-class="{ 'has-error' : signupForm.password_confirmation.$invalid && signupForm.password_confirmation.$touched }" ng-model="pageSignin.signup.password_confirmation" ng-minlength="" ng-maxlength="" required>
+                      <validation-messages field="signupForm.password_confirmation"></validation-messages>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12" ng-show="(signupForm.password.$viewValue.length > 0 && signupForm.password_confirmation.$viewValue.length > 0) && (signupForm.password.$viewValue !== signupForm.password_confirmation.$viewValue)">
+                    <div class="error-message">
+                      As senhas estão diferentes.
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <span class="text" ng-show="signupForm.password.$viewValue.length > 0 && signupForm.password.$viewValue.length < 6">
+                      <div class="error-message">
+                        A senha deve ter 6 ou mais caracteres e conter números e letras.
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label for="user_terms_accepted">
+                      <input type="checkbox" id="user_terms_accepted" name="user_terms_accepted" value="aceito"  ng-model="pageSignin.signup.user_terms_accepted" required />
+                      Já li e concordo com os
+                      <button type="button" class="btn btn-link" style="padding:0 0 4px 0;" data-toggle="modal" data-target="#modalTermosDeUso">Termos de Uso</button>
+                    </label>
+                  </div>
+                  <validation-messages field="signupForm.user_terms_accepted"></validation-messages>
+                </div>
+                <div class="form-group">
+                  <div id="serpro_captcha" class="captcha">
+                  </div>
+                  <div class="captcha">
+                    Digite os caracteres acima:
+                  </div>
+                  <div class="captcha">
+                    <input type="text" name="captcha_text" id="captcha_text" aria-label="Escreva os caracteres do captcha aqui" ng-model="pageSignin.signup.captcha_text" ng-minlength="" ng-maxlength="" required>
+                    <validation-messages field="signupForm.captcha_text"></validation-messages>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button  type="submit" class="btn btn-lg btn-block btn-submit" ng-class=" {'disabled' : !pageSignin.signup.user_terms_accepted }">Cadastrar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="modal fade" id="modalTermosDeUso" tabindex="-1" role="dialog" aria-labelledby="termosDeUsoLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-termos-uso-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="modal-fechar-pequeno">FECHAR</span>
+          <span aria-hidden="true" class="modal-fechar-grande">X</span>
+        </button>
+      </div>
+      <div class="modal-body modal-termos-uso-body">
+        <div class="modal-termos-uso-body-inner" ng-if="pageSignin.terms">
+          <div ng-bind-html="pageSignin.terms.body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

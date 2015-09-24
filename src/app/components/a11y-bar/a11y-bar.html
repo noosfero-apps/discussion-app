@@ -1,0 +1,48 @@
+<div class="a11y-bar hidden-xs">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <ul class="skip-links list-inline list-unstyled">
+          <li>
+            <a class="color-theme-common-fg" accesskey="1" href="#content" id="skip-to-content" ng-click="focusOn('#content', $event)">
+              Ir para o conteúdo
+              <span class="color-theme-common-bg">1</span>
+            </a>
+          </li>
+          <li>
+            <a class="color-theme-common-fg" accesskey="2" href="#navigation" id="skip-to-navigation" ng-click="focusOn('#navigation', $event)">
+              Ir para o menu
+              <span class="color-theme-common-bg">2</span>
+            </a>
+          </li>
+          <li>
+            <a class="color-theme-common-fg" accesskey="3" href="#search" id="skip-to-search" ng-click="focusOn('#search', $event)">
+              Ir para a busca
+              <span class="color-theme-common-bg">3</span>
+            </a>
+          </li>
+          <!-- <li>
+            <a class="color-theme-common-fg" accesskey="4" href="#footer" id="skip-to-footer" ng-click="focusOn('#footer', $event)">
+              Ir para o rodapé
+              <span class="color-theme-common-bg">4</span>
+            </a>
+          </li> -->
+        </ul>
+      </div>
+
+      <div class="col-sm-6">
+        <ul class="action-links list-inline list-unstyled pull-right">
+          <li>
+            <a id="siteaction-accessibility" class="color-theme-common-fg" href="#" title="Acessibilidade" accesskey="5" ng-click="actionAccessibility()">Acessibilidade</a>
+          </li>
+          <li>
+            <a id="siteaction-contrast" class="color-theme-common-fg" href="#" title="Alto Contraste" accesskey="6" ng-click="actionContrast()">Alto Contraste</a>
+          </li>
+          <li>
+            <a id="siteaction-sitemap" class="color-theme-common-fg" ui-sref="mapa-do-site" title="Mapa do Site" accesskey="7" ng-click="actionSitemap()">Mapa do Site</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

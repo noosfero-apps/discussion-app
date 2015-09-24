@@ -1,0 +1,23 @@
+<div class="category-list">
+  <nav class="navigation">
+    <h3 class="category-list--title" ng-click="vm.toogleList()">
+      <span class="hidden-xs"><b>Programas</b> por Tema</span>
+      <span class="visible-xs"><b>Filtrar</b> por Tema <span class="glyphicon glyphicon-filter pull-right"></span></span>
+    </h3>
+
+    <!-- <div class="list-group ng-hide" ng-show="!vm.isCollapsed" ng-class="vm.selectedCategory.slug"> -->
+    <div class="list-group" ng-class="vm.selectedCategory.slug">
+      <button type="button" class="list-group-item category-list--item"
+        ng-repeat="category in vm.categories"
+        ng-class="{active: vm.selectedCategory.slug === category.slug}"
+        ng-click="vm.selectCategory(category, $event)">
+
+        <span class="category-list--icon-circle"  aria-hidden="true" ng-class="category.slug"></span>
+        <span class="category-list--icon icon" aria-hidden="true" ng-class="'icon-tema-' + category.slug + '-small'"></span>
+        <span class="category-list--label">{{::category.name}}</span>
+        <span class="category-list--icon--right glyphicon glyphicon-chevron-right hidden-xs" ng-hide="vm.selectedCategory.slug === category.slug"></span>
+        <span class="category-list--icon--right glyphicon glyphicon-remove hidden-xs" ng-show="vm.selectedCategory.slug === category.slug"></span>
+      </button>
+    </div>
+  </nav>
+</div>

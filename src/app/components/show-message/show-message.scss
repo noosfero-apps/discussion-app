@@ -1,0 +1,25 @@
+.show-message {
+
+    .message-icon {
+        background-color: #ccc;
+        border-radius: 100%;
+        padding: 20px 7px;
+        width: 80px;
+        height: 80px;
+        display: inline-block;
+
+        font-size: 26px;
+
+        &.alert {
+            background-color: #EEB453;
+        }
+
+        &.success {
+            background-color: #8AB34D;
+        }
+
+        &.error {
+            background-color: #C93E55;
+        }
+    }
+}

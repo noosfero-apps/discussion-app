@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div ncy-breadcrumb></div>
+    </div>
+  </div>
+</div>
+
+<div class="container" role="main">
+  <div class="row">
+    <div ng-if="pageArticle.loading">
+      <div class="alert alert-info">
+        Carregando conteúdo...
+      </div>
+    </div>
+
+    <div ng-if="pageArticle.error">
+      <div class="alert alert-info">
+        Erro ao carregar conteúdo.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div ng-if="pageArticle.article">
+	<article>
+		<header class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>{{::pageArticle.article.title}}</h1>
+        </div>
+      </div>
+		</header>
+    <article>
+      <div class="container">
+		    <div ng-bind-html="pageArticle.article.body"></div>
+      </div>
+    </article>
+	</article>
+</div>

@@ -1,0 +1,82 @@
+<div class="event-list">
+
+  <section class="color-theme-common-bg">
+
+    <div class="container">
+      <div class="event-bar--trigger" ng-click="vm.toggleView()">
+        <div class="event-bar--trigger-top">
+          <div class="col-sm-6">
+            <h1 class="title">
+              <span class="glyphicon glyphicon-calendar icon-circle color-theme-common-fg"></span>
+              Agenda <b>Dialoga Brasil</b>
+            </h1>
+          </div>
+          <div class="col-sm-6 text-right">
+            <h2 class="event-bar--trigger-toggle text-right">
+              <span><b>{{vm.events.length}}</b> bate papos <b>agendados</b></span>
+              <span ng-if="vm.isCollapsed" class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+              <span ng-if="!vm.isCollapsed" class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+            </h2>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-table">
+    <div class="container">
+      <div class="event-list--panel ng-hide" ng-show="!vm.isCollapsed">
+        <div class="event-list--table-wrapper">
+          <div class="row row-level-1" ng-repeat="event in vm.events | orderBy:'start_date':false">
+            <div class="col-xs-12 col-sm-4 col-md-3 vcenter">
+              <span class="date-wrapper">
+                <span class="glyphicon glyphicon-calendar"></span>
+                <span class="date">{{event.start_date | date : "dd/MM/yyyy"}}</span>
+              </span>
+              <span class="time-wrapper">
+                <span class="glyphicon glyphicon-time"></span>
+                <span class="time">{{event.start_date | date : "HH:mm"}}</span>
+              </span>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-5 vcenter">
+              <span class="description">{{::event.title.split('-')[0]}}</span>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-4 col-md-3 text-center vcenter">
+              <span class="theme">{{::event.categories[0].name}}</span>
+            </div> -->
+            <div class="col-xs-12 col-sm-4 col-md-4 text-right vcenter" style="padding-right: 20px;">
+              <div class="row">
+                <div class="col-xs-6 text-right">
+                  <div ng-if="event.followers_count > 50">
+                    <b>{{::event.followers_count}}</b>
+                    <br/>
+                    <span>Inscritos</span>
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <button type="button" class="btn color-theme-common-bg btn-disabled" disabled ng-click="vm.subscribe(event)">
+                    Inscreva-se
+                    <span class="sr-only">no bate-papo com (ministro) no dia {event.start_date | date : "dd/MM/yyyy"}} as {{event.start_date | date : "HH:mm"}} horas</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container visible-xs" ng-show="!vm.isCollapsed">
+      <div class="minimize" ng-click="vm.toggleView()">
+        <div class="row color-theme-common-bg">
+          <div class="col-xs-6">
+            <button type="button" class="btn btn-link" ng-click="">MINIMIZAR</button>
+          </div>
+          <div class="col-xs-5 text-right">
+            <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

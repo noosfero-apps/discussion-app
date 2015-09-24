@@ -1,0 +1,38 @@
+.page--mapa {
+    background-color: #f9f9f9;
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .list-sitemap a,
+    .list-sitemap {
+        color: $defaultblue;
+        font-weight: bold;
+    }
+
+    .level-1 {
+        font-size: 22px;
+        padding: 10px 0;
+    }
+    .level-2 {
+        font-size: 18px;
+        padding-left: 40px;
+    }
+
+    .level-3 {
+        font-size: 14px;
+        padding-left: 40px;
+        a {
+            color: #212121;
+            font-weight: normal;
+        }
+    }
+
+    .margin-mapa {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+}

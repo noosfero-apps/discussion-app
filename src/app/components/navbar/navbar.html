@@ -1,26 +1,70 @@
-<nav class="navbar navbar-static-top">
-  <div class="container-fluid">
+<div class="app-navbar">
+  <nav id="navigation" class="header-navbar navbar navbar-static-top" role="navigation">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-        <span class="sr-only">Alternar menu de navegação</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" ui-sref="inicio">
-        <img src="/assets/images/logo.png" alt="Dialoga Brasil | O país fica melhor quando você participa" />
-        <!-- <span class="glyphicon glyphicon-home"></span> Início -->
-      </a>
+      <div class="row">
+        <div class="row-height">
+          <div class="col-xs-10 col-xs-height col-middle">
+            <a class="navbar-brand" ui-sref="inicio">
+              <img src="/assets/images/logo.png" class="img-responsive" alt="Dialoga Brasil | O país fica melhor quando você participa" />
+            </a>
+          </div>
+          <div class="col-xs-2 col-xs-height col-middle">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+              <span class="sr-only">Alternar menu de navegação</span>
+              <span class="icon-bar" aria-hidden="true"></span>
+              <span class="icon-bar" aria-hidden="true"></span>
+              <span class="icon-bar" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="navbar-collapse" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li><a ui-sref="sobre">Sobre</a></li>
-        <li><a ui-sref="programas">Programas</a></li>
-        <!-- <li><a ui-sref="ranking">Ranking</a></li> -->
-        <!-- <li><a ui-sref="duvidas">Dúvidas</a></li> -->
-        <!-- <li><a ui-sref="respostas">Respostas</a></li> -->
+      <ul class="nav navbar-nav navbar-right">
+        <li ui-sref-active="active"><a ui-sref="sobre">Sobre</a></li>
+        <li ui-sref-active="active"><a ui-sref="programas">Programas</a></li>
+        <li ui-sref-active="active"><a ui-sref="propostas">Propostas</a></li>
+        <li ui-sref-active="active"><a ui-sref="ranking">Ranking</a></li>
+        <li ui-sref-active="active"><a ui-sref="duvidas">Dúvidas</a></li>
+        <li role="separator" class="divider hidden-xs hidden-sm"><span>|</span></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compartilhar <span aria-hidden="true" class="icon icon-social-share-small"></span></a>
+          <social-share class="dropdown-menu dropdown-menu-right" arrow-class="social-share--arrow"></social-share>
+        </li>
       </ul>
     </div>
+  </nav>
+
+  <div id="dialoga-nas-redes" class="hidden-xs">
+    <div class="text text-right">
+      <p>DIALOGA<br><b>NAS REDES</b></p>
+    </div>
+    <ul class="social-share list-inline">
+      <li>
+        <a href="https://www.facebook.com/DialogaBrasil" target="_blank">
+          <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-facebook"><span class="icon icon-social-facebook"></span></span>
+          <span class="sr-only">Visitar perfil no Facebook</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://twitter.com/dialogabrasil" target="_blank">
+          <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-twitter"><span class="icon icon-social-twitter"></span></span>
+          <span class="sr-only">Visitar perfil no Twitter</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/channel/UCtjaJwOWwGu2legqFVAzhIA" target="_blank">
+          <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-youtube"><span class="icon icon-social-youtube"></span></span>
+          <span class="sr-only">Visitar canal no Youtube</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.flickr.com/photos/dialogabrasil" target="_blank">
+          <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-flickr"><span class="icon icon-social-flickr"></span></span>
+          <span class="sr-only">Visitar canal no Flickr</span>
+        </a>
+      </li>
+    </ul>
   </div>
-</nav>
+</div>

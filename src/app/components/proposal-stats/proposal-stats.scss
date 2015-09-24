@@ -1,0 +1,20 @@
+.proposal-stats {
+    font-weight: bold;
+
+    .list-inline {
+        margin: 10px 0;
+    }
+
+    li {
+        margin: 0 5px;
+        padding-left: 15px;
+
+        &:first-child {
+            padding-left: 0px;
+        }
+    }
+
+    &-views {}
+    &-up .glyphicon {color: #4ac97a; }
+    &-down .glyphicon {color: #ef4a68; }
+}

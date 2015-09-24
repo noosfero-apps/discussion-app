@@ -1,0 +1,15 @@
+<div id="message" class="show-message">
+  <div class="row">
+    <div class="col-sm-2 col-sm-offset-2 message-icon-wrapper text-right text-center-sm">
+      <div class="message-icon text-center color-fg-white" ng-class="[vm.type]">
+        <span ng-if="vm.type === 'success'" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <span ng-if="vm.type === 'alert'" class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+        <span ng-if="vm.type === 'error'" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="col-sm-8 message-content text-center-sm">
+      <h3>{{ ::vm.message }}</h3>
+      <div ng-bind-html="vm.description"></div>
+    </div>
+  </div>
+</div>

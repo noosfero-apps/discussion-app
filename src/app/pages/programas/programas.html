@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div ncy-breadcrumb></div>
+    </div>
+  </div>
+</div>
+
+<div class="page--programas" role="main">
+  <section class="section--info">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Programas</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section--articles section-gray section-space-up" ng-if="pageProgramas.programs">
+    <div class="container">
+      <div id="lista-de-programas" class="row">
+        <div class="col-sm-4 col-md-3">
+          <div class="row visible-xs">
+            <div class="col-xs-12">
+              <div class="input-group input-group-lg input-group-search">
+                <label for="articleQueryFilter" class="control-label sr-only">Buscar programas:</label>
+                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pageProgramas.query" placeholder="Buscar programas" aria-label="Buscar programas" >
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="pageProgramas.search()">
+                    <span class="icon-circle icon-small color-theme-common-bg">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </span>
+                    <span class="sr-only">Buscar</span>
+                  </button>
+                </span>
+              </div>
+              <br/>
+            </div>
+          </div>
+          <div ng-if="pageProgramas.themes && !vm.loadingFilter">
+            <category-list categories="pageProgramas.themes" selected-category="pageProgramas.selectedTheme"></category-list>
+          </div>
+          <div ng-if="!pageProgramas.themes && pageProgramas.loadingThemes">
+            <div class="alert alert-info" role="alert">
+              Carregando temas.
+            </div>
+          </div>
+          <div ng-if="!pageProgramas.themes && pageProgramas.themesError">
+            <div class="alert alert-danger" role="alert">
+              Não foi possível carregar a lista de temas neste momento.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-8 col-md-9">
+          <div class="row hidden-xs">
+            <div class="col-xs-12">
+              <div class="input-group input-group-lg input-group-search">
+                <label for="articleQueryFilter" class="control-label sr-only">Buscar programas:</label>
+                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pageProgramas.query" placeholder="Buscar programas" aria-label="Buscar programas" >
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="pageProgramas.search()">
+                    <span class="icon-circle icon-small color-theme-common-bg">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </span>
+                    <span class="sr-only">Buscar</span>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <header class="header">
+                <h2>Conheça os programas</h2>
+                <button type="button" class="btn btn-link" ng-click="pageProgramas.showAllPrograms($event)">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Ver todos os {{::pageProgramas.programs.length}} programas
+                </button>
+              </header>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12" ng-if="pageProgramas.filtredPrograms && !vm.loadingFilter">
+              <article-grid articles="pageProgramas.filtredPrograms"></article-grid>
+            </div>
+            <div ng-if="!pageProgramas.programs && pageProgramas.loadingPrograms">
+              <div class="alert alert-info" role="alert">
+                Carregando programas.
+              </div>
+            </div>
+            <div ng-if="!pageProgramas.programs && pageProgramas.programsError">
+              <div class="alert alert-danger" role="alert">
+                Não foi possível carregar a lista de programas neste momento.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

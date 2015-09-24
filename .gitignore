@@ -4,3 +4,8 @@ bower_components/
 .idea/
 .tmp/
 dist/
+.editorconfig
+script-staging.sh
+
+# ignore generated sprite
+src/assets/images/icons/sprite.png

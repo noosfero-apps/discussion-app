@@ -1,0 +1,214 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div ncy-breadcrumb></div>
+    </div>
+  </div>
+</div>
+
+<div class="page--program">
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div ng-if="!pagePrograma.article && pagePrograma.loading" class="alert alert-info" role="alert">Carregando detalhes sobre o progama...</div>
+          <div ng-if="!pagePrograma.article && pagePrograma.error" class="alert alert-warning" role="alert">Erro ao carregar o programa.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div role="main" ng-class="pagePrograma.category.slug">
+    <section ng-if="pagePrograma.article.body">
+      <div class="container">
+        <div class="row">
+          <article class="program-preview">
+            <!-- Preview > Titulo -->
+            <div class="col-md-12">
+              <h1 class="program-preview--title color-theme-fg">{{::pagePrograma.article.title}}</h1>
+            </div>
+            <!-- Preview > coluna da esquerda -->
+            <div class="col-md-8">
+              <div class="program-preview--box contraste-box">
+                <div class="program-preview--banner" ng-style="{'background-image':'url( {{::pagePrograma.banner.src}} )'}"></div>
+                <div class="program-preview--box--content-wrapper">
+                  <div class="program-preview--icon icon-wrapper-rounded color-theme-bg" ng-class="pagePrograma.category.slug">
+                    <span class="icon" ng-class="'icon-tema-' + pagePrograma.category.slug"></span>
+                  </div>
+                  <div class="program-preview--abstract color-theme-fg">
+                    <h2>{{::stripHtml(pagePrograma.article.summary)}}</h2>
+                  </div>
+                  <div class="program-preview--abstract-details">
+                    <div ng-bind-html="pagePrograma.article.summaryExtended"></div>
+                  </div>
+                  <div class="program-preview--share">
+                    <div class="program-preview--share-label">COMPARTILHE ESTE <b>PROGRAMA</b></div>
+                    <div class="dropdown">
+                      <button id="dropdown-share-btn" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Mostrar ou esconder a lista redes sociais para compartilhamento"><span class="icon icon-social-share-small" aria-hidden="true"></span></button>
+                      <social-share
+                        url=""
+                        text=""
+                        image=""
+                        arrow-class="social-share--arrow"
+                        class="dropdown-menu dropdown-menu-right"
+                        ></social-share>
+                    </div>
+                  </div>
+                  <div class="program-preview--make-proposal">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="button--themed">
+                          <button type="button" class="btn btn-block" ng-click="pagePrograma.showProposalForm()">Faça uma proposta</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Preview > coluna da direita -->
+            <div class="col-md-4">
+              <div class="row">
+
+                <!-- Top Proposals -->
+                <div>
+                  <!-- Loading Top Proposals -->
+                  <div ng-if="pagePrograma.loadingTopProposals">
+                    <div class="alert alert-info" role="alert">
+                      Carregando propostas mais votadas...
+                    </div>
+                  </div>
+
+                  <!-- Top Proposals > Carousel -->
+                  <div class="col-xs-12" ng-if="!pagePrograma.loadingTopProposals && pagePrograma.proposalsTopRated && pagePrograma.proposalsTopRated.length > 0">
+                    <h3 class="color-theme-fg">Propostas mais votadas</h3>
+                    <proposal-carousel proposals="pagePrograma.proposalsTopRated"></proposal-carousel>
+                  </div>
+                </div>
+
+                <!-- Proposal Box -->
+                <div>
+                  <div class="col-xs-12" ng-if="!pagePrograma.loadingProposalBox && pagePrograma.randomProposal" ng-class="{'focused-proposal': !!pagePrograma.search.proposal_id}">
+                    <h3 class="color-theme-fg">Apoie outras propostas</h3>
+                    <proposal-box proposal="pagePrograma.randomProposal" topic="pagePrograma.article" category="pagePrograma.category" can-vote="true" focus="{{pagePrograma.search.proposal_id}}" ></proposal-box>
+                  </div>
+
+                  <!-- Loading Proposal Box -->
+                  <div ng-if="pagePrograma.loadingProposalBox">
+                    <div class="alert alert-info" role="alert">
+                      Carregando propostas nesse programa...
+                    </div>
+                  </div>
+                </div>
+
+                <!-- No Proposals? okay! -->
+                <div ng-if="!pagePrograma.loadingTopProposals && !pagePrograma.loadingProposalBox">
+                  <div class="col-xs-12" ng-if="!pagePrograma.randomProposal && !(pagePrograma.proposalsTopRated && pagePrograma.proposalsTopRated.length > 0)">
+                    <h3>Programas sem propostas</h3>
+                    <p>
+                      Este programa ainda não possui nenhuma proposta.
+                      <div class="button--themed">
+                        <button type="button" class="btn btn-block" ng-click="pagePrograma.showProposalForm()">Faça uma proposta</button>
+                      </div>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-proposal-list" class="proposal-extended-section" style="display:none;" ng-if="pagePrograma.proposalsTopFive && pagePrograma.proposalsTopFive.length > 0">
+      <div class="container">
+        <div class="proposal-extended-section-header">
+          <h3 class="color-theme-fg">Resultados de propostas mais votadas</h3>
+          <button type="button" aria-label="Close" class="btn btn-close" ng-click="pagePrograma.hideProposalsList()">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="proposal-extended-section-content">
+          <proposal-list proposals="pagePrograma.proposalsTopFive"></proposal-list>
+          <div class="row">
+            <div class="col-xs-12">
+              <a ui-sref="ranking({tema: pagePrograma.category.slug, programa: pagePrograma.article.slug})" class="btn btn-link">
+                <span ng-if="pagePrograma.proposals.length > 1">Veja todas as {{pagePrograma.proposals.length}} propostas</span>
+                <span ng-if="pagePrograma.proposals.length === 1">Ir para a página de ranking</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-proposal-form" class="proposal-extended-section" style="display:none;">
+      <div class="container">
+        <div class="proposal-extended-section-header">
+          <button type="button" aria-label="Close" class="btn btn-close" ng-click="pagePrograma.hideProposalForm()">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div ng-if="!pagePrograma.$rootScope.currentUser">
+          <show-message
+            type="'alert'"
+            message="'Você não está logado!'"
+            description="'Você precisa estar logado para enviar uma proposta.'"
+            ></show-message>
+          <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-8 text-center-sm">
+              <a ui-sref="entrar({redirect_uri: pagePrograma.sendProposalRedirectURI})">Clique aqui para ir para a página de login</a>
+            </div>
+          </div>
+        </div>
+        <div ng-if="pagePrograma.$rootScope.currentUser">
+          <div class="proposal-extended-section-content">
+            <div ng-if="pagePrograma.proposalStatus === pagePrograma.PROPOSAL_STATUS.SUCCESS">
+              <show-message
+                type="'success'"
+                message="'Proposta enviada com sucesso!'"
+                description="'Sua proposta foi enviada para a nossa equipe de moderação. Em aproximadamente 72 horas você receberá em seu endereço de e-mail uma resposta sobre a sua proposta.'"
+                ></show-message>
+              <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8 text-center-sm">
+                  <button type="button" class="btn btn-link" ng-click="pagePrograma.sendAnotherProposal()">
+                    Clique aqui para enviar outra proposta
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div ng-if="pagePrograma.proposalStatus === pagePrograma.PROPOSAL_STATUS.SENDING">
+              Enviando...
+            </div>
+            <div ng-if="pagePrograma.proposalStatus === pagePrograma.PROPOSAL_STATUS.ERROR">
+              <show-message
+                type="'error'"
+                message="'Erro ' + pagePrograma.error.code + '!'"
+                description="pagePrograma.error.message"
+                ></show-message>
+              <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8 text-center-sm">
+                  <button type="button" class="btn btn-link" ng-click="pagePrograma.sendAnotherProposal()">
+                    Clique aqui para enviar outra proposta
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div ng-if="!pagePrograma.proposalStatus">
+              <cadastro-proposta program="pagePrograma.article" status="pagePrograma.proposalStatus"></cadastro-proposta>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-content">
+      <article class="program-content" ng-if="pagePrograma.article" ng-class="pagePrograma.article.slug">
+          <div ng-bind-html="pagePrograma.article.bodyTrusted"></div>
+      </article>
+    </section>
+  </div>
+</div>

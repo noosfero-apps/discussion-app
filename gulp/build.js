@@ -43,11 +43,19 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe(assets = $.useref.assets())
     .pipe($.rev())
     .pipe(jsFilter)
+    // production
+    .pipe($.if($.util.env.production, $.replace('$logProvider.debugEnabled(true);', '$logProvider.debugEnabled(false);')))
+    .pipe($.if($.util.env.production, $.replace('http://hom.dialoga.gov.br', 'http://login.dialoga.gov.br')))
+    .pipe($.if($.util.env.production, $.replace('http://hom.login.dialoga.gov.br', 'http://login.dialoga.gov.br')))
+    // staging
+    .pipe($.if($.util.env.staging, $.replace('http://dialoga.gov.br', 'http://hom.dialoga.gov.br')))
+    .pipe($.if($.util.env.staging, $.replace('http://login.dialoga.gov.br', 'http://hom.login.dialoga.gov.br')))
     .pipe($.ngAnnotate())
     .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', conf.errorHandler('Uglify'))
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
     .pipe($.replace('../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/', '../fonts/'))
+    .pipe($.replace('../../bower_components/open-sans-fontface/fonts/', '../fonts/'))
     .pipe($.csso())
     .pipe(cssFilter.restore())
     .pipe(assets.restore())
@@ -67,11 +75,24 @@ gulp.task('html', ['inject', 'partials'], function () {
 
 // Only applies for fonts from bower dependencies
 // Custom fonts are handled by the "other" task
-gulp.task('fonts', function () {
-  return gulp.src($.mainBowerFiles().concat('bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*'))
+gulp.task('fonts', ['fonts-bootstrap', 'fonts-opensans']);
+
+gulp.task('fonts-bootstrap', function () {
+  return gulp.src([
+      'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/**/*'
+    ])
     .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
     .pipe($.flatten())
     .pipe(gulp.dest(path.join(conf.paths.dist, '/fonts/')));
+});
+
+gulp.task('fonts-opensans', function () {
+  return gulp.src([
+      'bower_components/open-sans-fontface/fonts/**/*'
+    ])
+    .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
+    // .pipe($.flatten())
+    .pipe(gulp.dest(path.join(conf.paths.dist, '/styles/fonts/')));
 });
 
 gulp.task('other', function () {

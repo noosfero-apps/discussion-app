@@ -1,0 +1,148 @@
+.event-list {
+    position: relative;
+
+    .contraste & {
+        background-color: #262626;
+    }
+
+    .section-table {
+        background-color: #e1e1e1;
+    }
+
+    .event-list--panel {
+        width: 100%;
+        height: 240px;
+        margin: 8px 0;
+        padding: 0 20px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        transition: .3s linear all;
+
+        &.ng-hide {
+            height: 0;
+            line-height: 0;
+        }
+
+        .btn {
+            color: #e1e1e1;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .row-level-1 {
+            // height: 48px;
+            line-height: 20px;
+            padding: 5px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .row-level-1:last-child {
+            border-bottom: none;
+        }
+
+
+        @media screen and (max-width: $screen-sm) {
+            height: auto;
+            overflow: visible;
+        }
+    }
+
+    &--table{
+        margin-bottom: 0;
+    }
+
+    .event-tab--trigger {
+        $event-tab-height: 130px;
+        width: 150px;
+        height: $event-tab-height;
+        position: absolute;
+        right: 0;
+        top: $event-tab-height * (-1);
+        padding: 5px;
+        background-color: #eeeeee;
+        border: 1px solid #333333;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+
+        transition: all 0.3s linear all;
+
+        overflow: hidden;
+        z-index: 100;
+
+        &.ng-hide {
+            height: 0px;
+            line-height: 0px;
+            top: -1px;
+        }
+
+        .contraste & {
+            background-color: #262626;
+        }
+    }
+
+    .event-bar--trigger {
+        color: #fff;
+        cursor: pointer;
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .icon-circle {
+            font-size: 28px;
+            line-height: 33px;
+            border-radius: 100%;
+            padding: 8px 8px 8px 10px;
+            background-color: #fff;
+        }
+
+        &-toggle {
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 16px;
+
+            .glyphicon {
+                position: relative;
+                top: 5px;
+                font-size: 30px;
+            }
+        }
+    }
+
+    .event-list--panel {
+        .date-wrapper {margin-left: 16px; }
+        .time-wrapper {margin-left: 22px; }
+        // .description {margin-left: 22px; }
+    }
+
+    .event-tab--icon {
+        font-size: 25px;
+    }
+
+    .event-tab--title {
+        font-weight: bold;
+    }
+
+    .event-tab--button {
+        font-size: 12px;
+        margin: 10px 0 0 0;
+        padding: 0;
+        width: 100%;
+        white-space: normal;
+    }
+
+    .minimize {
+        cursor: pointer;
+
+        .btn,
+        .glyphicon {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .glyphicon {
+            line-height: 32px;
+        }
+    }
+}

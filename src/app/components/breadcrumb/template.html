@@ -1,0 +1,13 @@
+<div class="custom-breadcrumb">
+  <ol class="breadcrumb">
+    <li ng-repeat="step in steps | limitTo:(steps.length-1)">
+      <a href="{{step.ncyBreadcrumbLink}}" ng-if="$index === 0" ng-class="{'item-home': $index === 0}">
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+      </a>
+      <a href="{{step.ncyBreadcrumbLink}}" ng-if="$index !== 0" ng-class="{'item-home': $index === 0}" ng-bind-html="step.ncyBreadcrumbLabel"></a>
+    </li>
+    <li ng-repeat="step in steps | limitTo:-1" class="active">
+      <span ng-bind-html="step.ncyBreadcrumbLabel"></span>
+    </li>
+  </ol>
+</div>

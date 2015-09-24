@@ -1,0 +1,105 @@
+.auth-content{
+
+    .btn-social {
+        color: #fff;
+        font-weight: bold;
+        padding: 15px 16px;
+        font-size: 16px;
+        white-space: normal;
+
+        &:hover,
+        &:focus {color: #fff;}
+
+        &.btn-facebook {
+            background-color: #496AA0;
+
+            &:hover,
+            &:focus {background-color: #304373; }
+            &:active {background-color: #33477a; }
+        }
+
+        &.btn-google-plus {
+            background-color: #b92d25;
+            &:hover,
+            &:focus {background-color: #b12b23; }
+            &:active {background-color: #b92d25; }
+        }
+
+        .text {
+            text-align: left;
+            width: 50%;
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+
+        @media (max-width: 991px) {
+            margin-bottom: 20px;
+        }
+    }
+
+    .btn {
+        .contraste & {
+            color: #fff;
+        }
+    }
+
+    .btn-primary {
+        .contraste & {
+            background-color: #262626;
+            border-color: #666;
+        }
+    }
+
+    .separator {
+        border-top: 2px solid #d8d8d8;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 35px;
+
+        &:after {
+            position: absolute;
+            top: -15px;
+            margin-left: -26px;
+            font-size: 20px;
+            line-height: 30px;
+            padding: 0 0.25em;
+            background: $gray;
+
+            .contraste & {
+                background: #000;
+            }
+        }
+
+        &.separator-or:after {
+            content: "ou";
+            left: 50%;
+            margin-left: -17px;
+
+            @media (min-width: 992px) {
+                top: 4px;
+            }
+        }
+
+        &.separator-cadastro:after {
+            content: "ou preencha o formulario";
+            left: 50%;
+            margin-left: -133px;
+
+            @media (min-width: 768px) {
+                top: 4px;
+            }
+        }
+    }
+
+    .feedback-message {
+        padding: 20px 0;
+    }
+}
+
+.modal-dialog {
+    @media (max-width: 768px)  {
+        margin-top: 35px;
+    }
+}

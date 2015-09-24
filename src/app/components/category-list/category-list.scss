@@ -1,0 +1,116 @@
+.category-list {
+    &--title {
+        color: #ffffff;
+        font-size: 16px;
+        margin: 0;
+        padding: 20px;
+        background-color: #484848;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .category-list--item {
+        position: relative;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 0;
+        height: 68px;
+        overflow: hidden;
+    }
+
+
+
+    .category-list--label {
+        margin-left: 70px;
+        margin-right: 30px;
+        display: inline-block;
+        z-index: 99999;
+    }
+
+    &--icon-circle {
+        width: 48px;
+        height: 48px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        // border: 1px solid #fff;
+        border-radius: 100%;
+
+        -webkit-transition: -webkit-transform 0.2s ease-in-out;
+        -moz-transition: -moz-transform 0.2s ease-in-out;
+        -o-transition: -o-transform 0.2s ease-in-out;
+        transition: transform 0.2s ease-in-out;
+
+        // -webkit-transition: all 0.2s ease-in-out;
+        // -moz-transition: all 0.2s ease-in-out;
+        // -o-transition: all 0.2s ease-in-out;
+        // transition: all 0.2s ease-in-out;
+
+        z-index: 0;
+
+        .active & {
+            z-index: -1;
+
+            @media (max-width: $screen-xs) {
+                transform: scale(20);
+            }
+
+            @media (min-width: $screen-xs + 1) {
+                transform: scale(40);
+            }
+
+            @media (min-width: $screen-sm + 1) {
+                transform: scale(20);
+            }
+
+            // @media (min-width: $screen-md + 1) {
+            //     transform: scale(20);
+            // }
+        }
+
+        @each $category, $color in $categories {
+            &.#{$category} {
+                background-color: $color;
+            }
+        }
+    }
+
+    .category-list--icon {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        // transform: scale(0.4);
+    }
+
+    .category-list--icon--right {
+        position: absolute;
+        right: 9px;
+        top: 50%;
+        margin-top: -9px;
+        transform: scale(1.4);
+    }
+
+    .list-group {
+
+        -webkit-transition: -webkit-transform .3s ease-in-out;
+        -moz-transition: -moz-transform .3s ease-in-out;
+        -o-transition: -o-transform .3s ease-in-out;
+        transition: transform .3s ease-in-out;
+
+        opacity: 1;
+
+        &.ng-hide {
+            opacity: 0;
+            // height: 0;
+            // line-height: 0;
+        }
+    }
+
+    .list-group-item.active,
+    .list-group-item.active:hover,
+    .list-group-item.active:focus {
+        background-color: #f5f5f5;
+    }
+}

@@ -5,6 +5,7 @@
 // $navbar-inverse-link-color: #5AADBB;
 $icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 
+
 /**
  *  Do not remove this comments bellow. It's the markers used by wiredep to inject
  *  sass dependencies when defined in the bower.json of your dependencies
@@ -17,57 +18,280 @@ $icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/bo
 // -------------
 
 $gray: #f1f1f1;
+$defaultblue: #5E749D;
 
 // -------------
 
+//   1.4 - dicionarios
+$categories: (
+    saude: #3359a7,
+    seguranca-publica: #e95052,
+    educacao: #cc6cd9,
+    reducao-da-pobreza: #38c7a4,
+    cultura: #a63738,
+    esporte: #f15b31,
+    meio-ambiente: #3cc667
+);
+
+$categories-complementary-1: (
+    saude: #4f8add,
+    seguranca-publica: #fb7c7f,
+    educacao: #ee9cff,
+    reducao-da-pobreza: #57e9cd,
+    cultura: #dc5557,
+    esporte: #fd8d4c,
+    meio-ambiente: #339950
+);
+
+$categories-complementary-2: (
+    saude: #2a4781,
+    seguranca-publica: #c43e3e,
+    educacao: #93549e,
+    reducao-da-pobreza: #2a9677,
+    cultura: #862f2f,
+    esporte: #ce472c,
+    meio-ambiente:  lighten(#3cc667, 10%)
+);
+
+// $categories-descriptions: (
+//     saude: "Saúde é direito de todos e dever do Estado. O Sistema Único de Saúde (SUS) é universal, integral e de responsabilidade do Governo Federal, estados e municípios. Atende a todos os brasileiros.",
+//     seguranca-publica: "A segurança pública é um direito fundamental dos cidadãos. A proteção da vida, a disseminação da cultura da paz e a integração dos órgãos e instituições municipais, estaduais e federais são os maiores compromissos dessa política pública.",
+//     educacao: "Uma pátria educadora se faz com oportunidades para todos. Nos últimos anos, o Brasil criou esse caminho de oportunidades. Ampliamos o acesso à educação em todos os níveis de ensino – da creche à pós-graduação – e para todos os brasileiros, independentemente de sua classe social. E ainda há muito a fazer. O Plano Nacional de Educação (PNE) estabelece novas metas para que o governo federal trabalhe em parceria com a sociedade, com os estados e os municípios na construção de um futuro melhor. Queremos agora um salto na qualidade do ensino.",
+//     reducao-da-pobreza: "Com o esforço do Brasil para reduzir a pobreza e a desigualdade, 36 milhões de pessoas superaram a miséria na última década e o país saiu do Mapa da Fome das Nações Unidas.",
+//     cultura: "O que nos singulariza no conjunto das nações é, em última instância, nossa cultura. É por ela que nos identificamos como brasileiros de norte a sul deste país. Uma grande nação precisa ter um desenvolvimento cultural à altura de sua grandeza, contemplando as dimensões simbólica, econômica e cidadã da cultura, que são parte central do projeto de um país democrático e plural. A pluralidade é nossa singularidade.");
+
+// Programs
+$scale: 1.1;
+$time: .2s;
+$darken: 15%;
 
 // -------------
-// Paleta de Cores
-// -------------
-$cinza1: #f1f1f1;
-$cinza2: #eaeaea;
-$cinza3: #dadada;
-$cinza4: #989898;
-$cinza5: #606060;
-$cinza6: #484848;
 
+body {
+    font-family: "Open Sans", sans-serif;
+    &.contraste {
+        color: #fff;
+        background-color: #000;
 
-// -------------
-// Tipografia
-// -------------
-// $open-sans-regular:
-// $open-sans-bold:
-$titulo1-size: 32pt;
-$titulo1-line-height: 36pt;
-
-$titulo2-size: 26pt;
-$titulo2-line-height: 30pt;
-
-$titulo3-size: 22pt;
-$titulo3-line-height: 26pt;
-
-$titulo4-size: 18pt;
-$titulo4-line-height: 22pt;
-
-$titulo5-size: 14pt;
-$titulo5-line-height: 18pt;
-
-$paragraph-size: 12pt;
-$paragraph-line-height: 16pt;
-
-// -------------
-.skip-links a:focus {
-  background-color: #fff !important;
-  opacity: 1;
-  z-index: 2;
+        a,
+        .btn {
+            color: #fff;
+            background-color: #000;
+        }
+    }
 }
 
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+// Form
+.input-group-search {
+    .icon-circle {
+        color: #fff;
+        padding: 5px;
+        margin-top: -5px;
+
+        &.icon-small {
+          width: 35px;
+          height: 35px;
+        }
+    }
+    button {
+        border-left: none;
+    }
 }
+
+// Header
+.header {
+    position: relative;
+
+    button {
+        position: absolute;
+        right: 0;
+        top: 2px;
+    }
+}
+
+// Commons
+.button--themed {
+    // padding: 20px;
+    .btn {
+        color: #fff;
+        font-weight: bold;
+        padding: 15px 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        border-radius: 6px;
+
+        -webkit-transition: all $time ease-in-out;
+        -moz-transition: all $time ease-in-out;
+        -o-transition: all $time ease-in-out;
+        transition: all $time ease-in-out;
+
+        @each $category, $color in $categories {
+            .#{$category} & {
+                background-color: $color;
+                border-bottom: 3px solid map-get($categories-complementary-2, $category);
+            }
+        }
+
+        &:hover,
+        &:focus {
+            @each $category, $color in $categories {
+                .#{$category} & {
+                    background-color: map-get($categories-complementary-2, $category);
+                }
+            }
+        }
+
+        .contraste & {
+            color: #262626;
+            background-color: #fff;
+        }
+    }
+
+    .btn-circle {
+        width: 64px;
+        height: 64px;
+        border-radius: 100%;
+    }
+
+    // &.vote-buttons {
+    //     padding-bottom: 40px;
+    // }
+
+    .btn.vote-buttons-up {
+        float: right;
+        margin-right: 10px;
+        background-color: #32dbb5;
+        border-bottom: 3px solid #1da485;
+
+        &:hover,
+        &:focus {
+            background-color: #1da485;
+        }
+    }
+
+    .btn.vote-buttons-down {
+        float: left;
+        margin-left: 10px;
+        background-color: #db4127;
+        border-bottom: 3px solid #9c2d1a;
+
+        &:hover,
+        &:focus {
+            background-color: #9c2d1a;
+        }
+
+
+        // @media (max-width: $screen-sm) {
+        //     margin-left:
+        // }
+    }
+
+    .vote-buttons-up,
+    .vote-buttons-down {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+}
+
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon-wrapper-rounded {
+    padding: 3px;
+    border-radius: 100%;
+}
+
+.icon-circle {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    // border: 1px solid #eee;
+    border-radius: 100%;
+    overflow: hidden;
+
+    &.icon-small {
+        width: 40px;
+        height: 40px;
+
+        .icon {
+            position: relative;
+            top: -8px;
+            left: -8px;
+        }
+    }
+
+    .vote_for &,
+    .skip &,
+    .vote_against & {
+        padding-top: 12px;
+    }
+
+    .vote_for & {
+        background-color: #4AC97A;
+
+        &:hover { background-color: lighten(#4AC97A, 10%); }
+
+        &:active,
+        &:focus { background-color: darken(#4AC97A, 10%)}
+    }
+    .skip & {
+        background-color: #EEB453;
+
+        &:hover { background-color: lighten(#EEB453, 10%); }
+
+        &:active,
+        &:focus { background-color: darken(#EEB453, 10%)}
+    }
+    .vote_against & {
+        background-color: #EC4C68;
+
+        &:hover { background-color: lighten(#EC4C68, 10%); }
+
+        &:active,
+        &:focus { background-color: darken(#EC4C68, 10%)}
+    }
+}
+
+.icon-circle-social-facebook {background-color: #537ab5; }
+.icon-circle-social-twitter {background-color: #77cbef; }
+.icon-circle-social-googleplus {background-color: #d23b00; }
+.icon-circle-social-whatsapp {background-color: #10ad08; }
+.icon-circle-social-youtube {background-color: #c63635; }
+.icon-circle-social-flickr {background-color: #eaeaea; }
+.icon-circle-mail {background-color: #ecb24e; }
+
+// Theme
+@each $category, $color in $categories {
+    .#{$category} {
+        .color-theme-fg { color: $color; }
+        .color-theme-bg { background-color: $color;}
+        .color-theme-bg-complementar-1 { background-color: map-get($categories-complementary-1, $category);}
+        .color-theme-bg-complementar-2 { background-color: map-get($categories-complementary-2, $category);}
+
+        .contraste & .color-theme-fg { color: #fff; }
+        .contraste & .color-theme-bg { background-color: #000;}
+    }
+}
+
+$common-color: #5E739E;
+.color-theme-common-fg {color: $common-color; }
+.color-theme-common-bg {background-color: $common-color; }
+.color-fg-white {color: #fff; }
+.color-bg-gray {color: #ccc; }
+
+// Contraste
+.contraste {
+    .color-theme-common-fg {color: #fff; }
+    .color-theme-common-bg {background-color: #000; }
+    .contraste-box {background-color: #000; border: 1px solid #fff;}
+}
+
 
 // Hack to fix "Barra do Brasil"
 #barra-brasil .brasil-flag {
@@ -86,3 +310,18 @@ $paragraph-line-height: 16pt;
  */
 // injector
 // endinjector
+
+
+// blockquote {
+//     position:relative;
+// }
+
+// blockquote:before {
+//     content:"\0393";
+//     font-size: 50px;
+//     display: block;
+//     position: absolute;
+//     top: 0;
+//     left: 0.
+// }
+

@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>Esqueci minha senha</h2>
+      <h5>Agra é só criar e confirmar sua nova senha.</h5>
+    </div>
+  </div>
+</div>
+<section role="main" class="section-gray">
+  <div class="container">
+    <div class="row">
+      <div ng-if="pageSignin.currentUser">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+            <h3>Você está logado!</h3>
+            <button
+            type="button"
+            ng-click="pageSignin.onClickLogout()"
+            class="btn btn-primary">Sair</button>
+          </div>
+        </div>
+      </div>
+      <div ng-if="!pageSignin.currentUser">
+        <br>
+        <div class="col-sm-8 col-sm-offset-2">
+          <div class="row">
+            <div class="col-md-12">
+              <form name="changePassForm" ng-submit="">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="inputPassword">Senha*</label>
+                      <input type="password" id="inputPassword" name="inputPassword" class="form-control input-lg" ng-class="{ 'has-error' : changePassForm.inputPassword.$invalid && changePassForm.inputPassword.$touched }" ng-model="password" required>
+                      <validation-messages field="changePassForm.inputPassword"/>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="inputRepeatPassword">Confirmar senha*</label>
+                      <input
+                      type="password" id="inputRepeatPassword" name="inputRepeatPassword" class="form-control input-lg" ng-class="{ 'has-error' : changePassForm.inputRepeatPassword.$invalid && changePassForm.inputRepeatPassword.$touched }" ng-model="repeatPassword" required>
+                      <validation-messages field="changePassForm.inputRepeatPassword"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <span>
+                      A senha deve ter 6 ou mais caracteres e conter números e letras.
+                    </span>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-6 col-sm-offset-3">
+                    <div class="form-group">
+                      <button
+                      class="btn btn-lg btn-block btn-submit"
+                      type="submit">Confirmar alteração de senha</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</section>

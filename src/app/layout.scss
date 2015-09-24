@@ -261,10 +261,11 @@ ul.list-color li:before {
 
 .destaque-font {
   font-size: 130%!important;
+  line-height: 28px!important;
 }
 
 .font {
-  line-height: normal!important;
+  line-height: 28px!important;
 
   &-140 {
     @extend .font;

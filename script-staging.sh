@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 gulp clean && gulp build --staging
 git add --all -f dist/

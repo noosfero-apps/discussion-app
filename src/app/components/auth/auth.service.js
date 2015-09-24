@@ -53,11 +53,7 @@
     }
 
     function activate (code) {
-      var url = '/api/v1/activate';
-      // var data = {
-      //   private_token: API.token,
-      //   activation_code: code
-      // };
+      var url = PATH.host + '/api/v1/activate';
       var encodedData = 'private_token=' + API.token;
       encodedData += '&activation_code=' + code;
 
@@ -77,12 +73,7 @@
     }
 
     function changePassword (code, newPassword, newPasswordConfirmation){
-      var url = '/api/v1/new_password';
-      // var data = {
-      //   code: code,
-      //   password: newPassword,
-      //   password_confirmation: newPasswordConfirmation
-      // };
+      var url = PATH.host + '/api/v1/new_password';
       var encodedData = 'code=' + code;
       encodedData += '&password=' + newPassword;
       encodedData += '&password_confirmation=' + newPasswordConfirmation;
@@ -103,7 +94,7 @@
     }
 
     function forgotPassword (data){
-      var url = 'http://hom.login.dialoga.gov.br/api/v1/forgot_password';
+      var url = PATH.host + '/api/v1/forgot_password';
       var encodedData = ([
         'value=' + data.login,
         'captcha_text=' + data.captcha_text,
@@ -129,8 +120,7 @@
     }
 
     function login (credentials) {
-      var hostProd = 'http://login.dialoga.gov.br';
-      var url = hostProd + '/api/v1/login';
+      var url = PATH.host + '/api/v1/login';
       var encodedData = 'login=' + credentials.username + '&password=' + credentials.password;
 
       return $http
@@ -147,6 +137,13 @@
           $log.debug('AuthService.login [FAIL] response', response);
           $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
         });
+    }
+
+    function loginCaptcha (data) {
+      var url = PATH.host + '/api/v1/login-captcha';
+      var encodedData = angular.element.param(data);
+
+      return $http.post(url, encodedData);
     }
 
     function logout () {
@@ -190,6 +187,7 @@
       changePassword: changePassword,
       forgotPassword: forgotPassword,
       login: login,
+      loginCaptcha: loginCaptcha,
       logout: logout,
       isAuthenticated: isAuthenticated,
       isAuthorized: isAuthorized

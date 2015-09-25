@@ -76,13 +76,18 @@
 
     // Load event list
     vm.loadingEvents = true;
-    vm.DialogaService.getEvents({}, function(events) {
-      vm.events = events;
-      vm.loadingEvents = false;
+    vm.DialogaService.getEvents().then(function(data) {
+      vm.$log.debug('getEvents.success', data);
+      vm.events = data.articles;
+      vm.featuredEvent = vm.events[0];
     }, function(error) {
-      vm.$log.error('Error on getEvents.', error);
-      vm.loadingEvents = false;
+      vm.$log.debug('Error on getEvents.', error);
       vm.eventsError = error;
+    }, function(data) {
+      vm.$log.debug('{UPDATE}', data);
+    }).finally(function(data){
+      vm.$log.debug('{FINALLY}', data);
+      vm.loadingEvents = false;
     });
 
     function _loadAfterHome () {
@@ -160,6 +165,15 @@
     vm.article.videoIsLoaded = true;
   };
 
+  InicioPageController.prototype.showEventVideo = function() {
+    var vm = this;
+
+    hideBackground(0); // force to hide
+
+    vm.featuredEvent.canView = true;
+    vm.featuredEvent.bodyTrusted = vm.$sce.trustAsHtml(vm.featuredEvent.body);
+  };
+
   InicioPageController.prototype.submitSearch = function() {
     var vm = this;
 
@@ -167,10 +181,10 @@
 
     // scroll to result grid
     var $searchResult = angular.element('#search-result');
-    if($searchResult && $searchResult.length > 0){
+    if ($searchResult && $searchResult.length > 0) {
       angular.element('body').animate({scrollTop: $searchResult.offset().top}, 'fast');
       vm.filtredPrograms = vm.getFiltredPrograms();
-    }else{
+    }else {
       vm.$log.warn('#search-result element not found.');
     }
   };
@@ -251,7 +265,7 @@
     return output;
   };
 
-  InicioPageController.prototype._filterByCategory = function (input, category) {
+  InicioPageController.prototype._filterByCategory = function(input, category) {
     var vm = this;
 
     input = input || [];
@@ -265,7 +279,7 @@
     for (var i = 0; i < input.length; i++) {
       var program = input[i];
 
-      if(!program.categories || program.categories.length === 0){
+      if (!program.categories || program.categories.length === 0) {
         vm.$log.warn('Program without theme (category)', program.slug);
         continue;
       }

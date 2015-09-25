@@ -58,10 +58,6 @@
       });
 
       vm.$scope.$on('proposal-box:vote-response', function(event, data) {
-        vm.$log.debug('proposal-box:vote-response');
-        vm.$log.debug('event', event);
-        vm.$log.debug('data', data);
-
         if (data.success) {
           vm.STATE = vm.VOTE_STATUS.SUCCESS;
         }
@@ -73,6 +69,8 @@
         if (data.code === 401) {
           vm.message = 'Não autorizado.';
         }
+
+        vm.messageCode = data.code;
       });
 
       // Load captcha
@@ -125,10 +123,11 @@
 
         // SEND VOTE
         if (vm._oldVoteValue) {
-          // hide captcha form
-          vm.showCaptchaForm = false;
           vm.vote(vm._oldVoteValue);
+          vm._oldVoteValue = null;
         }
+        // hide captcha form
+        vm.showCaptchaForm = false;
 
       }, function(data) {
         // ERROR
@@ -170,6 +169,7 @@
     ProposalBoxController.prototype.vote = function(value) {
       var vm = this;
 
+      vm._oldVoteValue = value;
       if (vm.canVote()) {
         if (vm.doVote) {
           vm.doVote({
@@ -181,7 +181,6 @@
         }
       }else {
         vm.$log.debug('You cannot vote.');
-        vm._oldVoteValue = value;
         vm.showCaptchaForm = true;
 
         angular.element('#captcha_text').focus();

@@ -52,8 +52,10 @@
                     </div>
                     <div class="feedback" ng-if="vm.STATE === vm.VOTE_STATUS.ERROR">
                       <p class="feedback--title">Erro!</p>
-                      <p class="feedback--message" ng-if="vm.message">
-                        Motivo: {{vm.message}}
+                      <p class="feedback--message" ng-if="vm.messageCode === 401">
+                        Não autorizado. Insira um novo captcha.
+                        <br>
+                        <button type="button" class="btn btn-link" ng-click="vm.captchaTryAgain()">Gerar novo captcha</button>
                       </p>
                     </div>
                   </div>

@@ -139,6 +139,21 @@
 
   };
 
+  ProgramasPageController.prototype.submitSearch = function() {
+    var vm = this;
+
+    vm.loadingFilter = true;
+
+    // scroll to result grid
+    var $searchResult = angular.element('#search-result');
+    if ($searchResult && $searchResult.length > 0) {
+      angular.element('body').animate({scrollTop: $searchResult.offset().top}, 'fast');
+      vm.filtredPrograms = vm.getFiltredPrograms();
+    }else {
+      vm.$log.warn('#search-result element not found.');
+    }
+  };
+
   ProgramasPageController.prototype.showAllPrograms = function($event) {
     var vm = this;
     $event.stopPropagation();

@@ -6,11 +6,12 @@
     .controller('PropostasPageController', PropostasPageController);
 
   /** @ngInject */
-  function PropostasPageController(DialogaService, $scope, $location, $filter, $log) {
+  function PropostasPageController(DialogaService, $scope, $rootScope, $location, $filter, $log) {
     var vm = this;
 
     vm.DialogaService = DialogaService;
     vm.$scope = $scope;
+    vm.$rootScope = $rootScope;
     vm.$location = $location;
     vm.$filter = $filter;
     vm.$log = $log;
@@ -18,6 +19,7 @@
     vm.init();
     vm.loadData();
     // vm.attachListeners(); // attach listeners after load data (SYNC)
+    vm.$rootScope.focusMainContent();
 
     $log.debug('PropostasPageController');
   }
@@ -154,6 +156,21 @@
     }
 
     return output;
+  };
+
+  PropostasPageController.prototype.submitSearch = function() {
+    var vm = this;
+
+    vm.loadingFilter = true;
+
+    // scroll to result grid
+    var $searchResult = angular.element('#search-result');
+    if ($searchResult && $searchResult.length > 0) {
+      angular.element('body').animate({scrollTop: $searchResult.offset().top}, 'fast');
+      vm.filtredProposals = vm.getFiltredProposals();
+    }else {
+      vm.$log.warn('#search-result element not found.');
+    }
   };
 
 })();

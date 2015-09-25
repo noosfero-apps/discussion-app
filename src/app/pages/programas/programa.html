@@ -90,7 +90,14 @@
                 <div>
                   <div class="col-xs-12" ng-if="!pagePrograma.loadingProposalBox && pagePrograma.randomProposal" ng-class="{'focused-proposal': !!pagePrograma.search.proposal_id}">
                     <h3 class="color-theme-fg">Apoie outras propostas</h3>
-                    <proposal-box proposal="pagePrograma.randomProposal" topic="pagePrograma.article" category="pagePrograma.category" can-vote="true" focus="{{pagePrograma.search.proposal_id}}" ></proposal-box>
+                    <proposal-box
+                    proposal="pagePrograma.randomProposal"
+                    topic="pagePrograma.article"
+                    category="pagePrograma.category"
+                    show-vote="true"
+                    focus="{{pagePrograma.search.proposal_id}}"
+                    do-vote="pagePrograma.vote(proposal_id, value)"
+                    ></proposal-box>
                   </div>
 
                   <!-- Loading Proposal Box -->
@@ -133,7 +140,7 @@
           <div class="row">
             <div class="col-xs-12">
               <a ui-sref="ranking({tema: pagePrograma.category.slug, programa: pagePrograma.article.slug})" class="btn btn-link">
-                <span ng-if="pagePrograma.proposals.length > 1">Veja todas as {{pagePrograma.proposals.length}} propostas</span>
+                <span ng-if="pagePrograma.proposals.length > 1">Veja todas as {{pagePrograma.total_proposals}} propostas</span>
                 <span ng-if="pagePrograma.proposals.length === 1">Ir para a página de ranking</span>
               </a>
             </div>

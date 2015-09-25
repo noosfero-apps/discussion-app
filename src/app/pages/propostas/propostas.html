@@ -6,8 +6,7 @@
   </div>
 </div>
 
-<div class="page--propostas">
-  <p></p>
+<div class="page--propostas" role="main">
   <section class="section-info" ng-if="pagePropostas.loading || pagePropostas.error">
     <div class="container">
       <div class="row">
@@ -46,7 +45,7 @@
                 <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
                 <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pagePropostas.query" placeholder="Buscar propostas" aria-label="Buscar propostas">
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="pagePropostas.search()">
+                  <button type="button" class="btn btn-default" ng-click="pagePropostas.submitSearch()">
                     <span class="icon-circle icon-small color-theme-common-bg">
                       <span class="glyphicon glyphicon-search"></span>
                 </span>
@@ -78,7 +77,7 @@
                 <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
                 <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pagePropostas.query" placeholder="Buscar propostas" aria-label="Buscar propostas">
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="pagePropostas.search()">
+                  <button type="button" class="btn btn-default" ng-click="pagePropostas.submitSearch()">
                     <span class="icon-circle icon-small color-theme-common-bg">
                       <span class="glyphicon glyphicon-search"></span>
                 </span>
@@ -89,7 +88,7 @@
             </div>
           </div>
 
-          <div class="row" ng-if="pagePropostas.proposals">
+          <div id="search-result" class="row" ng-if="pagePropostas.proposals">
             <div class="col-sm-12">
               <header class="header">
                 <h2>Total de Propostas: "<b>{{pagePropostas.filtredProposals.length}} propostas</b>"</h2>

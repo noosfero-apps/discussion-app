@@ -172,11 +172,10 @@
 
       if (vm.canVote()) {
         if (vm.doVote) {
-          var data = {
+          vm.doVote({
             proposal_id: vm.proposal.id,
             value: value
-          };
-          vm.doVote(data);
+          });
         }else {
           vm.$log.error('No vote function to handler votes');
         }
@@ -194,9 +193,9 @@
 
       vm.errorOnSkip = false;
       vm.STATE = vm.VOTE_STATUS.LOADING;
-      vm.$scope.$emit('proposal-box:vote', {
-        OPTION: vm.VOTE_OPTIONS.SKIP,
-        proposal_id: vm.proposal.id
+      vm.doVote({
+        proposal_id: vm.proposal.id,
+        value: vm.VOTE_OPTIONS.SKIP
       });
       vm.$log.debug('Sending vote');
     };

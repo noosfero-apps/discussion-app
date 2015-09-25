@@ -205,6 +205,13 @@
   margin-left: 10px;
   padding: 0;
   border-radius: 100%;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #fff;
+    border-color: #fff;
+  }
 }
 
 ul.list-color {

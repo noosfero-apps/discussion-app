@@ -53,9 +53,9 @@
             padding: 0;
 
             .video {
+                cursor: pointer;
                 width: 100%;
                 min-height: 125px;
-                background-color: #4A4A0E;
                 background-size: cover;
                 background-position: center;
             }
@@ -84,7 +84,7 @@
                 border-radius: 20px;
             }
 
-            p { padding: 10px 0;}
+            .description { padding: 10px 0;}
         }
 
         @media screen and (min-width: $screen-lg) {

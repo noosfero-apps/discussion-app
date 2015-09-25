@@ -177,22 +177,6 @@
       return (service.isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1);
     }
 
-    // function _encodeObj(obj){
-    //   var result = [];
-    //   var str = null;
-    //   var p = null;
-
-    //   for (p in obj) {
-    //     if (obj.hasOwnProperty(p)) {
-    //       // str = encodeURIComponent(p) + '=' + obj[p];
-    //       str = p + '=' + obj[p];
-    //       result.push(str);
-    //     }
-    //   }
-
-    //   return result.join('&');
-    // }
-
     var service = {
       register: register,
       activate: activate,
@@ -235,9 +219,8 @@
       return $localStorage.currentUser;
     };
 
-    service.setTemporaryToken = function (data) {
-      $localStorage.temporaryToken = data.private_token;
-      $log.debug('temporaryToken created:', $localStorage.temporaryToken);
+    service.setTemporaryToken = function (private_token) {
+      $localStorage.temporaryToken = private_token;
     };
 
     service.getTemporaryToken = function () {

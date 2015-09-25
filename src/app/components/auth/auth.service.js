@@ -53,11 +53,7 @@
     }
 
     function activate (code) {
-      var url = PATH.host +'/api/v1/activate';
-      // var data = {
-      //   private_token: API.token,
-      //   activation_code: code
-      // };
+      var url = PATH.host + '/api/v1/activate';
       var encodedData = 'private_token=' + API.token;
       encodedData += '&activation_code=' + code;
 
@@ -77,12 +73,7 @@
     }
 
     function changePassword (code, newPassword, newPasswordConfirmation){
-      var url = PATH.host +'/api/v1/new_password';
-      // var data = {
-      //   code: code,
-      //   password: newPassword,
-      //   password_confirmation: newPasswordConfirmation
-      // };
+      var url = PATH.host + '/api/v1/new_password';
       var encodedData = 'code=' + code;
       encodedData += '&password=' + newPassword;
       encodedData += '&password_confirmation=' + newPasswordConfirmation;
@@ -103,7 +94,7 @@
     }
 
     function forgotPassword (data){
-      var url = PATH.host +'/api/v1/forgot_password';
+      var url = PATH.host + '/api/v1/forgot_password';
       var encodedData = ([
         'value=' + data.login,
         'captcha_text=' + data.captcha_text,
@@ -145,7 +136,26 @@
         }, function(response) {
           $log.debug('AuthService.login [FAIL] response', response);
           $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+
+          return $q.reject(response);
         });
+    }
+
+    function loginCaptcha (data) {
+      var url = PATH.host + '/api/v1/login-captcha';
+      var encodedData = angular.element.param(data);
+
+      return $http.post(url, encodedData).then(function(response){
+        // SUCCESS
+        $log.debug('AuthService.loginCaptcha [SUCCESS] response', response);
+
+        var temporaryToken = response.data.private_token;
+        Session.setTemporaryToken(temporaryToken);
+        $rootScope.temporaryToken = temporaryToken;
+        return temporaryToken;
+      }, function(response){
+        return $q.reject(response.data);
+      });
     }
 
     function logout () {
@@ -167,28 +177,13 @@
       return (service.isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1);
     }
 
-    // function _encodeObj(obj){
-    //   var result = [];
-    //   var str = null;
-    //   var p = null;
-
-    //   for (p in obj) {
-    //     if (obj.hasOwnProperty(p)) {
-    //       // str = encodeURIComponent(p) + '=' + obj[p];
-    //       str = p + '=' + obj[p];
-    //       result.push(str);
-    //     }
-    //   }
-
-    //   return result.join('&');
-    // }
-
     var service = {
       register: register,
       activate: activate,
       changePassword: changePassword,
       forgotPassword: forgotPassword,
       login: login,
+      loginCaptcha: loginCaptcha,
       logout: logout,
       isAuthenticated: isAuthenticated,
       isAuthorized: isAuthorized
@@ -207,7 +202,7 @@
 
     service.create = function(data) {
 
-      $localStorage.currentUser = data;
+      $localStorage.currentUser = data.user;
       $log.debug('User session created.', $localStorage.currentUser);
 
       return $localStorage.currentUser;
@@ -222,6 +217,14 @@
 
     service.getCurrentUser = function () {
       return $localStorage.currentUser;
+    };
+
+    service.setTemporaryToken = function (private_token) {
+      $localStorage.temporaryToken = private_token;
+    };
+
+    service.getTemporaryToken = function () {
+      return $localStorage.temporaryToken;
     };
 
     return service;

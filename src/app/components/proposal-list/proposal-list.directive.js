@@ -31,7 +31,7 @@
 
       vm.$timeout(function(){
         attachPopover.call(vm);
-      }, 1000);
+      }, 0);
     };
 
     ProposalListController.prototype.showContent = function (proposal) {

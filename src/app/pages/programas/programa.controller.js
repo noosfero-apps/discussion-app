@@ -82,7 +82,10 @@
       }
 
       vm.loadingTopProposals = true;
-      vm.DialogaService.getProposalsByTopicId(vm.article.id, {}, function(data) {
+      vm.DialogaService.getProposalsByTopicId(vm.article.id, {
+        'limit': 5
+      }, function(data) {
+        vm.total_proposals = parseInt(data._obj.headers('total'));
         vm.proposals = data.articles;
         vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
@@ -141,24 +144,6 @@
         // vm.proposalStatus = vm.PROPOSAL_STATUS.SENT | vm.PROPOSAL_STATUS.ERROR;
         vm.proposalStatus = vm.PROPOSAL_STATUS.ERROR;
       });
-    });
-
-    vm.$scope.$on('proposal-box:vote', function(event, params) {
-      // vm.$log.debug('event', event);
-      // vm.$log.debug('params', params);
-      var proposal_id = params.proposal_id;
-      var OPTION = params.OPTION;
-
-      switch (OPTION){
-        case vm.VOTE_OPTIONS.UP:
-        case vm.VOTE_OPTIONS.DOWN:
-        case vm.VOTE_OPTIONS.SKIP:
-          vm.vote(proposal_id, OPTION);
-        break;
-        default:
-          vm.$log.error('Vote option not handled:', OPTION);
-        break;
-      }
     });
   };
 
@@ -219,31 +204,28 @@
       return;
     }
 
-    if (!vm.$rootScope.currentUser) {
-      // vm.$state.go('entrar', {
-      //   redirect_uri: vm.sendProposalRedirectURI,
-      //   message: 'Você precisa estar logado para votar em uma proposta.'
-      // }, {
-      //   location: true
-      // });
+    if (!vm.$rootScope.temporaryToken) {
+      vm.$log.debug('"temporaryToken" not defined. Abort.');
       return;
     }
 
     vm.DialogaService.voteProposal(proposal_id, {
       value: value
-    }, function(response) {
-      vm.$log.debug('response', response);
+    }).then(function(response) {
+      vm.$log.debug('voteProposal response', response);
 
       response.success = true;
       vm.$scope.$broadcast('proposal-box:vote-response', response);
-    }, function(error) {
-      vm.$log.error('error', error);
+    }, function(response) {
+      vm.$log.debug('voteProposal error', response);
 
-      error.error = true;
-      vm.$scope.$broadcast('proposal-box:vote-response', error);
+      response.error = true;
+      vm.$scope.$broadcast('proposal-box:vote-response', response);
+    }).finally(function(response){
+      vm.$log.debug('voteProposal finally', response);
+
     });
   };
-  ProgramaPageController.prototype.voteHasBeenComputed = function() {};
 
   ProgramaPageController.prototype.showProposalsList = function() {
     var vm = this;

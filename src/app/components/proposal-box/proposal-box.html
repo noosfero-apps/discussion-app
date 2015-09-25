@@ -72,23 +72,23 @@
           <div class="col-sm-12 col-height col-middle">
             <div class="inside inside-full-height">
               <div class="content text-center">
-                <div ng-if="vm.sendingCaptcha">
+                <div ng-show="vm.sendingCaptcha">
                   <p>Enviando captcha...</p>
                 </div>
-                <div ng-if="!vm.sendingCaptcha">
-
-                  <div class="row" class="feedback-message" ng-if="vm.sendingCaptchaError">
+                <div ng-hide="vm.sendingCaptcha">
+                  <div class="row feedback-message" ng-show="vm.sendingCaptchaError">
                     <div class="col-sm-12">
                       <div class="feedback--title alert alert-danger">Erro!</div>
-                      <div class="feedback--message" ng-if="vm.sendingCaptchaError.code === 404">
-                        <p>
-                          Houve uma falha. Já estamos trabalhando para resolver o problema.
-                          <br/> Por favor, tente novamente mais tarde
-                        </p>
+                      <div class="feedback--message" ng-if="!vm.message">
+                        <p ng-bind-html="vm.sendingCaptchaError.message"></p>
+                      </div>
+                      <div>
+                        <button type="reset" class="btn btn-link" ng-click="vm.captchaTryAgain()">Tentar novamente</button>
+                        <button type="reset" class="btn btn-link" ng-click="vm.showCaptchaForm = false">Voltar</button>
                       </div>
                     </div>
                   </div>
-                  <div ng-if="!vm.sendingCaptchaError">
+                  <div ng-hide="vm.sendingCaptchaError">
                     <form name="captchaForm" ng-submit="vm.submitCaptcha($event, captchaForm)">
                       <div class="form-group">
                         <div id="serpro_captcha" class="captcha"></div>
@@ -102,7 +102,7 @@
                         <button  type="submit" class="btn btn-lg btn-block btn-submit">Enviar</button>
                       </div>
                       <div class="form-group">
-                        <button class="btn btn-link" ng-click="vm.showCaptchaForm = false">Voltar</button>
+                        <button type="reset" class="btn btn-link" ng-click="vm.showCaptchaForm = false">Voltar</button>
                       </div>
                     </form>
                   </div>

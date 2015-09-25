@@ -41,6 +41,7 @@
     });
 
     $rootScope.currentUser = $localStorage.currentUser;
+    $rootScope.temporaryToken = $localStorage.temporaryToken;
 
     $log.debug('[RUN] Auth end.');
   }

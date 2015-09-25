@@ -9,7 +9,7 @@
   function proposalBox() {
 
     /** @ngInject */
-    function ProposalBoxController($scope, $rootScope, $state, $timeout, $interval, $window, VOTE_STATUS, VOTE_OPTIONS, AuthService, $log) {
+    function ProposalBoxController($scope, $rootScope, $state, $timeout, $interval, $window, VOTE_STATUS, VOTE_OPTIONS, AuthService, DialogaService, $log) {
       $log.debug('ProposalBoxController');
 
       var vm = this;
@@ -28,7 +28,7 @@
       vm.addListeners();
     }
 
-    ProposalBoxController.prototype.init = function () {
+    ProposalBoxController.prototype.init = function() {
 
       var vm = this;
 
@@ -44,52 +44,54 @@
       vm.voteProposalRedirectURI = 'state=programa&task=vote-proposal&slug=' + slug + '&proposal_id=' + proposal_id;
     };
 
-    ProposalBoxController.prototype.addListeners = function () {
+    ProposalBoxController.prototype.addListeners = function() {
       var vm = this;
 
-      vm.$scope.$on('proposal-box:proposal-loaded', function(event, data){
-        if(data.success){
+      vm.$scope.$on('proposal-box:proposal-loaded', function(event, data) {
+        if (data.success) {
           vm.STATE = null;
         }
 
-        if(data.error){
+        if (data.error) {
           vm.errorOnSkip = data.error;
         }
       });
 
-      vm.$scope.$on('proposal-box:vote-response', function(event, data){
+      vm.$scope.$on('proposal-box:vote-response', function(event, data) {
         vm.$log.debug('proposal-box:vote-response');
         vm.$log.debug('event', event);
         vm.$log.debug('data', data);
 
-        if(data.success) {
+        if (data.success) {
           vm.STATE = vm.VOTE_STATUS.SUCCESS;
         }
 
-        if(data.error) {
+        if (data.error) {
           vm.STATE = vm.VOTE_STATUS.ERROR;
         }
 
-        vm.message = data.message;
+        if (data.code === 401) {
+          vm.message = 'Não autorizado.';
+        }
       });
 
       // Load captcha
       var stop = null;
-      stop = vm.$interval(function(){
+      stop = vm.$interval(function() {
         var $el = angular.element('#serpro_captcha');
 
-        if ($el && $el.length > 0 ){
+        if ($el && $el.length > 0) {
           vm.$window.initCaptcha($el[0]);
           vm.$interval.cancel(stop);
           stop = undefined;
-        }else{
+        }else {
           vm.$log.debug('captcha element not found.');
         }
 
       }, 10);
     };
 
-    ProposalBoxController.prototype.showContent = function (slug) {
+    ProposalBoxController.prototype.showContent = function(slug) {
       var vm = this;
 
       vm.$state.go('programa', {
@@ -100,11 +102,13 @@
       });
     };
 
-    ProposalBoxController.prototype.canVote = function () {
-      return false;
+    ProposalBoxController.prototype.canVote = function() {
+      var vm = this;
+
+      return !!vm.$rootScope.temporaryToken;
     };
 
-    ProposalBoxController.prototype.submitCaptcha = function ($event, captchaForm) {
+    ProposalBoxController.prototype.submitCaptcha = function($event, captchaForm) {
       var vm = this;
 
       var target = $event.target;
@@ -119,52 +123,73 @@
         // SUCCESS
         vm.$log.debug('register success.data', data);
 
-        // get captcha_token
+        // SEND VOTE
+        if (vm._oldVoteValue) {
+          // hide captcha form
+          vm.showCaptchaForm = false;
+          vm.vote(vm._oldVoteValue);
+        }
+
       }, function(data) {
         // ERROR
         vm.$log.debug('register error.data', data);
 
-        vm.sendingCaptchaError = {code: data.status };
+        vm.sendingCaptchaError = {
+          code: data.status,
+          message: data.message || ('Erro (' + data.status + '). Já estamos trabalhando para resolver o problema.<br/>Por favor, tente novamente mais tarde')
+        };
 
-        if(data.status === 404){
-          vm.$log.error('The api service is out!?');
+        if (angular.equals(vm.sendingCaptchaError.message, 'Internal captcha validation error')) {
+          vm.sendingCaptchaError.message = 'Erro interno ao tentar validar captcha.<br/><br/>Já estamos trabalhando para resolver o problema.<br/>Por favor, tente novamente mais tarde.';
         }
 
-      }, function(data){
+      }, function(data) {
         // UPDATE
         vm.$log.debug('register update.data', data);
-      }).finally(function(){
+      }).finally(function() {
         vm.sendingCaptcha = false;
       });
     };
 
-    ProposalBoxController.prototype.vote = function (value) {
+    ProposalBoxController.prototype.captchaTryAgain = function() {
       var vm = this;
 
-      if(vm.canVote()){
-        vm.$scope.$emit('proposal-box:vote', {
-          OPTION: value,
-          proposal_id: vm.proposal.id
-        });
-        vm.$log.debug('Sending vote', value);
-      }else{
+      vm.showCaptchaForm = true;
+      vm.sendingCaptcha = false;
+      vm.sendingCaptchaError = false;
+      vm.message = null;
+
+      // reload new captcha
+      var $el = angular.element('#serpro_captcha');
+      vm.$window.reloadCaptcha($el[0]);
+
+      // focus on input
+      angular.element('#captcha_text').val('').focus();
+    };
+
+    ProposalBoxController.prototype.vote = function(value) {
+      var vm = this;
+
+      if (vm.canVote()) {
+        if (vm.doVote) {
+          var data = {
+            proposal_id: vm.proposal.id,
+            value: value
+          };
+          vm.doVote(data);
+        }else {
+          vm.$log.error('No vote function to handler votes');
+        }
+      }else {
         vm.$log.debug('You cannot vote.');
+        vm._oldVoteValue = value;
         vm.showCaptchaForm = true;
+
+        angular.element('#captcha_text').focus();
       }
     };
 
-    ProposalBoxController.prototype.voteDown = function () {
-      var vm = this;
-
-      vm.STATE = vm.VOTE_STATUS.LOADING;
-      vm.$scope.$emit('proposal-box:vote', {
-        OPTION: vm.VOTE_OPTIONS.DOWN,
-        proposal_id: vm.proposal.id
-      });
-      vm.$log.debug('Sending vote');
-    };
-
-    ProposalBoxController.prototype.skip = function () {
+    ProposalBoxController.prototype.skip = function() {
       var vm = this;
 
       vm.errorOnSkip = false;
@@ -176,7 +201,7 @@
       vm.$log.debug('Sending vote');
     };
 
-    ProposalBoxController.prototype.getSocialUrl = function () {
+    ProposalBoxController.prototype.getSocialUrl = function() {
       var vm = this;
 
       return vm.$state.href('programa', {
@@ -193,7 +218,8 @@
         topic: '=',
         category: '=',
         showVote: '=',
-        focus: '@'
+        focus: '@',
+        doVote: '&'
         // @ -> Text binding / one-way binding
         // = -> Direct model binding / two-way binding
         // & -> Behaviour binding / Method binding

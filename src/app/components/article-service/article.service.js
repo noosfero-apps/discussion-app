@@ -162,20 +162,15 @@
       }
     }
 
-    function voteProposal (proposal_id, params, cbSuccess, cbError){
+    function voteProposal (proposal_id, params){
       var url = service.apiArticles + proposal_id + '/vote';
       var paramsExtended = angular.extend({
-        private_token: $rootScope.currentUser.private_token
-        // private_token: 'e2198fdbcc20409f082829b4b5c0848e'
+        private_token: $rootScope.temporaryToken.private_token
       }, params);
 
       var encodedParams = angular.element.param(paramsExtended);
 
-      UtilService.post(url, encodedParams).then(function(response){
-        cbSuccess(response);
-      }).catch(function(error){
-        cbError(error);
-      });
+      return UtilService.post(url, encodedParams);
     }
 
     function getEvents (community_id, params) {

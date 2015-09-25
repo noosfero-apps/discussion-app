@@ -90,7 +90,14 @@
                 <div>
                   <div class="col-xs-12" ng-if="!pagePrograma.loadingProposalBox && pagePrograma.randomProposal" ng-class="{'focused-proposal': !!pagePrograma.search.proposal_id}">
                     <h3 class="color-theme-fg">Apoie outras propostas</h3>
-                    <proposal-box proposal="pagePrograma.randomProposal" topic="pagePrograma.article" category="pagePrograma.category" show-vote="true" focus="{{pagePrograma.search.proposal_id}}" ></proposal-box>
+                    <proposal-box
+                    proposal="pagePrograma.randomProposal"
+                    topic="pagePrograma.article"
+                    category="pagePrograma.category"
+                    show-vote="true"
+                    focus="{{pagePrograma.search.proposal_id}}"
+                    do-vote="pagePrograma.vote(proposal_id, value)"
+                    ></proposal-box>
                   </div>
 
                   <!-- Loading Proposal Box -->

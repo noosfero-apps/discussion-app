@@ -136,6 +136,8 @@
         }, function(response) {
           $log.debug('AuthService.login [FAIL] response', response);
           $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+
+          return $q.reject(response);
         });
     }
 
@@ -143,7 +145,17 @@
       var url = PATH.host + '/api/v1/login-captcha';
       var encodedData = angular.element.param(data);
 
-      return $http.post(url, encodedData);
+      return $http.post(url, encodedData).then(function(response){
+        // SUCCESS
+        $log.debug('AuthService.loginCaptcha [SUCCESS] response', response);
+
+        var temporaryToken = response.data.private_token;
+        Session.setTemporaryToken(temporaryToken);
+        $rootScope.temporaryToken = temporaryToken;
+        return temporaryToken;
+      }, function(response){
+        return $q.reject(response.data);
+      });
     }
 
     function logout () {
@@ -206,7 +218,7 @@
 
     service.create = function(data) {
 
-      $localStorage.currentUser = data;
+      $localStorage.currentUser = data.user;
       $log.debug('User session created.', $localStorage.currentUser);
 
       return $localStorage.currentUser;
@@ -221,6 +233,15 @@
 
     service.getCurrentUser = function () {
       return $localStorage.currentUser;
+    };
+
+    service.setTemporaryToken = function (data) {
+      $localStorage.temporaryToken = data.private_token;
+      $log.debug('temporaryToken created:', $localStorage.temporaryToken);
+    };
+
+    service.getTemporaryToken = function () {
+      return $localStorage.temporaryToken;
     };
 
     return service;

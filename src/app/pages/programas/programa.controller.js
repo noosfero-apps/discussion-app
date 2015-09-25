@@ -82,7 +82,10 @@
       }
 
       vm.loadingTopProposals = true;
-      vm.DialogaService.getProposalsByTopicId(vm.article.id, {}, function(data) {
+      vm.DialogaService.getProposalsByTopicId(vm.article.id, {
+        'limit': 5
+      }, function(data) {
+        vm.total_proposals = parseInt(data._obj.headers('total'));
         vm.proposals = data.articles;
         vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);

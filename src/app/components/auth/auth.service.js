@@ -53,7 +53,7 @@
     }
 
     function activate (code) {
-      var url = '/api/v1/activate';
+      var url = PATH.host +'/api/v1/activate';
       // var data = {
       //   private_token: API.token,
       //   activation_code: code
@@ -77,7 +77,7 @@
     }
 
     function changePassword (code, newPassword, newPasswordConfirmation){
-      var url = '/api/v1/new_password';
+      var url = PATH.host +'/api/v1/new_password';
       // var data = {
       //   code: code,
       //   password: newPassword,
@@ -103,7 +103,7 @@
     }
 
     function forgotPassword (data){
-      var url = 'http://hom.login.dialoga.gov.br/api/v1/forgot_password';
+      var url = PATH.host +'/api/v1/forgot_password';
       var encodedData = ([
         'value=' + data.login,
         'captcha_text=' + data.captcha_text,
@@ -129,8 +129,7 @@
     }
 
     function login (credentials) {
-      var hostProd = 'http://login.dialoga.gov.br';
-      var url = hostProd + '/api/v1/login';
+      var url = PATH.host + '/api/v1/login';
       var encodedData = 'login=' + credentials.username + '&password=' + credentials.password;
 
       return $http

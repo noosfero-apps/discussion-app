@@ -23,48 +23,62 @@
       // vm.attachListeners();
     }
 
-    EventListController.prototype.init = function () {
+    EventListController.prototype.init = function() {
       var vm = this;
 
-      if(!vm.events){
+      if (!vm.events) {
         throw { name: 'NotDefined', message: 'The attribute "events" is undefined.'};
       }
 
-      if(!vm.isCollapsed){
+      if (!vm.isCollapsed) {
         vm.isCollapsed = true;
       }
     };
 
-    EventListController.prototype.toggleView = function () {
+    EventListController.prototype.toggleView = function() {
       var vm = this;
       vm.isCollapsed = !vm.isCollapsed;
     };
 
-    EventListController.prototype.subscribe = function (event) {
+    EventListController.prototype.subscribe = function(event) {
       var vm = this;
 
-      if(event.isOld){
-        vm.$log.debug('Event already happened. Abort.');
+      var event_id = event.id;
+
+      // must be authenticated
+      if (!vm.$rootScope.currentUser) {
+        vm.$log.info('User is not logged in. Redirect to Auth page.');
+        vm.$state.go('entrar', {
+          redirect_uri: 'state=inicio&task=subscribe&event_id=' + event_id
+        }, {
+          location: true
+        });
+
         return;
       }
 
-      var event_id = event.id;
-      vm.$log.debug('event_id', event_id);
+      // do the subscription
+      event._loading = true;
+      vm.ArticleService.subscribeToEvent(event_id).then(function (data) {
+        vm.$log.debug('success', data);
 
-      if(!vm.$rootScope.currentUser){
-        vm.$log.info('User is not logged in. Redirect to Auth page.');
-        vm.$state.go('entrar',{
-          redirect_uri: 'state=inicio&task=subscribe&event_id=' + event_id
-        },{
-          location: true
-        });
-      }else{
-        vm.ArticleService.subscribeToEvent(event_id, {}, function(response){
-          vm.$log.debug('response', response);
-        }, function(error){
-          vm.$log.debug('error', error);
-        });
-      }
+        if(data.success === true){
+          // subscribed with success
+          event.already_follow = true;
+        }
+
+        if(data.success === false && data.already_follow === true){
+          // already subscribed
+          event.already_follow = true;
+        }
+      }, function (data) {
+        vm.$log.debug('error', data);
+      }, function (data){
+        vm.$log.debug('update', data);
+      }).finally(function(data){
+        vm.$log.debug('finally', data);
+        event._loading = false;
+      });
     };
 
     var directive = {

@@ -205,10 +205,10 @@
       }
     }
 
-    function getEvents (params, cbSuccess, cbError) {
+    function getEvents (params) {
       var paramsExtended = angular.extend({}, params);
 
-      ArticleService.getEvents(API.communityId, paramsExtended, cbSuccess, cbError);
+      return ArticleService.getEvents(API.communityId, paramsExtended);
     }
 
     // TODO: implement

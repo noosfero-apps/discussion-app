@@ -178,7 +178,7 @@
       });
     }
 
-    function getEvents (community_id, params, cbSuccess, cbError) {
+    function getEvents (community_id, params) {
       // Ex.: /api/v1/communities/19195/articles?categories_ids[]=' + cat_id + '&content_type=Event';
       // Ex.: /api/v1/communities/' + community_id + '/articles?categories_ids[]=' + cat_id + '&content_type=Event';
 
@@ -188,11 +188,9 @@
         'content_type':'Event'
       }, params);
 
-      UtilService.get(url, {params: paramsExtended}).then(function(data){
-        _pipeIsInThePast(data);
-        cbSuccess(data.articles);
-      }).catch(function(error){
-        cbError(error);
+      return UtilService.get(url, {params: paramsExtended}).then(function(data){
+        _pipeRemoveOldEvents(data);
+        return data;
       });
     }
 
@@ -210,21 +208,11 @@
     //   });
     // }
 
-    function subscribeToEvent (event_id, params, cbSuccess, cbError) {
+    function subscribeToEvent (event_id) {
+      var url = service.apiArticles + event_id + '/follow';
+      var encodedParams = 'private_token=' + $rootScope.currentUser.private_token;
 
-      if(!$rootScope.currentUser){
-        cbError({message: 'Usuário não logado.'});
-
-      }else{
-        var url = service.apiArticles + event_id + '/follow';
-        var encodedParams = 'private_token=' + $rootScope.currentUser.private_token;
-
-        UtilService.post(url, encodedParams).then(function(response){
-          cbSuccess(response);
-        }).catch(function(error){
-          cbError(error);
-        });
-      }
+      return UtilService.post(url, encodedParams);
     }
 
     function searchTopics (params, cbSuccess, cbError) {
@@ -282,14 +270,17 @@
       });
     }
 
-    function _pipeIsInThePast(data){
+    function _pipeRemoveOldEvents(data){
       if(!data.articles && data.article){
         data.articles = [data.article];
+        data.article = null;
       }
+
       var now = (new Date()).getTime();
       var eventDate = null;
       var events = data.articles;
 
+      var results = [];
       for (var i = events.length - 1; i >= 0; i--) {
         var event = events[i];
 
@@ -297,10 +288,16 @@
           eventDate = new Date(event.end_date);
         }
 
-        if(eventDate.getTime() < now){
-          event.isOld = true;
+        // if(eventDate.getTime() < now){
+        //   event.isOld = true;
+        // }
+        if(eventDate.getTime() >= now){
+          results.push(event);
         }
       }
+
+      data.articles = results;
     }
+
   }
 })();

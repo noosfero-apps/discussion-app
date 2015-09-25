@@ -76,13 +76,18 @@
 
     // Load event list
     vm.loadingEvents = true;
-    vm.DialogaService.getEvents({}, function(events) {
-      vm.events = events;
-      vm.loadingEvents = false;
+    vm.DialogaService.getEvents().then(function(data) {
+      vm.$log.debug('getEvents.success', data);
+      vm.events = data.articles;
+
     }, function(error) {
-      vm.$log.error('Error on getEvents.', error);
-      vm.loadingEvents = false;
+      vm.$log.debug('Error on getEvents.', error);
       vm.eventsError = error;
+    }, function(data) {
+      vm.$log.debug('{UPDATE}', data);
+    }).finally(function(data){
+      vm.$log.debug('{FINALLY}', data);
+      vm.loadingEvents = false;
     });
 
     function _loadAfterHome () {
@@ -167,10 +172,10 @@
 
     // scroll to result grid
     var $searchResult = angular.element('#search-result');
-    if($searchResult && $searchResult.length > 0){
+    if ($searchResult && $searchResult.length > 0) {
       angular.element('body').animate({scrollTop: $searchResult.offset().top}, 'fast');
       vm.filtredPrograms = vm.getFiltredPrograms();
-    }else{
+    }else {
       vm.$log.warn('#search-result element not found.');
     }
   };
@@ -251,7 +256,7 @@
     return output;
   };
 
-  InicioPageController.prototype._filterByCategory = function (input, category) {
+  InicioPageController.prototype._filterByCategory = function(input, category) {
     var vm = this;
 
     input = input || [];
@@ -265,7 +270,7 @@
     for (var i = 0; i < input.length; i++) {
       var program = input[i];
 
-      if(!program.categories || program.categories.length === 0){
+      if (!program.categories || program.categories.length === 0) {
         vm.$log.warn('Program without theme (category)', program.slug);
         continue;
       }

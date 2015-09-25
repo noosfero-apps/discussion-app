@@ -79,7 +79,7 @@
     vm.DialogaService.getEvents().then(function(data) {
       vm.$log.debug('getEvents.success', data);
       vm.events = data.articles;
-
+      vm.featuredEvent = vm.events[0];
     }, function(error) {
       vm.$log.debug('Error on getEvents.', error);
       vm.eventsError = error;
@@ -163,6 +163,15 @@
     window.onYouTubePlayerReady = window.onYouTubePlayerReady || onYouTubePlayerReady;
 
     vm.article.videoIsLoaded = true;
+  };
+
+  InicioPageController.prototype.showEventVideo = function() {
+    var vm = this;
+
+    hideBackground(0); // force to hide
+
+    vm.featuredEvent.canView = true;
+    vm.featuredEvent.bodyTrusted = vm.$sce.trustAsHtml(vm.featuredEvent.body);
   };
 
   InicioPageController.prototype.submitSearch = function() {

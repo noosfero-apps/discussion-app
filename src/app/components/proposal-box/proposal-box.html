@@ -30,10 +30,10 @@
                               <span class="icon icon-social-share" aria-hidden="true"></span>
                             </button>
                             <social-share
-                              url="vm.getSocialUrl()"
-                              text="vm.getSocialText()"
-                              image="vm.getSocialImage()"
-                              class="dropdown-menu dropdown-menu-right ng-isolate-scope"></social-share>
+                              social-url="vm.getSocialUrl()"
+                              social-text="vm.getSocialText()"
+                              social-image="vm.getSocialImage()"
+                              class="dropdown-menu dropdown-menu-right"></social-share>
                             </div>
                         </div>
                         <div class="col-xs-6 feedback--next">
@@ -184,6 +184,11 @@
       <div class="dropdown">
         <button id="dropdown-share-btn" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Mostrar ou esconder a lista redes sociais para compartilhamento"><span class="icon icon-social-share-small" aria-hidden="true"></span></button>
         <social-share class="dropdown-menu dropdown-menu-right"></social-share>
+        <social-share
+          social-url="vm.getSocialUrl()"
+          social-text="vm.getSocialText()"
+          social-image="vm.getSocialImage()"
+          class="dropdown-menu dropdown-menu-right"></social-share>
       </div>
     </div>
     <div class="proposal-box--ranking">

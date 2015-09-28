@@ -214,7 +214,7 @@
   }
 }
 
-ul.list-color {
+ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -229,13 +229,12 @@ ul.list-color li:before {
   }
 }
 
-ul.list-color li:before {
+ul li:before {
   content: "\2022";
   font-weight: bold;
-  font-size: 20px;
+  font-size: 12px;
   position: relative;
-  top: 2px;
-  color: #2a9677;
+  padding-right: 4px;
 }
 
 .page--program {

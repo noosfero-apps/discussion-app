@@ -214,36 +214,37 @@
   }
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-ul.list-color li:before {
-  @each $category,
-  $color in $categories {
-    .#{$category} & {
-      color: $color;
-    }
-  }
-}
-
-ul li:before {
-  content: "\2022";
-  font-weight: bold;
-  font-size: 12px;
-  position: relative;
-  padding-right: 4px;
-}
-
 .page--program {
   .program-content {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul.list-color li:before {
+      @each $category,
+      $color in $categories {
+        .#{$category} & {
+          color: $color;
+        }
+      }
+    }
+
+    ul li:before {
+      content: "\2022";
+      font-weight: bold;
+      font-size: 12px;
+      position: relative;
+      padding-right: 4px;
+    }
+
     ul li {
       padding-left: 2em;
       padding-bottom: 15px;
       text-indent: -0.7em;
     }
+
     .col-middle {
       vertical-align: top;
     }

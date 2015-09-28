@@ -232,9 +232,9 @@ ul.list-color li:before {
 ul.list-color li:before {
   content: "\2022";
   font-weight: bold;
-  font-size: 20px;
+  font-size: 12px;
   position: relative;
-  top: 2px;
+  padding-right: 4px;
   color: #2a9677;
 }
 

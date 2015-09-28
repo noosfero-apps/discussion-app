@@ -25,7 +25,7 @@
     </div>
   </section>
 
-  <section class="section--header" ng-if="pagePropostas.proposals || pagePropostas.themes">
+  <section class="section--header" ng-if="pagePropostas.filtredProposals || pagePropostas.themes">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
@@ -35,7 +35,7 @@
     </div>
   </section>
 
-  <section class="section--articles section-gray section-space-up" ng-if="pagePropostas.proposals || pagePropostas.themes">
+  <section class="section--articles section-gray section-space-up" ng-if="pagePropostas.filtredProposals || pagePropostas.themes">
     <div class="container">
       <div id="lista-de-propostas" class="row">
         <div class="col-sm-4 col-md-3">
@@ -71,7 +71,7 @@
           </div>
         </div>
         <div class="col-sm-8 col-md-9">
-          <div class="row hidden-xs" ng-if="pagePropostas.proposals">
+          <div class="row hidden-xs" ng-if="pagePropostas.filtredProposals">
             <div class="col-xs-12">
               <div class="input-group input-group-lg input-group-search">
                 <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
@@ -88,24 +88,30 @@
             </div>
           </div>
 
-          <div id="search-result" class="row" ng-if="pagePropostas.proposals">
+          <div id="search-result" class="row" ng-if="pagePropostas.filtredProposals">
             <div class="col-sm-12">
               <header class="header">
-                <h2>Total de Propostas: "<b>{{pagePropostas.filtredProposals.length}} propostas</b>"</h2>
+                <h2>Total de Propostas: "<b>{{pagePropostas.total_proposals}} propostas</b>"</h2>
               </header>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-sm-12" ng-if="pagePropostas.proposals">
+            <div class="col-sm-12" ng-if="!pagePropostas.loadingProposals && pagePropostas.filtredProposals && pagePropostas.total_proposals">
               <proposal-grid proposals="pagePropostas.filtredProposals"></proposal-grid>
+              <app-paginator
+                page="pagePropostas.page"
+                per-page="pagePropostas.per_page"
+                total="pagePropostas.total_proposals"
+                change-page="pagePropostas.changePage(pageIndex)"
+              ></app-paginator>
             </div>
-            <div ng-if="!pagePropostas.proposals && pagePropostas.loadingProposals">
+            <div ng-if="pagePropostas.loadingProposals">
               <div class="alert alert-info" role="alert">
                 Carregando propostas.
               </div>
             </div>
-            <div ng-if="!pagePropostas.proposals && pagePropostas.proposalsError">
+            <div ng-if="!pagePropostas.loadingProposals && pagePropostas.proposalsError">
               <div class="alert alert-danger" role="alert">
                 Não foi possível carregar a lista de propostas neste momento.
               </div>

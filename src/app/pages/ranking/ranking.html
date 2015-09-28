@@ -6,8 +6,27 @@
 	</div>
 </div>
 
-<div class="page--propostas">
-	<section class="section--info">
+<div class="page--ranking" role="main">
+
+  <section class="section-info" ng-if="pageRanking.loading || pageRanking.error">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div ng-if="pageRanking.loading && !pageRanking.error">
+            <div class="alert alert-info" role="alert">Carregando conteúdo...</div>
+          </div>
+
+          <div ng-if="pageRanking.error">
+            <div class="alert alert-danger" role="alert">
+              Erro ao carregar o conteúdo principal.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+	<section class="section--info" ng-if="pageRanking.filtredProposals || pageRanking.themes">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
@@ -16,7 +35,8 @@
 			</div>
 		</div>
 	</section>
-	<section class="section--articles section-gray section-space-up" ng-if="pageRanking.proposals">
+
+	<section class="section--articles section-gray section-space-up" ng-if="pageRanking.filtredProposals || pageRanking.themes">
 		<div class="container">
 			<div id="lista-de-propostas" class="row">
 				<div class="col-sm-4 col-md-3">

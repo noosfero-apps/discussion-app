@@ -16,24 +16,18 @@
             </a>
           </li>
           <li>
-            <a class="color-theme-common-fg" accesskey="3" href="#search" id="skip-to-search" ng-click="focusOn('#search', $event)">
+            <a class="color-theme-common-fg" accesskey="3" id="skip-to-search" ui-sref="inicio({scroll:'lista-de-programas'})" ui-sref-opts="{reload: true}">
               Ir para a busca
               <span class="color-theme-common-bg">3</span>
             </a>
           </li>
-          <!-- <li>
-            <a class="color-theme-common-fg" accesskey="4" href="#footer" id="skip-to-footer" ng-click="focusOn('#footer', $event)">
-              Ir para o rodapé
-              <span class="color-theme-common-bg">4</span>
-            </a>
-          </li> -->
         </ul>
       </div>
 
       <div class="col-sm-6">
         <ul class="action-links list-inline list-unstyled pull-right">
           <li>
-            <a id="siteaction-accessibility" class="color-theme-common-fg" href="#" title="Acessibilidade" accesskey="5" ng-click="actionAccessibility()">Acessibilidade</a>
+            <a id="siteaction-accessibility" class="color-theme-common-fg" href="http://portalpadrao.gov.br/acessibilidade" target="_blank" title="Acessibilidade" accesskey="5">Acessibilidade</a>
           </li>
           <li>
             <a id="siteaction-contrast" class="color-theme-common-fg" href="#" title="Alto Contraste" accesskey="6" ng-click="actionContrast()">Alto Contraste</a>

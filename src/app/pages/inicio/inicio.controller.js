@@ -7,7 +7,7 @@
     .controller('InicioPageController', InicioPageController);
 
   /** @ngInject */
-  function InicioPageController(DialogaService, $scope, $location, $filter, $sce, $log) {
+  function InicioPageController(DialogaService, $scope, $location, $filter, $sce, $timeout, $log) {
     var vm = this;
 
     // aliases
@@ -16,6 +16,7 @@
     vm.$location = $location;
     vm.$filter = $filter;
     vm.$sce = $sce;
+    vm.$timeout = $timeout;
     vm.$log = $log;
 
     vm.init();
@@ -35,6 +36,7 @@
     vm.programs = null;
     vm.filtredPrograms = null;
     vm.query = null;
+    vm.scroll = null;
     vm.search = vm.$location.search();
 
     if (vm.search.tema) {
@@ -47,6 +49,10 @@
 
     if (vm.search.tema || vm.search.filtro) {
       vm.loadingFilter = true;
+    }
+
+    if (vm.search.scroll) {
+      vm.scroll = vm.search.scroll;
     }
 
     vm.loading = null;
@@ -113,11 +119,43 @@
         vm.loadingPrograms = false;
 
         vm.filter();
+
+        _loadAfterPrograms();
       }, function(error) {
         vm.$log.error('Error on getPrograms.', error);
         vm.loadingPrograms = false;
         vm.errorPrograms = error;
       });
+    }
+
+    function _loadAfterPrograms () {
+      vm._scrollHandler();
+    }
+  };
+
+  InicioPageController.prototype._scrollHandler = function() {
+    var vm = this;
+
+    // scroll handler
+    if (vm.search.scroll) {
+      var scroll = vm.search.scroll;
+      var scrollTop = 0;
+
+      if(angular.isNumber(scroll)){
+        scrollTop = parseInt(scroll);
+      }else{
+        // find by ID
+        var $target = angular.element('#' + vm.search.scroll);
+        if ($target && $target.length > 0) {
+          scrollTop = $target.offset().top;
+        }else {
+          vm.$log.warn('element not found:', vm.search.scroll);
+        }
+      }
+
+      vm.$timeout(function() {
+        angular.element('body').animate({scrollTop: scrollTop}, 'fast');
+      }, 0); // force queue
     }
   };
 

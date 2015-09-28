@@ -6,11 +6,12 @@
     .controller('RankingPageController', RankingPageController);
 
   /** @ngInject */
-  function RankingPageController(DialogaService, $scope, $location, $filter, $log) {
+  function RankingPageController(DialogaService, $scope, $rootScope, $location, $filter, $log) {
     var vm = this;
 
     vm.DialogaService = DialogaService;
     vm.$scope = $scope;
+    vm.$rootScope = $rootScope;
     vm.$location = $location;
     vm.$filter = $filter;
     vm.$log = $log;
@@ -18,6 +19,7 @@
     vm.init();
     vm.loadData();
     // vm.attachListeners(); // attach listeners after load data (SYNC)
+    vm.$rootScope.focusMainContent();
 
     $log.debug('RankingPageController');
   }

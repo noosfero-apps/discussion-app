@@ -33,7 +33,6 @@
     vm.selectedTheme = null;
     vm.filtredPrograms = null;
     vm.selectedProgram = null;
-    vm.proposals = null;
     vm.filtredProposals = null;
     vm.query = null;
     vm.search = vm.$location.search();
@@ -141,8 +140,7 @@
       page: vm.page,
       per_page: vm.per_page
     }, function(data){
-      vm.proposals = data.articles;
-      vm.filtredProposals = vm.proposals;
+      vm.filtredProposals = data.articles;
       vm.loadingProposals = false;
 
       vm.attachListeners();

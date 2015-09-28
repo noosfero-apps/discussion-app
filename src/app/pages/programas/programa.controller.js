@@ -123,7 +123,8 @@
 
       vm.proposalStatus = vm.PROPOSAL_STATUS.SENDING;
 
-      vm.DialogaService.createProposal(proposal, vm.article.id, function(response) {
+      var category_id = vm.article.categories[0].id;
+      vm.DialogaService.createProposal(proposal, vm.article.id, category_id,  function(response) {
         vm.$log.debug('response', response);
         // vm.message =
         // vm.proposalStatus = vm.PROPOSAL_STATUS.SENT | vm.PROPOSAL_STATUS.SUCCESS;

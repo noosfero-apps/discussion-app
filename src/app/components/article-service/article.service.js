@@ -137,7 +137,7 @@
       getProposalById(topicId + '/children', params, cbSuccess, cbError);
     }
 
-    function createProposal (proposal, targetId, cbSuccess, cbError){
+    function createProposal (proposal, targetId, categoryId, cbSuccess, cbError){
 
       if(!$rootScope.currentUser){
         cbError({message: 'Usuário não logado.'});
@@ -147,6 +147,7 @@
 
         var encodedParams = [];
         encodedParams.push('article%5Babstract%5D=' + proposal);
+        encodedParams.push('article%5Bcategory_ids%5D%5B%5D=' + categoryId);
         encodedParams.push('article%5Btype%5D=ProposalsDiscussionPlugin%3A%3AProposal');
         encodedParams.push('content_type=ProposalsDiscussionPlugin%3A%3AProposal');
         encodedParams.push('private_token=' + $rootScope.currentUser.private_token);

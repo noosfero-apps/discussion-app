@@ -9,7 +9,7 @@
   function routeConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('inicio', {
-        url: '/?tema&filtro',
+        url: '/?tema&filtro&scroll',
         ncyBreadcrumb: {label: 'Home'},
         reloadOnSearch: false,
         views: {

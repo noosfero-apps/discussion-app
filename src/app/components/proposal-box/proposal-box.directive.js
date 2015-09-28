@@ -205,7 +205,21 @@
       return vm.$state.href('programa', {
         slug: vm.topic.slug,
         proposal_id: vm.proposal.id,
+      }, {
+        absolute: true
       });
+    };
+
+    ProposalBoxController.prototype.getSocialText = function() {
+      var vm = this;
+
+      return vm.proposal.abstract;
+    };
+
+    ProposalBoxController.prototype.getSocialImage = function() {
+      var vm = this;
+
+      return vm.$rootScope.basePath + vm.topic.image.url;
     };
 
     var directive = {

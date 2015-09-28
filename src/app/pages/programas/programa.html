@@ -46,9 +46,9 @@
                     <div class="dropdown">
                       <button id="dropdown-share-btn" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Mostrar ou esconder a lista redes sociais para compartilhamento"><span class="icon icon-social-share-small" aria-hidden="true"></span></button>
                       <social-share
-                        url=""
-                        text=""
-                        image=""
+                        social-url="pagePrograma.$state.href('programa', {slug: pagePrograma.article.slug}, {absolute: true})"
+                        social-text="pagePrograma.article.title"
+                        social-image="pagePrograma.banner.src"
                         arrow-class="social-share--arrow"
                         class="dropdown-menu dropdown-menu-right"
                         ></social-share>

@@ -143,7 +143,7 @@
     };
 
     if (vm.selectedTheme) {
-      params.article_id = vm.selectedTheme.id;
+      params.categories_ids = vm.selectedTheme.id;
     }
 
     if (query) {params.query = query; }

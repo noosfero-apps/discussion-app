@@ -143,7 +143,7 @@
     };
 
     if (vm.selectedTheme) {
-      params.categories_ids = vm.selectedTheme.id;
+      params.category_ids = vm.selectedTheme.id;
     }
 
     if (query) {params.query = query; }

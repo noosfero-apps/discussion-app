@@ -37,7 +37,7 @@
         .then(function(response) {
           $log.debug('AuthService.register [SUCCESS] response', response);
 
-          var currentUser = Session.create(response.data['user']);
+          var currentUser = Session.create(response.data);
 
           $rootScope.currentUser = currentUser;
           $rootScope.$broadcast(AUTH_EVENTS.registerSuccess, currentUser);

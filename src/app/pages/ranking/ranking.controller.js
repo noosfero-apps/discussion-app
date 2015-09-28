@@ -212,28 +212,26 @@
     var per_page = _per_page || vm.per_page;
     var query = vm.query;
     var selectedProgram = vm.selectedProgram;
+    var params = {
+      page: page,
+      per_page: per_page
+    };
 
     if (selectedProgram) {
-      var params = {
-        page: page,
-        per_page: per_page,
-        parent_id: selectedProgram.id
-      };
-
-      if (query) {params.query = query; }
-
-      vm.loadingProposals = true;
-      vm.DialogaService.searchProposals(params, function(data){
-        vm.total_proposals = parseInt(data._obj.headers('total'));
-        vm.filtredProposals = data.articles;
-        vm.loadingProposals = false;
-      }, function (error) {
-        vm.error = error;
-        vm.$log.error(error);
-        vm.loadingProposals = false;
-      });
-    } else {
-      vm.filtredProposals = [];
+      params.parent_id = selectedProgram.id;
     }
+
+    if (query) {params.query = query; }
+
+    vm.loadingProposals = true;
+    vm.DialogaService.searchProposals(params, function(data){
+      vm.total_proposals = parseInt(data._obj.headers('total'));
+      vm.filtredProposals = data.articles;
+      vm.loadingProposals = false;
+    }, function (error) {
+      vm.error = error;
+      vm.$log.error(error);
+      vm.loadingProposals = false;
+    });
   };
 })();

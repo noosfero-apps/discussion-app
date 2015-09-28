@@ -27,11 +27,11 @@
   PropostasPageController.prototype.init = function() {
     var vm = this;
 
+    vm.page = 1;
+    vm.per_page = 20;
     vm.themes = null;
     vm.selectedTheme = null;
     vm.filtredPrograms = null;
-    vm.selectedProgram = null;
-    vm.proposals = null;
     vm.filtredProposals = null;
     vm.query = null;
     vm.search = vm.$location.search();
@@ -73,11 +73,14 @@
 
     // load Proposals
     vm.loadingProposals = true;
-    vm.DialogaService.getProposals({}, function(data) {
-      vm.proposals = data.articles;
-      vm.filtredProposals = vm.proposals;
+    vm.DialogaService.searchProposals({
+      page: vm.page,
+      per_page: vm.per_page
+    }, function(data) {
+      vm.filtredProposals = data.articles;
+      vm.total_proposals = parseInt(data._obj.headers('total'));
+
       vm.loadingProposals = false;
-      vm.loading = false;
 
       if (cb) {
         cb();
@@ -86,7 +89,6 @@
       vm.error = error;
       vm.$log.error(error);
       vm.loadingProposals = false;
-      vm.loading = false;
     });
   };
 
@@ -100,23 +102,13 @@
     vm.$scope.$watch('pagePropostas.selectedTheme', function(newValue/*, oldValue*/) {
       vm.search.tema = newValue ? newValue.slug : null;
       vm.$location.search('tema', vm.search.tema);
-      vm.filtredProposals = vm.getFiltredProposals();
-    });
-
-    vm.$scope.$on('change-selectedTopic', function(event, selectedTopic) {
-      vm.selectedProgram = selectedTopic;
-    });
-
-    vm.$scope.$watch('pagePropostas.selectedProgram', function(newValue/*, oldValue*/) {
-      vm.search.programa = newValue ? newValue.slug : null;
-      vm.$location.search('programa', vm.search.programa);
-      vm.filtredProposals = vm.getFiltredProposals();
+      vm.filterProposals();
     });
 
     vm.$scope.$watch('pagePropostas.query', function(newValue/*, oldValue*/) {
       vm.search.filtro = newValue ? newValue : null;
       vm.$location.search('filtro', vm.search.filtro);
-      vm.filtredProposals = vm.getFiltredProposals();
+      vm.filterProposals();
     });
   };
 
@@ -127,35 +119,45 @@
     vm.selectedTheme = null;
   };
 
-  PropostasPageController.prototype.getFiltredProposals = function() {
+  PropostasPageController.prototype.changePage = function(pageIndex) {
     var vm = this;
 
-    if (!vm.proposals) {
-      vm.$log.info('No proposals loaded yet. Abort.');
-      return null;
+    vm.page = pageIndex;
+    vm.filterProposals(pageIndex);
+  };
+
+  PropostasPageController.prototype.filterProposals = function(_page, _per_page) {
+    var vm = this;
+
+    if (vm.loadingProposals){
+      vm.$log.debug('Content is not loaded yet.');
+      return;
     }
 
-    var input = vm.proposals;
-    var output = input;
+    var page = _page || vm.page;
+    var per_page = _per_page || vm.per_page;
     var query = vm.query;
-    var selectedTheme = vm.selectedTheme;
-    var selectedProgram = vm.selectedProgram;
+    var params = {
+      page: page,
+      per_page: per_page,
+    };
 
-    var filter = vm.$filter('filter');
-
-    if (selectedTheme) {
-      output = vm.DialogaService.filterProposalsByCategorySlug(output, selectedTheme.slug);
+    if (vm.selectedTheme) {
+      params.article_id = vm.selectedTheme.id;
     }
 
-    if (selectedProgram) {
-      output = vm.DialogaService.filterProposalsByProgramId(output, selectedProgram.id);
-    }
+    if (query) {params.query = query; }
 
-    if (query) {
-      output = filter(output, query, false);
-    }
-
-    return output;
+    vm.loadingProposals = true;
+    vm.DialogaService.searchProposals(params, function(data){
+      vm.total_proposals = parseInt(data._obj.headers('total'));
+      vm.filtredProposals = data.articles;
+      vm.loadingProposals = false;
+    }, function (error) {
+      vm.error = error;
+      vm.$log.error(error);
+      vm.loadingProposals = false;
+    });
   };
 
   PropostasPageController.prototype.submitSearch = function() {
@@ -167,7 +169,7 @@
     var $searchResult = angular.element('#search-result');
     if ($searchResult && $searchResult.length > 0) {
       angular.element('body').animate({scrollTop: $searchResult.offset().top}, 'fast');
-      vm.filtredProposals = vm.getFiltredProposals();
+      vm.filterProposals();
     }else {
       vm.$log.warn('#search-result element not found.');
     }

@@ -205,11 +205,6 @@
       return;
     }
 
-    if (!vm.$rootScope.temporaryToken) {
-      vm.$log.debug('"temporaryToken" not defined. Abort.');
-      return;
-    }
-
     vm.DialogaService.voteProposal(proposal_id, {
       value: value
     }).then(function(response) {

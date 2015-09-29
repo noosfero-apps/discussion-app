@@ -221,7 +221,7 @@
     }
 
     function sendContactForm (community_id, data){
-      var url = service.apiCommunities + community_id + '/contact'
+      var url = service.apiCommunities + community_id + '/contact';
       var encodedParams = [
         'contact[name]=' + data.name,
         'contact[email]=' + data.email,

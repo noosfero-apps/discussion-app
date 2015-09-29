@@ -27,7 +27,8 @@
       getEvents: getEvents,
       subscribeToEvent: subscribeToEvent,
       searchTopics: searchTopics,
-      searchProposals: searchProposals
+      searchProposals: searchProposals,
+      sendContactForm: sendContactForm
     };
 
     return service;
@@ -165,8 +166,16 @@
 
     function voteProposal (proposal_id, params){
       var url = service.apiArticles + proposal_id + '/vote';
+
+      var private_token = null;
+      if($rootScope.currentUser && $rootScope.currentUser.private_token){
+        private_token = $rootScope.currentUser.private_token;
+      }else{
+        private_token = $rootScope.temporaryToken;
+      }
+
       var paramsExtended = angular.extend({
-        private_token: $rootScope.temporaryToken
+        private_token: private_token
       }, params);
 
       var encodedParams = angular.element.param(paramsExtended);
@@ -207,6 +216,18 @@
     function subscribeToEvent (event_id) {
       var url = service.apiArticles + event_id + '/follow';
       var encodedParams = 'private_token=' + $rootScope.currentUser.private_token;
+
+      return UtilService.post(url, encodedParams);
+    }
+
+    function sendContactForm (community_id, data){
+      var url = service.apiCommunities + community_id + '/contact'
+      var encodedParams = [
+        'contact[name]=' + data.name,
+        'contact[email]=' + data.email,
+        'contact[subject]=' + data.subject,
+        'contact[message]=' + data.message
+      ].join('&');
 
       return UtilService.post(url, encodedParams);
     }

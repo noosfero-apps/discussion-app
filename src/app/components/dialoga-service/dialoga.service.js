@@ -25,6 +25,7 @@
     extendedService.getQuestions = getQuestions;
     extendedService.searchPrograms = searchPrograms;
     extendedService.searchProposals = searchProposals;
+    extendedService.sendContactForm = sendContactForm;
     extendedService.filterProposalsByCategorySlug = filterProposalsByCategorySlug;
     extendedService.filterProposalsByProgramId = filterProposalsByProgramId;
 
@@ -230,6 +231,10 @@
 
     function searchProposals (params, cbSuccess, cbError) {
       ArticleService.searchProposals(params, cbSuccess, cbError);
+    }
+
+    function sendContactForm (data) {
+      return ArticleService.sendContactForm(API.communityId, data);
     }
 
     function filterProposalsByCategorySlug (input, categorySlug) {

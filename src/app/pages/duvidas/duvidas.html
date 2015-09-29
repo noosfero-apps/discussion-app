@@ -1,4 +1,4 @@
-<div class="page--duvidas">
+<div class="page--duvidas" role="main">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
@@ -8,21 +8,21 @@
 		</div>
 	</div>
 
-	<section role="duvidas" class="section-gray">
+	<section class="section-gray">
 		<div class="container">
 			<div class="row">
 				<div class="panel-group" id="accordion-duvidas" role="tablist" aria-multiselectable="false">
-
 					<div class="panel panel-default">
-						<div class="panel-heading" role="tab" id="duvida-01"  class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-duvidas" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-							<span class="num-duvida">1</span>
-							<span class="panel-title">O que é o Dialoga Brasil?</span>
-							<span class="glyphicon glyphicon-chevron-down icon-white pull-right" aria-hidden="true" >
-							</div>
-							<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="duvida-01">
-								<div class="panel-body">
-									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+						<div class="question-item" ng-repeat="question in pageDuvidas.questions">
+							<div id="duvida-{{($index + 1)}}" class="panel-heading" role="tab">
+								<div class="panel-title" role="button" data-target="#collapse-{{($index + 1)}}" aria-expanded="($index === 0) ? 'true' : 'false'" aria-controls="collapse-{{($index + 1)}}" data-toggle="collapse" data-parent="#accordion-duvidas">
+									<span class="num-duvida">{{($index + 1)}}</span>
+									<span class="panel-title">{{question.question}}</span>
+									<span class="glyphicon glyphicon-chevron-down icon-white pull-right" aria-hidden="true"></span>
 								</div>
+							</div>
+							<div id="collapse-{{($index + 1)}}" class="panel-collapse collapse" ng-class="{ 'in': ($index === 0) }" role="tabpanel" aria-expanded="($index === 0) ? 'true' : 'false'" aria-labelledby="duvida-{{($index + 1)}}">
+								<div class="panel-body" ng-bind-html="question.question"></div>
 							</div>
 						</div>
 					</div>
@@ -31,53 +31,73 @@
 		</section>
 
 
-		<section role="formulario" >
+		<section>
 			<div class="container">
 				<div class="row">
 					<h2>Tem outras dúvidas ou sugestões?</h2>
 				</div>
 
 				<div class="row">
-					<form role="form" name="duvidasForm" ng-submit="" novalidate>
-						<div class="form-group">
-							<label for="inputAssunto">Assunto*</label>
-							<select id="inputAssunto" name="inputAssunto" class="form-control input-lg dark-input" ng-model="data.inputAssunto" required>
-								<option value="">---Please select---</option>
-								<option value="">---Please select---</option>
-								<option value="">---Please select---</option>
-								<option value="">---Please select---</option>
-								<option value="">---Please select---</option>
-							</select>
-							<validation-messages field="duvidasForm.inputAssunto"/>
-						</div>
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="form-group">
-									<span>Nome*</span>
-									<input type="text" id="inputNome" name="inputNome" class="form-control input-lg light-input" ng-class="{ 'has-error' : duvidasForm.inputNome.$invalid && duvidasForm.inputNome.$touched }" ng-model="senha" ng-minlength="" ng-maxlength="" required>
-									<validation-messages field="duvidasForm.inputNome"/>
+					<div class="col-sm-12">
+						<form role="form" name="contactForm" ng-submit="pageDuvidas.submitContactForm($event, contactForm)" novalidate>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="inputSubject">Assunto*</label>
+										<select id="inputSubject" name="inputSubject" class="form-control input-lg dark-input" ng-model="data.inputSubject" required>
+											<option value="">-- Selecione um Assunto --</option>
+											<option value="Dúvidas">Dúvidas</option>
+											<option value="Sugestões">Sugestões</option>
+											<option value="Outro">Outro</option>
+										</select>
+										<validation-messages field="contactForm.inputSubject"></validation-messages>
+									</div>
 								</div>
 							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<span>E-mail*</span>
-									<input type="email" id="inputEmai" name="inputEmai" class="form-control input-lg light-input" ng-class="{ 'has-error' : duvidasForm.inputEmai.$invalid && duvidasForm.inputEmai.$touched }" ng-model="senhaRepetida" ng-minlength="" ng-maxlength="" required>
-									<validation-messages field="duvidasForm.inputEmai"/>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="inputName">Nome*</label>
+										<input type="text" id="inputName" name="inputName" class="form-control input-lg light-input" ng-class="{ 'has-error' : contactForm.inputName.$invalid && contactForm.inputName.$touched }" ng-model="inputName" ng-minlength="" ng-maxlength="" required>
+										<validation-messages field="contactForm.inputName"></validation-messages>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="inputEmail">E-mail*</label>
+										<input type="email" id="inputEmail" name="inputEmail" class="form-control input-lg light-input" ng-class="{ 'has-error' : contactForm.inputEmail.$invalid && contactForm.inputEmail.$touched }" ng-model="inputEmail" ng-minlength="" ng-maxlength="" required>
+										<validation-messages field="contactForm.inputEmail"></validation-messages>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<span>Mensagem*</span>
-							<textarea id="mensagem" name="mensagem" class="mensagem-text-area form-control light-input" ng-class="{ 'has-error' : duvidasForm.mensagem.$invalid && duvidasForm.mensagem.$touched }" ng-model="mensagem" required ></textarea>
-							<validation-messages field="duvidasForm.mensagem"/>
-						</div>
-						<span class="pull-left">*Dados obrigatórios</span>
-						<div class="row">
-							<div class="col-sm-4 form-group pull-right">
+							<div class="form-group">
+								<label for="inputMessage">Mensagem*</label>
+								<textarea id="inputMessage" name="inputMessage" class="mensagem-text-area form-control light-input" ng-class="{ 'has-error' : contactForm.inputMessage.$invalid && contactForm.inputMessage.$touched }" ng-model="inputMessage" required ></textarea>
+								<validation-messages field="contactForm.inputMessage"></validation-messages>
+							</div>
+							<span class="pull-left">*Dados obrigatórios</span>
+							<div class="row">
+								<div class="col-sm-4 form-group pull-right">
+									<div class="row" ng-show="pageDuvidas.sendingContactForm">
+										<div class="col-sm-12">
+											<div class="alert alert-info" role="alert">Enviando formulário...</div>
+										</div>
+									</div>
+									<div class="row" ng-if="pageDuvidas.successMessage">
+										<div class="col-sm-12">
+											<div class="alert alert-success" role="alert">{{pageDuvidas.successMessage}}</div>
+										</div>
+									</div>
+									<div class="row" ng-if="pageDuvidas.errorMessage">
+										<div class="col-sm-12">
+											<div class="alert alert-danger" role="alert">{{pageDuvidas.errorMessage}}</div>
+										</div>
+									</div>
 									<button class="btn btn-lg btn-block btn-submit" type="submit">Enviar Mensagem</button>
+								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
 			</div>
 		</section>

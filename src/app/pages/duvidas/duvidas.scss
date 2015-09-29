@@ -5,18 +5,37 @@
       background-color: $defaultblue;
       display: inline-block;
       text-align: center;
+
       width: 45px;
       height: 45px;
-      margin-left: 10px;
-      padding: 0;
+
+      padding: 10px 0 0 0;
+      margin: 0 20px 0 15px;
+
       border-radius: 100%;
+
       font-size: 18px;
-      padding-top: 10px;
   }
 
-  .panel-default > .panel-heading {
+  .panel-default .panel-heading {
       background-color: #fff;
       border-color: #ddd;
+      font-weight: bold;
+
+      &.active {
+        background-color: $defaultblue;
+        color: #fff;
+      }
+  }
+
+  .panel-title {
+    .glyphicon {
+        padding-top: 15px;
+    }
+  }
+
+  .question-item {
+    border-bottom: 1px solid #ddd;
   }
 
   .mensagem-text-area {

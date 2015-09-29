@@ -214,7 +214,12 @@
 
     function sendContactForm (community_id, data){
       var url = service.apiCommunities + community_id + '/contact'
-      var encodedParams = angular.element.param(data);
+      var encodedParams = [
+        'contact[name]=' + data.name,
+        'contact[email]=' + data.email,
+        'contact[subject]=' + data.subject,
+        'contact[message]=' + data.message
+      ].join('&');
 
       return UtilService.post(url, encodedParams);
     }

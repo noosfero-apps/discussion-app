@@ -38,45 +38,66 @@
 				</div>
 
 				<div class="row">
-					<form role="form" name="contactForm" ng-submit="pageDuvidas.submitContactForm($event, contactForm)" novalidate>
-						<div class="form-group">
-							<label for="inputSubject">Assunto*</label>
-							<select id="inputSubject" name="inputSubject" class="form-control input-lg dark-input" ng-model="data.inputSubject" required>
-								<option value="">-- Selecione um Assunto --</option>
-								<option value="Dúvidas">Dúvidas</option>
-								<option value="Outro">Outro</option>
-							</select>
-							<validation-messages field="contactForm.inputSubject"/>
-						</div>
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="inputName">Nome*</label>
-									<input type="text" id="inputName" name="inputName" class="form-control input-lg light-input" ng-class="{ 'has-error' : contactForm.inputName.$invalid && contactForm.inputName.$touched }" ng-model="inputName" ng-minlength="" ng-maxlength="" required>
-									<validation-messages field="contactForm.inputName"/>
+					<div class="col-sm-12">
+						<form role="form" name="contactForm" ng-submit="pageDuvidas.submitContactForm($event, contactForm)" novalidate>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="inputSubject">Assunto*</label>
+										<select id="inputSubject" name="inputSubject" class="form-control input-lg dark-input" ng-model="data.inputSubject" required>
+											<option value="">-- Selecione um Assunto --</option>
+											<option value="Dúvidas">Dúvidas</option>
+											<option value="Sugestões">Sugestões</option>
+											<option value="Outro">Outro</option>
+										</select>
+										<validation-messages field="contactForm.inputSubject"></validation-messages>
+									</div>
 								</div>
 							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="inputEmail">E-mail*</label>
-									<input type="email" id="inputEmail" name="inputEmail" class="form-control input-lg light-input" ng-class="{ 'has-error' : contactForm.inputEmail.$invalid && contactForm.inputEmail.$touched }" ng-model="inputEmail" ng-minlength="" ng-maxlength="" required>
-									<validation-messages field="contactForm.inputEmail"/>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="inputName">Nome*</label>
+										<input type="text" id="inputName" name="inputName" class="form-control input-lg light-input" ng-class="{ 'has-error' : contactForm.inputName.$invalid && contactForm.inputName.$touched }" ng-model="inputName" ng-minlength="" ng-maxlength="" required>
+										<validation-messages field="contactForm.inputName"></validation-messages>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="inputEmail">E-mail*</label>
+										<input type="email" id="inputEmail" name="inputEmail" class="form-control input-lg light-input" ng-class="{ 'has-error' : contactForm.inputEmail.$invalid && contactForm.inputEmail.$touched }" ng-model="inputEmail" ng-minlength="" ng-maxlength="" required>
+										<validation-messages field="contactForm.inputEmail"></validation-messages>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="inputMessage">Mensagem*</label>
-							<textarea id="inputMessage" name="inputMessage" class="mensagem-text-area form-control light-input" ng-class="{ 'has-error' : contactForm.inputMessage.$invalid && contactForm.inputMessage.$touched }" ng-model="inputMessage" required ></textarea>
-							<validation-messages field="contactForm.inputMessage"/>
-						</div>
-						<span class="pull-left">*Dados obrigatórios</span>
-						<div class="row">
-							<div class="col-sm-4 form-group pull-right">
-								<button class="btn btn-lg btn-block btn-submit" type="submit">Enviar Mensagem</button>
-								<span ng-show="vm.sendingContactForm">Enviando...</span>
+							<div class="form-group">
+								<label for="inputMessage">Mensagem*</label>
+								<textarea id="inputMessage" name="inputMessage" class="mensagem-text-area form-control light-input" ng-class="{ 'has-error' : contactForm.inputMessage.$invalid && contactForm.inputMessage.$touched }" ng-model="inputMessage" required ></textarea>
+								<validation-messages field="contactForm.inputMessage"></validation-messages>
 							</div>
-						</div>
-					</form>
+							<span class="pull-left">*Dados obrigatórios</span>
+							<div class="row">
+								<div class="col-sm-4 form-group pull-right">
+									<div class="row" ng-show="pageDuvidas.sendingContactForm">
+										<div class="col-sm-12">
+											<div class="alert alert-info" role="alert">Enviando formulário...</div>
+										</div>
+									</div>
+									<div class="row" ng-if="pageDuvidas.successMessage">
+										<div class="col-sm-12">
+											<div class="alert alert-success" role="alert">{{pageDuvidas.successMessage}}</div>
+										</div>
+									</div>
+									<div class="row" ng-if="pageDuvidas.errorMessage">
+										<div class="col-sm-12">
+											<div class="alert alert-danger" role="alert">{{pageDuvidas.errorMessage}}</div>
+										</div>
+									</div>
+									<button class="btn btn-lg btn-block btn-submit" type="submit">Enviar Mensagem</button>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</section>

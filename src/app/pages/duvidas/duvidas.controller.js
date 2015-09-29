@@ -59,11 +59,11 @@
 
     vm.DialogaService.sendContactForm(data)
     .then(function(response){
-      vm.$log.debug('sendContactForm success', response);
-
+      // vm.$log.debug('sendContactForm success', response);
+      vm.successMessage = 'Mensagem enviada com sucesso!';
     }, function(response){
-      vm.$log.debug('sendContactForm error', response);
-
+      vm.$log.warn('sendContactForm error', response);
+      vm.errorMessage = 'Erro ao enviar mensagem. Tente novamente mais tarde.';
     })
     .finally(function(response){
       vm.$log.debug('sendContactForm finally', response);

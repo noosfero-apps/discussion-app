@@ -34,14 +34,7 @@
   };
 
   DuvidasPageController.prototype.loadData = function () {
-    var vm = this;
-
-    // vm.DialogaService.getQuestions(function(questions){
-    //   vm.questions = questions;
-    // }, function (error) {
-    //   vm.error = error;
-    //   vm.$log.error(error);
-    // });
+    // var vm = this;
   };
 
   DuvidasPageController.prototype.submitContactForm = function ($event, contactForm) {
@@ -59,7 +52,7 @@
 
     vm.DialogaService.sendContactForm(data)
     .then(function(response){
-      // vm.$log.debug('sendContactForm success', response);
+      vm.$log.debug('sendContactForm success', response);
       vm.successMessage = 'Mensagem enviada com sucesso!';
     }, function(response){
       vm.$log.warn('sendContactForm error', response);

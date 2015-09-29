@@ -103,7 +103,7 @@
     ProposalBoxController.prototype.canVote = function() {
       var vm = this;
 
-      return !!vm.$rootScope.temporaryToken;
+      return !!vm.$rootScope.temporaryToken || (vm.$rootScope.currentUser && !!vm.$rootScope.currentUser.private_token);
     };
 
     ProposalBoxController.prototype.submitCaptcha = function($event, captchaForm) {

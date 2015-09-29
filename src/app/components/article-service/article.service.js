@@ -166,8 +166,16 @@
 
     function voteProposal (proposal_id, params){
       var url = service.apiArticles + proposal_id + '/vote';
+
+      var private_token = null;
+      if($rootScope.currentUser && $rootScope.currentUser.private_token){
+        private_token = $rootScope.currentUser.private_token;
+      }else{
+        private_token = $rootScope.temporaryToken;
+      }
+
       var paramsExtended = angular.extend({
-        private_token: $rootScope.temporaryToken
+        private_token: private_token
       }, params);
 
       var encodedParams = angular.element.param(paramsExtended);

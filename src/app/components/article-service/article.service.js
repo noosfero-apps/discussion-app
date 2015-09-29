@@ -27,7 +27,8 @@
       getEvents: getEvents,
       subscribeToEvent: subscribeToEvent,
       searchTopics: searchTopics,
-      searchProposals: searchProposals
+      searchProposals: searchProposals,
+      sendContactForm: sendContactForm
     };
 
     return service;
@@ -207,6 +208,13 @@
     function subscribeToEvent (event_id) {
       var url = service.apiArticles + event_id + '/follow';
       var encodedParams = 'private_token=' + $rootScope.currentUser.private_token;
+
+      return UtilService.post(url, encodedParams);
+    }
+
+    function sendContactForm (community_id, data){
+      var url = service.apiCommunities + community_id + '/contact'
+      var encodedParams = angular.element.param(data);
 
       return UtilService.post(url, encodedParams);
     }

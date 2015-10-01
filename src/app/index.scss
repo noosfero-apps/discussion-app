@@ -260,7 +260,10 @@ body {
 // Theme
 @each $category, $color in $categories {
     .#{$category} {
-        .color-theme-fg { color: $color; }
+        .color-theme-fg { 
+          color: $color; 
+          margin-top: 0px; 
+         }
         .color-theme-bg { background-color: $color;}
         .color-theme-bg-complementar-1 { background-color: map-get($categories-complementary-1, $category);}
         .color-theme-bg-complementar-2 { background-color: map-get($categories-complementary-2, $category);}

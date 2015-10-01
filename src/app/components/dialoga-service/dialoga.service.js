@@ -39,7 +39,7 @@
       }else{
         // load main content
         ArticleService.getArticleById(API.articleId.home, {
-        'fields[]': ['id','abstract','body','categories','children','children_count','title','slug','image','url'],
+        'fields[]': ['id','abstract','body','categories','children','children_count','title','slug','image','url', 'amount_of_children'],
         'content_type':'ProposalsDiscussionPlugin::DiscussionTopic'
         }, function (data){
           CACHE.home = data;

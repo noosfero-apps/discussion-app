@@ -249,9 +249,10 @@
       vertical-align: top;
     }
     @media screen and (min-width: $screen-lg) {
-      img {
-        width: 100%;
-      }
+//FIXME Leandro put this but we have to evaluate all impacts
+//      img {
+//        width: 100%;
+//      }
     }
   }
 }

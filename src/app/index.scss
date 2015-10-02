@@ -120,26 +120,17 @@ body {
         border-right: 0;
         border-top: 0;
         border-radius: 6px;
+        background-color: #5e739d;
+        border-bottom: 3px solid #45506e;
 
         -webkit-transition: all $time ease-in-out;
         -moz-transition: all $time ease-in-out;
         -o-transition: all $time ease-in-out;
         transition: all $time ease-in-out;
 
-        @each $category, $color in $categories {
-            .#{$category} & {
-                background-color: $color;
-                border-bottom: 3px solid map-get($categories-complementary-2, $category);
-            }
-        }
-
         &:hover,
         &:focus {
-            @each $category, $color in $categories {
-                .#{$category} & {
-                    background-color: map-get($categories-complementary-2, $category);
-                }
-            }
+          background-color: #45506e;
         }
 
         .contraste & {
@@ -269,7 +260,10 @@ body {
 // Theme
 @each $category, $color in $categories {
     .#{$category} {
-        .color-theme-fg { color: $color; }
+        .color-theme-fg { 
+          color: $color; 
+          margin-top: 0px; 
+         }
         .color-theme-bg { background-color: $color;}
         .color-theme-bg-complementar-1 { background-color: map-get($categories-complementary-1, $category);}
         .color-theme-bg-complementar-2 { background-color: map-get($categories-complementary-2, $category);}

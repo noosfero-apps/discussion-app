@@ -337,6 +337,7 @@ a.link-black {
 
 blockquote {
   border-left: medium none;
+  padding-left: 0;
   margin: 0px;
   border-left: none;
 
@@ -356,8 +357,8 @@ blockquote {
   }
 
   p.content-highlight-text {
-    margin-left: 40px;
-    padding-top: 38px;
+    margin-left: 60px;
+    padding-top: 50px;
   }
 }
 

@@ -1,0 +1,35 @@
+From 542461c2c5d071d3263fcb185e3748f7303fdd83 Mon Sep 17 00:00:00 2001
+From: Michel Felipe de Oliveira Ferreira <michel.ferreira@serpro.gov.br>
+Date: Fri, 2 Oct 2015 16:45:51 -0300
+Subject: [PATCH 2/6] Adjusts in margins on blockquotes hightlights
+
+---
+ src/app/layout.scss | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/app/layout.scss b/src/app/layout.scss
+index 4ce8b56..d1d6401 100644
+--- a/src/app/layout.scss
++++ b/src/app/layout.scss
+@@ -337,6 +337,7 @@ a.link-black {
+ 
+ blockquote {
+   border-left: medium none;
++  padding-left: 0;
+   margin: 0px;
+   border-left: none;
+ 
+@@ -356,8 +357,8 @@ blockquote {
+   }
+ 
+   p.content-highlight-text {
+-    margin-left: 40px;
+-    padding-top: 38px;
++    margin-left: 60px;
++    padding-top: 50px;
+   }
+ }
+ 
+-- 
+2.3.4
+

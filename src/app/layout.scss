@@ -443,29 +443,32 @@ ul li:last-child {
 
 .bloco1-esporte-toda-vida {
   @media (max-width: 992px) {
-    padding: 5% 10% 0 10%;
+    padding-top: 10%;
   }
 
   @media (min-width: 992px) {
-    padding: 10% 10% 0 10%;
+    padding-top: 10%;
   }
 
   @media (min-width: 1200px) {
-    padding: 18% 10% 0 10%;
+    padding-top: 10%;
   }
 }
 
 .bloco2-esporte-toda-vida {
   @media (max-width: 992px) {
-    padding: 5% 10% 0 10%;
+    padding-top: 10%;
+    padding-left: 5%;
   }
 
   @media (min-width: 992px) {
-    padding: 10% 10% 0 10%;
+    padding-top: 10%;
+    padding-left: 5%;
   }
 
   @media (min-width: 1200px) {
-    padding: 18% 10% 0 10%;
+    padding-top: 10%;
+    padding-left: 5%;
   }
 }
 

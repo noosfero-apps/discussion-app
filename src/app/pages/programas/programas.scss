@@ -144,8 +144,11 @@
         }
 
         p {
-            font-size: 14px;
+            font-size: inherit;
             line-height: 18px;
+        }
+        p.larger {
+            font-size: larger;
         }
 
         .container > .row {

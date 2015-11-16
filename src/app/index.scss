@@ -297,10 +297,8 @@ $common-color: #5E739E;
   height: 33px !important;
 }
 
-@media only screen and (max-width: 959px){
-  #barra-brasil ul.list {
-    z-index: 9999;
-  }
+#barra-brasil ul.list {
+    z-index: 9999 !important;
 }
 
 /**

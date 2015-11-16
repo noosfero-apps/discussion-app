@@ -22,7 +22,6 @@ $defaultblue: #5E749D;
 
 // -------------
 
-//   1.4 - dicionarios
 $categories: (
     saude: #3359a7,
     seguranca-publica: #e95052,
@@ -30,7 +29,9 @@ $categories: (
     reducao-da-pobreza: #38c7a4,
     cultura: #a63738,
     esporte: #f15b31,
-    meio-ambiente: #3cc667
+    meio-ambiente: #3cc667,
+    cidades: #3f5fac,
+    empreendedorismo: #000
 );
 
 $categories-complementary-1: (
@@ -40,7 +41,9 @@ $categories-complementary-1: (
     reducao-da-pobreza: #57e9cd,
     cultura: #dc5557,
     esporte: #fd8d4c,
-    meio-ambiente: #339950
+    meio-ambiente: #339950,
+    cidades: #21275b,
+    empreendedorismo: #000
 );
 
 $categories-complementary-2: (
@@ -50,7 +53,9 @@ $categories-complementary-2: (
     reducao-da-pobreza: #2a9677,
     cultura: #862f2f,
     esporte: #ce472c,
-    meio-ambiente:  lighten(#3cc667, 10%)
+    meio-ambiente: lighten(#3cc667, 10%),
+    cidades: lighten(#3f5fac, 10%),
+    empreendedorismo: #000
 );
 
 // $categories-descriptions: (

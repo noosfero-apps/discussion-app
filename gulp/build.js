@@ -45,7 +45,7 @@ gulp.task('html', ['inject', 'partials'], function () {
     .pipe(jsFilter)
     // production
     .pipe($.if($.util.env.production, $.replace('$logProvider.debugEnabled(true);', '$logProvider.debugEnabled(false);')))
-    .pipe($.if($.util.env.production, $.replace('http://hom.dialoga.gov.br', 'http://login.dialoga.gov.br')))
+    .pipe($.if($.util.env.production, $.replace('http://hom.dialoga.gov.br', 'http://dialoga.gov.br')))
     .pipe($.if($.util.env.production, $.replace('http://hom.login.dialoga.gov.br', 'http://login.dialoga.gov.br')))
     // staging
     .pipe($.if($.util.env.staging, $.replace('http://dialoga.gov.br', 'http://hom.dialoga.gov.br')))

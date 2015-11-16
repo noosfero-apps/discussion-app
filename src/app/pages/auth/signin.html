@@ -8,14 +8,14 @@
 <section role="main" class="section-gray auth-content">
   <div class="container">
     <div class="row">
-      <div ng-if="pageSignin.currentUser">
+      <div ng-if="pageSignin.currentUser || pageSignin.signupMessageTitle">
         <div class="row">
           <div class="col-sm-8 col-sm-offset-2">
             <div class="feedback-message">
               <show-message
               type="'success'"
-              message="pageSignin.messageTitle || 'Você está logado!'"
-              description="pageSignin.successMessage"
+              message="pageSignin.signupMessageTitle || 'Você está logado!'"
+              description="pageSignin.signupSuccessMessage"
               ></show-message>
 
               <div class="row">
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div ng-if="!pageSignin.currentUser">
+      <div ng-if="!pageSignin.currentUser && !pageSignin.signupMessageTitle">
         <div class="col-sm-5">
           <div class="row">
             <div class="col-md-12">
@@ -96,10 +96,10 @@
               </p>
             </div>
           </div>
-          <div class="row" ng-if="pageSignin.errorMessage">
+          <div class="row" ng-if="pageSignin.signupErrorMessage">
             <div class="col-sm-12">
               <div class="alert alert-danger">
-                {{pageSignin.errorMessage}}
+                {{pageSignin.signupErrorMessage}}
               </div>
               <div ng-if="vm.internalError">
                 <p>Este erro parece ser um problema interno.<br/>Por favor, tente novamente mais tarde.</p>

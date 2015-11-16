@@ -37,12 +37,22 @@
         .then(function(response) {
           $log.debug('AuthService.register [SUCCESS] response', response);
 
-          var currentUser = Session.create(response.data);
+          var data = response.data;
 
-          $rootScope.currentUser = currentUser;
+          if ( data.user && data.user.activated === false){
+            // usuário criado E não verificado o e-mail
+            
+          }
+
+          if ( data.user && data.user.activated === true){
+            // usuário criado E não verificado o e-mail
+            var currentUser = Session.create(data);
+
+            $rootScope.currentUser = currentUser;
+            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, currentUser);
+          }
+          
           $rootScope.$broadcast(AUTH_EVENTS.registerSuccess, currentUser);
-          $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, currentUser);
-
           return response;
         }, function(response) {
           $log.debug('AuthService.register [FAIL] response', response);

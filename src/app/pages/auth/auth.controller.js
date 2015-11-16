@@ -61,6 +61,7 @@
     // handle logout
     vm.$scope.$on(vm.AUTH_EVENTS.logoutSuccess, function() {
       vm.currentUser = vm.Session.getCurrentUser();
+      vm._attachCaptcha();
     });
   };
 
@@ -83,16 +84,15 @@
     var vm = this;
 
     vm.$scope.$on(vm.AUTH_EVENTS.registerSuccess, function(event, response) {
-      vm.$log.debug('TODO: handle register success');
       vm.$log.debug('[register success] response', response);
     });
 
     vm.$scope.$on(vm.AUTH_EVENTS.registerFailed, function(event, response) {
-      vm.$log.debug('TODO: handle register error');
       vm.$log.debug('[register error] response', response);
 
-      var reason = response.data.message;
-      vm.errorMessage = reason;
+      // REMOVED: feedback alread on "reject handler"
+      // var reason = response.data.message;
+      // vm.errorMessage = reason;
     });
 
     vm.$scope.$on('oauthClientPluginResult', function(event, response) {
@@ -102,6 +102,12 @@
       // var private_token = response.data.private_token;
       // var user = response.data.user;
     });
+
+    vm._attachCaptcha();
+  };
+
+  AuthPageController.prototype._attachCaptcha = function() {
+    var vm = this;
 
     var stop = null;
     stop = vm.$interval(function(){
@@ -137,17 +143,26 @@
       // TODO: mensagens de sucesso
       // 'Cadastro efetuado com sucesso.'
       // 'Verifique seu email para confirmar o cadastro.'
-      vm.messageTitle = 'Cadastro efetuado com sucesso!';
-      vm.successMessage = 'Verifique seu e-mail para confirmar o cadastro.';
+      vm.signupMessageTitle = 'Cadastro efetuado com sucesso!';
+      vm.signupSuccessMessage = 'Verifique seu e-mail para confirmar o cadastro.';
       vm.redirectBack();
     }, function(response) {
       vm.$log.debug('register error.response', response);
 
-      var message = response.data.message;
-      vm.errorMessage = message;
+      vm.internalError = true;
 
-      if(response.data.code === 500){
-        vm.internalError = true;
+      switch (response.data.code) {
+        case 400: // bad request
+          var errors = JSON.parse(response.data.message);
+          if(errors && errors.email){
+            vm.signupErrorMessage = "E-mail já está em uso."
+          }
+        break;
+        case 500:
+          vm.signupErrorMessage = message;
+        break;
+        default:
+        break;
       }
 
 

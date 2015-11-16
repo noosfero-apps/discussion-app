@@ -85,7 +85,9 @@
     vm.DialogaService.getEvents().then(function(data) {
       vm.$log.debug('getEvents.success', data);
       vm.events = data.articles;
-      vm.featuredEvent = vm.events[0];
+
+      var orderBy = vm.$filter('orderBy');
+      vm.featuredEvent = orderBy(vm.events, 'start_date', false)[0];
     }, function(error) {
       vm.$log.debug('Error on getEvents.', error);
       vm.eventsError = error;

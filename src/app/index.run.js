@@ -11,6 +11,7 @@
     .run(runHistory)
     .run(runPath)
     .run(runSocialAuth)
+    .run(runScroll)
     .run(runUtils)
     .run(runBlock);
 
@@ -211,6 +212,18 @@
 
       return rgb;
     };
+  }
+
+  /** @ngInject */
+  function runScroll($rootScope, jQuery) {
+    $rootScope.$on('change-selectedCategory', function(){
+      var $resultEl = jQuery('.section--articles .header');
+
+      if($resultEl && $resultEl.length > 0){
+        $rootScope.scrollTo($resultEl);
+        // angular.element('body').animate({scrollTop: $resultEl.offset().top}, 'fast');
+      }
+    });
   }
 
   /** @ngInject */

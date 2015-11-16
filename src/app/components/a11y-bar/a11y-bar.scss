@@ -14,5 +14,16 @@
     .action-links {
         text-transform: uppercase;
         border-bottom: 1px dotted #262626;
+        float: right;
+
+        @media screen and (max-width: $screen-sm) {
+            float: left;
+            // text-align: center;
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            float: none;
+            text-align: center;
+        }
     }
 }

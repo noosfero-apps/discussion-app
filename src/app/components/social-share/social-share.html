@@ -7,11 +7,11 @@
       socialshare
       socialshare-provider="facebook"
       socialshare-type="feed"
-      socialshare-via="vm.socialVia"
-      socialshare-url="vm.socialUrl"
+      socialshare-via="{{vm.socialVia}}"
+      socialshare-url="{{vm.socialUrl}}"
       socialshare-redirect-uri="https://dialoga.gov.br/"
-      socialshare-media="vm.socialImage"
-      socialshare-text="vm.socialText"
+      socialshare-media="{{vm.socialImage}}"
+      socialshare-text="{{vm.socialText}}"
       title="Compartilhar no Facebook">
       <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-facebook"><span class="icon icon-social-facebook"></span></span>
       <span class="sr-only">Compartilhar no Facebook</span>
@@ -21,8 +21,8 @@
     <a href="#" role="button"
       socialshare
       socialshare-provider="twitter"
-      socialshare-url="vm.socialUrl"
-      socialshare-text="vm.socialText"
+      socialshare-url="{{vm.socialUrl}}"
+      socialshare-text="{{vm.socialText}}"
       socialshare-hastags="dialogabrasil"
       title="Compartilhar no Twitter">
       <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-twitter"><span class="icon icon-social-twitter"></span></span>
@@ -33,15 +33,15 @@
     <a href="#" role="button"
       socialshare
       socialshare-provider="google+"
-      socialshare-url="vm.socialUrl"
-      socialshare-text="vm.socialText"
+      socialshare-url="{{vm.socialUrl}}"
+      socialshare-text="{{vm.socialText}}"
       title="Compartilhar no Google Plus">
       <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-googleplus"><span class="icon icon-social-googleplus"></span></span>
       <span class="sr-only">Compartilhar no Google Plus</span>
     </a>
   </li>
   <li>
-    <a href="whatsapp://send?text=Aqui suas ideias viram propostas e você ajuda a melhorar as ações do governo http://dialoga.gov.br/" title="Compartilhar no WhatsApp">
+    <a href="whatsapp://send?text=Dialoga Brasil - {{vm.socialUrl}}" title="Compartilhar no WhatsApp">
       <span aria-hidden="true" class="icon-circle icon-small icon-circle-social-whatsapp"><span class="icon icon-social-whatsapp"></span></span>
       <span class="sr-only">Compartilhar no WhatsApp</span>
     </a>

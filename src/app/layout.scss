@@ -341,9 +341,9 @@ blockquote {
   margin: 0px;
   border-left: none;
 
-  // .content-highlight-icon {
-  &:before {
-    content: "";
+  .content-highlight-icon {
+  // &:before {
+  //   content: "";
     width: 110px;
     height: 112px;
     position: absolute;

@@ -52,7 +52,7 @@
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, currentUser);
           }
           
-          $rootScope.$broadcast(AUTH_EVENTS.registerSuccess, currentUser);
+          $rootScope.$broadcast(AUTH_EVENTS.registerSuccess, data.user);
           return response;
         }, function(response) {
           $log.debug('AuthService.register [FAIL] response', response);

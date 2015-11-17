@@ -155,11 +155,11 @@
         case 400: // bad request
           var errors = JSON.parse(response.data.message);
           if(errors && errors.email){
-            vm.signupErrorMessage = "E-mail já está em uso."
+            vm.signupErrorMessage = 'E-mail já está em uso.';
           }
         break;
         case 500:
-          vm.signupErrorMessage = message;
+          vm.signupErrorMessage = response.data.message;
         break;
         default:
         break;

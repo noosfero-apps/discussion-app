@@ -75,9 +75,20 @@
 								<textarea id="inputMessage" name="inputMessage" class="mensagem-text-area form-control light-input" ng-class="{ 'has-error' : contactForm.inputMessage.$invalid && contactForm.inputMessage.$touched }" ng-model="inputMessage" required ></textarea>
 								<validation-messages field="contactForm.inputMessage"></validation-messages>
 							</div>
+
 							<span class="pull-left">*Dados obrigatórios</span>
 							<div class="row">
 								<div class="col-sm-4 form-group pull-right">
+
+									<div class="form-group">
+										<div id="serpro_captcha" class="captcha"></div>
+										<div class="captcha">Digite os caracteres acima:</div>
+										<div class="captcha">
+											<input type="text" name="captcha_text" id="captcha_text" aria-label="Escreva os caracteres do captcha aqui" ng-model="pageSignin.signup.captcha_text" ng-minlength="" ng-maxlength="" required>
+											<validation-messages field="contactForm.captcha_text"></validation-messages>
+										</div>
+									</div>
+									
 									<div class="row" ng-show="pageDuvidas.sendingContactForm">
 										<div class="col-sm-12">
 											<div class="alert alert-info" role="alert">Enviando formulário...</div>

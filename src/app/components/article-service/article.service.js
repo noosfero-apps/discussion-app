@@ -13,6 +13,7 @@
       apiArticles: $rootScope.basePath + '/api/v1/articles/',
       apiCommunities: $rootScope.basePath + '/api/v1/communities/',
       apiProposals: $rootScope.basePath + '/api/v1/proposals_discussion_plugin/',
+      apiSearch: $rootScope.basePath + '/api/v1/search/',
       getArticleById: getArticleById,
       getArticleBySlug: getArticleBySlug,
       getCategories: getCategories,
@@ -234,7 +235,7 @@
 
     function searchTopics (params, cbSuccess, cbError) {
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Topic&query=cisternas
-      var url = '/api/v1/search/article';
+      var url = service.apiSearch + '/article';
       var paramsExtended = angular.extend({
         // 'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits'],
         'type': 'ProposalsDiscussionPlugin::Topic'
@@ -249,7 +250,7 @@
 
     function searchProposals (params, cbSuccess, cbError) {
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
-      var url = '/api/v1/search/article';
+      var url = service.apiSearch + '/article';
       var paramsExtended = angular.extend({
         page: 1,
         per_page: 20,

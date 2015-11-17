@@ -28,7 +28,7 @@
     var vm = this;
 
     vm.page = 1;
-    vm.per_page = 20;
+    vm.per_page = 10;
     vm.themes = null;
     vm.selectedTheme = null;
     vm.filtredPrograms = null;

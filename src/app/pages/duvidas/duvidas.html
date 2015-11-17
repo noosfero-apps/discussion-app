@@ -39,7 +39,7 @@
 
 				<div class="row">
 					<div class="col-sm-12">
-						<form role="form" name="contactForm" ng-submit="pageDuvidas.submitContactForm($event, contactForm)" novalidate>
+						<form role="form" name="contactForm" ng-submit="pageDuvidas.submitContactForm($event, contactForm)">
 							<div class="row">
 								<div class="col-sm-6">
 									<div class="form-group">
@@ -93,7 +93,7 @@
 											<div class="alert alert-danger" role="alert">{{pageDuvidas.errorMessage}}</div>
 										</div>
 									</div>
-									<button class="btn btn-lg btn-block btn-submit" type="submit">Enviar Mensagem</button>
+									<button class="btn btn-lg btn-block btn-submit" type="submit" ng-class=" {'disabled' : (contactForm.$invalid && !contactForm.$touched) }">Enviar Mensagem</button>
 								</div>
 							</div>
 						</form>

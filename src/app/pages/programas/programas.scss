@@ -81,9 +81,19 @@
         .program-preview--share {
             margin-bottom: 20px;
             position: relative;
+            
             .dropdown {
                 display: inline-block;
                 position: relative;
+
+                @media screen and (max-width: $screen-xs) {
+                    display: block;
+
+                    .dropdown-menu-right {
+                        left: 0;
+                        right: auto;
+                    }
+                }
             }
 
             .dropdown-menu {

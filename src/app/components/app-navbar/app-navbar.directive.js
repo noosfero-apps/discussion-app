@@ -22,7 +22,7 @@
 
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/components/navbar/navbar.html',
+      templateUrl: 'app/components/app-navbar/app-navbar.html',
       scope: {
         creationDate: '='
       },

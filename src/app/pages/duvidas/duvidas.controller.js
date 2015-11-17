@@ -6,16 +6,19 @@
     .controller('DuvidasPageController', DuvidasPageController);
 
   /** @ngInject */
-  function DuvidasPageController(DialogaService, $log) {
+  function DuvidasPageController(DialogaService, $interval, $window, $log) {
     $log.debug('DuvidasPageController');
 
     var vm = this;
 
     vm.DialogaService = DialogaService;
+    vm.$interval = $interval;
+    vm.$window = $window;
     vm.$log = $log;
 
     vm.init();
     vm.loadData();
+    vm.attachListeners();
   }
 
   DuvidasPageController.prototype.init = function () {
@@ -29,12 +32,37 @@
         answer: 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven`t heard of them accusamus labore sustainable VHS.'
       }
     ];
+    
     vm.loading = true;
     vm.error = false;
+    vm.sendingContactForm = false;
+
   };
 
   DuvidasPageController.prototype.loadData = function () {
     // var vm = this;
+  };
+
+  DuvidasPageController.prototype.attachListeners = function () {
+    var vm = this;
+
+    vm._attachCaptcha();
+  };
+
+  DuvidasPageController.prototype._attachCaptcha = function() {
+    var vm = this;
+
+    var stop = null;
+    stop = vm.$interval(function(){
+      var $el = angular.element('#serpro_captcha');
+
+      if ($el && $el.length > 0 ){
+        vm.$window.initCaptcha($el[0]);
+        vm.$interval.cancel(stop);
+        stop = undefined;
+      }
+
+    }, 200);
   };
 
   DuvidasPageController.prototype.submitContactForm = function ($event, contactForm) {
@@ -49,6 +77,11 @@
       subject: contactForm.inputSubject.$modelValue,
       message: contactForm.inputMessage.$modelValue
     };
+    
+    var target = $event.target;
+    var $target = angular.element(target);
+    var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
+    data.txtToken_captcha_serpro_gov_br = $captcha.val();
 
     vm.DialogaService.sendContactForm(data)
     .then(function(response){

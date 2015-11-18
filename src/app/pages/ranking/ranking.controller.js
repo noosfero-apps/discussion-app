@@ -18,7 +18,7 @@
 
     vm.init();
     vm.loadData();
-    // vm.attachListeners(); // attach listeners after load data (SYNC)
+    vm.attachListeners(); // attach listeners after load data (SYNC)
     vm.$rootScope.focusMainContent();
 
     $log.debug('RankingPageController');
@@ -83,7 +83,7 @@
       // (AND 4)
       var themeId = vm.selectedTheme.id;
       vm.loadPrograms(themeId, function(){
-        vm.loadProposals();
+        // vm.loadProposals();
         vm.loading = false;
       });
     }, function (error) {
@@ -131,25 +131,25 @@
     });
   };
 
-  RankingPageController.prototype.loadProposals = function () {
-    var vm = this;
+  // RankingPageController.prototype.loadProposals = function () {
+  //   var vm = this;
 
-    // load Proposals
-    vm.loadingProposals = true;
-    vm.DialogaService.getProposals({
-      page: vm.page,
-      per_page: vm.per_page
-    }, function(data){
-      vm.filtredProposals = data.articles;
-      vm.loadingProposals = false;
+  //   // load Proposals
+  //   vm.loadingProposals = true;
+  //   vm.DialogaService.getProposals({
+  //     page: vm.page,
+  //     per_page: vm.per_page
+  //   }, function(data){
+  //     vm.filtredProposals = data.articles;
+  //     vm.loadingProposals = false;
 
-      vm.attachListeners();
-    }, function (error) {
-      vm.error = error;
-      vm.$log.error(error);
-      vm.loadingProposals = false;
-    });
-  };
+  //     vm.attachListeners();
+  //   }, function (error) {
+  //     vm.error = error;
+  //     vm.$log.error(error);
+  //     vm.loadingProposals = false;
+  //   });
+  // };
 
   RankingPageController.prototype.attachListeners = function() {
     var vm = this;

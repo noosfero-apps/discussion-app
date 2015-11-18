@@ -250,11 +250,25 @@
 
     function searchProposals (params, cbSuccess, cbError) {
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
-      var url = service.apiSearch + '/article';
+      var url = service.apiSearch + 'article';
       var paramsExtended = angular.extend({
         page: 1,
-        per_page: 20,
-        type: 'ProposalsDiscussionPlugin::Proposal'
+        per_page: 10,
+        type: 'ProposalsDiscussionPlugin::Proposal',
+        'fields[]': [
+          'id',
+          'abstract',
+          'hits',
+          'ranking_position',
+          'votes_against',
+          'votes_count',
+          'votes_for',
+          'parent',
+            'categories',
+            'slug',
+            'url', // parent.image.url
+            'image',
+          ]
       }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){

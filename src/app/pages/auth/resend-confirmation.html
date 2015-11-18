@@ -1,10 +1,12 @@
-<div class="page--recover">
+<div class="page--resend-confirmation">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<h2>Esqueci minha senha</h2>
+				<h2>Não recebeu o e-mail de confirmação?</h2>
 				<h5>
-					Calma, podemos ajudar! Informe o seu e-mail que a gente envia um link de alteração.
+					Calma, podemos te ajudar!
+					<br>
+					Basta informar o seu e-mail cadastrado que a gente envia um novo e-mail de confirmação.
 				</h5>
 			</div>
 		</div>
@@ -12,13 +14,13 @@
 	<section role="main" class="section-gray vertical-padding">
 		<div class="container">
 			<div class="row">
-				<div ng-if="pageAuth.recoverSuccess">
+				<div ng-if="pageAuth.resendConfirmationSuccess">
 					<div class="col-sm-8 col-sm-offset-2">
 						<div class="feedback-message">
 							<show-message
 							type="'success'"
-							message="'Pronto!'"
-							description="'Em instantes você receberá em seu e-mail um link para criação de uma nova senha.'"
+							message="pageAuth.resendConfirmationSuccessTitle"
+							description="pageAuth.resendConfirmationSuccessMessage"
 							></show-message>
 							<div class="row">
 								<div class="col-sm-8 col-sm-offset-4">
@@ -28,13 +30,16 @@
 						</div>
 					</div>
 				</div>
-				<div ng-if="!pageAuth.recoverSuccess">
+				<div ng-if="!pageAuth.resendConfirmationSuccess">
 					<br>
 					<div class="col-sm-8 col-sm-offset-2">
-						<div class="row" ng-if="pageAuth.recoverError">
+						<div class="row" ng-if="pageAuth.resendConfirmationError">
 							<div class="col-sm-12">
-								<div class="alert alert-danger">{{pageAuth.recoverErrorMessage}}</div>
-								<div ng-if="vm.internalError">
+								<div class="alert alert-danger">
+									<strong>Erro!</strong>
+									O e-mail informado não possui cadastro no Dialoga Brasil.
+								</div>
+								<div ng-if="pageAuth.internalError">
 									<p>Este erro parece ser um problema interno.<br/>Por favor, tente novamente mais tarde.</p>
 									<p>Caso o problema persista, entre em contato!</p>
 									<p><a ui-sref="duvidas">Ir para página de contato</a></p>
@@ -43,25 +48,24 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<form name="recoverPassForm" ng-submit="pageAuth.submitRecover($event, recoverPassForm)">
+								<form name="confirmationForm" ng-submit="pageAuth.submitConfirmationForm($event, confirmationForm)">
 									<div class="form-group">
-										<label for="recover-login">E-mail*</label>
-										<input type="email" id="recover-login" name="login" class="form-control input-lg" ng-class="{ 'has-error' : recoverPassForm.login.$invalid && recoverPassForm.login.$touched }" ng-model="pageAuth.credentials.username" required />
-										<validation-messages field=" recoverPassForm.login"></validation-messages>
+										<label for="confirmation-login">E-mail*</label>
+										<input type="email" id="confirmation-login" name="login" class="form-control input-lg" ng-class="{ 'has-error' : confirmationForm.login.$invalid && confirmationForm.login.$touched }" ng-model="pageAuth.credentials.username" required />
+										<validation-messages field=" confirmationForm.login"></validation-messages>
 									</div>
 									<div class="form-group">
-										<div id="serpro_captcha" class="captcha">
-										</div>
+										<div id="serpro_captcha" class="captcha"></div>
 										<div class="captcha">
 											Digite os caracteres acima:
 										</div>
 										<div class="captcha">
 											<input type="text" name="captcha_text" id="captcha_text" aria-label="Escreva os caracteres do captcha aqui" ng-model="pageAuth.signup.captcha_text" ng-minlength="" ng-maxlength="" required>
-											<validation-messages field="recoverPassForm.captcha_text"></validation-messages>
+											<validation-messages field="confirmationForm.captcha_text"></validation-messages>
 										</div>
 									</div>
 									<div class="form-group">
-										<button class="btn btn-lg btn-submit" type="submit">Solicitar alteração de senha</button>
+										<button class="btn btn-lg btn-submit" type="submit">Solicitar novo e-mail de confirmação</button>
 									</div>
 								</form>
 							</div>

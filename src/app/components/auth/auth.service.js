@@ -54,10 +54,12 @@
           
           $rootScope.$broadcast(AUTH_EVENTS.registerSuccess, data.user);
           return response;
+          
         }, function(response) {
-          $log.debug('AuthService.register [FAIL] response', response);
 
+          $log.debug('AuthService.register [FAIL] response', response);
           $rootScope.$broadcast(AUTH_EVENTS.registerFailed, response);
+
           return $q.reject(response);
         });
     }
@@ -79,6 +81,35 @@
           // 'Erro: O código de ativação é inválido.'
           $log.debug('AuthService.activate [FAIL] response', response);
           $rootScope.$broadcast(AUTH_EVENTS.activateFailed);
+
+          return $q.reject(response);
+        });
+    }
+
+    function resendConfirmation (data) {
+      var url = PATH.host + '/api/v1/resend_activation_code';
+      var encodedData = ([
+        'value=' + data.login,
+        'captcha_text=' + data.captcha_text,
+        'txtToken_captcha_serpro_gov_br=' + data.txtToken_captcha_serpro_gov_br
+        ]).join('&');
+
+      url += '?' + encodedData;
+
+      return $http
+        .post(url)
+        .then(function(response) {
+          $log.debug('AuthService.resendConfirmation [SUCCESS] response', response);
+
+          // 'Usuário ativado com sucesso'
+          $rootScope.$broadcast(AUTH_EVENTS.resendConfirmationSuccess, response);
+          return response;
+        }, function(response) {
+          // 'Erro: O código de ativação é inválido.'
+          $log.debug('AuthService.resendConfirmation [FAIL] response', response);
+          $rootScope.$broadcast(AUTH_EVENTS.resendConfirmationFailed);
+
+          return $q.reject(response);
         });
     }
 
@@ -100,6 +131,8 @@
           // 'Não foi possível trocar a senha com os dados informados.'
           $log.debug('AuthService.changePassword [FAIL] response', response);
           $rootScope.$broadcast(AUTH_EVENTS.changePasswordFailed);
+
+          return $q.reject(response);
         });
     }
 
@@ -125,7 +158,7 @@
           $log.debug('AuthService.forgotPassword [FAIL] response', response);
           $rootScope.$broadcast(AUTH_EVENTS.forgotPasswordFailed);
 
-          return response;
+          return $q.reject(response);
         });
     }
 
@@ -190,6 +223,7 @@
     var service = {
       register: register,
       activate: activate,
+      resendConfirmation: resendConfirmation,
       changePassword: changePassword,
       forgotPassword: forgotPassword,
       login: login,

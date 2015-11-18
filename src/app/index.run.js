@@ -7,13 +7,125 @@
     .run(runAccessibility)
     .run(runAuth)
     .run(runCaptcha)
-    .run(runColorUtils)
+    // .run(runColorUtils)
     .run(runHistory)
     .run(runPath)
     .run(runSocialAuth)
     .run(runScroll)
     .run(runUtils)
     .run(runBlock);
+
+  /** @ngInject */
+  function runAccessibility($rootScope, $timeout, $interval, $cookies, $state, $log) {
+
+    var contrast = $cookies.get('dialoga_contraste') === 'true';
+    adjustContrast(contrast);
+
+    function adjustContrast(state) {
+      var bodyEl = angular.element(document).find('body');
+      angular.element(bodyEl).toggleClass('contraste', !!state);
+    }
+
+    $rootScope.actionContrast = function() {
+      // toggle contrast
+      contrast = !contrast;
+      $cookies.put('dialoga_contraste', contrast);
+      adjustContrast(contrast);
+    };
+
+    $rootScope.focusOn = function(elId, $event) {
+      var el = angular.element(elId);
+      $rootScope.scrollTo(el, $event);
+      el.attr('tabIndex', -1).focus();
+    };
+
+    $rootScope.focusMainContent = function($event) {
+
+      var mainContentArea = document.querySelector('[role="main"]');
+
+      if (mainContentArea) {
+        $timeout(function() {
+          $rootScope.scrollTo(angular.element(mainContentArea), $event);
+        }, 90); // force queue
+      } else {
+        $log.info('role="main" not found.');
+      }
+    };
+
+    $rootScope.focusOnSearch = function($event) {
+      
+      // prevent skip link from redirecting
+      if ($event) { $event.preventDefault(); }
+
+      // find a input search
+      var $searchEl = angular.element('input[type="search"]:visible');
+
+      if($searchEl && $searchEl.length > 0){
+        // scroll
+        angular.element('html,body').animate({scrollTop: $searchEl.offset().top}, 'fast');
+        // focus
+        $searchEl.focus();
+      } else {
+        // input search not found
+
+        // 1. redirect to home
+        var promise = $state.go('inicio', { reload: true});
+
+        // 2. focus on input search at home.
+        promise.then(function(){
+          
+          findElAsync('input[type="search"]:visible', function ($el) {
+            // scroll
+            angular.element('html,body').animate({scrollTop: $el.offset().top}, 'fast');
+            // focus
+            $el.focus();
+          });
+        });
+      }
+
+      // use jQuery and $interval to find element async.
+      function findElAsync(query, cb, delay, max_exec) {
+        delay = delay || 200;
+        max_exec = max_exec || 20;
+        var count_exec = 0;
+        
+        var stop = null;
+        stop = $interval(function() {
+          var $el = angular.element(query);
+
+          if ($el && $el.length > 0) {
+            cb($el);
+          }else {
+            $log.debug('[findElAsync] element not found.');
+          }
+
+          count_exec++;
+
+          if (count_exec >= max_exec){
+            $interval.cancel(stop);
+            stop = undefined;
+          }
+
+        }, delay);
+      }
+
+      $log.debug('TODO: focusOnSearch');
+    };
+
+    $rootScope.scrollTo = function(target, $event) {
+
+      // prevent skip link from redirecting
+      if ($event) { $event.preventDefault(); }
+
+      if (angular.isString(target)) {
+        target = angular.element(target);
+      }
+
+      angular.element('html,body').animate({scrollTop: target.offset().top}, 'fast');
+    };
+
+    $log.debug('[RUN] Accessibility end.');
+  }
 
   /** @ngInject */
   function runAuth($rootScope, $localStorage, USER_ROLES, AUTH_EVENTS, AuthService, $log) {
@@ -82,6 +194,54 @@
     $log.debug('runCaptcha');
   }
 
+  // /** @ngInject */
+  // function runColorUtils($window) {
+
+  //   $window.ColorLuminance = function(hex, lum) {
+
+  //     // validate hex string
+  //     hex = String(hex).replace(/[^0-9a-f]/gi, '');
+  //     if (hex.length < 6) {
+  //       hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+  //     }
+  //     lum = lum || 0;
+
+  //     // convert to decimal and change luminosity
+  //     var rgb = '#';
+  //     var c;
+  //     var i;
+
+  //     for (i = 0; i < 3; i++) {
+  //       c = parseInt(hex.substr(i * 2, 2), 16);
+  //       c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+  //       rgb += ('00' + c).substr(c.length);
+  //     }
+
+  //     return rgb;
+  //   };
+  // }
+
+  /** @ngInject */
+  function runHistory($rootScope) {
+    var MAX_HISTORY = 20;
+    $rootScope.$previousState = $rootScope.$previousState || [];
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toStateParams, fromState, fromStateParams) {
+      $rootScope.$previousState.push({ state: fromState, params: fromStateParams});
+      $rootScope.$previousState.splice(-MAX_HISTORY, MAX_HISTORY);
+    });
+
+    $rootScope.goBack = $rootScope.goBack || function() {
+      return $rootScope.$previousState.pop();
+    };
+  }
+
+  /** @ngInject */
+  function runPath($rootScope, PATH, $window, $log) {
+    $rootScope.basePath = PATH.host;
+
+    $log.debug('[RUN] Path end.');
+  }
+
   /** @ngInject */
   function runSocialAuth($window, $rootScope, $interval) {
 
@@ -115,113 +275,13 @@
   }
 
   /** @ngInject */
-  function runAccessibility($rootScope, $timeout, $cookies, $log) {
-
-    var contrast = $cookies.get('dialoga_contraste') === 'true';
-    adjustContrast(contrast);
-
-    function adjustContrast(state) {
-      var bodyEl = angular.element(document).find('body');
-      angular.element(bodyEl).toggleClass('contraste', !!state);
-    }
-
-    $rootScope.actionContrast = function() {
-      // toggle contrast
-      contrast = !contrast;
-      $cookies.put('dialoga_contraste', contrast);
-      adjustContrast(contrast);
-    };
-
-    $rootScope.focusOn = function(elId, $event) {
-      var el = angular.element(elId);
-      $rootScope.scrollTo(el, $event);
-      el.attr('tabIndex', -1).focus();
-    };
-
-    $rootScope.focusMainContent = function($event) {
-
-      var mainContentArea = document.querySelector('[role="main"]');
-
-      if (mainContentArea) {
-        $timeout(function() {
-          $rootScope.scrollTo(angular.element(mainContentArea), $event);
-        }, 90); // force queue
-      } else {
-        $log.info('role="main" not found.');
-      }
-    };
-
-    $rootScope.scrollTo = function(target, $event) {
-
-      // prevent skip link from redirecting
-      if ($event) { $event.preventDefault(); }
-
-      if (angular.isString(target)) {
-        target = angular.element(target);
-      }
-
-      angular.element('body').animate({scrollTop: target.offset().top}, 'fast');
-    };
-
-    $log.debug('[RUN] Accessibility end.');
-  }
-
-  /** @ngInject */
-  function runHistory($rootScope) {
-    var MAX_HISTORY = 20;
-    $rootScope.$previousState = $rootScope.$previousState || [];
-    $rootScope.$on('$stateChangeSuccess', function(event, toState, toStateParams, fromState, fromStateParams) {
-      $rootScope.$previousState.push({ state: fromState, params: fromStateParams});
-      $rootScope.$previousState.splice(-MAX_HISTORY, MAX_HISTORY);
-    });
-
-    $rootScope.goBack = $rootScope.goBack || function() {
-      return $rootScope.$previousState.pop();
-    };
-  }
-
-  /** @ngInject */
-  function runPath($rootScope, PATH, $window, $log) {
-    $rootScope.basePath = PATH.host;
-
-    $log.debug('[RUN] Path end.');
-  }
-
-  /** @ngInject */
-  function runColorUtils($window) {
-
-    $window.ColorLuminance = function(hex, lum) {
-
-      // validate hex string
-      hex = String(hex).replace(/[^0-9a-f]/gi, '');
-      if (hex.length < 6) {
-        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-      }
-      lum = lum || 0;
-
-      // convert to decimal and change luminosity
-      var rgb = '#';
-      var c;
-      var i;
-
-      for (i = 0; i < 3; i++) {
-        c = parseInt(hex.substr(i * 2, 2), 16);
-        c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
-        rgb += ('00' + c).substr(c.length);
-      }
-
-      return rgb;
-    };
-  }
-
-  /** @ngInject */
   function runScroll($rootScope, jQuery) {
     $rootScope.$on('change-selectedCategory', function(){
       var $resultEl = jQuery('.section--articles .header');
 
       if($resultEl && $resultEl.length > 0){
         $rootScope.scrollTo($resultEl);
-        // angular.element('body').animate({scrollTop: $resultEl.offset().top}, 'fast');
+        // angular.element('html,body').animate({scrollTop: $resultEl.offset().top}, 'fast');
       }
     });
   }

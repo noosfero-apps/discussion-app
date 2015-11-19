@@ -60,6 +60,7 @@
 
     // handle logout
     vm.$scope.$on(vm.AUTH_EVENTS.logoutSuccess, function() {
+      vm.clearMessages();
       vm.currentUser = vm.Session.getCurrentUser();
       vm._attachCaptcha();
     });
@@ -136,55 +137,67 @@
     var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
     credentials.txtToken_captcha_serpro_gov_br = $captcha.val();
 
-    // vm.signupFormStatus = 'SENDIN';
-    vm.AuthService.register(credentials).then(function(response) {
-      vm.$log.debug('register success.response', response);
+    vm.AuthService.register(credentials)
+    .then(function(/*response*/) {
+      // SUCCESS
+      
+      vm.signupSuccess = true;
+      // vm._startRedirect();
 
-      // TODO: mensagens de sucesso
-      // 'Cadastro efetuado com sucesso.'
-      // 'Verifique seu email para confirmar o cadastro.'
-      vm.signupMessageTitle = 'Cadastro efetuado com sucesso!';
-      vm.signupSuccessMessage = 'Verifique seu e-mail para confirmar o cadastro.';
-      vm.redirectBack();
     }, function(response) {
-      vm.$log.debug('register error.response', response);
-
-      vm.internalError = true;
-
-      switch (response.data.code) {
-        case 400: // bad request
-          var errors = JSON.parse(response.data.message);
-          if(errors && errors.email){
-            vm.signupErrorMessage = 'E-mail já está em uso.';
-          }
-        break;
-        case 500:
-          vm.signupErrorMessage = response.data.message;
-        break;
-        default:
-        break;
-      }
-
+      // ERROR
 
       // TODO: mensagens de erro
       // TODO: tratar multiplos erros
 
       // javascript_console_message: "Unable to reach Serpro's Captcha validation service"
       // message: "Internal captcha validation error"
+
+      vm.signupError = true;
+      vm.signupErrorTitle = 'Erro!';
+      vm.signupErrorMessage = response.data.message;
+
+      // 4xx client error
+      if (response.status >= 400 && response.status < 500){
+        var errors = JSON.parse(response.data.message);
+        if(errors && errors.email){
+          vm.signupErrorMessage = 'E-mail já está em uso.';
+        }
+      }
+      
+      // 5xx server error
+      if (response.status >= 500 && response.status < 600){
+        vm.internalError = true;
+      }
     });
   };
 
   AuthPageController.prototype.submitSignin = function(credentials) {
     var vm = this;
 
-    vm.AuthService.login(credentials).then(function(user) {
-      // handle view
-      vm.$log.debug('user', user);
+    vm.AuthService.login(credentials)
+    .then(function(/*user*/) {
 
-      vm.successMessage = 'Login efetuado com sucesso!';
-      vm.redirectBack();
-    }, function() {
+      vm.showSigninSuccessMessage();
+      vm._startRedirect(); //
+    }, function(response) {
       // handle view
+      vm.$log.error('Error on "submitSignin"', response);
+
+      vm.signinError = true;
+      
+      // 4xx client error
+      if ( response.status >= 400 && response.status < 500 ) {
+        
+        vm.signinErrorTitle = 'Erro!';
+        vm.signinErrorContent = response.data.message;
+
+        if(response.status === 401){
+          vm.signinErrorTitle = 'Acesso não autorizado!';
+          vm.signinErrorContent = 'E-mail ou senha incorretos.';
+        }
+      }
+
     });
   };
 
@@ -206,16 +219,24 @@
     vm.AuthService.forgotPassword(data).then(function(response) {
       vm.$log.debug('recover success.response', response);
 
-      vm.successRecoverMessageTitle = 'Pedido enviado sucesso!';
-      vm.successRecoverMessage = 'Verifique seu e-mail. Em instantes você receberá um e-mail com um link para redefinir sua senha.';
-      // vm.redirectBack();
+      vm.recoverSuccess = true;
+      // vm._startRedirect();
+
     }, function(response){
       vm.$log.debug('recover error.response', response);
 
-      var message = response.data.message;
-      vm.errorRecoverMessage = message;
+      vm.recoverError = true;
+      vm.recoverErrorMessage = response.data.message;
 
-      if(response.data.code === 500){
+      // Client Error
+      if (response.status >= 400 && response.status < 500){
+        if(response.status === 404){
+          vm.recoverErrorMessage = 'E-mail não cadastrado no Dialoga Brasil.';
+        }
+      }
+      
+      // Server Error
+      if (response.status >= 500 && response.status < 600){
         vm.internalError = true;
       }
     }).catch(function(error){
@@ -223,7 +244,76 @@
     });
   };
 
-  AuthPageController.prototype.redirectBack = function() {
+  AuthPageController.prototype.submitConfirmationForm = function($event, confirmationForm) {
+    var vm = this;
+
+    // get form data
+    var data = {
+      login: confirmationForm.login.$modelValue,
+      captcha_text: confirmationForm.captcha_text.$modelValue
+    };
+
+    // get captcha token
+    var target = $event.target;
+    var $target = angular.element(target);
+    var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
+    data.txtToken_captcha_serpro_gov_br = $captcha.val();
+
+    vm.AuthService.resendConfirmation(data)
+    .then(function(response) {
+      vm.$log.debug('resendConfirmation success.response', response);
+
+      vm.resendConfirmationSuccess = true;
+      
+      // Feedback para usuário já ativo na plataforma
+      var user = response.data[0];
+      if ( user && (user.active === true) ) {
+        vm.resendConfirmationSuccessTitle = 'Usuário já está ativo!';
+        vm.resendConfirmationSuccessMessage = 'O e-mail informado já foi confirmado.';
+      }else{
+        vm.resendConfirmationSuccessTitle = 'Pronto!';
+        vm.resendConfirmationSuccessMessage = 'Em instantes você receberá em seu e-mail um link para confirmar o seu cadastro.';
+      }
+
+    }, function(response){
+      vm.$log.debug('resendConfirmation error.response', response);
+
+      vm.resendConfirmationError = true;
+      vm.resendConfirmationErrorMessage = response.data.message;
+
+      // Client Error
+      // if (response.status >= 400 && response.status < 500){}
+      
+      // Server Error
+      if (response.status >= 500 && response.status < 600){
+        vm.internalError = true;
+      }
+    }).catch(function(error){
+      vm.$log.debug('resendConfirmation catch.error', error);
+    });
+  };
+
+  AuthPageController.prototype.clearMessages = function() {
+    var vm = this;
+
+    // success
+    vm.signupSuccess = false;
+    vm.signinSuccess = false;
+    vm.confirmSuccess = false;
+    
+    // error
+    vm.signinError = false;
+    vm.signupError = false;
+
+  };
+  AuthPageController.prototype.showSigninSuccessMessage = function() {
+    var vm = this;
+
+    vm.signinSuccess = true;
+    vm.successMessage = 'Login efetuado com sucesso!';
+  };
+
+  AuthPageController.prototype._startRedirect = function() {
     var vm = this;
 
     if (!vm.hasRedirect) {
@@ -233,6 +323,7 @@
 
     // start countdown
     vm.countdown = vm.delay;
+    
     var stop = null;
     stop = vm.$interval(function() {
       vm.countdown--;
@@ -242,6 +333,7 @@
       }
     }, 1000);
 
+    // start redirect delay
     vm.$timeout(function() {
       var state = vm.params.state;
       switch (state){
@@ -267,7 +359,7 @@
 
   AuthPageController.prototype.authWithFacebook = function() {
     var vm = this;
-    // var url = 'http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=1';
+
     var url = 'http://login.dialoga.gov.br/plugin/oauth_client/facebook?oauth_client_popup=true&id=' + vm.APP.facebook_app_id;
     vm.$window.oauthClientAction(url);
   };
@@ -275,7 +367,7 @@
   AuthPageController.prototype.authWithGooglePlus = function() {
     var vm = this;
 
-    var url = 'http://login.dialoga.gov.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=' + vm.APP.goople_app_id;
+    var url = 'http://login.dialoga.gov.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=' + vm.APP.google_app_id;
     vm.$window.oauthClientAction(url);
   };
 })();

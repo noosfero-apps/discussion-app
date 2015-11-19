@@ -9,18 +9,18 @@
 <section role="main" class="section-gray">
   <div class="container">
     <div class="row">
-      <div ng-if="pageSignin.currentUser">
+      <div ng-if="pageAuth.currentUser">
         <div class="row">
           <div class="col-sm-8 col-sm-offset-2">
             <h3>Você está logado!</h3>
             <button
             type="button"
-            ng-click="pageSignin.onClickLogout()"
+            ng-click="pageAuth.onClickLogout()"
             class="btn btn-primary">Sair</button>
           </div>
         </div>
       </div>
-      <div ng-if="!pageSignin.currentUser">
+      <div ng-if="!pageAuth.currentUser">
         <br>
         <div class="col-sm-8 col-sm-offset-2">
           <div class="row">

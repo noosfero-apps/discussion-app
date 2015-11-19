@@ -22,15 +22,13 @@
         </div>
         <div class="col-md-4" ng-if="pageInicio.featuredEvent">
           <div class="row">
-            <div class="featured-event--box">
+            <div class="featured-event--box" ng-click="pageInicio.showEventVideo()">
               <div class="box-top col-xs-12 col-sm-4 col-md-12">
                 <h2 class="box-title">Bate papo com <b>MINISTROS/AS</b></h2>
               </div>
               <div class="box-middle col-xs-12 col-sm-4 col-md-12">
                 <div class="video"
-                ng-style="{'background-image': 'url(' + pageInicio.featuredEvent.image.url + ')'}"
-                ng-click="pageInicio.showEventVideo()"
-                >
+                ng-style="{'background-image': 'url(' + pageInicio.featuredEvent.image.url + ')'}">
                 </div>
               </div>
               <div class="box-bottom col-xs-12 col-sm-4 col-md-12">

@@ -190,7 +190,7 @@
 
       var url = service.apiCommunities + community_id + '/articles';
       var paramsExtended = angular.extend({
-        // 'fields[]': ['id', 'title', 'abstract', 'body', 'categories', 'created_at', 'start_date', 'end_date', 'followers_count', 'image', 'url'],
+        'fields[]': ['id', 'title', 'abstract', 'body', 'setting', 'presenter', 'created_at', 'update_at', 'start_date', 'end_date', 'followers_count', 'image', 'url'],
         'content_type':'Event'
       }, params);
 

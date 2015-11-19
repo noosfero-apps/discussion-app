@@ -35,6 +35,7 @@
         background-color: #545454;
         color: #fff;
         border-radius: 5px;
+        cursor: pointer;
 
         .box-top {
             text-transform: uppercase;
@@ -53,7 +54,6 @@
             padding: 0;
 
             .video {
-                cursor: pointer;
                 width: 100%;
                 min-height: 125px;
                 background-size: cover;

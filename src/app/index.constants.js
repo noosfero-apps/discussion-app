@@ -28,6 +28,8 @@
       registerFailed: 'auth-register-failed',
       activateSuccess: 'auth-activate-success',
       activateFailed: 'auth-activate-failed',
+      resendConfirmationSuccess: 'auth-resend-confirmation-success',
+      resendConfirmationFailed: 'auth-resend-confirmation-failed',
       changePasswordSuccess: 'auth-changePassword-success',
       changePasswordFailed: 'auth-changePassword-failed',
       forgotPassowrdSuccess: 'auth-forgotPassowrd-success',

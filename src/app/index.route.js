@@ -27,7 +27,18 @@
           'main': {
             templateUrl: 'app/pages/auth/signin.html',
             controller: 'AuthPageController',
-            controllerAs: 'pageSignin'
+            controllerAs: 'pageAuth'
+          }
+        }
+      })
+      .state('reenviar-email', {
+        url: '/reenviar-email',
+        ncyBreadcrumb: {label: 'Re-enviar e-mail de confirmação'},
+        views: {
+          'main': {
+            templateUrl: 'app/pages/auth/resend-confirmation.html',
+            controller: 'AuthPageController',
+            controllerAs: 'pageAuth'
           }
         }
       })
@@ -38,7 +49,7 @@
           'main': {
             templateUrl: 'app/pages/auth/recover.html',
             controller: 'AuthPageController',
-            controllerAs: 'pageSignin'
+            controllerAs: 'pageAuth'
           }
         }
       })
@@ -49,7 +60,7 @@
           'main': {
             templateUrl: 'app/pages/auth/change.html',
             controller: 'AuthPageController',
-            controllerAs: 'pageSignin'
+            controllerAs: 'pageAuth'
           }
         }
       })

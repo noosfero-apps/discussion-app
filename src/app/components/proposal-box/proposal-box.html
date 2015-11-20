@@ -145,9 +145,16 @@
       <div class="proposal-box--content-inner">{{vm.proposal.abstract}}</div>
     </div>
     <div ng-hide="vm.showVote" class="proposal-box--join">
-      <button class="btn btn-link color-theme-common-fg" ng-click="vm.showContent(vm.topic.slug)">
-        Participe
-      </button>
+      <button
+      class="btn btn-link color-theme-common-fg"
+      ng-if="vm.archived === false"
+      ng-click="vm.showContent(vm.topic.slug)"
+      >Participe</button>
+      <button
+      class="btn btn-link color-theme-common-fg"
+      ng-if="vm.archived === true"
+      ng-click="vm.showContent(vm.topic.slug)"
+      >Ir para o programa</button>
     </div>
     <div ng-show="vm.showVote" class="proposal-box--actions text-center">
       <div class="row">

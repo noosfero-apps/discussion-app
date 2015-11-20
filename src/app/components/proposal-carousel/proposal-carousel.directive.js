@@ -31,6 +31,7 @@
       }
 
       vm.activeIndex = 0;
+      vm.archived = vm.archived || false;
       vm.loading = false;
       vm.proposalsLength = vm.proposals.length;
     };
@@ -80,6 +81,7 @@
       restrict: 'E',
       templateUrl: 'app/components/proposal-carousel/proposal-carousel.html',
       scope: {
+        archived: '=',
         proposals: '='
       },
       controller: ProposalCarouselController,

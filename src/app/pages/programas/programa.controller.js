@@ -39,6 +39,7 @@
     vm.loadingTopProposals = null;
     vm.loadingProposalBox = null;
     vm.sendProposalRedirectURI = null;
+    vm.showDetailAboutArchived = false;
     // vm.voteProposalRedirectURI = null;
     vm.search = vm.$location.search();
 
@@ -86,7 +87,8 @@
       vm.DialogaService.getProposalsByTopicId(vm.article.id, {
         'limit': 5
       }, function(data) {
-        vm.total_proposals = parseInt(vm.article.amount_of_children);
+        vm.total_proposals = parseInt(vm.article.children_count);
+        // vm.total_proposals = parseInt(vm.article.amount_of_children); // DEPRECATED?!
         vm.proposals = data.articles;
         vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
@@ -202,6 +204,11 @@
   ProgramaPageController.prototype.vote = function(proposal_id, value) {
     var vm = this;
 
+    if(vm.article.archived === true){
+      vm.$log.info('Article archived. Abort.');
+      return;
+    }
+
     if (value === vm.VOTE_OPTIONS.SKIP) {
       vm.voteSkip();
       return;
@@ -237,6 +244,12 @@
 
   ProgramaPageController.prototype.showProposalForm = function() {
     var vm = this;
+
+    if(vm.article.archived === true){
+      vm.$log.info('Article archived. Abort.');
+      return;
+    }
+
     vm.findAndShow('#section-proposal-form');
   };
 

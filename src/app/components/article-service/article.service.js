@@ -269,6 +269,7 @@
             'url', // parent.image.url
             'image',
             'title',
+            'archived',
           ]
       }, params);
 

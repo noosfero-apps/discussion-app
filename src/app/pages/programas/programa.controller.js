@@ -162,7 +162,8 @@
 
     vm.DialogaService.getProposalsByTopicId(vm.article.id, {
       'order': 'random()',
-      'limit': '1'
+      'limit': '1',
+      't': Date.now() // add a timestamp to get a non-cached resource
     }, vm._handleSuccessOnGetProposal.bind(vm), vm._handleErrorOnGetProposal.bind(vm));
   };
 

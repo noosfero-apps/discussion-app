@@ -204,7 +204,7 @@
     function logout () {
 
       Session.destroy();
-      $rootScope.currentUser = null;
+      $rootScope.currentUser = undefined;
       $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
     }
 

@@ -55,7 +55,7 @@
 
       if (!angular.equals({}, vm.search)) {
         var $el = vm.$element;
-        angular.element('body').animate({scrollTop: $el.offset().top}, 'slow');
+        angular.element('html,body').animate({scrollTop: $el.offset().top}, 'slow');
       }
 
       // update window location params

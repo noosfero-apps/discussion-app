@@ -181,7 +181,7 @@
       vm.$timeout(function() {
         var target = angular.element('.focused-proposal');
         if (target && target.length > 0) {
-          angular.element('body').animate({scrollTop: target.offset().top}, 'fast');
+          angular.element('html,body').animate({scrollTop: target.offset().top}, 'fast');
         }
       }, 300);
     }
@@ -248,7 +248,7 @@
     var vm = this;
     var el = vm.$element.find(rule);
     el.slideDown();
-    angular.element('body').animate({scrollTop: el.offset().top}, 'fast');
+    angular.element('html,body').animate({scrollTop: el.offset().top}, 'fast');
   };
 
   ProgramaPageController.prototype.findAndHide = function(rule) {

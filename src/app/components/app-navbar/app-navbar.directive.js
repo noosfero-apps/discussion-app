@@ -9,16 +9,24 @@
   function appNavbar() {
 
     /** @ngInject */
-    function NavbarController($log) {
+    function NavbarController(AuthService, $log) {
       $log.debug('NavbarController');
 
       var vm = this;
-
-      vm.scrollTo = function(hash) {
-        var $el = angular.element('#' + hash);
-        angular.element('body').animate({scrollTop: $el.offset().top}, 'slow');
-      };
+      vm.AuthService = AuthService;
+      vm.$log = $log;
     }
+
+    // NavbarController.prototype.scrollTo = function (hash){
+    //   var $el = angular.element('#' + hash);
+    //   angular.element('html,body').animate({scrollTop: $el.offset().top}, 'slow');
+    // };
+
+    NavbarController.prototype.onClickLogout = function (){
+      var vm = this;
+
+      vm.AuthService.logout();
+    };
 
     var directive = {
       restrict: 'E',

@@ -46,11 +46,11 @@
     AppPaginatorController.prototype.attachListeners = function() {
       var vm = this;
 
-      vm.$scope.$watch('vm.perPage', function(newValue/*, oldValue*/) {
+      vm.$scope.$watch('vm.perPage', function() {
         vm.calcArrayPages();
       });
 
-      vm.$scope.$watch('vm.total', function(newValue/*, oldValue*/) {
+      vm.$scope.$watch('vm.total', function() {
         vm.calcArrayPages();
       });
     };

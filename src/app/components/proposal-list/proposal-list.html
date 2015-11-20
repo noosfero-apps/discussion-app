@@ -23,9 +23,20 @@
 						</div>
 						<div class="row row-actions">
 							<div class="col-sm-8">
-								<button type="button" class="btn btn-link btn-rate color-theme-common-fg" ng-click="vm.showContent(proposal)">
-									Participe
-								</button>
+								<div ng-if="proposal.parent.archived === false">
+									<button
+									type="button"
+									class="btn btn-link btn-rate color-theme-common-fg"
+									ng-click="vm.showContent(proposal)"
+									>Participe</button>
+								</div>
+								<div ng-if="proposal.parent.archived === true">
+									<button
+									type="button"
+									class="btn btn-link btn-rate color-theme-common-fg"
+									ng-click="vm.showContent(proposal)"
+									>Ir para o programa</button>
+								</div>
 							</div>
 							<div class="col-sm-4">
 								<proposal-stats class="text-right" views="{{::proposal.hits}}" up="{{::proposal.votes_for}}" down="{{::proposal.votes_against}}"></proposal-stats>

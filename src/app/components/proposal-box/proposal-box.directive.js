@@ -33,6 +33,7 @@
       var vm = this;
 
       vm.showVote = vm.showVote || false;
+      vm.archived = vm.archived || false;
       vm.focus = vm.focus || false;
       vm.STATE = null;
       vm.errorOnSkip = false;
@@ -169,6 +170,11 @@
     ProposalBoxController.prototype.vote = function(value) {
       var vm = this;
 
+      if(vm.archived === true){
+        vm.$log.info('Article archived. Abort.');
+        return;
+      }
+
       vm._oldVoteValue = value;
       if (vm.canVote()) {
         if (vm.doVote) {
@@ -189,6 +195,11 @@
 
     ProposalBoxController.prototype.skip = function() {
       var vm = this;
+
+      if(vm.archived === true){
+        vm.$log.info('Article archived. Abort.');
+        return;
+      }
 
       vm.errorOnSkip = false;
       vm.STATE = vm.VOTE_STATUS.LOADING;
@@ -226,15 +237,16 @@
       restrict: 'E',
       templateUrl: 'app/components/proposal-box/proposal-box.html',
       scope: {
-        proposal: '=',
-        topic: '=',
-        category: '=',
-        showVote: '=',
-        focus: '@',
-        doVote: '&'
         // @ -> Text binding / one-way binding
         // = -> Direct model binding / two-way binding
         // & -> Behaviour binding / Method binding
+        archived: '=',
+        category: '=',
+        doVote: '&',
+        focus: '@',
+        proposal: '=',
+        showVote: '=',
+        topic: '=',
       },
       controller: ProposalBoxController,
       controllerAs: 'vm',

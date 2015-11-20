@@ -9,12 +9,14 @@
   function appPaginator() {
 
     /** @ngInject */
-    function AppPaginatorController($log) {
+    function AppPaginatorController($scope, $log) {
       var vm = this;
 
+      vm.$scope = $scope;
       vm.$log = $log;
 
       vm.init();
+      vm.attachListeners();
 
       $log.debug('AppPaginatorController');
     }
@@ -26,6 +28,12 @@
       vm.perPage = vm.perPage || 20;
       vm.total = vm.total || 0;
 
+      vm.calcArrayPages();
+    };
+
+    AppPaginatorController.prototype.calcArrayPages = function() {
+      var vm = this;
+
       if ((vm.total % vm.perPage) === 0) {
         vm.pages =  vm.total / vm.perPage;
       } else {
@@ -33,6 +41,18 @@
       }
 
       vm.arraypages = new Array(Math.floor(vm.pages));
+    };
+
+    AppPaginatorController.prototype.attachListeners = function() {
+      var vm = this;
+
+      vm.$scope.$watch('vm.perPage', function() {
+        vm.calcArrayPages();
+      });
+
+      vm.$scope.$watch('vm.total', function() {
+        vm.calcArrayPages();
+      });
     };
 
     AppPaginatorController.prototype.showPage = function(pageIndex) {

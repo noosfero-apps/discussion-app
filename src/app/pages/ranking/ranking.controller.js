@@ -37,6 +37,18 @@
     vm.query = null;
     vm.search = vm.$location.search();
 
+    if (vm.search.tema) {
+      vm._filtredByThemeSlug = vm.search.tema;
+    }
+
+    if (vm.search.programa) {
+      vm._filtredByProgramSlug = vm.search.programa;
+    }
+
+    if (vm.search.tema || vm.search.programa) {
+      vm.loadingFilter = true;
+    }
+
     vm.loading = null;
     vm.error = null;
   };
@@ -62,11 +74,11 @@
 
       // 2. Select a Random Theme (T)
       var selectedTheme = null;
-      if(vm.search.tema){
+      if(vm.search.tema || vm._filtredByThemeSlug){
 
         // vanilla filter
         var results = vm.themes.filter(function(t){
-          return t.slug === vm.search.tema;
+          return (t.slug === vm.search.tema || (t.slug === vm._filtredByThemeSlug));
         });
 
         if(results && results.length > 0){
@@ -85,6 +97,7 @@
       vm.loadPrograms(themeId, function(){
         // vm.loadProposals();
         vm.loading = false;
+        vm.loadingFilter = false;
       });
     }, function (error) {
       vm.error = error;
@@ -103,11 +116,11 @@
 
       // 4. Select a random program of T
       var selectedProgram = null;
-      if(vm.search.programa){
+      if(vm.search.programa || vm._filtredByProgramSlug){
 
         // vanilla filter
         var results = vm.filtredPrograms.filter(function(p){
-          return p.slug === vm.search.programa;
+          return (p.slug === vm.search.programa || (p.slug === vm._filtredByProgramSlug));
         });
 
         if(results && results.length > 0){
@@ -131,26 +144,6 @@
     });
   };
 
-  // RankingPageController.prototype.loadProposals = function () {
-  //   var vm = this;
-
-  //   // load Proposals
-  //   vm.loadingProposals = true;
-  //   vm.DialogaService.getProposals({
-  //     page: vm.page,
-  //     per_page: vm.per_page
-  //   }, function(data){
-  //     vm.filtredProposals = data.articles;
-  //     vm.loadingProposals = false;
-
-  //     vm.attachListeners();
-  //   }, function (error) {
-  //     vm.error = error;
-  //     vm.$log.error(error);
-  //     vm.loadingProposals = false;
-  //   });
-  // };
-
   RankingPageController.prototype.attachListeners = function() {
     var vm = this;
 
@@ -162,7 +155,7 @@
       vm.search.tema = newValue ? newValue.slug : null;
       vm.$location.search('tema', vm.search.tema);
 
-      if(vm.selectedTheme && vm.selectedTheme.id){
+      if(!vm.loadingFilter && vm.selectedTheme && vm.selectedTheme.id){
         vm.loadPrograms(vm.selectedTheme.id, function(){
           vm.filterProposals();
         });
@@ -176,13 +169,19 @@
     vm.$scope.$watch('pageRanking.selectedProgram', function(newValue/*, oldValue*/) {
       vm.search.programa = newValue ? newValue.slug : null;
       vm.$location.search('programa', vm.search.programa);
-      vm.filterProposals();
+      
+      if (!vm.loadingFilter) {
+        vm.filterProposals();
+      }
     });
 
     vm.$scope.$watch('pageRanking.query', function(newValue/*, oldValue*/) {
       vm.search.filtro = newValue ? newValue : null;
       vm.$location.search('filtro', vm.search.filtro);
-      vm.filterProposals();
+      
+      if (!vm.loadingFilter) {
+        vm.filterProposals();
+      }
     });
   };
 

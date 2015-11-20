@@ -20,7 +20,7 @@
             <div class="inner">{{::proposal.abstract}}</div>
           </div>
         </div>
-        <div class="join" ng-show="vm.activeIndex === $index">
+        <div class="join" ng-if="vm.archived === false" ng-show="vm.activeIndex === $index">
           <button type="button" class="btn btn-link btn-rate color-theme-common-fg" ng-click="vm.showContent(proposal)">
             Participe
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>

@@ -108,13 +108,26 @@ $article-box-space: 20px;
 
     &--image-wrapper {
         position: relative;
-        // width: 100%;
-        // width: 370px;
-        // height: 170px;
-
         overflow: hidden;
-        // text-align: center;
+
+        margin-bottom: 10px;
         min-height: 170px;
+        
+        @media screen and (max-width: $screen-lg) {
+            min-height: 135px;
+        }
+
+        @media screen and (max-width: $screen-md) {
+            min-height: 90px;
+        }
+
+        @media screen and (max-width: $screen-sm) {
+            min-height: 220px;
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            min-height: 180px;
+        }
     }
 
     &--image {
@@ -127,6 +140,22 @@ $article-box-space: 20px;
         -moz-transition: all $time ease-in-out;
         -o-transition: all $time ease-in-out;
         transition: all $time ease-in-out;
+        
+        @media screen and (max-width: $screen-lg) {
+            min-height: 135px;
+        }
+
+        @media screen and (max-width: $screen-md) {
+            min-height: 90px;
+        }
+
+        @media screen and (max-width: $screen-sm) {
+            min-height: 220px;
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            min-height: 170px;
+        }
     }
 
     .button--themed {

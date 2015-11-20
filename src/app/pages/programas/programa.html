@@ -57,9 +57,19 @@
                   <div class="program-preview--make-proposal">
                     <div class="row">
                       <div class="col-sm-6">
-                        <div class="button--themed">
+                        <div class="button--themed" ng-if="!pagePrograma.article.archived">
                           <button type="button" class="btn btn-block" ng-click="pagePrograma.showProposalForm()">Faça uma proposta</button>
                         </div>
+                        <div ng-if="pagePrograma.article.archived">
+                          <button type="button"
+                            class="btn btn-block disabled"
+                            title="Este programa já foi analisado. Não está mais habilitado a receber novas propostas."
+                            ng-click="pagePrograma.showDetailAboutArchived = true"
+                            >Faça uma proposta</button>
+                        </div>
+                      </div>
+                      <div class="col-sm-6" ng-show="pagePrograma.showDetailAboutArchived === true">
+                        <p>(&#9679;) Este programa está arquivado.<br>Não pode receber novas propostas.</p>
                       </div>
                     </div>
                   </div>
@@ -82,12 +92,15 @@
                   <!-- Top Proposals > Carousel -->
                   <div class="col-xs-12" ng-if="!pagePrograma.loadingTopProposals && pagePrograma.proposalsTopRated && pagePrograma.proposalsTopRated.length > 0">
                     <h3 class="color-theme-fg">Propostas mais votadas</h3>
-                    <proposal-carousel proposals="pagePrograma.proposalsTopRated"></proposal-carousel>
+                    <proposal-carousel
+                    proposals="pagePrograma.proposalsTopRated"
+                    archived="pagePrograma.article.archived"
+                    ></proposal-carousel>
                   </div>
                 </div>
 
                 <!-- Proposal Box -->
-                <div>
+                <div ng-if="!pagePrograma.article.archived">
                   <div class="col-xs-12" ng-if="!pagePrograma.loadingProposalBox && pagePrograma.randomProposal" ng-class="{'focused-proposal': !!pagePrograma.search.proposal_id}">
                     <h3 class="color-theme-fg">Apoie outras propostas</h3>
                     <proposal-box
@@ -97,6 +110,7 @@
                     show-vote="true"
                     focus="{{pagePrograma.search.proposal_id}}"
                     do-vote="pagePrograma.vote(proposal_id, value)"
+                    archived="pagePrograma.article.archived"
                     ></proposal-box>
                   </div>
 
@@ -136,7 +150,7 @@
           </button>
         </div>
         <div class="proposal-extended-section-content">
-          <proposal-list proposals="pagePrograma.proposalsTopFive"></proposal-list>
+          <proposal-list proposals="pagePrograma.proposalsTopFive" archived="pagePrograma.article.archived"></proposal-list>
           <div class="row text-center">
             <div class="col-xs-12">
               <a ui-sref="ranking({tema: pagePrograma.category.slug, programa: pagePrograma.article.slug})" class="btn btn-link">

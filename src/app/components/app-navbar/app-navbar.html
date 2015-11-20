@@ -22,6 +22,11 @@
 
     <div id="navbar-collapse" class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
+        <li class="hidden-sm hidden-md hidden-lg">
+          <a ng-show="$root.currentUser === undefined" ui-sref="entrar">Entrar</a>
+          <a ng-show="$root.currentUser !== undefined" href="#" ng-click="vm.onClickLogout()">Sair</a>
+        </li>
+        <li ui-sref-active="active"><a ui-sref="inicio">Início</a></li>
         <li ui-sref-active="active"><a ui-sref="sobre">Sobre</a></li>
         <li ui-sref-active="active"><a ui-sref="programas">Programas</a></li>
         <li ui-sref-active="active"><a ui-sref="propostas">Propostas</a></li>
@@ -33,7 +38,7 @@
           <social-share class="dropdown-menu dropdown-menu-right" arrow-class="social-share--arrow"></social-share>
           <div class="clearfix"></div>
         </li>
-        <li class="hidden-sm hidden-md hidden-lg" style="border: none; padding-bottom: 10px !important;">
+        <li class="hidden-sm hidden-md hidden-lg" style="border: none; margin-top: 15px; padding-bottom: 10px !important;">
           <div class="text text-right" style="padding-right: 20px;">DIALOGA <b>NAS REDES</b></div>
           <ul class="social-share list-inline">
             <li>

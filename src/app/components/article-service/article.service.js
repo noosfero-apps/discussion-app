@@ -268,6 +268,7 @@
             'slug',
             'url', // parent.image.url
             'image',
+            'title',
           ]
       }, params);
 

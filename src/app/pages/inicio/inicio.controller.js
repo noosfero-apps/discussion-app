@@ -156,7 +156,7 @@
       }
 
       vm.$timeout(function() {
-        angular.element('body').animate({scrollTop: scrollTop}, 'fast');
+        angular.element('html,body').animate({scrollTop: scrollTop}, 'fast');
       }, 0); // force queue
     }
   };
@@ -222,7 +222,7 @@
     // scroll to result grid
     var $searchResult = angular.element('#search-result');
     if ($searchResult && $searchResult.length > 0) {
-      angular.element('body').animate({scrollTop: $searchResult.offset().top}, 'fast');
+      angular.element('html,body').animate({scrollTop: $searchResult.offset().top}, 'fast');
       vm.filtredPrograms = vm.getFiltredPrograms();
     }else {
       vm.$log.warn('#search-result element not found.');

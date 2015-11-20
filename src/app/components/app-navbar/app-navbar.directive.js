@@ -19,7 +19,7 @@
 
     // NavbarController.prototype.scrollTo = function (hash){
     //   var $el = angular.element('#' + hash);
-    //   angular.element('body').animate({scrollTop: $el.offset().top}, 'slow');
+    //   angular.element('html,body').animate({scrollTop: $el.offset().top}, 'slow');
     // };
 
     NavbarController.prototype.onClickLogout = function (){

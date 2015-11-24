@@ -66,8 +66,7 @@
 
     function activate (code) {
       var url = PATH.host + '/api/v1/activate';
-      var encodedData = 'private_token=' + API.token;
-      encodedData += '&activation_code=' + code;
+      var encodedData = 'activation_code=' + code;
 
       return $http
         .patch(url, encodedData)

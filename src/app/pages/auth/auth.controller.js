@@ -266,8 +266,8 @@
       vm.resendConfirmationSuccess = true;
       
       // Feedback para usuário já ativo na plataforma
-      var user = response.data[0];
-      if ( user && (user.active === true) ) {
+      var user = response.data.users[0];
+      if ( user && (user.activated === true) ) {
         vm.resendConfirmationSuccessTitle = 'Usuário já está ativo!';
         vm.resendConfirmationSuccessMessage = 'O e-mail informado já foi confirmado.';
       }else{

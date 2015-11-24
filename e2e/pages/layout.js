@@ -15,18 +15,18 @@ module.exports = function(){
       it('should have a "skip-to-search" anchor', function() {
         expect(page.skipToSearch.getText()).toEqual('Ir para a busca 3');
       });
-      it('should have a "skip-to-footer" anchor', function() {
-        expect(page.skipToFooter.getText()).toEqual('Ir para o rodapé 4');
-      });
+      // it('should have a "skip-to-footer" anchor', function() {
+      //   expect(page.skipToFooter.getText()).toEqual('Ir para o rodapé 4');
+      // });
 
       it('should have a accessibility anchor', function() {
-        expect(page.actionAccessibility.getText()).toEqual('Acessibilidade');
+        expect(page.actionAccessibility.getText()).toEqual('ACESSIBILIDADE');
       });
       it('should have a adjust contrast anchor', function() {
-        expect(page.actionContrast.getText()).toEqual('Alto Contraste');
+        expect(page.actionContrast.getText()).toEqual('ALTO CONTRASTE');
       });
       it('should have a sitemap anchor', function() {
-        expect(page.actionSitemap.getText()).toEqual('Mapa do Site');
+        expect(page.actionSitemap.getText()).toEqual('MAPA DO SITE');
       });
     });
 

@@ -42,6 +42,17 @@
           }
         }
       })
+      .state('ativar', {
+        url: '/ativar/:activation_code',
+        ncyBreadcrumb: {label: 'Ativar e-mail'},
+        views: {
+          'main': {
+            templateUrl: 'app/pages/auth/active.html',
+            controller: 'ActivePageController',
+            controllerAs: 'pageActive'
+          }
+        }
+      })
       .state('recuperar', {
         url: '/recuperar',
         ncyBreadcrumb: {label: 'Recuperar senha'},

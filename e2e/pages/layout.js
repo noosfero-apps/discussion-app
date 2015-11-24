@@ -20,13 +20,13 @@ module.exports = function(){
       });
 
       it('should have a accessibility anchor', function() {
-        expect(page.actionAccessibility.getText()).toEqual('Acessibilidade');
+        expect(page.actionAccessibility.getText()).toEqual('ACESSIBILIDADE');
       });
       it('should have a adjust contrast anchor', function() {
-        expect(page.actionContrast.getText()).toEqual('Alto Contraste');
+        expect(page.actionContrast.getText()).toEqual('ALTO CONTRASTE');
       });
       it('should have a sitemap anchor', function() {
-        expect(page.actionSitemap.getText()).toEqual('Mapa do Site');
+        expect(page.actionSitemap.getText()).toEqual('MAPA DO SITE');
       });
     });
 

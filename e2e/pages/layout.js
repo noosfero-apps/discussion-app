@@ -15,9 +15,9 @@ module.exports = function(){
       it('should have a "skip-to-search" anchor', function() {
         expect(page.skipToSearch.getText()).toEqual('Ir para a busca 3');
       });
-      it('should have a "skip-to-footer" anchor', function() {
-        expect(page.skipToFooter.getText()).toEqual('Ir para o rodapé 4');
-      });
+      // it('should have a "skip-to-footer" anchor', function() {
+      //   expect(page.skipToFooter.getText()).toEqual('Ir para o rodapé 4');
+      // });
 
       it('should have a accessibility anchor', function() {
         expect(page.actionAccessibility.getText()).toEqual('ACESSIBILIDADE');

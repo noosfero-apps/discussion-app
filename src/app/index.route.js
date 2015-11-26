@@ -64,14 +64,14 @@
           }
         }
       })
-      .state('alterar', {
-        url: '/alterar',
-        ncyBreadcrumb: {label: 'Alterar'},
+      .state('nova-senha', {
+        url: '/nova-senha/:token',
+        ncyBreadcrumb: {label: 'Nova senha'},
         views: {
           'main': {
-            templateUrl: 'app/pages/auth/change.html',
-            controller: 'AuthPageController',
-            controllerAs: 'pageAuth'
+            templateUrl: 'app/pages/auth/new-password.html',
+            controller: 'NewPasswordPageController',
+            controllerAs: 'pageNewPassword'
           }
         }
       })

@@ -1,48 +1,37 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <h2>Ativar conta</h2>
+<div class="page--auth-active">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Ativar conta</h2>
+            </div>
+        </div>
     </div>
-  </div>
+    <section role="main" class="section-gray vertical-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div ng-if="pageActive.loading">
+                        <h3>Aguarde...</h3>
+                        <p>Estamos ativando a sua conta ({{::pageActive.activation_code}}).</p>
+                    </div>
+                    <div ng-if="pageActive.successMessageTitle">
+                        <show-message type="'success'" message="pageActive.successMessageTitle" description="pageActive.successMessageContent"></show-message>
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-4">
+                                <p><a ui-sref="entrar" class="btn btn-default">Entrar</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="pageActive.errorMessageTitle">
+                        <show-message type="'error'" message="pageActive.errorMessageTitle" description="pageActive.errorMessageContent"></show-message>
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-4">
+                                <p><a ui-sref="reenviar-email" class="btn btn-default">Re-enviar e-mail de confirmação</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
-<section role="main" class="section-gray">
-  <div class="container">
-    <div class="row">
-      <br>
-      <div class="col-sm-8 col-sm-offset-2">
-        
-        <div ng-if="pageActive.loading">
-          <h3>Aguarde...</h3>
-          <p>Estamos ativando a sua conta ({{::pageActive.activation_code}}).</p>
-        </div>
-
-        <div ng-if="pageActive.successMessageTitle">
-          <show-message
-          type="'success'"
-          message="pageActive.successMessageTitle"
-          description="pageActive.successMessageContent"
-          ></show-message>
-          <div class="row">
-            <div class="col-sm-8 col-sm-offset-4">
-              <p><a ui-sref="entrar" class="btn btn-default">Entrar</a></p>
-            </div>
-          </div>
-        </div>
-
-        <div ng-if="pageActive.errorMessageTitle">
-          <show-message
-          type="'error'"
-          message="pageActive.errorMessageTitle"
-          description="pageActive.errorMessageContent"
-          ></show-message>
-          <div class="row">
-            <div class="col-sm-8 col-sm-offset-4">
-              <p><a ui-sref="reenviar-email" class="btn btn-default">Re-enviar e-mail de confirmação</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <br>
-    </div>
-  </div>
-</section>

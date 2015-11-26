@@ -13,12 +13,12 @@ function listFiles() {
   });
 
   return wiredep(wiredepOptions).js
-    .concat([
-      path.join(conf.paths.src, '/app/**/*.module.js'),
-      path.join(conf.paths.src, '/app/**/*.js'),
-      path.join(conf.paths.src, '/**/*.spec.js'),
-      path.join(conf.paths.src, '/**/*.mock.js'),
-      path.join(conf.paths.src, '/**/*.html')
+  .concat([
+    path.join(conf.paths.src, '/app/**/*.module.js'),
+    path.join(conf.paths.src, '/app/**/*.js'),
+    path.join(conf.paths.src, '/**/*.spec.js'),
+    path.join(conf.paths.src, '/**/*.mock.js'),
+    path.join(conf.paths.src, '/**/*.html')
     ]);
 }
 
@@ -45,14 +45,26 @@ module.exports = function(config) {
     browsers : ['PhantomJS'],
 
     plugins : [
-      'karma-phantomjs-launcher',
-      'karma-angular-filesort',
-      'karma-jasmine',
-      'karma-ng-html2js-preprocessor'
+    'karma-jasmine',
+    'karma-coverage',
+    'karma-angular-filesort',
+    'karma-ng-html2js-preprocessor',
+    'karma-phantomjs-launcher',
+    'karma-chrome-launcher',
+    'karma-firefox-launcher'
     ],
 
     preprocessors: {
-      'src/**/*.html': ['ng-html2js']
+      'src/**/*.html': ['ng-html2js'],
+      'src/app/**/*.js': ['coverage']
+    },
+    
+    reporters: ['progress', 'coverage'],
+
+    coverageReporter: {
+      type : 'lcov', // HTML + LCOV
+      // type : 'cobertura', // supported by jenkins
+      dir : 'coverage/'
     }
   };
 

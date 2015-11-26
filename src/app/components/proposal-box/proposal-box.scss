@@ -5,6 +5,8 @@
     margin-bottom: 20px;
     position: relative;
 
+    .contraste & { background-color: #000 !important; outline: 1px solid #eee; }
+
 	&.focus {
 		border: 7px solid #000;
 		border-radius: 12px;
@@ -54,12 +56,16 @@
     &--share {
         padding: 15px 0;
         background-color: #e8e8e8;
+
+        .contraste & { background-color: #000 !important; outline: 1px solid #eee; }
     }
 
     &--ranking {
         font-weight: bold;
         padding: 10px 0;
         background-color: #dadada;
+
+        .contraste & { background-color: #111 !important; outline: 1px solid #eee; }
     }
 
     .action-label {

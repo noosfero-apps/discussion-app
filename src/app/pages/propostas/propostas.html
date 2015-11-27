@@ -1,124 +1,113 @@
 <div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <div ncy-breadcrumb></div>
-    </div>
-  </div>
-</div>
-
-<div class="page--propostas" role="main">
-  <section class="section-info" ng-if="pagePropostas.loading || pagePropostas.error">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div ng-if="pagePropostas.loading && !pagePropostas.error">
-            <div class="alert alert-info" role="alert">Carregando conteúdo...</div>
-          </div>
-
-          <div ng-if="pagePropostas.error">
-            <div class="alert alert-danger" role="alert">
-              Erro ao carregar o conteúdo principal.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section--header" ng-if="pagePropostas.filtredProposals || pagePropostas.themes">
-    <div class="container">
-      <div class="row">
+    <div class="row">
         <div class="col-sm-12">
-          <h1>Propostas</h1>
+            <div ncy-breadcrumb></div>
         </div>
-      </div>
     </div>
-  </section>
-
-  <section class="section--articles section-gray section-space-up" ng-if="pagePropostas.filtredProposals || pagePropostas.themes">
-    <div class="container">
-      <div id="lista-de-propostas" class="row">
-        <div class="col-sm-4 col-md-3">
-          <div class="row visible-xs">
-            <div class="col-xs-12">
-              <div class="input-group input-group-lg input-group-search">
-                <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
-                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pagePropostas.query" placeholder="Buscar propostas" aria-label="Buscar propostas">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="pagePropostas.submitSearch()">
-                    <span class="icon-circle icon-small color-theme-common-bg">
-                      <span class="glyphicon glyphicon-search"></span>
-                </span>
-                <span class="sr-only">Buscar</span>
-                </button>
-                </span>
-              </div>
-              <br/>
+</div>
+<div class="page--propostas" role="main">
+    <section class="section-info" ng-if="pagePropostas.loading || pagePropostas.error">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div ng-if="pagePropostas.loading && !pagePropostas.error">
+                        <div class="alert alert-info" role="alert">Carregando conteúdo...</div>
+                    </div>
+                    <div ng-if="pagePropostas.error">
+                        <div class="alert alert-danger" role="alert">
+                            Erro ao carregar o conteúdo principal.
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div ng-if="pagePropostas.themes">
-            <category-list categories="pagePropostas.themes" selected-category="pagePropostas.selectedTheme"></category-list>
-          </div>
-          <div ng-if="!pagePropostas.themes && pagePropostas.loadingThemes">
-            <div class="alert alert-info" role="alert">
-              Carregando temas.
-            </div>
-          </div>
-          <div ng-if="!pagePropostas.themes && pagePropostas.themesError">
-            <div class="alert alert-danger" role="alert">
-              Não foi possível carregar a lista de temas neste momento.
-            </div>
-          </div>
         </div>
-        <div class="col-sm-8 col-md-9">
-          <div class="row hidden-xs" ng-if="pagePropostas.filtredProposals">
-            <div class="col-xs-12">
-              <div class="input-group input-group-lg input-group-search">
-                <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
-                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pagePropostas.query" placeholder="Buscar propostas" aria-label="Buscar propostas">
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="pagePropostas.submitSearch()">
-                    <span class="icon-circle icon-small color-theme-common-bg">
-                      <span class="glyphicon glyphicon-search"></span>
-                </span>
-                <span class="sr-only">Buscar</span>
-                </button>
-                </span>
-              </div>
+    </section>
+    <section class="section--header" ng-if="pagePropostas.filtredProposals || pagePropostas.themes">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1>Propostas</h1>
+                </div>
             </div>
-          </div>
-
-          <div id="search-result" class="row" ng-if="pagePropostas.filtredProposals">
-            <div class="col-sm-12">
-              <header class="header">
-                <h2>Total de Propostas: "<b>{{pagePropostas.total_proposals}} propostas</b>"</h2>
-              </header>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-12" ng-if="!pagePropostas.loadingProposals && pagePropostas.filtredProposals && pagePropostas.total_proposals">
-              <proposal-grid proposals="pagePropostas.filtredProposals"></proposal-grid>
-              <app-paginator
-                page="pagePropostas.page"
-                per-page="pagePropostas.per_page"
-                total="pagePropostas.total_proposals"
-                change-page="pagePropostas.changePage(pageIndex)"
-              ></app-paginator>
-            </div>
-            <div ng-if="pagePropostas.loadingProposals">
-              <div class="alert alert-info" role="alert">
-                Carregando propostas.
-              </div>
-            </div>
-            <div ng-if="!pagePropostas.loadingProposals && pagePropostas.proposalsError">
-              <div class="alert alert-danger" role="alert">
-                Não foi possível carregar a lista de propostas neste momento.
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
+    <section class="section--articles section-gray section-space-up" ng-if="pagePropostas.filtredProposals || pagePropostas.themes">
+        <div class="container">
+            <div id="lista-de-propostas" class="row">
+                <div class="col-sm-4 col-md-3">
+                    <div class="row visible-xs">
+                        <div class="col-xs-12">
+                            <div class="input-group input-group-lg input-group-search">
+                                <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
+                                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pagePropostas.query" placeholder="Buscar propostas" aria-label="Buscar propostas">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="pagePropostas.submitSearch()">
+                                        <div class="icon-circle icon-small color-theme-common-bg">
+                                          <span class="glyphicon glyphicon-search"></span>
+                                        </div>
+                                        <span class="sr-only">Buscar</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <br/>
+                        </div>
+                    </div>
+                    <div ng-if="pagePropostas.themes">
+                        <category-list categories="pagePropostas.themes" selected-category="pagePropostas.selectedTheme"></category-list>
+                    </div>
+                    <div ng-if="!pagePropostas.themes && pagePropostas.loadingThemes">
+                        <div class="alert alert-info" role="alert">
+                            Carregando temas.
+                        </div>
+                    </div>
+                    <div ng-if="!pagePropostas.themes && pagePropostas.themesError">
+                        <div class="alert alert-danger" role="alert">
+                            Não foi possível carregar a lista de temas neste momento.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8 col-md-9">
+                    <div class="row hidden-xs" ng-if="pagePropostas.filtredProposals">
+                        <div class="col-xs-12">
+                            <div class="input-group input-group-lg input-group-search">
+                                <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
+                                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pagePropostas.query" placeholder="Buscar propostas" aria-label="Buscar propostas">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="pagePropostas.submitSearch()">
+                                        <div class="icon-circle icon-small color-theme-common-bg">
+                                          <span class="glyphicon glyphicon-search"></span>
+                                        </div>
+                                        <span class="sr-only">Buscar</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="search-result" class="row" ng-if="pagePropostas.filtredProposals">
+                        <div class="col-sm-12">
+                            <header class="header">
+                                <h2>Total de Propostas: "<b>{{pagePropostas.total_proposals}} propostas</b>"</h2>
+                            </header>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" ng-if="!pagePropostas.loadingProposals && pagePropostas.filtredProposals && pagePropostas.total_proposals">
+                            <proposal-grid proposals="pagePropostas.filtredProposals"></proposal-grid>
+                            <app-paginator page="pagePropostas.page" per-page="pagePropostas.per_page" total="pagePropostas.total_proposals" change-page="pagePropostas.changePage(pageIndex)"></app-paginator>
+                        </div>
+                        <div ng-if="pagePropostas.loadingProposals">
+                            <div class="alert alert-info" role="alert">
+                                Carregando propostas.
+                            </div>
+                        </div>
+                        <div ng-if="!pagePropostas.loadingProposals && pagePropostas.proposalsError">
+                            <div class="alert alert-danger" role="alert">
+                                Não foi possível carregar a lista de propostas neste momento.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

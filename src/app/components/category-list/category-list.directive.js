@@ -27,9 +27,11 @@
     CategoryListController.prototype.init = function() {
       var vm = this;
 
+      // Default values
       if(!vm.isCollapsed){
         vm.isCollapsed = false;
       }
+
     };
 
     CategoryListController.prototype._disableUnselect = function() {

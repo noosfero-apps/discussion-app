@@ -67,12 +67,6 @@
       vm.themes = themes;
       vm.loadingThemes = false;
       vm.loading = false;
-
-      // REMOVED: function called twice.
-      // vm.loadProposals(function() {
-      //   vm.attachListeners();
-      // });
-      // vm.attachListeners();
       
       vm.filter();
     }, function(error) {
@@ -188,8 +182,6 @@
 
   PropostasPageController.prototype.submitSearch = function() {
     var vm = this;
-
-    // vm.loadingFilter = true;
 
     // scroll to result grid
     var $searchResult = angular.element('#search-result');

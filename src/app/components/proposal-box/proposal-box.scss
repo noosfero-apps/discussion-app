@@ -39,6 +39,12 @@
 		border-bottom-right-radius: 5px;
 		// overflow: hidden;
         border-bottom: 5px solid #dadada;
+
+        @each $category, $color in $categories {
+            .#{$category} &.archived {
+                border-bottom-color: map-get($categories-complementary-2, $category);
+            }
+        }
 	}
 
 	&--theme {
@@ -60,12 +66,21 @@
         .contraste & { background-color: #000 !important; outline: 1px solid #eee; }
     }
 
-    &--ranking {
+    &--ranking,
+    &--archived {
         font-weight: bold;
         padding: 10px 0;
         background-color: #dadada;
 
         .contraste & { background-color: #111 !important; outline: 1px solid #eee; }
+    }
+
+    &--archived {
+        text-transform: uppercase;
+        font-size: 12px;
+        line-height: 23px;
+        
+        a { color: #fff; }
     }
 
     .action-label {

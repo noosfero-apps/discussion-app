@@ -145,16 +145,18 @@
       <div class="proposal-box--content-inner">{{vm.proposal.abstract}}</div>
     </div>
     <div ng-hide="vm.showVote" class="proposal-box--join">
-      <button
+      <a 
       class="btn btn-link color-theme-common-fg"
       ng-if="vm.archived === false"
-      ng-click="vm.showContent(vm.topic.slug)"
-      >Participe</button>
-      <button
+      ui-sref="programa({slug: vm.topic.slug, proposal_id: vm.proposal.id})"
+      ui-sref-opts="{location: true}"
+      >Participe</a>
+      <a
       class="btn btn-link color-theme-common-fg"
       ng-if="vm.archived === true"
-      ng-click="vm.showContent(vm.topic.slug)"
-      >Ir para o programa</button>
+      ui-sref="programa({slug: vm.topic.slug, proposal_id: vm.proposal.id})"
+      ui-sref-opts="{location: true}"
+      >Ir para o programa</a>
     </div>
     <div ng-show="vm.showVote" class="proposal-box--actions text-center">
       <div class="row">
@@ -185,7 +187,7 @@
       </div>
     </div>
   </div>
-  <div class="proposal-box--bottom text-center">
+  <div class="proposal-box--bottom text-center" ng-class="{archived: vm.archived}">
     <div class="proposal-box--share">
       <span>COMPARTILHE ESTA <b>PROPOSTA</b></span>
       <div class="dropdown">
@@ -198,11 +200,25 @@
           class="dropdown-menu dropdown-menu-right"></social-share>
       </div>
     </div>
-    <div class="proposal-box--ranking">
-      <div class="proposal-box--ranking-inner">
-        <span class="icon icon-small icon-ranking" aria-hidden="true"></span>
-        <span>Colocação nos resultados:</span>
-        <span>{{vm.proposal.ranking_position}}º</span>
+
+    <div ng-if="vm.archived === true">
+      <div class="proposal-box--archived color-theme-bg-complementar-2">
+        <div class="proposal-box--archived-inner">
+          <a ui-sref="programa({slug: vm.topic.slug, proposal_id: vm.proposal.id})" ui-sref-opts="{location: true}">
+            Veja as respostas e compromissos assumidos
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="vm.archived === false">
+      <div class="proposal-box--ranking">
+        <div class="proposal-box--ranking-inner">
+          <span class="icon icon-small icon-ranking" aria-hidden="true"></span>
+          <span>Colocação nos resultados:</span>
+          <span>{{vm.proposal.ranking_position}}º</span>
+        </div>
       </div>
     </div>
   </div>

@@ -149,7 +149,7 @@
         }
       })
       .state('respostas', {
-        url: '/respostas?tema&filtro&task',
+        url: '/respostas?tema&filtro',
         reloadOnSearch: false,
         ncyBreadcrumb: {label: 'Respostas'},
         views: {

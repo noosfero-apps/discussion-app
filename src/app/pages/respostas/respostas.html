@@ -5,15 +5,15 @@
         </div>
     </div>
 </div>
-<div class="page--propostas" role="main">
-    <section class="section-info" ng-if="pagePropostas.loading || pagePropostas.error">
+<div class="page--respostas" role="main">
+    <section class="section-info" ng-if="pageRespostas.loading || pageRespostas.error">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div ng-if="pagePropostas.loading && !pagePropostas.error">
+                    <div ng-if="pageRespostas.loading && !pageRespostas.error">
                         <div class="alert alert-info" role="alert">Carregando conteúdo...</div>
                     </div>
-                    <div ng-if="pagePropostas.error">
+                    <div ng-if="pageRespostas.error">
                         <div class="alert alert-danger" role="alert">
                             Erro ao carregar o conteúdo principal.
                         </div>
@@ -22,26 +22,30 @@
             </div>
         </div>
     </section>
-    <section class="section--header" ng-if="pagePropostas.filtredProposals || pagePropostas.themes">
+    <section class="section--header" ng-if="pageRespostas.filtredProposals || pageRespostas.themes">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h1>Propostas</h1>
+                    <h1>O Dialoga Brasil já respondeu às solicitações!</h1>
+                    <p>
+                        Vários programas contaram com centenas de participações e elas foram respondidas pelo governo.
+                        Confira abaixo as propostas que foram respondidas:
+                    </p>
                 </div>
             </div>
         </div>
     </section>
-    <section class="section--articles section-gray section-space-up" ng-if="pagePropostas.filtredProposals || pagePropostas.themes">
+    <section class="section--articles section-gray section-space-up" ng-if="pageRespostas.filtredProposals || pageRespostas.themes">
         <div class="container">
-            <div id="lista-de-propostas" class="row">
+            <div id="lista-de-respostas" class="row">
                 <div class="col-sm-4 col-md-3">
                     <div class="row visible-xs">
                         <div class="col-xs-12">
                             <div class="input-group input-group-lg input-group-search">
-                                <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
-                                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pagePropostas.query" placeholder="Buscar propostas" aria-label="Buscar propostas">
+                                <label for="articleQueryFilter" class="control-label sr-only">Buscar respostas:</label>
+                                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pageRespostas.query" placeholder="Buscar respostas" aria-label="Buscar respostas">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="pagePropostas.submitSearch()">
+                                    <button type="button" class="btn btn-default" ng-click="pageRespostas.submitSearch()">
                                         <div class="icon-circle icon-small color-theme-common-bg">
                                           <span class="glyphicon glyphicon-search"></span>
                                         </div>
@@ -52,28 +56,28 @@
                             <br/>
                         </div>
                     </div>
-                    <div ng-if="pagePropostas.themes">
-                        <category-list categories="pagePropostas.themes" selected-category="pagePropostas.selectedTheme"></category-list>
+                    <div ng-if="pageRespostas.themes">
+                        <category-list categories="pageRespostas.themes" selected-category="pageRespostas.selectedTheme"></category-list>
                     </div>
-                    <div ng-if="!pagePropostas.themes && pagePropostas.loadingThemes">
+                    <div ng-if="!pageRespostas.themes && pageRespostas.loadingThemes">
                         <div class="alert alert-info" role="alert">
                             Carregando temas.
                         </div>
                     </div>
-                    <div ng-if="!pagePropostas.themes && pagePropostas.themesError">
+                    <div ng-if="!pageRespostas.themes && pageRespostas.themesError">
                         <div class="alert alert-danger" role="alert">
                             Não foi possível carregar a lista de temas neste momento.
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-8 col-md-9">
-                    <div class="row hidden-xs" ng-if="pagePropostas.filtredProposals">
+                    <div class="row hidden-xs" ng-if="pageRespostas.filtredProposals">
                         <div class="col-xs-12">
                             <div class="input-group input-group-lg input-group-search">
                                 <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
-                                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pagePropostas.query" placeholder="Buscar propostas" aria-label="Buscar propostas">
+                                <input id="articleQueryFilter" type="search" class="form-control input-search" ng-model="pageRespostas.query" placeholder="Buscar respostas" aria-label="Buscar respostas">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="pagePropostas.submitSearch()">
+                                    <button type="button" class="btn btn-default" ng-click="pageRespostas.submitSearch()">
                                         <div class="icon-circle icon-small color-theme-common-bg">
                                           <span class="glyphicon glyphicon-search"></span>
                                         </div>
@@ -83,24 +87,24 @@
                             </div>
                         </div>
                     </div>
-                    <div id="search-result" class="row" ng-if="pagePropostas.filtredProposals">
+                    <div id="search-result" class="row" ng-if="pageRespostas.filtredProposals">
                         <div class="col-sm-12">
                             <header class="header">
-                                <h2>Total de Propostas: "<b>{{pagePropostas.total_proposals}} propostas</b>"</h2>
+                                <h2>Total de Propostas: "<b>{{pageRespostas.total_proposals}} propostas</b>"</h2>
                             </header>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12" ng-if="!pagePropostas.loadingProposals && pagePropostas.filtredProposals && pagePropostas.total_proposals">
-                            <proposal-grid proposals="pagePropostas.filtredProposals"></proposal-grid>
-                            <app-paginator page="pagePropostas.page" per-page="pagePropostas.per_page" total="pagePropostas.total_proposals" change-page="pagePropostas.changePage(pageIndex)"></app-paginator>
+                        <div class="col-sm-12" ng-if="!pageRespostas.loadingProposals && pageRespostas.filtredProposals && pageRespostas.total_proposals">
+                            <proposal-grid proposals="pageRespostas.filtredProposals"></proposal-grid>
+                            <app-paginator page="pageRespostas.page" per-page="pageRespostas.per_page" total="pageRespostas.total_proposals" change-page="pageRespostas.changePage(pageIndex)"></app-paginator>
                         </div>
-                        <div ng-if="pagePropostas.loadingProposals">
+                        <div ng-if="pageRespostas.loadingProposals">
                             <div class="alert alert-info" role="alert">
                                 Carregando propostas.
                             </div>
                         </div>
-                        <div ng-if="!pagePropostas.loadingProposals && pagePropostas.proposalsError">
+                        <div ng-if="!pageRespostas.loadingProposals && pageRespostas.proposalsError">
                             <div class="alert alert-danger" role="alert">
                                 Não foi possível carregar a lista de propostas neste momento.
                             </div>

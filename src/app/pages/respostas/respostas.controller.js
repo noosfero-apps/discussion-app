@@ -3,10 +3,10 @@
 
   angular
     .module('dialoga')
-    .controller('PropostasPageController', PropostasPageController);
+    .controller('RespostasPageController', RespostasPageController);
 
   /** @ngInject */
-  function PropostasPageController(DialogaService, $scope, $rootScope, $location, $filter, $log) {
+  function RespostasPageController(DialogaService, $scope, $rootScope, $location, $filter, $log) {
     var vm = this;
 
     vm.DialogaService = DialogaService;
@@ -21,10 +21,10 @@
     vm.attachListeners();
     vm.$rootScope.focusMainContent();
 
-    $log.debug('PropostasPageController');
+    $log.debug('RespostasPageController');
   }
 
-  PropostasPageController.prototype.init = function() {
+  RespostasPageController.prototype.init = function() {
     var vm = this;
 
     vm.page = 1;
@@ -51,7 +51,7 @@
     vm.error = null;
   };
 
-  PropostasPageController.prototype.loadData = function() {
+  RespostasPageController.prototype.loadData = function() {
     var vm = this;
 
     vm.loading = true;
@@ -67,7 +67,7 @@
       vm.themes = themes;
       vm.loadingThemes = false;
       vm.loading = false;
-      
+
       vm.filter();
     }, function(error) {
       vm.error = error;
@@ -77,14 +77,14 @@
     });
   };
 
-  PropostasPageController.prototype.attachListeners = function() {
+  RespostasPageController.prototype.attachListeners = function() {
     var vm = this;
 
     vm.$scope.$on('change-selectedCategory', function(event, selectedCategory) {
       vm.selectedTheme = selectedCategory;
     });
 
-    vm.$scope.$watch('pagePropostas.selectedTheme', function(newValue/*, oldValue*/) {
+    vm.$scope.$watch('pageRespostas.selectedTheme', function(newValue/*, oldValue*/) {
       vm.search.tema = newValue ? newValue.slug : null;
       vm.$location.search('tema', vm.search.tema);
 
@@ -93,7 +93,7 @@
       }
     });
 
-    vm.$scope.$watch('pagePropostas.query', function(newValue/*, oldValue*/) {
+    vm.$scope.$watch('pageRespostas.query', function(newValue/*, oldValue*/) {
       vm.search.filtro = newValue ? newValue : null;
       vm.$location.search('filtro', vm.search.filtro);
 
@@ -103,21 +103,21 @@
     });
   };
 
-  PropostasPageController.prototype.resetFilterValues = function() {
+  RespostasPageController.prototype.resetFilterValues = function() {
     var vm = this;
 
     vm.query = null;
     vm.selectedTheme = null;
   };
 
-  PropostasPageController.prototype.changePage = function(pageIndex) {
+  RespostasPageController.prototype.changePage = function(pageIndex) {
     var vm = this;
 
     vm.page = pageIndex;
     vm.filterProposals(pageIndex);
   };
 
-  PropostasPageController.prototype.filter = function() {
+  RespostasPageController.prototype.filter = function() {
     var vm = this;
 
     if (vm.loadingThemes || vm.loadingProposals) {
@@ -143,10 +143,9 @@
       vm.filterProposals();
       vm.loadingFilter = false;
     }
-
   };
 
-  PropostasPageController.prototype.filterProposals = function(_page, _per_page) {
+  RespostasPageController.prototype.filterProposals = function(_page, _per_page) {
     var vm = this;
 
     if (vm.loadingProposals){
@@ -160,6 +159,7 @@
     var params = {
       page: page,
       per_page: per_page,
+      archived: true
     };
 
     if (vm.selectedTheme) {
@@ -180,7 +180,7 @@
     });
   };
 
-  PropostasPageController.prototype.submitSearch = function() {
+  RespostasPageController.prototype.submitSearch = function() {
     var vm = this;
 
     // scroll to result grid

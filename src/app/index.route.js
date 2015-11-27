@@ -148,6 +148,18 @@
           }
         }
       })
+      .state('respostas', {
+        url: '/respostas?tema&filtro',
+        reloadOnSearch: false,
+        ncyBreadcrumb: {label: 'Respostas'},
+        views: {
+          'main': {
+            templateUrl: 'app/pages/respostas/respostas.html',
+            controller: 'RespostasPageController',
+            controllerAs: 'pageRespostas'
+          }
+        }
+      })
       .state('sobre', {
         url: '/sobre',
         ncyBreadcrumb: {label: 'Sobre'},

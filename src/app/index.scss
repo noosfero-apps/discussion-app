@@ -292,7 +292,9 @@ $common-color: #5E739E;
 .color-theme-common-fg {color: $common-color; }
 .color-theme-common-bg {background-color: $common-color; }
 .color-fg-white {color: #fff; }
-.color-bg-gray {color: #ccc; }
+.color-bg-white {background-color: #fff; }
+.color-fg-gray {color: #ccc; }
+.color-bg-gray {background-color: #ccc; }
 
 // Contraste
 .contraste {

@@ -182,5 +182,91 @@
     .proposal-extended-section-header {
         position: relative;
     }
+    
+    #section-archived-banner {
+        position: relative;
+        padding: 20px 0;
+        color: #fff;
+
+        margin-top: 30px;
+
+        h2 {
+            font-size: 28px;
+            line-height: 40px;
+
+            @media screen and (max-width: $screen-md) {
+                font-size: 22px;
+                line-height: 30px;
+            }
+
+            @media screen and (max-width: $screen-xs) {
+                font-size: 18px;
+                line-height: 24px;
+            }
+        }
+
+        .program-banner--icon {
+            float: left;
+            margin-right: 20px;
+            width: 85px;
+            height: 85px;
+            overflow: hidden;
+
+            .icon-discussion {
+                position: relative;
+                top: -3px;
+                left: -3px;
+                display: block;
+                width: 85px;
+                height: 85px;
+                background: red;
+            }
+        }
+
+        .archived-banner--title2 {
+            font-weight: bold;
+        }    
+    }
+
+    #section-response {
+
+        h3 {
+            font-weight: bold;
+        }
+        .sub-section{
+            padding: 20px 0;
+            &:nth-child(odd) {
+                background-color: #f1f1f1;
+            }
+            
+            &:nth-child(even) {
+                background-color: #ffffff;
+            }
+        }
+
+        .button--themed {
+            position: relative;
+            max-width: 500px;
+
+            button {
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+        }
+
+        .button-left-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+
+            .glyphicon {
+                position: relative;
+                top: -2px;
+                background-color: #fff;
+                padding: 6px 5px 5px 6px;
+                border-radius: 100%;
+            }
+        }
+    }
 }
 

@@ -75,13 +75,14 @@ $darken: 15%;
 body {
     font-family: "Open Sans", sans-serif;
     &.contraste {
-        color: #fff;
-        background-color: #000;
+        color: #fff !important;
+        background-color: #000 !important;
 
         a,
         .btn {
-            color: #fff;
-            background-color: #000;
+            color: #ff0 !important;
+            background-color: #000 !important;
+            text-decoration: underline !important;
         }
     }
 }
@@ -282,6 +283,8 @@ body {
 
         .contraste & .color-theme-fg { color: #fff; }
         .contraste & .color-theme-bg { background-color: #000;}
+        .contraste & .color-theme-bg-complementar-1 { background-color: #111; outline: 1px solid #eee;}
+        .contraste & .color-theme-bg-complementar-2 { background-color: #222; outline: 1px solid #ddd;}
     }
 }
 
@@ -289,7 +292,9 @@ $common-color: #5E739E;
 .color-theme-common-fg {color: $common-color; }
 .color-theme-common-bg {background-color: $common-color; }
 .color-fg-white {color: #fff; }
-.color-bg-gray {color: #ccc; }
+.color-bg-white {background-color: #fff; }
+.color-fg-gray {color: #ccc; }
+.color-bg-gray {background-color: #ccc; }
 
 // Contraste
 .contraste {

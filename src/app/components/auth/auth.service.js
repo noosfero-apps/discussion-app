@@ -112,11 +112,11 @@
         });
     }
 
-    function changePassword (code, newPassword, newPasswordConfirmation){
+    function changePassword (data){
       var url = PATH.host + '/api/v1/new_password';
-      var encodedData = 'code=' + code;
-      encodedData += '&password=' + newPassword;
-      encodedData += '&password_confirmation=' + newPasswordConfirmation;
+      var encodedData = 'code=' + data.code;
+      encodedData += '&password=' + data.newPassword;
+      encodedData += '&password_confirmation=' + data.newPasswordConfirmation;
 
       return $http
         .patch(url, encodedData)

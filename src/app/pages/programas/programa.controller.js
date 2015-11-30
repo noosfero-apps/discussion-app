@@ -275,4 +275,20 @@
 
     vm.proposalStatus = null;
   };
+
+  ProgramaPageController.prototype.toggleContentVisibility = function() {
+    var $sectionContent = angular.element('.section-content');
+
+    if(!$sectionContent || $sectionContent.length === 0){
+      vm.$log.warn('".section-content" not found.');
+      return;
+    }
+
+    if($sectionContent.is(':visible')){
+      $sectionContent.slideUp();
+    }else{
+      $sectionContent.slideDown();
+      angular.element('html,body').animate({scrollTop: $sectionContent.offset().top}, 'fast');
+    }
+  };
 })();

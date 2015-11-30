@@ -132,10 +132,7 @@
   AuthPageController.prototype.submitSignup = function($event, credentials) {
     var vm = this;
 
-    var target = $event.target;
-    var $target = angular.element(target);
-    var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
-    credentials.txtToken_captcha_serpro_gov_br = $captcha.val();
+    credentials.txtToken_captcha_serpro_gov_br = getCaptchaValFromEvent($event);
 
     vm.AuthService.register(credentials)
     .then(function(/*response*/) {
@@ -204,25 +201,27 @@
   AuthPageController.prototype.submitRecover = function($event, recoverForm) {
     var vm = this;
 
+    // init vars
+    vm.loadingSubmitRecover = true;
+
     // get form data
     var data = {
       login: recoverForm.login.$modelValue,
-      captcha_text: recoverForm.captcha_text.$modelValue
+      captcha_text: recoverForm.captcha_text.$modelValue,
+      txtToken_captcha_serpro_gov_br: getCaptchaValFromEvent($event)
     };
 
-    // get captcha token
-    var target = $event.target;
-    var $target = angular.element(target);
-    var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
-    data.txtToken_captcha_serpro_gov_br = $captcha.val();
-
-    vm.AuthService.forgotPassword(data).then(function(response) {
+    var promiseRequest = vm.AuthService.forgotPassword(data);
+    
+    // SUCCES
+    promiseRequest.then(function(response) {
       vm.$log.debug('recover success.response', response);
 
       vm.recoverSuccess = true;
-      // vm._startRedirect();
+    });
 
-    }, function(response){
+    // ERROR
+    promiseRequest.catch(function(response){
       vm.$log.debug('recover error.response', response);
 
       vm.recoverError = true;
@@ -239,8 +238,11 @@
       if (response.status >= 500 && response.status < 600){
         vm.internalError = true;
       }
-    }).catch(function(error){
-      vm.$log.debug('recover catch.error', error);
+    });
+
+    // ALWAYS
+    promiseRequest.finally(function(){
+      vm.loadingSubmitRecover = false;
     });
   };
 
@@ -250,14 +252,11 @@
     // get form data
     var data = {
       login: confirmationForm.login.$modelValue,
-      captcha_text: confirmationForm.captcha_text.$modelValue
+      captcha_text: confirmationForm.captcha_text.$modelValue,
+      txtToken_captcha_serpro_gov_br: getCaptchaValFromEvent($event)
     };
 
     // get captcha token
-    var target = $event.target;
-    var $target = angular.element(target);
-    var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
-    data.txtToken_captcha_serpro_gov_br = $captcha.val();
 
     vm.AuthService.resendConfirmation(data)
     .then(function(response) {
@@ -370,4 +369,8 @@
     var url = 'http://login.dialoga.gov.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=' + vm.APP.google_app_id;
     vm.$window.oauthClientAction(url);
   };
+
+  function getCaptchaValFromEvent($event){
+    return angular.element($event.target).find('[name="txtToken_captcha_serpro_gov_br"]').val();
+  }
 })();

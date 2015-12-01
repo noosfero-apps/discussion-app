@@ -6,7 +6,7 @@
     .controller('ProgramaPageController', ProgramaPageController);
 
   /** @ngInject */
-  function ProgramaPageController(DialogaService, PATH, VOTE_OPTIONS, PROPOSAL_STATUS, $state, $location, $scope, $rootScope, $element, $timeout, $sce, $log) {
+  function ProgramaPageController(DialogaService, PATH, VOTE_OPTIONS, PROPOSAL_STATUS, $state, $location, $scope, $rootScope, $element, $sce, $log) {
     var vm = this;
 
     vm.DialogaService = DialogaService;
@@ -18,7 +18,6 @@
     vm.$scope = $scope;
     vm.$rootScope = $rootScope;
     vm.$element = $element;
-    vm.$timeout = $timeout;
     vm.$sce = $sce;
     vm.$log = $log;
 
@@ -56,9 +55,10 @@
     var slug = vm.$state.params.slug;
 
     if (!slug) {
-      vm.$log.error('slug not defined.');
+      vm.$log.warn('slug not defined.');
       vm.$log.info('Rollback to home page.');
-      vm.$state.go('inicio', {}, {location: true});
+      vm.$state.go('inicio', {}, {location: 'replace'});
+      return;
     }
 
     vm.DialogaService.getProgramBySlug(slug, function(article) {
@@ -78,10 +78,9 @@
         };
       }
 
-      if(vm.article.body && !vm.article.bodyTrusted){
+      if (vm.article.body && !vm.article.bodyTrusted) {
         vm.article.bodyTrusted = vm.$sce.trustAsHtml(vm.article.body);
       }
-
 
       vm.loadingTopProposals = true;
       vm.DialogaService.getProposalsByTopicId(vm.article.id, {
@@ -93,18 +92,31 @@
         vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
         vm.loadingTopProposals = false;
+
+        if (vm.article.archived) {
+          
+          // show 'respostas e compromissos',
+          // ONLY IF the proposal is below or equal 3th position.
+          if (vm.search.proposal_id) {
+            // TODO:
+            vm.$log.error('Not implemented yet.');
+          }
+        }
       }, function(error) {
         vm.$log.error(error);
         vm.loadingTopProposals = false;
       });
 
-
-      vm.loadingProposalBox = true;
-      if (vm.search.proposal_id) {
-        vm.loadProposalById(vm.search.proposal_id);
-      }else {
-        // random proposal
-        vm.loadRandomProposal();
+      // load content of 'proposal-box'
+      if (!vm.article.archived) {
+        
+        if (vm.search.proposal_id) {
+          // load the proposal and set focus on proposal-box
+          vm.loadProposalById(vm.search.proposal_id);
+        }else {
+          // load a random proposal at proposal-box
+          vm.loadRandomProposal(); 
+        }
       }
 
       vm.loading = false;
@@ -137,7 +149,7 @@
 
         vm.error = error;
 
-        if (vm.error.code === 400){
+        if (vm.error.code === 400) {
           // Bad Request
           vm.error.message = '';
           vm.error.message += 'Não foi possível enviar a proposta.<br>';
@@ -154,6 +166,7 @@
   ProgramaPageController.prototype.loadProposalById = function(proposal_id) {
     var vm = this;
 
+    vm.loadingProposalBox = true;
     vm.DialogaService.getProposalById(proposal_id, {
       'limit': '1'
     }, vm._handleSuccessOnGetProposal.bind(vm), vm._handleErrorOnGetProposal.bind(vm));
@@ -162,6 +175,7 @@
   ProgramaPageController.prototype.loadRandomProposal = function() {
     var vm = this;
 
+    vm.loadingProposalBox = true;
     vm.DialogaService.getProposalsByTopicId(vm.article.id, {
       'order': 'random()',
       'limit': '1',
@@ -181,12 +195,7 @@
 
     // scroll to focused proposal
     if (vm.search.proposal_id) {
-      vm.$timeout(function() {
-        var target = angular.element('.focused-proposal');
-        if (target && target.length > 0) {
-          angular.element('html,body').animate({scrollTop: target.offset().top}, 'fast');
-        }
-      }, 300);
+      vm.$rootScope.findElAsyncAndFocus('.focused-proposal');
     }
   };
 
@@ -204,7 +213,7 @@
   ProgramaPageController.prototype.vote = function(proposal_id, value) {
     var vm = this;
 
-    if(vm.article.archived === true){
+    if (vm.article.archived) {
       vm.$log.info('Article archived. Abort.');
       return;
     }
@@ -226,7 +235,7 @@
 
       response.error = true;
       vm.$scope.$broadcast('proposal-box:vote-response', response);
-    }).finally(function(response){
+    }).finally(function(response) {
       vm.$log.debug('voteProposal finally', response);
 
     });
@@ -245,7 +254,7 @@
   ProgramaPageController.prototype.showProposalForm = function() {
     var vm = this;
 
-    if(vm.article.archived === true){
+    if (vm.article.archived) {
       vm.$log.info('Article archived. Abort.');
       return;
     }
@@ -279,14 +288,14 @@
   ProgramaPageController.prototype.toggleContentVisibility = function() {
     var $sectionContent = angular.element('.section-content');
 
-    if(!$sectionContent || $sectionContent.length === 0){
+    if (!$sectionContent || $sectionContent.length === 0) {
       vm.$log.warn('".section-content" not found.');
       return;
     }
 
-    if($sectionContent.is(':visible')){
+    if ($sectionContent.is(':visible')) {
       $sectionContent.slideUp();
-    }else{
+    }else {
       $sectionContent.slideDown();
       angular.element('html,body').animate({scrollTop: $sectionContent.offset().top}, 'fast');
     }

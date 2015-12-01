@@ -28,7 +28,15 @@
                         <!-- Preview > coluna da esquerda -->
                         <div class="col-md-8">
                             <div class="program-preview--box contraste-box">
-                                <div class="program-preview--banner" ng-style="{'background-image':'url( {{::pagePrograma.banner.src}} )'}"></div>
+                                <div class="program-preview--banner" ng-style="{'background-image':'url( {{::pagePrograma.banner.src}} )'}">
+                                    <div ng-if="pagePrograma.article.archived" class="img-mask--background">
+                                        <div class="icon icon-programa-respondido">
+                                            <div class="icon-circle">
+                                              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="program-preview--box--content-wrapper">
                                     <div class="program-preview--icon icon-wrapper-rounded color-theme-bg" ng-class="pagePrograma.category.slug">
                                         <span class="icon" ng-class="'icon-tema-' + pagePrograma.category.slug"></span>
@@ -60,7 +68,7 @@
                         </div>
                         <!-- Preview > coluna da direita -->
                         <div class="col-md-4">
-                            <div class="row">
+                            <div class="row" ng-if="!pagePrograma.article.archived">
                                 <!-- Top Proposals -->
                                 <div>
                                     <!-- Loading Top Proposals -->
@@ -76,7 +84,7 @@
                                     </div>
                                 </div>
                                 <!-- Proposal Box -->
-                                <div ng-if="!pagePrograma.article.archived">
+                                <div>
                                     <div class="col-xs-12" ng-if="!pagePrograma.loadingProposalBox && pagePrograma.randomProposal" ng-class="{'focused-proposal': !!pagePrograma.search.proposal_id}">
                                         <h3 class="color-theme-fg">Apoie outras propostas</h3>
                                         <proposal-box proposal="pagePrograma.randomProposal" topic="pagePrograma.article" category="pagePrograma.category" show-vote="true" focus="{{pagePrograma.search.proposal_id}}" do-vote="pagePrograma.vote(proposal_id, value)" archived="pagePrograma.article.archived"></proposal-box>
@@ -98,6 +106,13 @@
                                                 <button type="button" class="btn btn-block" ng-click="pagePrograma.showProposalForm()">Faça uma proposta</button>
                                             </div>
                                         </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-if="pagePrograma.article.archived">
+                                <!-- Archived buttons nav -->
+                                <div class="col-sm-12">
+                                    <div class="teste" ng-repeat="proposal in pagePrograma.proposalsTopRated">
                                     </div>
                                 </div>
                             </div>
@@ -181,10 +196,8 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <h2>
-                            <div class="program-banner--icon-container" aria-hidden="true">
-                                <div class="program-banner--icon icon-wrapper-rounded color-bg-white" ng-class="pagePrograma.category.slug">
-                                    <span class="icon" ng-class="'icon-discussion'"></span>
-                                </div>
+                            <div class="program-banner--icon" aria-hidden="true">
+                                <div class="icon icon-respostas"></div>
                             </div>
                             <span class="archived-banner--title1">As propostas para este programa já foram</span>
                             <br/>
@@ -210,7 +223,19 @@
                 <div class="sub-section" ng-repeat="proposal in pagePrograma.proposalsTopRated">
                     <div class="container">
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-4 col-md-3">
+                                <div class="img-mask--container" ng-style="{'background-image':'url( {{::pagePrograma.banner.src}} )'}">
+                                    <div class="img-mask--background">
+                                        <div class="icon icon-programa-respondido">
+                                            <div class="icon-circle">
+                                              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-md-9">
+                                <br>
                                 <h3 class="color-theme-fg">{{($index+1)}}a proposta mais votada:</h3>
                                 <p>{{::proposal.abstract}}</p>
                                 
@@ -222,6 +247,7 @@
                                         </div>
                                     </button>
                                 </div>
+                                <br>
                             </div>
                         </div>
                     </div>

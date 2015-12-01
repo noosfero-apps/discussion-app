@@ -256,6 +256,15 @@
             </div>
         </section>
         <section class="section-content" ng-style="{ display: pagePrograma.article.archived ? 'none': 'block' }">
+            <div ng-if="pagePrograma.article.archived">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 color-theme-fg">
+                            <h3 style="font-weight: bold;">Sobre o programa:</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <article class="program-content" ng-if="pagePrograma.article" ng-class="pagePrograma.article.slug">
                 <div ng-bind-html="pagePrograma.article.bodyTrusted"></div>
             </article>

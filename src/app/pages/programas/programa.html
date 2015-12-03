@@ -32,7 +32,7 @@
                                     <div ng-if="pagePrograma.article.archived" class="img-mask--background">
                                         <div class="icon icon-programa-respondido">
                                             <div class="icon-circle">
-                                              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -220,34 +220,51 @@
                 </div>
             </div>
             <div ng-if="pagePrograma.proposalsTopRated">
-                <div class="sub-section" ng-repeat="proposal in pagePrograma.proposalsTopRated">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-4 col-md-3">
-                                <div class="img-mask--container" ng-style="{'background-image':'url( {{::pagePrograma.banner.src}} )'}">
-                                    <div class="img-mask--background">
-                                        <div class="icon icon-programa-respondido">
-                                            <div class="icon-circle">
-                                              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <div ng-repeat="proposal in pagePrograma.proposalsTopRated">
+                    <div class="sub-section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-4 col-md-3">
+                                    <div class="img-mask--container" ng-style="{'background-image':'url( {{::pagePrograma.banner.src}} )'}">
+                                        <div class="img-mask--background">
+                                            <div class="icon icon-programa-respondido">
+                                                <div class="icon-circle">
+                                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-8 col-md-9">
-                                <br>
-                                <h3 class="color-theme-fg">{{($index+1)}}a proposta mais votada:</h3>
-                                <p>{{::proposal.abstract}}</p>
-                                
-                                <div class="button--themed">
-                                    <button class="btn btn-block">
-                                        Veja a resposta e o compromisso do governo
-                                        <div class="button-left-icon">
-                                            <span class="glyphicon glyphicon-chevron-down pull-right color-theme-common-fg" aria-hidden="true"></span>
-                                        </div>
-                                    </button>
+                                <div class="col-sm-8 col-md-9">
+                                    <br>
+                                    <h3 class="color-theme-fg">{{($index+1)}}a proposta mais votada:</h3>
+                                    <p>{{::proposal.abstract}}</p>
+                                    <div class="button--themed">
+                                        <button class="btn btn-block" ng-click="pagePrograma.toggleResponseVisibility(proposal)">
+                                            Veja a resposta e o compromisso do governo
+                                            <div class="button-left-icon">
+                                                <span class="glyphicon glyphicon-chevron-down pull-right color-theme-common-fg" aria-hidden="true"></span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <br>
                                 </div>
-                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="proposal.response" class="gov-response gov-response-{{::proposal.id}}" style="display:none;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div ng-if="proposal.response.loading" class="alert alert-info" role="alert">Carregando a resposta e compromisso do governo.</div>
+                                    <div ng-if="proposal.response.error" class="alert alert-warning" role="alert">Erro ao carregar a resposta e compromisso. Tente novamente ou <a ui-sref="duvidas">entre em contato</a>.</div>
+                                    <div ng-if="proposal.response.content">
+                                        <h3 class="color-theme-fg">Compromissos:</h3>
+                                        <div class="gov-response--content">
+                                            <div ng-bind-html="proposal.response.content"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

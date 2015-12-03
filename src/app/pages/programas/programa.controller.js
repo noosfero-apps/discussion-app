@@ -286,6 +286,7 @@
   };
 
   ProgramaPageController.prototype.toggleContentVisibility = function() {
+    var vm = this;
     var $sectionContent = angular.element('.section-content');
 
     if (!$sectionContent || $sectionContent.length === 0) {
@@ -300,4 +301,49 @@
       angular.element('html,body').animate({scrollTop: $sectionContent.offset().top}, 'fast');
     }
   };
+
+  ProgramaPageController.prototype.toggleResponseVisibility = function(proposal) {
+    var vm = this;
+
+    if(!proposal){
+      vm.$log.error('Error - proposal is:', proposal);
+      return;
+    }
+
+    if(proposal.response){
+      // show response
+      toggle();
+    }else{
+
+      // load response
+      proposal.response = {
+        loading: true,
+        error: false,
+        content: null
+      };
+
+      vm.DialogaService.getResponseByProposalId(proposal.id)
+      .then(function(data){
+        proposal.response.content = data.article.body;
+        toggle();
+      }).catch(function(){
+        proposal.response.error = false;
+      }).finally(function(){
+        proposal.response.loading = false;
+      });
+    }
+
+    function toggle () {
+      var $el = angular.element('.gov-response-' + proposal.id);
+      
+      if ($el.is(':visible')) {
+        $el.slideUp();
+      }else {
+        $el.slideDown(100, function(){
+          angular.element('html,body').animate({scrollTop: $el.offset().top}, 'fast');
+        });
+      }
+    }
+  };
+
 })();

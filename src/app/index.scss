@@ -280,6 +280,7 @@ body {
         .color-theme-bg { background-color: $color;}
         .color-theme-bg-complementar-1 { background-color: map-get($categories-complementary-1, $category);}
         .color-theme-bg-complementar-2 { background-color: map-get($categories-complementary-2, $category);}
+        .img-mask--background { background-color: fade-out($color, 0.5); }
 
         .contraste & .color-theme-fg { color: #fff; }
         .contraste & .color-theme-bg { background-color: #000;}

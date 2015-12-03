@@ -23,6 +23,7 @@
       getProposals: getProposals,
       getProposalById: getProposalById,
       getProposalsByTopicId: getProposalsByTopicId,
+      getResponseByProposalId: getResponseByProposalId,
       createProposal: createProposal,
       voteProposal: voteProposal,
       getEvents: getEvents,
@@ -137,6 +138,13 @@
      */
     function getProposalsByTopicId (topicId, params, cbSuccess, cbError) {
       getProposalById(topicId + '/children', params, cbSuccess, cbError);
+    }
+
+    function getResponseByProposalId (proposalId) {
+      var url = service.apiArticles + proposalId;
+      // var paramsExtended = {};
+      
+      return UtilService.get(url);
     }
 
     function createProposal (proposal, targetId, categoryId, cbSuccess, cbError){

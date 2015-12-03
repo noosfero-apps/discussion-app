@@ -22,6 +22,7 @@
     extendedService.getProgramsByThemeId = getProgramsByThemeId;
     extendedService.getProgramsRandom = getProgramsRandom;
     extendedService.getEvents = getEvents; // override
+    extendedService.getResponseByProposalId = getResponseByProposalId;
     extendedService.getQuestions = getQuestions;
     extendedService.searchPrograms = searchPrograms;
     extendedService.searchProposals = searchProposals;
@@ -210,6 +211,12 @@
       var paramsExtended = angular.extend({}, params);
 
       return ArticleService.getEvents(API.communityId, paramsExtended);
+    }
+
+    function getResponseByProposalId(/*proposalId*/){
+
+      return ArticleService.getResponseByProposalId(API.articleId.terms);
+      // return ArticleService.getResponseByProposalId(proposalId);
     }
 
     // TODO: implement

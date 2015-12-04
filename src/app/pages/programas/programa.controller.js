@@ -98,8 +98,26 @@
           // show 'respostas e compromissos',
           // ONLY IF the proposal is below or equal 3th position.
           if (vm.search.proposal_id) {
-            // TODO:
-            vm.$log.error('Not implemented yet.');
+            var found = false;
+            var proposal_id = parseInt(vm.search.proposal_id);
+            for (var i = vm.proposalsTopRated.length - 1; i >= 0; i--) {
+              var proposal = vm.proposalsTopRated[i];
+              
+              if(proposal.id === proposal_id){
+                found = true;
+                break;
+              }
+            }
+
+            if (!found){
+              vm.$log.debug('Proposal is not one of top 3.');
+              return;
+            }
+
+            // set focus at proposal, ASYNC
+            vm.$rootScope.findElAsyncAndFocus('.sub-section-' + proposal.id);
+
+            // TODO: load and show proposal response
           }
         }
       }, function(error) {

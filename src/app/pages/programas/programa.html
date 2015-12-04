@@ -230,7 +230,7 @@
             </div>
             <div ng-if="pagePrograma.proposalsTopRated">
                 <div ng-repeat="proposal in pagePrograma.proposalsTopRated">
-                    <div class="sub-section">
+                    <div class="sub-section sub-section-{{::proposal.id}}">
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-4 col-md-3">

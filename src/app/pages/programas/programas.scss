@@ -299,6 +299,21 @@
                 border-radius: 100%;
             }
         }
+
+    }
+
+    .btn-close-response {
+        font-weight: bold;
+        margin-bottom: 20px;
+        width: 120px;
+        background-color: #e1e1e1;
+        
+        .icon-circle-close-response {
+            width: 20px!important;
+            height: 20px!important;
+            color: #e1e1e1;
+            font-size: 14px;
+        }    
     }
 }
 

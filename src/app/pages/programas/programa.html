@@ -266,51 +266,60 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="response--context vertical-padding">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <div class="button--themed">
-                                <a class="btn btn-block" ui-sref="respostas">
-                                    <span>Veja todas as propostas</span>
-                                    <br/>
-                                    <span>Respondidas pelo governo</span>
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm-5">
-                            <div class="button--themed">
-                                <button type="button" class="btn btn-block" ng-click="pagePrograma.toggleContentVisibility()">
-                                    <span>Informações sobre o programa</span>
-                                    <br/>
-                                    <span>"{{::pagePrograma.article.title}}"</span>
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </button>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-block btn-close-response pull-right color-theme-common-fg" ng-click="pagePrograma.toggleResponseVisibility(proposal)">
+                                        FECHAR
+                                        <div class="button-right-icon icon-circle icon-small icon-circle-close-response color-theme-common-bg pull-right">
+                                            <span class="glyphicon glyphicon-remove icon-white" aria-hidden="true"></span>
+                                        </div>  
+                                    </button>  
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section class="section-content" ng-style="{ display: pagePrograma.article.archived ? 'none': 'block' }">
-            <div ng-if="pagePrograma.article.archived">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12 color-theme-fg">
-                            <h3 style="font-weight: bold;">Sobre o programa:</h3>
+                <div class="response--context vertical-padding">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="button--themed">
+                                    <a class="btn btn-block" ui-sref="respostas">
+                                        <span>Veja todas as propostas</span>
+                                        <br/>
+                                        <span>Respondidas pelo governo</span>
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-5">
+                                <div class="button--themed">
+                                    <button type="button" class="btn btn-block" ng-click="pagePrograma.toggleContentVisibility()">
+                                        <span>Informações sobre o programa</span>
+                                        <br/>
+                                        <span>"{{::pagePrograma.article.title}}"</span>
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <article class="program-content" ng-if="pagePrograma.article" ng-class="pagePrograma.article.slug">
-                <div ng-bind-html="pagePrograma.article.bodyTrusted"></div>
-            </article>
-        </section>
+            </section>
+            <section class="section-content" ng-style="{ display: pagePrograma.article.archived ? 'none': 'block' }">
+                <div ng-if="pagePrograma.article.archived">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12 color-theme-fg">
+                                <h3 style="font-weight: bold;">Sobre o programa:</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <article class="program-content" ng-if="pagePrograma.article" ng-class="pagePrograma.article.slug">
+                    <div ng-bind-html="pagePrograma.article.bodyTrusted"></div>
+                </article>
+            </section>
+        </div>
     </div>
-</div>

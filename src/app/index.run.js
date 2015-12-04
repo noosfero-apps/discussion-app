@@ -73,43 +73,44 @@
 
         // 2. focus on input search at home.
         promise.then(function(){
-          
-          findElAsync('input[type="search"]:visible', function ($el) {
-            // scroll
-            angular.element('html,body').animate({scrollTop: $el.offset().top}, 'fast');
-            // focus
-            $el.focus();
-          });
+          $rootScope.findElAsyncAndFocus('input[type="search"]:visible');
         });
       }
+    };
 
+    $rootScope.findElAsyncAndFocus = function (query, delay, max_exec) {
+      return $rootScope.findElAsync(query, function($el){
+        // scroll
+        angular.element('html,body').animate({scrollTop: $el.offset().top}, 'fast');
+        // focus
+        $el.focus();
+      }, delay, max_exec);
+    };
+
+    $rootScope.findElAsync = function (query, cb, delay, max_exec) {
       // use jQuery and $interval to find element async.
-      function findElAsync(query, cb, delay, max_exec) {
-        delay = delay || 200;
-        max_exec = max_exec || 20;
-        var count_exec = 0;
-        
-        var stop = null;
-        stop = $interval(function() {
-          var $el = angular.element(query);
+      delay = delay || 200;
+      max_exec = max_exec || 20;
+      var count_exec = 0;
+      
+      var stop = null;
+      stop = $interval(function() {
+        var $el = angular.element(query);
 
-          if ($el && $el.length > 0) {
-            cb($el);
-          }else {
-            $log.debug('[findElAsync] element not found.');
-          }
+        if ($el && $el.length > 0) {
+          cb($el);
+        }else {
+          $log.debug('[findElAsync] element not found.');
+        }
 
-          count_exec++;
+        count_exec++;
 
-          if (count_exec >= max_exec){
-            $interval.cancel(stop);
-            stop = undefined;
-          }
+        if (count_exec >= max_exec){
+          $interval.cancel(stop);
+          stop = undefined;
+        }
 
-        }, delay);
-      }
-
-      $log.debug('TODO: focusOnSearch');
+      }, delay);
     };
 
     $rootScope.scrollTo = function(target, $event) {

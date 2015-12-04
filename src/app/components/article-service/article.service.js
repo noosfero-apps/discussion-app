@@ -23,6 +23,7 @@
       getProposals: getProposals,
       getProposalById: getProposalById,
       getProposalsByTopicId: getProposalsByTopicId,
+      getResponseByProposalId: getResponseByProposalId,
       createProposal: createProposal,
       voteProposal: voteProposal,
       getEvents: getEvents,
@@ -117,7 +118,6 @@
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
         _pipeInjectSlugIntoParentProgram(data);
-        _pipeSortByRankinPosition(data);
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);
@@ -137,6 +137,13 @@
      */
     function getProposalsByTopicId (topicId, params, cbSuccess, cbError) {
       getProposalById(topicId + '/children', params, cbSuccess, cbError);
+    }
+
+    function getResponseByProposalId (proposalId) {
+      var url = service.apiArticles + proposalId;
+      // var paramsExtended = {};
+      
+      return UtilService.get(url);
     }
 
     function createProposal (proposal, targetId, categoryId, cbSuccess, cbError){
@@ -275,7 +282,6 @@
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
         _pipeInjectSlugIntoParentProgram(data);
-        _pipeSortByRankinPosition(data);
         cbSuccess(data);
       }).catch(function(error){
         cbError(error);
@@ -293,15 +299,6 @@
           proposal.parent.slug = Slug.slugify(proposal.parent.title);
         }
       }
-    }
-
-    function _pipeSortByRankinPosition(data){
-      if(!data.articles && data.article){
-        data.articles = [data.article];
-      }
-      data.articles = data.articles.sort(function(pA, pB){
-        return pA.ranking_position - pB.ranking_position;
-      });
     }
 
     function _pipeRemoveOldEvents(data){

@@ -99,6 +99,7 @@
 
         if ($el && $el.length > 0) {
           cb($el);
+          count_exec = max_exec; // exit.
         }else {
           $log.debug('[findElAsync] element not found.');
         }

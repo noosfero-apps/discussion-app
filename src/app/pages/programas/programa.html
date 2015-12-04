@@ -112,7 +112,16 @@
                             <div class="row" ng-if="pagePrograma.article.archived">
                                 <!-- Archived buttons nav -->
                                 <div class="col-sm-12">
-                                    <div class="teste" ng-repeat="proposal in pagePrograma.proposalsTopRated">
+                                    <div class="gov-response--link-list" ng-repeat="proposal in pagePrograma.proposalsTopRated">
+                                        <div class="gov-response--link-item">
+                                            <div class="button--themed">
+                                                <button type="button" class="btn btn-block" ng-click="pagePrograma.toggleResponseVisibility(proposal)">
+                                                    <span style="font-weight:300;">Veja o que o governo respondeu</span>
+                                                    <br/>
+                                                    <span>{{:: ( $index + 1 ) }}ª proposta mais votada</span>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

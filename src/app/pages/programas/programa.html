@@ -210,7 +210,7 @@
                             </div>
                             <span class="archived-banner--title1">As propostas para este programa já foram</span>
                             <br/>
-                            <span class="archived-banner--title2">respondidas pelo governo! Confira as respostas:</span>
+                            <span class="archived-banner--title2">respondidas pelo governo federal. Confira!</span>
                         </h2>
                     </div>
                 </div>
@@ -246,7 +246,7 @@
                                 </div>
                                 <div class="col-sm-8 col-md-9">
                                     <br>
-                                    <h3 class="color-theme-fg">{{($index+1)}}a proposta mais votada:</h3>
+                                    <h3 class="color-theme-fg">{{($index+1)}}ª proposta mais votada:</h3>
                                     <p>{{::proposal.abstract}}</p>
                                     <div class="button--themed">
                                         <button class="btn btn-block" ng-click="pagePrograma.toggleResponseVisibility(proposal)">
@@ -305,9 +305,9 @@
                             <div class="col-sm-5">
                                 <div class="button--themed">
                                     <button type="button" class="btn btn-block" ng-click="pagePrograma.toggleContentVisibility()">
-                                        <span>Informações sobre o programa</span>
+                                        <span>Saiba mais sobre o programa</span>
                                         <br/>
-                                        <span>"{{::pagePrograma.article.title}}"</span>
+                                        <span>{{::pagePrograma.article.title}}</span>
                                         <span class="glyphicon glyphicon-chevron-right"></span>
                                     </button>
                                 </div>

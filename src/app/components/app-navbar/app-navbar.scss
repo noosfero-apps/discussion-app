@@ -43,6 +43,11 @@
 
     .dropdown-menu {
         padding: 0;
+
+    }
+    .dropdown-toggle:active,
+    .dropdown-toggle:focus {
+        outline: 1px solid $defaultblue;
     }
 
     .navbar-nav {
@@ -157,7 +162,7 @@
             li.dropdown {
                 position: absolute;
                 right: 0;
-                bottom: 0;
+                bottom: 37px;
 
                 .dropdown-toggle {
                     position: relative;

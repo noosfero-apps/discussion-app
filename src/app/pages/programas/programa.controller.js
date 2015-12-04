@@ -115,7 +115,7 @@
             }
 
             // set focus at proposal, ASYNC
-            vm.$rootScope.findElAsyncAndFocus('.sub-section-' + proposal.id);
+            vm.$rootScope.findElAsyncAndFocus('.sub-section-' + proposal_id);
 
             // TODO: load and show proposal response
           }

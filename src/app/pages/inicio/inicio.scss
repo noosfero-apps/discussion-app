@@ -119,6 +119,122 @@
             }
         }
     }
+
+
+
+}
+
+.banner-respostas {
+    display: block;
+    position: relative;
+    border-radius: 5px;
+    // cursor: pointer;
+    width: 100%;
+    $bannerHeight: 338px;
+    $bannerBottomHeight: 40px;
+    text-align: center;
+
+    &--link-top {
+        color: #fff;
+        display: table-cell;
+        vertical-align: middle;
+        position: relative;
+
+        text-decoration: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: #fff;
+        }
+    }
+
+    &--background-image {
+        display: block;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        background-image: url('/assets/images/banner--background-image.png');
+        background-size: cover;
+        background-position: center;
+        background-color: #0E1333;
+    }
+
+    &--logo {
+        margin: 10px;
+    }
+    &--text1 {
+        text-transform: uppercase;
+        font-size: 22px;
+    }
+    &--text2 {
+        color: #dfa821;
+        font-size: 22px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    &--text3 {}
+
+    &--link-bottom {
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: bold;
+        line-height: 38px;
+
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: $bannerBottomHeight;
+        background-color: #dfa821;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-bottom: 2px solid #9c7513;
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: #fff;
+        }
+    }
+
+    // @media screen and (min-width: $screen-lg) {}
+
+    @media screen and (min-width: $screen-md) {
+        height: $bannerHeight;
+
+        &--link-top,
+        &--background-image {
+            height: $bannerHeight - $bannerBottomHeight;
+        }
+    }
+
+    @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
+        height: 255px;
+        margin: 30px 0 10px 0;
+
+        &--link-top,
+        &--background-image {
+            height: 255px - $bannerBottomHeight;
+        }
+    }
+
+    @media screen and (max-width: $screen-sm) {
+        margin: 30px 0 10px 0;
+        padding-bottom: 40px;
+
+        &--link-top,
+        &--background-image {
+            padding-bottom: 20px;
+        }
+    }
+
+    // @media screen and (max-width: $screen-xs) {
+    //     margin: 15px 0;
+    // }
 }
 
 .section-gray {

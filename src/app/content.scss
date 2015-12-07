@@ -30,3 +30,38 @@
 		}
 	}
 }
+
+.row-compromissos {
+
+	height: 89px;
+	background-color: #fff;
+
+	h3 {
+		margin-top: 30px;
+	}
+
+	.icon-wrapper {
+		width: 61px;
+	    height: 61px;
+	    float: left;
+	    border-radius: 100%;
+	    margin: 14px 14px 14px 0;
+	}
+
+	.icon {
+		position: relative;
+	    top: 7px;
+	    left: 11px;
+	}
+
+    @each $category, $color in $categories {
+        .#{$category} & {
+            color: $color;
+
+	        .icon-wrapper {
+	        	background-color: $color;
+	        }
+        }
+
+    }
+}

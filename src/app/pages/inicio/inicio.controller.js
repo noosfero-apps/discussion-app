@@ -31,6 +31,7 @@
     vm.article = null;
     vm.events = null;
     vm.featuredEvent = null;
+    vm.bannerRespostas = true;
     vm.themes = null;
     vm.selectedTheme = null;
     vm.programs = null;

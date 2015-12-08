@@ -321,6 +321,40 @@
       }
 
       _pipeCalcColors(data);
+      _pipeCheckArchived(data);
+    }
+
+
+    function _pipeCheckArchived(data){
+
+      var programs = data.article.children; // Programas
+      var themes = data.article.categories; // Temas
+
+      // para cada Tema
+      for (var i = themes.length - 1; i >= 0; i--) {
+        var theme = themes[i];
+
+        // para cada programa
+        for (var j = programs.length - 1; j >= 0; j--) {
+          var program = programs[j];
+
+          // Verifica se o programa 'j' perntece ao tema 'i'
+          if(program.categories && program.categories.length > 0){
+            if(angular.equals(program.categories[0].slug, theme.slug)){
+              
+              // Verifica se o programa está 'congelado' (archived)
+              if(program.archived){
+                theme.archived = true;
+                break;
+              }
+            }
+          }
+        }
+
+        if(!theme.archived){
+          theme.archived = false;
+        }
+      }
     }
 
     function _pipeSetPrograms (data) {

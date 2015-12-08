@@ -120,6 +120,18 @@
             // TODO: load and show proposal response
           }
         }
+
+        // HACK: get image from body 'proposal'
+        // remove tags html
+        for (var j = vm.proposalsTopRated.length - 1; j >= 0; j--) {
+          var proposalTopRated = vm.proposalsTopRated[j];
+          if (proposalTopRated && proposalTopRated.body && proposalTopRated.body.length > 0) {
+            proposalTopRated.body = String(proposalTopRated.body).replace(/<[^>]+>/gm, '');
+          }else{
+            proposalTopRated.body = vm.banner.src;
+          }
+        }
+
       }, function(error) {
         vm.$log.error(error);
         vm.loadingTopProposals = false;

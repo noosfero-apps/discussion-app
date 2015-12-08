@@ -46,14 +46,20 @@
             background-size: cover;
             background-repeat: no-repeat;
 
+            @media screen and (max-width: $screen-lg) {
+                height: 300px;
+            }
 
+            @media screen and (max-width: $screen-md) {
+                height: 300px;
+            }
+
+            @media screen and (max-width: $screen-sm) {
+                height: 260px;
+            }
 
             @media screen and (max-width: $screen-xs) {
-                // height: 15px;
-
-                // .video {
-                //     height: 290px;
-                // }
+                height: 200px;
             }
         }
 
@@ -211,6 +217,14 @@
         top: 50%;
         margin-top: -100px;
         transform: scale(1);
+
+        @media screen and (max-width: $screen-sm) {
+            transform: scale(0.8);
+        }
+
+        @media screen and (max-width: $screen-xs) {
+            transform: scale(0.7);
+        }
     }
     
     #section-archived-banner {

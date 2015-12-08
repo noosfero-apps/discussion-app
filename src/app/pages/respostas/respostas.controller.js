@@ -64,7 +64,17 @@
     // 1. Load themes
     vm.loadingThemes = true;
     vm.DialogaService.getThemes(function(themes) {
-      vm.themes = themes;
+      var archivedThemes = [];
+
+      for (var i = themes.length - 1; i >= 0; i--) {
+        var theme = themes[i];
+
+        if(theme.archived){
+          archivedThemes.push(theme);
+        }
+      }
+
+      vm.themes = archivedThemes;
       vm.loadingThemes = false;
       vm.loading = false;
 

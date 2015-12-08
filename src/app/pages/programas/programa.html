@@ -234,7 +234,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-4 col-md-3">
-                                    <div class="img-mask--container" ng-style="{'background-image':'url( {{::pagePrograma.banner.src}} )'}">
+                                    <div class="img-mask--container" ng-style="{'background-image':'url( {{::proposal.body}} )'}">
                                         <div class="img-mask--background">
                                             <div class="icon icon-programa-respondido">
                                                 <div class="icon-circle">
@@ -268,7 +268,6 @@
                                     <div ng-if="proposal.response.loading" class="alert alert-info" role="alert">Carregando a resposta e compromisso do governo.</div>
                                     <div ng-if="proposal.response.error" class="alert alert-warning" role="alert">Erro ao carregar a resposta e compromisso. Tente novamente ou <a ui-sref="duvidas">entre em contato</a>.</div>
                                     <div ng-if="proposal.response.content">
-                                        <h3 class="color-theme-fg">Respostas do governo:</h3>
                                         <div class="gov-response--content">
                                             <div ng-bind-html="proposal.response.content"></div>
                                         </div>

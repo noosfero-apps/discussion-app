@@ -77,6 +77,24 @@
         }
     }
 
+    &--icon-archived {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        font-size: 12px;
+        bottom: 8px;
+        left: 41px;
+
+        .glyphicon {
+            position: relative;
+            top: -2px;
+            color: #fff;
+            background-color: #3FC869;
+            padding: 3px;
+            border-radius: 100%;
+        }
+    }
+
     .category-list--icon {
         position: absolute;
         top: 6px;

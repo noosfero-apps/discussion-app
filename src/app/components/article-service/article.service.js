@@ -329,6 +329,5 @@
 
       data.articles = results;
     }
-
   }
 })();

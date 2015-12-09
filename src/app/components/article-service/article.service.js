@@ -141,7 +141,7 @@
 
     function getResponseByProposalId (proposalId) {
       var url = service.apiArticles + proposalId + '/children?content_type=ProposalsDiscussionPlugin::Response&limit=1';
-      // console.log(url);
+    
       // var paramsExtended = {};
       
       return UtilService.get(url);

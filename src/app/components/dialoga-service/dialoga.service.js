@@ -215,6 +215,7 @@
 
     function getResponseByProposalId(proposalId){
       // return ArticleService.getResponseByProposalId(API.articleId.terms);
+      
       return ArticleService.getResponseByProposalId(proposalId);
     }
 

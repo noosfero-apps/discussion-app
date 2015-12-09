@@ -354,7 +354,7 @@
 
       vm.DialogaService.getResponseByProposalId(proposal.id)
       .then(function(data){
-        proposal.response.content = data.article.body;
+        proposal.response.content = data.articles[0].body;
         toggle();
       }).catch(function(){
         proposal.response.error = false;

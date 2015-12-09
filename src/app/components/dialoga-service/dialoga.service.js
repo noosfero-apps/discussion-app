@@ -213,10 +213,9 @@
       return ArticleService.getEvents(API.communityId, paramsExtended);
     }
 
-    function getResponseByProposalId(/*proposalId*/){
-
-      return ArticleService.getResponseByProposalId(API.articleId.terms);
-      // return ArticleService.getResponseByProposalId(proposalId);
+    function getResponseByProposalId(proposalId){
+      // return ArticleService.getResponseByProposalId(API.articleId.terms);
+      return ArticleService.getResponseByProposalId(proposalId);
     }
 
     // TODO: implement

@@ -331,5 +331,21 @@
                 padding-bottom: 15px;
             }
         }
+       
+        .inside.inside-full-height.resposta3-pac {
+            font-size: 130%;
+            
+            @media (max-width: 992px){
+            padding-top: 5%;   
+            }
+
+            @media (min-width: 992px){
+            padding-top: 5%;   
+            }
+
+            @media (min-width: 1200px){
+            padding-top: 5%;   
+            }
+        }
     }
 }

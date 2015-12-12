@@ -361,8 +361,12 @@ blockquote {
 
   p {
     margin-left: 60px;
-    padding-top: 50px;
+    
+    &:first-of-type {
+      padding-top: 50px;
+    }
   }
+
 }
 
 .page--program .program-content blockquote,

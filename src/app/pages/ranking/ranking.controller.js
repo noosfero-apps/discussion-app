@@ -36,6 +36,9 @@
     vm.filtredProposals = null;
     vm.query = null;
     vm.search = vm.$location.search();
+    //Remove "X" from the theme at the ranking page
+    // vm.slug = vm.$location.$$path;
+    // console.log(vm.$location.$$path);
 
     if (vm.search.tema) {
       vm._filtredByThemeSlug = vm.search.tema;

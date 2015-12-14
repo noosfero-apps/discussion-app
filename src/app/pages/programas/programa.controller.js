@@ -88,9 +88,12 @@
       }, function(data) {
         vm.total_proposals = parseInt(vm.article.children_count);
         // vm.total_proposals = parseInt(vm.article.amount_of_children); // DEPRECATED?!
-        vm.proposals = data.articles;
+        vm.proposals = data.proposals;
         vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
+        //os elementos estavam vindo em ordem inversa
+        vm.proposalsTopRated.reverse();
+        console.table(vm.proposalsTopRated);
         vm.loadingTopProposals = false;
 
         if (vm.article.archived) {
@@ -335,6 +338,8 @@
   ProgramaPageController.prototype.toggleResponseVisibility = function(proposal) {
     var vm = this;
 
+    console.log(proposal);
+
     if(!proposal){
       vm.$log.error('Error - proposal is:', proposal);
       return;
@@ -352,7 +357,7 @@
         content: null
       };
 
-      vm.DialogaService.getResponseByProposalId(proposal.id)
+      vm.DialogaService.getResponseByProposalId(proposal.proposal_id)
       .then(function(data){
 
         proposal.response.content = data.articles[0].body;

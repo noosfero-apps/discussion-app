@@ -107,7 +107,8 @@
     }
 
     function getProposalById (proposalId, params, cbSuccess, cbError) {
-      var url = service.apiArticles + proposalId;
+      var url = service.apiProposals + proposalId + '/ranking?per_page=3&page=1';
+      console.log(url);
 
       var paramsExtended = angular.extend({
         // 'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
@@ -136,7 +137,7 @@
      * @return {Array}           [description]
      */
     function getProposalsByTopicId (topicId, params, cbSuccess, cbError) {
-      getProposalById(topicId + '/children', params, cbSuccess, cbError);
+      getProposalById(topicId /*+ '/children'*/, params, cbSuccess, cbError);
     }
 
     function getResponseByProposalId (proposalId) {
@@ -257,14 +258,17 @@
     }
 
     function searchProposals (params, cbSuccess, cbError) {
+      // Search
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
-      var url = service.apiSearch + 'article';
+      // Propostal Ranking
+      // api/v1/proposals_discussion_plugin/103521/ranking?per_page=3&page=1
+      // var url = service.apiSearch + 'article';
+      var url = service.apiProposals;
       var paramsExtended = angular.extend({
         page: 1,
-        per_page: 10,
-        type: 'ProposalsDiscussionPlugin::Proposal',
+        per_page: 3,
         'fields[]': [
-          'id',
+         'id'/* ,
           'abstract',
           'hits',
           'ranking_position',
@@ -277,7 +281,7 @@
             'url', // parent.image.url
             'image',
             'title',
-            'archived',
+            'archived',*/
           ]
       }, params);
 
@@ -290,10 +294,10 @@
     }
 
     function _pipeInjectSlugIntoParentProgram(data){
-      if(!data.articles && data.article){
-        data.articles = [data.article];
+      if(!data.proposals && data.proposals){
+        data.proposals = [data.proposals];
       }
-      var proposals = data.articles;
+      var proposals = data.proposals;
       for (var i = proposals.length - 1; i >= 0; i--) {
         var proposal = proposals[i];
         if(proposal.parent && !proposal.parent.slug){

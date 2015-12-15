@@ -67,7 +67,8 @@
 
     ProposalCarouselController.prototype.showContent = function (proposal) {
       var vm = this;
-
+      console.log(proposal);
+      console.log("proposal");
       vm.$state.go('programa', {
         slug: proposal.parent.slug,
         proposal_id: proposal.id

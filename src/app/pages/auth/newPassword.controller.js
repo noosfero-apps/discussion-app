@@ -43,7 +43,7 @@
 
     // get form data
     var data = {
-      code: newPasswordForm.code.$modelValue,
+      code: newPasswordForm.code,
       newPassword: newPasswordForm.newPassword.$modelValue,
       newPasswordConfirmation: newPasswordForm.newPasswordConfirmation.$modelValue
     };

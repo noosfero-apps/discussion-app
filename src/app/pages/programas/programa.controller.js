@@ -91,9 +91,6 @@
         vm.proposals = data.proposals;
         vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
-        //os elementos estavam vindo em ordem inversa
-        vm.proposalsTopRated.reverse();
-        console.table(vm.proposalsTopRated);
         vm.loadingTopProposals = false;
 
         if (vm.article.archived) {

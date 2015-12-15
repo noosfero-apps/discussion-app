@@ -83,12 +83,18 @@
       }
 
       vm.loadingTopProposals = true;
-      vm.DialogaService.getProposalsByTopicId(vm.article.id, {
+      vm.DialogaService.getProposalsByTopicIdRanked(vm.article.id, {
         'limit': 5
       }, function(data) {
         vm.total_proposals = parseInt(vm.article.children_count);
         // vm.total_proposals = parseInt(vm.article.amount_of_children); // DEPRECATED?!
-        vm.proposals = data.proposals;
+        if (data.articles) {
+          vm.proposals = data.articles;
+          console.log("1");
+        } else {
+          vm.proposals = data.proposals;
+          console.log("2");
+        }
         vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
         vm.loadingTopProposals = false;
@@ -334,8 +340,6 @@
 
   ProgramaPageController.prototype.toggleResponseVisibility = function(proposal) {
     var vm = this;
-
-    console.log(proposal);
 
     if(!proposal){
       vm.$log.error('Error - proposal is:', proposal);

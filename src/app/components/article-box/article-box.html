@@ -18,7 +18,8 @@
         <div class="article-box--abstract" ng-bind-html="vm.article.summary"></div>
         <div class="button--themed">
             <button class="btn btn-block">
-                Participe
+                <span ng-show="{{::vm.article.archived}}">Veja as respostas</span>
+                <span ng-show="{{::!vm.article.archived}}">Participe</span>
             </button>
         </div>
     </div>

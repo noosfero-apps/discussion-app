@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('dialoga')
-    .factory('ArticleService', ArticleService);
+  .module('dialoga')
+  .factory('ArticleService', ArticleService);
 
   /** @ngInject */
   function ArticleService($http, $q, $rootScope, API, UtilService, Slug, GUID, $log) {
@@ -23,6 +23,7 @@
       getProposals: getProposals,
       getProposalById: getProposalById,
       getProposalsByTopicId: getProposalsByTopicId,
+      getProposalsByTopicIdRanked: getProposalsByTopicIdRanked,
       getResponseByProposalId: getResponseByProposalId,
       createProposal: createProposal,
       voteProposal: voteProposal,
@@ -107,8 +108,7 @@
     }
 
     function getProposalById (proposalId, params, cbSuccess, cbError) {
-      var url = service.apiProposals + proposalId + '/ranking?per_page=5&page=1';
-      console.log(url);
+      var url = service.apiArticles + proposalId;
 
       var paramsExtended = angular.extend({
         // 'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
@@ -126,6 +126,25 @@
 
     }
 
+    function getProposalByIdRanked (proposalId, params, cbSuccess, cbError) {
+      var url = service.apiProposals + proposalId + '/ranking?per_page=5&page=1';
+      console.log(url);
+      var paramsExtended = angular.extend({
+        // 'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
+        // 'per_page':'1',
+        'limit':'1',
+        'content_type':'ProposalsDiscussionPlugin::Proposal'
+      }, params);
+
+      UtilService.get(url, {params: paramsExtended}).then(function(data){
+        _pipeInjectSlugIntoParentProgramRanked(data);
+        cbSuccess(data);
+      }).catch(function(error){
+        cbError(error);
+      });
+
+    }
+
     /**
      * Ex.: /api/v1/articles/[article_id]/children?[params]content_type=ProposalsDiscussionPlugin::Proposal
      * Ex.: /api/v1/articles/103644/children?limit=20&fields=id,name,slug,abstract,created_by&content_type=ProposalsDiscussionPlugin::Proposal
@@ -136,13 +155,17 @@
      * @param  {Function} cbError   callback for error
      * @return {Array}           [description]
      */
-    function getProposalsByTopicId (topicId, params, cbSuccess, cbError) {
-      getProposalById(topicId /*+ '/children'*/, params, cbSuccess, cbError);
+     function getProposalsByTopicId (topicId, params, cbSuccess, cbError) {
+      getProposalById(topicId + '/children', params, cbSuccess, cbError);
+    }
+
+    function getProposalsByTopicIdRanked (topicId, params, cbSuccess, cbError) {
+      getProposalByIdRanked(topicId, params, cbSuccess, cbError);
     }
 
     function getResponseByProposalId (proposalId) {
       var url = service.apiArticles + proposalId + '/children?content_type=ProposalsDiscussionPlugin::Response&limit=1';
-    
+
       // var paramsExtended = {};
       
       return UtilService.get(url);
@@ -233,10 +256,10 @@
     function sendContactForm (community_id, data){
       var url = service.apiCommunities + community_id + '/contact';
       var encodedParams = [
-        'contact[name]=' + data.name,
-        'contact[email]=' + data.email,
-        'contact[subject]=' + data.subject,
-        'contact[message]=' + data.message
+      'contact[name]=' + data.name,
+      'contact[email]=' + data.email,
+      'contact[subject]=' + data.subject,
+      'contact[message]=' + data.message
       ].join('&');
 
       return UtilService.post(url, encodedParams);
@@ -258,33 +281,29 @@
     }
 
     function searchProposals (params, cbSuccess, cbError) {
-      // Search
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
-      // Propostal Ranking
-      // api/v1/proposals_discussion_plugin/103521/ranking?per_page=3&page=1
       var url = service.apiSearch + 'article';
-      // var url = service.apiProposals;
       var paramsExtended = angular.extend({
         page: 1,
-        per_page: 3,
+        per_page: 10,
         type: 'ProposalsDiscussionPlugin::Proposal',
         'fields[]': [
-          'id',
-          'abstract',
-          'hits',
-          'ranking_position',
-          'votes_against',
-          'votes_count',
-          'votes_for',
-          'parent',
-            'categories',
-            'slug',
+        'id',
+        'abstract',
+        'hits',
+        'ranking_position',
+        'votes_against',
+        'votes_count',
+        'votes_for',
+        'parent',
+        'categories',
+        'slug',
             'url', // parent.image.url
             'image',
             'title',
             'archived',
-          ]
-      }, params);
+            ]
+          }, params);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
         _pipeInjectSlugIntoParentProgram(data);
@@ -295,10 +314,10 @@
     }
 
     function _pipeInjectSlugIntoParentProgram(data){
-      if(!data.proposals && data.proposals){
-        data.proposals = [data.proposals];
+      if(!data.articles && data.article){
+        data.articles = [data.article];
       }
-      var proposals = data.proposals;
+      var proposals = data.articles;
       for (var i = proposals.length - 1; i >= 0; i--) {
         var proposal = proposals[i];
         if(proposal.parent && !proposal.parent.slug){
@@ -307,23 +326,37 @@
       }
     }
 
-    function _pipeRemoveOldEvents(data){
-      if(!data.articles && data.article){
-        data.articles = [data.article];
-        data.article = null;
-      }
+//Refazer esse método. Não faz sentido
+function _pipeInjectSlugIntoParentProgramRanked(data){
+  if(!data.proposals && data.proposals){
+    data.proposals = [data.proposals];
+  }
+  var proposals = data.proposals;
+  for (var i = proposals.length - 1; i >= 0; i--) {
+    var proposal = proposals[i];
+    if(proposal.parent && !proposal.parent.slug){
+      proposal.parent.slug = Slug.slugify(proposal.parent.title);
+    }
+  }
+}
 
-      var now = (new Date()).getTime();
-      var eventDate = null;
-      var events = data.articles;
+function _pipeRemoveOldEvents(data){
+  if(!data.articles && data.article){
+    data.articles = [data.article];
+    data.article = null;
+  }
 
-      var results = [];
-      for (var i = events.length - 1; i >= 0; i--) {
-        var event = events[i];
+  var now = (new Date()).getTime();
+  var eventDate = null;
+  var events = data.articles;
 
-        if(event.end_date){
-          eventDate = new Date(event.end_date);
-        }
+  var results = [];
+  for (var i = events.length - 1; i >= 0; i--) {
+    var event = events[i];
+
+    if(event.end_date){
+      eventDate = new Date(event.end_date);
+    }
 
         // if(eventDate.getTime() < now){
         //   event.isOld = true;

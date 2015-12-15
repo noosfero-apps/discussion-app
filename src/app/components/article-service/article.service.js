@@ -262,13 +262,14 @@
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
       // Propostal Ranking
       // api/v1/proposals_discussion_plugin/103521/ranking?per_page=3&page=1
-      // var url = service.apiSearch + 'article';
-      var url = service.apiProposals;
+      var url = service.apiSearch + 'article';
+      // var url = service.apiProposals;
       var paramsExtended = angular.extend({
         page: 1,
         per_page: 3,
+        type: 'ProposalsDiscussionPlugin::Proposal',
         'fields[]': [
-         'id'/* ,
+          'id',
           'abstract',
           'hits',
           'ranking_position',
@@ -281,7 +282,7 @@
             'url', // parent.image.url
             'image',
             'title',
-            'archived',*/
+            'archived',
           ]
       }, params);
 

@@ -216,9 +216,9 @@
   ProgramaPageController.prototype._handleSuccessOnGetProposal = function(data) {
     var vm = this;
 
-    if (data && data.articles) {
-      var MAX = data.articles.length;
-      vm.randomProposal = data.articles[Math.floor(Math.random() * MAX)];
+    if (data && data.proposals) {
+      var MAX = data.proposals.length;
+      vm.randomProposal = data.proposals[Math.floor(Math.random() * MAX)];
       vm.loadingProposalBox = false;
       vm.$scope.$broadcast('proposal-box:proposal-loaded', { success: true});
     }
@@ -252,7 +252,7 @@
       vm.voteSkip();
       return;
     }
-
+    
     vm.DialogaService.voteProposal(proposal_id, {
       value: value
     }).then(function(response) {
@@ -334,8 +334,6 @@
 
   ProgramaPageController.prototype.toggleResponseVisibility = function(proposal) {
     var vm = this;
-
-    console.log(proposal);
 
     if(!proposal){
       vm.$log.error('Error - proposal is:', proposal);

@@ -107,7 +107,7 @@
     }
 
     function getProposalById (proposalId, params, cbSuccess, cbError) {
-      var url = service.apiProposals + proposalId + '/ranking?per_page=3&page=1';
+      var url = service.apiProposals + proposalId + '/ranking?per_page=5&page=1';
       console.log(url);
 
       var paramsExtended = angular.extend({

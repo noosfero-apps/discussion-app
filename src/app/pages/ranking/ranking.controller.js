@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('dialoga')
-    .controller('RankingPageController', RankingPageController);
+  .module('dialoga')
+  .controller('RankingPageController', RankingPageController);
 
   /** @ngInject */
   function RankingPageController(DialogaService, $scope, $rootScope, $location, $filter, $log) {
@@ -108,14 +108,14 @@
       vm.loadingThemes = false;
       vm.loading = false;
     });
-  };
+};
 
-  RankingPageController.prototype.loadPrograms = function (themeId, cb) {
-    var vm = this;
+RankingPageController.prototype.loadPrograms = function (themeId, cb) {
+  var vm = this;
 
-    vm.DialogaService.getProgramsByThemeId(themeId, function (programs){
+  vm.DialogaService.getProgramsByThemeId(themeId, function (programs){
 
-      vm.filtredPrograms = programs;
+    vm.filtredPrograms = programs;
 
       // 4. Select a random program of T
       var selectedProgram = null;
@@ -129,11 +129,16 @@
         if(results && results.length > 0){
           selectedProgram = results[0];
           vm.selectedProgram = selectedProgram;
+          console.log("1");
+          console.log(vm.selectedProgram);
+          console.log("vm.selectedProgram");
         }
       }
 
       if(!selectedProgram){
         vm.selectedProgram = vm.filtredPrograms[Math.floor(Math.random() * vm.filtredPrograms.length)];
+        console.log(vm.selectedProgram);
+        console.log("2");
       }
 
       if(cb){
@@ -145,95 +150,95 @@
         cb();
       }
     });
-  };
+};
 
-  RankingPageController.prototype.attachListeners = function() {
-    var vm = this;
+RankingPageController.prototype.attachListeners = function() {
+  var vm = this;
 
-    vm.$scope.$on('change-selectedCategory', function (event, selectedCategory) {
-      vm.selectedTheme = selectedCategory;
-    });
+  vm.$scope.$on('change-selectedCategory', function (event, selectedCategory) {
+    vm.selectedTheme = selectedCategory;
+  });
 
-    vm.$scope.$watch('pageRanking.selectedTheme', function(newValue/*, oldValue*/) {
-      vm.search.tema = newValue ? newValue.slug : null;
-      vm.$location.search('tema', vm.search.tema);
+  vm.$scope.$watch('pageRanking.selectedTheme', function(newValue/*, oldValue*/) {
+    vm.search.tema = newValue ? newValue.slug : null;
+    vm.$location.search('tema', vm.search.tema);
 
-      if(!vm.loadingFilter && vm.selectedTheme && vm.selectedTheme.id){
-        vm.loadPrograms(vm.selectedTheme.id, function(){
-          vm.filterProposals();
-        });
-      }
-    });
-
-    vm.$scope.$on('change-selectedTopic', function (event, selectedTopic) {
-      vm.selectedProgram = selectedTopic;
-    });
-
-    vm.$scope.$watch('pageRanking.selectedProgram', function(newValue/*, oldValue*/) {
-      vm.search.programa = newValue ? newValue.slug : null;
-      vm.$location.search('programa', vm.search.programa);
-      
-      if (!vm.loadingFilter) {
+    if(!vm.loadingFilter && vm.selectedTheme && vm.selectedTheme.id){
+      vm.loadPrograms(vm.selectedTheme.id, function(){
         vm.filterProposals();
-      }
-    });
-
-    vm.$scope.$watch('pageRanking.query', function(newValue/*, oldValue*/) {
-      vm.search.filtro = newValue ? newValue : null;
-      vm.$location.search('filtro', vm.search.filtro);
-      
-      if (!vm.loadingFilter) {
-        vm.filterProposals();
-      }
-    });
-  };
-
-  RankingPageController.prototype.resetFilterValues = function() {
-    var vm = this;
-
-    vm.query = null;
-    vm.selectedTheme = null;
-  };
-
-  RankingPageController.prototype.changePage = function(pageIndex) {
-    var vm = this;
-
-    vm.page = pageIndex;
-    vm.filterProposals(pageIndex);
-  };
-
-  RankingPageController.prototype.filterProposals = function(_page, _per_page) {
-    var vm = this;
-
-    if (vm.loadingProposals){
-      vm.$log.debug('Content is not loaded yet.');
-      return;
+      });
     }
+  });
 
-    var page = _page || vm.page;
-    var per_page = _per_page || vm.per_page;
-    var query = vm.query;
-    var selectedProgram = vm.selectedProgram;
-    var params = {
-      page: page,
-      per_page: per_page
-    };
+  vm.$scope.$on('change-selectedTopic', function (event, selectedTopic) {
+    vm.selectedProgram = selectedTopic;
+  });
 
-    if (selectedProgram) {
-      params.parent_id = selectedProgram.id;
+  vm.$scope.$watch('pageRanking.selectedProgram', function(newValue/*, oldValue*/) {
+    vm.search.programa = newValue ? newValue.slug : null;
+    vm.$location.search('programa', vm.search.programa);
+
+    if (!vm.loadingFilter) {
+      vm.filterProposals();
     }
+  });
 
-    if (query) {params.query = query; }
+  vm.$scope.$watch('pageRanking.query', function(newValue/*, oldValue*/) {
+    vm.search.filtro = newValue ? newValue : null;
+    vm.$location.search('filtro', vm.search.filtro);
 
-    vm.loadingProposals = true;
-    vm.DialogaService.searchProposals(params, function(data){
-      vm.total_proposals = parseInt(data._obj.headers('total'));
-      vm.filtredProposals = data.articles;
-      vm.loadingProposals = false;
-    }, function (error) {
-      vm.error = error;
-      vm.$log.error(error);
-      vm.loadingProposals = false;
-    });
+    if (!vm.loadingFilter) {
+      vm.filterProposals();
+    }
+  });
+};
+
+RankingPageController.prototype.resetFilterValues = function() {
+  var vm = this;
+
+  vm.query = null;
+  vm.selectedTheme = null;
+};
+
+RankingPageController.prototype.changePage = function(pageIndex) {
+  var vm = this;
+
+  vm.page = pageIndex;
+  vm.filterProposals(pageIndex);
+};
+
+RankingPageController.prototype.filterProposals = function(_page, _per_page) {
+  var vm = this;
+
+  if (vm.loadingProposals){
+    vm.$log.debug('Content is not loaded yet.');
+    return;
+  }
+
+  var page = _page || vm.page;
+  var per_page = _per_page || vm.per_page;
+  var query = vm.query;
+  var selectedProgram = vm.selectedProgram;
+  var params = {
+    page: page,
+    per_page: per_page
   };
+
+  if (selectedProgram) {
+    params.parent_id = selectedProgram.id;
+  }
+
+  if (query) {params.query = query; }
+
+  vm.loadingProposals = true;
+  vm.DialogaService.searchProposals(params, function(data){
+    vm.total_proposals = parseInt(data._obj.headers('total'));
+    vm.filtredProposals = data.articles;
+    vm.loadingProposals = false;
+  }, function (error) {
+    vm.error = error;
+    vm.$log.error(error);
+    vm.loadingProposals = false;
+  });
+};
 })();

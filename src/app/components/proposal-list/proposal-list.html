@@ -11,9 +11,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="proposal in vm.proposals">
+				<tr ng-repeat="proposal in vm.proposals | orderBy:'ranking_position'">
 					<td class="color-theme-fg">
 						<span class="position">{{::proposal.ranking_position}}º</span>
+						<!-- {{::proposal}} -->
 					</td>
 					<td>
 						<div class="row">

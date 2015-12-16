@@ -132,7 +132,7 @@
     width: 100%;
     $bannerHeight: 338px;
     $bannerBottomHeight: 40px;
-   
+
     .img-banner {
         display: block;
         text-align: center;
@@ -145,7 +145,22 @@
     .text-bold {
         font-weight: bold;
     }
-    
+
+    .banner-responsive {
+
+        width: inherit;
+        height: inherit;
+
+        @media(max-width:991px) {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        @media(max-width:768px) {
+            width: inherit;
+        }
+    }
+
     .teste {
         display: block;
         height: 35px;

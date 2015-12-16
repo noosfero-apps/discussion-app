@@ -16,11 +16,18 @@
             <h1>{{::vm.article.title}}</h1>
         </div>
         <div class="article-box--abstract" ng-bind-html="vm.article.summary"></div>
-        <div class="button--themed">
-            <button class="btn btn-block">
-                <span ng-show="{{::vm.article.archived}}">Veja as respostas</span>
-                <span ng-show="{{::!vm.article.archived}}">Participe</span>
-            </button>
+        <div class="row">
+        <div class="col-sm-4 col-middle text-center">
+                <span>{{::vm.article.children_count}} Propostas nesse programa</span>
+            </div>
+            <div class="col-sm-8">
+                <div class="button--themed">
+                    <button class="btn btn-block">
+                        <span ng-show="{{::vm.article.archived}}">Veja as respostas</span>
+                        <span ng-show="{{::!vm.article.archived}}">Participe</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </article>

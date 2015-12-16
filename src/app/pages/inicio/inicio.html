@@ -24,7 +24,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4" ng-if="pageInicio.featuredEvent">
+                <!-- Não faz sentido, mas poppi pediu para esconder por enquanto -->
+                <div class="col-md-4" ng-hide="pageInicio.featuredEvent" ng-show="pageInicio.featuredEvent">
                     <div class="row">
                         <div class="featured-event--box" ng-click="pageInicio.showEventVideo()">
                             <div class="box-top col-xs-12 col-sm-4 col-md-12">
@@ -43,7 +44,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4" ng-if="pageInicio.bannerRespostas">
+                <!-- Não faz sentido, mas poppi pediu para esconder por enquanto -->
+                <div class="col-md-4" ng-hide="pageInicio.bannerRespostas" ng-show="pageInicio.bannerRespostas">
                     <div class="banner-respostas">
                         <a ui-sref="respostas" class="banner-respostas--link-top">
                             <span class="banner-respostas--background-image" aria-hidden="true"></span>
@@ -56,6 +58,22 @@
                             <span class="banner-respostas--text3">Vários programas contaram com centenas de participações e elas foram respondidas, confira já quais propostas foram respondidas:</span>
                         </a>
                         <a ui-sref="respostas" class="banner-respostas--link-bottom">Veja todas as respostas das propostas </a>
+                    </div>
+                </div>
+                <div class="col-md-4" ng-show="pageInicio.bannerRespostas">
+                    <div class="banner-respostas banner-respostas--background-pink">
+                        <a ui-sref="respostas" class="banner-respostas--link-top">
+                            <span class="img-banner">
+                                <img class="banner-respostas--logo banner-respostas--logo-small" src="/assets/images/marca_banner2.png" alt="Logo Dialoga Brasil"/>
+                            </span>
+                            <br>
+                            <span class="banner-respostas--text2 text-shadow">O GOVERNO FEDERAL SEGUE DIALOGANDO COM A SOCIEDADE</span>
+                            <br>
+                            <span class="banner-respostas--text3 text-bold">VOCÊ FEZ SUA PARTE PARTICIPANDO COM PROPOSTAS PARA MELHORAR O PAÍS E O GOVERNO RESPONDEU.</span>
+                        </a>
+                        <div class="teste vertical-align">
+                            <a ui-sref="respostas" class="banner-respostas--banner2--link-bottom">CONFIRA AQUI O RESULTADO!</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,75 +124,75 @@
                                 <label for="articleQueryFilter1" class="control-label sr-only">Buscar programas:</label>
                                 <input id="articleQueryFilter1" type="search" class="form-control input-search" ng-model="pageInicio.query" placeholder="Buscar programas" aria-label="Buscar programas">
                                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="pageInicio.submitSearch()">
-                    <span class="icon-circle icon-small color-theme-common-bg">
-                      <span class="glyphicon glyphicon-search"></span>
-                                </span>
-                                <span class="sr-only">Buscar</span>
-                                </button>
-                                </span>
-                            </div>
-                            <br/>
-                        </div>
-                    </div>
-                    <div ng-if="pageInicio.themes && !vm.loadingFilter">
-                        <category-list categories="pageInicio.themes" selected-category="pageInicio.selectedTheme"></category-list>
-                    </div>
-                    <div ng-if="!pageInicio.themes && pageInicio.loadingThemes">
-                        <div class="alert alert-info" role="alert">
-                            Carregando temas.
-                        </div>
-                    </div>
-                    <div ng-if="!pageInicio.themes && pageInicio.themesError">
-                        <div class="alert alert-danger" role="alert">
-                            Não foi possível carregar a lista de temas neste momento.
-                        </div>
-                    </div>
+                                  <button type="button" class="btn btn-default" ng-click="pageInicio.submitSearch()">
+                                    <span class="icon-circle icon-small color-theme-common-bg">
+                                      <span class="glyphicon glyphicon-search"></span>
+                                  </span>
+                                  <span class="sr-only">Buscar</span>
+                              </button>
+                          </span>
+                      </div>
+                      <br/>
+                  </div>
+              </div>
+              <div ng-if="pageInicio.themes && !vm.loadingFilter">
+                <category-list categories="pageInicio.themes" selected-category="pageInicio.selectedTheme"></category-list>
+            </div>
+            <div ng-if="!pageInicio.themes && pageInicio.loadingThemes">
+                <div class="alert alert-info" role="alert">
+                    Carregando temas.
                 </div>
-                <div class="col-sm-8 col-md-9">
-                    <div class="row hidden-xs">
-                        <div class="col-xs-12">
-                            <div class="input-group input-group-lg input-group-search">
-                                <label for="articleQueryFilter2" class="control-label sr-only">Buscar programas:</label>
-                                <input id="articleQueryFilter2" type="search" class="form-control input-search" ng-model="pageInicio.query" placeholder="Buscar programas" aria-label="Buscar programas">
-                                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="pageInicio.submitSearch()">
-                    <span class="icon-circle icon-small color-theme-common-bg">
-                      <span class="glyphicon glyphicon-search"></span>
-                                </span>
-                                <span class="sr-only">Buscar</span>
-                                </button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="search-result" class="row">
-                        <div class="col-sm-12">
-                            <header class="header">
-                                <h2>Programas</h2>
-                                <button type="button" class="btn btn-link" ng-click="pageInicio.showAllPrograms($event)">
-                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Ver todos os {{::pageInicio.programs.length}} programas
-                                </button>
-                            </header>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" ng-if="pageInicio.filtredPrograms && !vm.loadingFilter">
-                            <article-grid articles="pageInicio.filtredPrograms"></article-grid>
-                        </div>
-                        <div ng-if="!pageInicio.programs && pageInicio.loadingPrograms">
-                            <div class="alert alert-info" role="alert">
-                                Carregando programas.
-                            </div>
-                        </div>
-                        <div ng-if="!pageInicio.programs && pageInicio.programsError">
-                            <div class="alert alert-danger" role="alert">
-                                Não foi possível carregar a lista de programas neste momento.
-                            </div>
-                        </div>
-                    </div>
+            </div>
+            <div ng-if="!pageInicio.themes && pageInicio.themesError">
+                <div class="alert alert-danger" role="alert">
+                    Não foi possível carregar a lista de temas neste momento.
                 </div>
             </div>
         </div>
-    </section>
+        <div class="col-sm-8 col-md-9">
+            <div class="row hidden-xs">
+                <div class="col-xs-12">
+                    <div class="input-group input-group-lg input-group-search">
+                        <label for="articleQueryFilter2" class="control-label sr-only">Buscar programas:</label>
+                        <input id="articleQueryFilter2" type="search" class="form-control input-search" ng-model="pageInicio.query" placeholder="Buscar programas" aria-label="Buscar programas">
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="pageInicio.submitSearch()">
+                            <span class="icon-circle icon-small color-theme-common-bg">
+                              <span class="glyphicon glyphicon-search"></span>
+                          </span>
+                          <span class="sr-only">Buscar</span>
+                      </button>
+                  </span>
+              </div>
+          </div>
+      </div>
+      <div id="search-result" class="row">
+        <div class="col-sm-12">
+            <header class="header">
+                <h2>Programas</h2>
+                <button type="button" class="btn btn-link" ng-click="pageInicio.showAllPrograms($event)">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Ver todos os {{::pageInicio.programs.length}} programas
+                </button>
+            </header>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12" ng-if="pageInicio.filtredPrograms && !vm.loadingFilter">
+            <article-grid articles="pageInicio.filtredPrograms"></article-grid>
+        </div>
+        <div ng-if="!pageInicio.programs && pageInicio.loadingPrograms">
+            <div class="alert alert-info" role="alert">
+                Carregando programas.
+            </div>
+        </div>
+        <div ng-if="!pageInicio.programs && pageInicio.programsError">
+            <div class="alert alert-danger" role="alert">
+                Não foi possível carregar a lista de programas neste momento.
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</section>
 </div>

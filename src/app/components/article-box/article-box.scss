@@ -112,7 +112,7 @@ $article-box-space: 20px;
 
         margin-bottom: 10px;
         min-height: 170px;
-        
+
         @media screen and (max-width: $screen-lg) {
             min-height: 135px;
         }
@@ -140,7 +140,7 @@ $article-box-space: 20px;
         -moz-transition: all $time ease-in-out;
         -o-transition: all $time ease-in-out;
         transition: all $time ease-in-out;
-        
+
         @media screen and (max-width: $screen-lg) {
             min-height: 135px;
         }
@@ -156,6 +156,12 @@ $article-box-space: 20px;
         @media screen and (max-width: $screen-xs) {
             min-height: 170px;
         }
+    }
+
+    .qtd-propostas {
+        display: block;
+        margin-top: 25px;
+        margin-left: 10px;
     }
 
     .button--themed {

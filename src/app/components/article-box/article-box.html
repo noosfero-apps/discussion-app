@@ -17,11 +17,10 @@
         </div>
         <div class="article-box--abstract" ng-bind-html="vm.article.summary"></div>
         <div class="row">
-            <div class="col-sm-4 col-middle text-center">
-                <span>{{::vm.article.children_count}} Propostas nesse programa</span>
-                {{::vm.article}}
+            <div class="col-sm-5 text-center">
+                <span class="qtd-propostas">{{::vm.article.children_count}} propostas nesse programa</span>
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 <div class="button--themed">
                     <button class="btn btn-block">
                         <span ng-show="{{::vm.article.archived}}">Veja as respostas</span>

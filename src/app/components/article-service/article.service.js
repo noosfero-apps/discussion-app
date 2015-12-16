@@ -283,6 +283,7 @@
     function searchProposals (params, cbSuccess, cbError) {
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
       var url = service.apiSearch + 'article';
+      console.log("URL",url);
       var paramsExtended = angular.extend({
         page: 1,
         per_page: 10,
@@ -308,6 +309,7 @@
       UtilService.get(url, {params: paramsExtended}).then(function(data){
         _pipeInjectSlugIntoParentProgram(data);
         cbSuccess(data);
+        console.log("Resposta",data);
       }).catch(function(error){
         cbError(error);
       });

@@ -142,8 +142,8 @@
                     <proposal-list proposals="pagePrograma.proposalsTopFive" archived="pagePrograma.article.archived"></proposal-list>
                     <div class="row text-center">
                         <div class="col-xs-12">
-                            <a ui-sref="ranking({tema: pagePrograma.category.slug, programa: pagePrograma.article.slug})" class="btn btn-link">
-                                <span ng-if="pagePrograma.total_proposals > 5">Veja todas as {{pagePrograma.total_proposals}} propostas</span>
+                            <a ng-show="pagePrograma.total_proposals > 5" ui-sref="ranking({tema: pagePrograma.category.slug, programa: pagePrograma.article.slug})" class="btn btn-link">
+                                <span>Veja todas as {{pagePrograma.total_proposals}} propostas</span>
                             </a>
                         </div>
                     </div>

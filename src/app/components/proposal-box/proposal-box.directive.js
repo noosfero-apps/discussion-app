@@ -72,6 +72,8 @@
         }
 
         vm.messageCode = data.code;
+        console.log("voto");
+        console.log(vm.message);
       });
 
       // Load captcha

@@ -7,7 +7,7 @@
     </h3>
 
     <!-- <div class="list-group ng-hide" ng-show="!vm.isCollapsed" ng-class="vm.selectedCategory.slug"> -->
-    <div class="list-group" ng-class="vm.selectedCategory.slug">
+    <div class="list-group is-mobile" ng-class="vm.selectedCategory.slug">
       <button type="button" class="list-group-item category-list--item"
         ng-repeat="category in vm.categories"
         ng-class="{active: vm.selectedCategory.slug === category.slug}"

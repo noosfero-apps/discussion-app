@@ -267,7 +267,7 @@
 
     function searchTopics (params, cbSuccess, cbError) {
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Topic&query=cisternas
-      var url = service.apiSearch + '/article';
+      var url = service.apiSearch + 'article';
       var paramsExtended = angular.extend({
         // 'fields[]': ['id', 'title', 'slug', 'abstract', 'categories', 'setting', 'children_count', 'hits'],
         'type': 'ProposalsDiscussionPlugin::Topic'
@@ -283,7 +283,7 @@
     function searchProposals (params, cbSuccess, cbError) {
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
       var url = service.apiSearch + 'article';
-      console.log("URL",url);
+      console.log('url',url);
       var paramsExtended = angular.extend({
         page: 1,
         per_page: 10,
@@ -299,17 +299,18 @@
         'parent',
         'categories',
         'slug',
-            'url', // parent.image.url
-            'image',
-            'title',
-            'archived',
-            ]
-          }, params);
+        'url', // parent.image.url
+        'image',
+        'title',
+        'archived',
+        'has_children',
+        ]
+      }, params);
+      console.log("params",paramsExtended);
 
       UtilService.get(url, {params: paramsExtended}).then(function(data){
         _pipeInjectSlugIntoParentProgram(data);
         cbSuccess(data);
-        console.log("Resposta",data);
       }).catch(function(error){
         cbError(error);
       });

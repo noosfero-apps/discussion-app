@@ -32,7 +32,6 @@
     vm.themes = null;
     vm.selectedTheme = null;
     vm.filtredProposals = null;
-    vm.filtredProposalsArchived = null;
     vm.query = null;
     vm.search = vm.$location.search();
 
@@ -111,30 +110,6 @@
     vm.selectedTheme = null;
   };
 
-  PropostasPageController.prototype.filtersArchived = function(dataArticles) {
-    
-    var vm = this;
-    var out = [];
-    var input = dataArticles || [];
-
-    for (var i = 0; i < input.length; i++) {
-      
-      var Proposals = input[i];
-      console.log('****************************',Proposals.parent.title + ' - ' +Proposals.parent.archived + ' - ' + Proposals.title);
-      
-      if (Proposals.parent.archived) {
-
-        out.push(Proposals);                      
-        
-      }
-
-    }
-    
-    return out
-
-  };
-
-
   PropostasPageController.prototype.changePage = function(pageIndex) {
     var vm = this;
 
@@ -191,61 +166,12 @@
       params.category_ids = vm.selectedTheme.id;
     }
 
-
-    if (query) {params.query = query; }
-
-      vm.loadingProposals = true;
-      vm.DialogaService.searchProposals(params, function(data){
-
-      vm.total_proposals = parseInt(data._obj.headers('total'));
-
-      // Antigo
-      vm.filtredProposals = data.articles;
-
-      // Novo
-      vm.filtredProposalsArchived = vm.filtersArchived(vm.filtredProposals);
-
-      // Misto
-      //vm.filtredProposals = vm.filtersArchived(data.articles);      
-      
-      vm.loadingProposals = false;
-
-    }, function (error) {
-      vm.error = error;
-      vm.$log.error(error);
-      vm.loadingProposals = false;
-    });
-  };
-
-  PropostasPageController.prototype.filterProposalsArchived = function(_page, _per_page) {
-    var vm = this;
-
-    if (vm.loadingProposals){
-      vm.$log.debug('Content is not loaded yet.');
-      return;
-    }
-
-    var page = _page || vm.page;
-    var per_page = _per_page || vm.per_page;
-    var query = vm.query;
-    var params = {
-      page: page,
-      per_page: per_page,
-    };
-
-    if (vm.selectedTheme) {
-      params.category_ids = vm.selectedTheme.id;
-    }
-
-
     if (query) {params.query = query; }
 
     vm.loadingProposals = true;
     vm.DialogaService.searchProposals(params, function(data){
-
-      vm.total_proposals = parseInt(data._obj.headers('total'));   
-      vm.filtredProposals = vm.filtersArchived(data.articles);
-      
+      vm.total_proposals = parseInt(data._obj.headers('total'));
+      vm.filtredProposals = data.articles;
       vm.loadingProposals = false;
     }, function (error) {
       vm.error = error;
@@ -254,11 +180,9 @@
     });
   };
 
-
-
   PropostasPageController.prototype.submitSearch = function() {
     var vm = this;
-    
+
     // scroll to result grid
     var $searchResult = angular.element('#search-result');
     if ($searchResult && $searchResult.length > 0) {

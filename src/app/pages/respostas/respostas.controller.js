@@ -169,7 +169,7 @@
     var params = {
       page: page,
       per_page: per_page,
-      archived: true
+      has_children: true
     };
 
     if (vm.selectedTheme) {
@@ -180,8 +180,10 @@
 
     vm.loadingProposals = true;
     vm.DialogaService.searchProposals(params, function(data){
+      console.log("aaaaaaaaaaaaaaaaaaa",data);
       vm.total_proposals = parseInt(data._obj.headers('total'));
       vm.filtredProposals = data.articles;
+      console.log("----------------------------",vm.filtredProposals);
       vm.loadingProposals = false;
     }, function (error) {
       vm.error = error;

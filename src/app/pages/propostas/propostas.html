@@ -22,7 +22,7 @@
             </div>
         </div>
     </section>
-    <section class="section--header" ng-if="pagePropostas.filtredProposalsArchived || pagePropostas.themes">
+    <section class="section--header" ng-if="pagePropostas.filtredProposals || pagePropostas.themes">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -31,7 +31,7 @@
             </div>
         </div>
     </section>
-    <section class="section--articles section-gray section-space-up" ng-if="pagePropostas.filtredProposalsArchived || pagePropostas.themes">
+    <section class="section--articles section-gray section-space-up" ng-if="pagePropostas.filtredProposals || pagePropostas.themes">
         <div class="container">
             <div id="lista-de-propostas" class="row">
                 <div class="col-sm-4 col-md-3">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <div class="col-sm-8 col-md-9">
-                    <div class="row hidden-xs" ng-if="pagePropostas.filtredProposalsArchived">
+                    <div class="row hidden-xs" ng-if="pagePropostas.filtredProposals">
                         <div class="col-xs-12">
                             <div class="input-group input-group-lg input-group-search">
                                 <label for="articleQueryFilter" class="control-label sr-only">Buscar propostas:</label>
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="search-result" class="row" ng-if="pagePropostas.filtredProposalsArchived">
+                    <div id="search-result" class="row" ng-if="pagePropostas.filtredProposals">
                         <div class="col-sm-12">
                             <header class="header">
                                 <h2>Total de Propostas: "<b>{{pagePropostas.total_proposals}} propostas</b>"</h2>
@@ -91,10 +91,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12" ng-if="!pagePropostas.loadingProposals && pagePropostas.filtredProposalsArchived && pagePropostas.total_proposals">
-
-                            <proposal-grid proposals="pagePropostas.filtredProposalsArchived"></proposal-grid>
-
+                        <div class="col-sm-12" ng-if="!pagePropostas.loadingProposals && pagePropostas.filtredProposals && pagePropostas.total_proposals">
+                            <proposal-grid proposals="pagePropostas.filtredProposals"></proposal-grid>
                             <app-paginator page="pagePropostas.page" per-page="pagePropostas.per_page" total="pagePropostas.total_proposals" change-page="pagePropostas.changePage(pageIndex)"></app-paginator>
                         </div>
                         <div ng-if="pagePropostas.loadingProposals">

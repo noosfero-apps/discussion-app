@@ -79,6 +79,20 @@
       vm.loading = false;
 
       vm.filter();
+
+
+      // HACK: get image from body 'proposal'
+      // remove tags html
+      for (var j = vm.proposals.length - 1; j >= 0; j--) {
+          var proposalImg = vm.proposals[j];
+          if (proposalImg && proposalImg.body && proposalImg.body.length > 0) {
+              proposalImg.body = String(proposalImg.body).replace(/<[^>]+>/gm, '');
+          }else{
+              proposalImg.body = vm.banner.src;
+          }
+      }  
+
+
     }, function(error) {
       vm.error = error;
       vm.$log.error(error);

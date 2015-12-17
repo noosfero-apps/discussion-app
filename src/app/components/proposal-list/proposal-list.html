@@ -7,7 +7,10 @@
 						Colocação
 						<a tabindex="0" class="btn btn-link btn-question" role="button" data-toggle="popover" data-trigger="focus">?</a>
 					</th>
-					<th>{{vm.proposals.length}} PROPOSTAS</th>
+					<th>
+						<span>{{vm.proposals.length}} PROPOSTAS</span>
+						<span class="pull-right">Posição atualizada a cada x minutos</span>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -15,6 +18,7 @@
 					<td class="color-theme-fg">
 						<span ng-show="proposal.ranking_position" class="position">{{::proposal.ranking_position}}º</span>
 						<span ng-show="proposal.position" class="position">{{::proposal.position}}º</span>
+
 					</td>
 					<td>
 						<div class="row">

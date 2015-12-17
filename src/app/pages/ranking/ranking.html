@@ -40,9 +40,11 @@
 		<div class="container">
 			<div id="lista-de-propostas" class="row">
 				<div class="col-sm-4 col-md-3">
+				<!-- Banner lateral de temas -->
 					<div ng-if="pageRanking.themes">
-						<category-list categories="pageRanking.themes" selected-category="pageRanking.selectedTheme" disable-unselect="true"></category-list>
+						<category-list categories="pageRanking.themes" selected-category="" disable-unselect="true"></category-list>
 					</div>
+
 					<div ng-if="pageRanking.filtredPrograms && pageRanking.selectedProgram" class="topics-select--wrapper">
 						<topics-select topics="pageRanking.filtredPrograms" selected-topic="pageRanking.selectedProgram"></topics-select>
 					</div>

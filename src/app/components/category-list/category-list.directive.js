@@ -9,16 +9,18 @@
   function categoryList() {
 
     /** @ngInject */
-    function CategoryListController($rootScope, $element, $log) {
+    function CategoryListController($rootScope, $location, $element, $log) {
       $log.debug('CategoryListController');
 
       // alias
       var vm = this;
-
+      
       // dependencies
       vm.$rootScope = $rootScope;
+      vm.$location = $location;
       vm.$element = $element;
       vm.$log = $log;
+
 
       // initialization
       vm.init();
@@ -26,6 +28,14 @@
 
     CategoryListController.prototype.init = function() {
       var vm = this;
+      vm.pathUrl = vm.$location.$$path;
+      //var pathUrl = String(window.location.pathname)
+      vm.escodeRemover = true;
+
+      // Disable button remove of page ranking
+      if(vm.pathUrl=="/ranking"){
+        vm.escodeRemover = false;
+      }
 
       // Default values
       if(!vm.isCollapsed){
@@ -47,12 +57,13 @@
 
     CategoryListController.prototype.selectCategory = function(category, $event) {
       var vm = this;
-
+      
       // prevent glitch
       $event.stopPropagation();
 
       if (category !== vm.selectedCategory) {
         vm.selectedCategory = category;
+
       }else{
 
         if(vm._disableUnselect()){

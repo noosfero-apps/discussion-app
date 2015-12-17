@@ -169,7 +169,25 @@
     var params = {
       page: page,
       per_page: per_page,
-      has_children: true
+      has_children: true,
+      'fields[]': [
+      'id',
+      'body',
+      'abstract',
+      'hits',
+      'ranking_position',
+      'votes_against',
+      'votes_count',
+      'votes_for',
+      'parent',
+      'categories',
+      'slug',
+      'url', // parent.image.url
+      'image',
+      'title',
+      'archived',
+      'has_children',
+      ]
     };
 
     if (vm.selectedTheme) {

@@ -124,6 +124,12 @@
             // height: 0;
             // line-height: 0;
         }
+
+        &.is-mobile {
+            @media(max-width: $screen-sm) {
+                display: none;
+            }
+        }
     }
 
     .list-group-item.active,

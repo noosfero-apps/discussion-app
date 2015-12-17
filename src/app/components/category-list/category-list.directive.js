@@ -85,7 +85,6 @@
       if(!vm._listGroup){
         vm._listGroup = vm.$element.find('.list-group');
       }
-
       vm._listGroup.slideToggle();
     };
 

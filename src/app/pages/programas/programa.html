@@ -48,7 +48,16 @@
                                         <div ng-bind-html="pagePrograma.article.summaryExtended"></div>
                                     </div>
                                     <div class="program-preview--share">
-                                        <div class="program-preview--share-label">COMPARTILHE ESTE <b>PROGRAMA</b></div>
+                                        <div ng-show="!pagePrograma.article.archived" class="program-preview--share-label">COMPARTILHE ESTE <b>PROGRAMA</b></div>
+                                        <div ng-show="pagePrograma.article.archived" class="row text-right">
+                                            <div class="col-xs-12">
+                                                <a ui-sref="ranking({tema: pagePrograma.category.slug, programa: pagePrograma.article.slug})" class="btn btn-link">
+                                                    <span>Ver Propostas</span>
+                                                    <span class="glyphicon glyphicon-chevron-right color-theme-common-fg" aria-hidden="true"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div ng-show="pagePrograma.article.archived" class="program-preview--share-label">COMPARTILHE ESSA <b>RESPOSTA</b></div>
                                         <div class="dropdown">
                                             <button id="dropdown-share-btn" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Mostrar ou esconder a lista redes sociais para compartilhamento"><span class="icon icon-social-share-small" aria-hidden="true"></span></button>
                                             <social-share social-url="pagePrograma.$state.href('programa', {slug: pagePrograma.article.slug}, {absolute: true})" social-text="pagePrograma.article.title" social-image="pagePrograma.banner.src" arrow-class="social-share--arrow" class="dropdown-menu dropdown-menu-right"></social-share>
@@ -67,7 +76,7 @@
                             </div>
                         </div>
                         <!-- Preview > coluna da direita -->
-                        <div class="col-md-4">
+                        <div class="col-md-4 hidden-xs hidden-sm">
                             <div class="row" ng-if="!pagePrograma.article.archived">
                                 <!-- Top Proposals -->
                                 <div>
@@ -138,6 +147,7 @@
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                 </div>
+                <span class="pull-right font-140">Posição atualizada a cada x minutos</span>
                 <div class="proposal-extended-section-content">
                     <proposal-list proposals="pagePrograma.proposalsTopFive" archived="pagePrograma.article.archived"></proposal-list>
                     <div class="row text-center">
@@ -249,7 +259,7 @@
                                     <h3 class="color-theme-fg">{{($index+1)}}ª proposta mais votada:</h3>
                                     <p>{{::proposal.abstract}}</p>
                                     <div class="button--themed">
-                                        <button class="btn btn-block" ng-click="pagePrograma.toggleResponseVisibility(proposal)">
+                                        <button class="btn btn-block btn-responsive" ng-click="pagePrograma.toggleResponseVisibility(proposal)">
                                             Veja a resposta e o compromisso do governo
                                             <div class="button-left-icon">
                                                 <span class="glyphicon glyphicon-chevron-down pull-right color-theme-common-fg" aria-hidden="true"></span>

@@ -169,6 +169,7 @@
     var params = {
       page: page,
       per_page: per_page,
+      has_children: true,
       'fields[]': [
       'id',
       'body',
@@ -185,7 +186,6 @@
       'image',
       'title',
       'archived',
-      'has_children=true',
       ]
     };
 

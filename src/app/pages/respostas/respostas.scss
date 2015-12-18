@@ -13,7 +13,7 @@
     
     @each $category, $color in $categories {
 		.#{$category} .img-mask--background {
-			background: linear-gradient(to right, rgba($color, 1) 40%, rgba($color,0.5) 100%);
+			background: linear-gradient(to right, rgba($color, 1) 30%, rgba($color,0.5) 100%);
 		}
 	}
 }

@@ -303,7 +303,6 @@
         'image',
         'title',
         'archived',
-        'has_children',
         ]
       }, params);
       console.log("params",paramsExtended);

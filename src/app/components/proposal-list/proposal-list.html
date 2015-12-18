@@ -9,7 +9,7 @@
 					</th>
 					<th>
 						<span>{{vm.proposals.length}} PROPOSTAS</span>
-						<span class="pull-right">Posição atualizada a cada x minutos</span>
+						<span class="pull-right">Posição atualizada a cada 5 minutos</span>
 					</th>
 				</tr>
 			</thead>
@@ -32,8 +32,7 @@
 									<button
 									type="button"
 									class="btn btn-link btn-rate color-theme-common-fg"
-									ng-click="vm.showContent(proposal)"
-									>Participe</button>
+									ng-click="vm.showContent(proposal)">Participe</button>
 								</div>
 								<div ng-if="proposal.parent.archived === true">
 									<button

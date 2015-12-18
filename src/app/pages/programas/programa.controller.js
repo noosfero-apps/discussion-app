@@ -90,11 +90,10 @@
         // vm.total_proposals = parseInt(vm.article.amount_of_children); // DEPRECATED?!
         if (data.articles) {
           vm.proposals = data.articles;
-          console.log("1");
         } else {
           vm.proposals = data.proposals;
-          console.log("2");
         }
+        console.log("-------------",vm.proposals);
         vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
         vm.loadingTopProposals = false;

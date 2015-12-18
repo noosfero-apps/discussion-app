@@ -303,11 +303,11 @@
         'image',
         'title',
         'archived',
-        'has_children',
         ]
       }, params);
-      console.log("params",paramsExtended);
 
+      console.log("params",paramsExtended);
+      
       UtilService.get(url, {params: paramsExtended}).then(function(data){
         _pipeInjectSlugIntoParentProgram(data);
         cbSuccess(data);

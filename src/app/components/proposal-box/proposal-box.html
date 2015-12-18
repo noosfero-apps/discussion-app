@@ -137,11 +137,20 @@
     </div>
   </div>
   <div class="proposal-box--top">
+
     <div class="proposal-box--theme color-theme-bg-complementar-2">{{vm.category.name}}</div>
-    <div class="proposal-box--program color-theme-bg">{{vm.topic.title}}</div>
     
-    <!-- Apagar o bloco abaixo -->
-    <!-- <span style="background: green;">{{::vm.proposal}} -->
+    <div ng-show="vm.ProposalBody">    
+        <div class="proposal-box--program color-theme-bg">{{vm.topic.title}}</div>
+    </div>
+
+    <div ng-show="!vm.ProposalBody">
+      <div  class="color-theme-bg" style="background: url( {{::vm.proposalsImg}} );" >
+          <div class="img-mask--background proposal-box--program" >
+            {{vm.topic.title}} 
+          </div>
+      </div>  
+    </div>  
     
   </div>
   <div class="proposal-box--middle">
@@ -154,7 +163,7 @@
       ng-if="vm.archived === false"
       ui-sref="programa({slug: vm.topic.slug, proposal_id: vm.proposal.id})"
       ui-sref-opts="{location: true}"
-      >Participe</a>
+      >Partissscipe</a>
       <a
       class="btn btn-link color-theme-common-fg"
       ng-if="vm.archived === true"

@@ -90,17 +90,16 @@
         // vm.total_proposals = parseInt(vm.article.amount_of_children); // DEPRECATED?!
         if (data.articles) {
           vm.proposals = data.articles;
-          console.log("1");
         } else {
           vm.proposals = data.proposals;
-          console.log("2");
         }
+        console.log("-------------",vm.proposals);
         vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
         vm.loadingTopProposals = false;
 
         if (vm.article.archived) {
-          
+
           // show 'respostas e compromissos',
           // ONLY IF the proposal is below or equal 3th position.
           if (vm.search.proposal_id) {
@@ -108,7 +107,7 @@
             var proposal_id = parseInt(vm.search.proposal_id);
             for (var i = vm.proposalsTopRated.length - 1; i >= 0; i--) {
               var proposal = vm.proposalsTopRated[i];
-              
+
               if(proposal.id === proposal_id){
                 found = true;
                 break;
@@ -145,13 +144,13 @@
 
       // load content of 'proposal-box'
       if (!vm.article.archived) {
-        
+
         if (vm.search.proposal_id) {
           // load the proposal and set focus on proposal-box
           vm.loadProposalById(vm.search.proposal_id);
         }else {
           // load a random proposal at proposal-box
-          vm.loadRandomProposal(); 
+          vm.loadRandomProposal();
         }
       }
 
@@ -363,7 +362,7 @@
 
         proposal.response.content = data.articles[0].body;
         toggle();
-        
+
       }).catch(function(){
         proposal.response.error = false;
       }).finally(function(){
@@ -373,7 +372,7 @@
 
     function toggle () {
       var $el = angular.element('.gov-response-' + proposal.id);
-      
+
       if ($el.is(':visible')) {
         $el.slideUp();
       }else {
@@ -383,5 +382,7 @@
       }
     }
   };
+
+
 
 })();

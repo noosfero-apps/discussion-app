@@ -19,7 +19,7 @@
         &--box--content-wrapper {
             padding: 48px;
             position: relative;
-            
+
         }
         &--archived {
             .program-preview--box--content-wrapper {
@@ -104,7 +104,7 @@
         &--share {
             margin-bottom: 20px;
             position: relative;
-            
+
             .dropdown {
                 display: inline-block;
                 position: relative;
@@ -226,7 +226,7 @@
             transform: scale(0.7);
         }
     }
-    
+
     #section-archived-banner {
         position: relative;
         padding: 20px 0;
@@ -257,7 +257,7 @@
 
         .archived-banner--title2 {
             font-weight: bold;
-        }    
+        }
     }
 
     #section-response {
@@ -280,6 +280,11 @@
             button {
                 text-transform: uppercase;
                 letter-spacing: 1px;
+            }
+
+            .btn-responsive {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
         }
 
@@ -304,13 +309,13 @@
         margin-bottom: 20px;
         width: 120px;
         background-color: #e1e1e1;
-        
+
         .icon-circle-close-response {
             width: 20px!important;
             height: 20px!important;
             color: #e1e1e1;
             font-size: 14px;
-        }    
+        }
     }
 
     .gov-response--link-item {
@@ -323,7 +328,7 @@
         margin-top: 40px;
         padding-left: 0px;
         padding-right: 0px;
-        
+
         .row {
             margin-bottom: 25px;
         }
@@ -331,7 +336,7 @@
         .row-compromissos {
             margin-left: 0px;
             margin-right: 0px;
-        }    
+        }
 
         ul {
             li {
@@ -342,27 +347,27 @@
         blockquote {
             min-height: 130px;
         }
-       
+
         .inside.inside-full-height.resposta3-pac {
             font-size: 130%;
-            
+
             @media (max-width: 992px){
-            padding-top: 5%;   
+            padding-top: 5%;
             }
 
             @media (min-width: 992px){
-            padding-top: 5%;   
+            padding-top: 5%;
             }
 
             @media (min-width: 1200px){
-            padding-top: 5%;   
+            padding-top: 5%;
             }
         }
 
         .bloco-padding-25 {
             padding: 25px;
         }
-        
+
         .list-no-style {
             list-style-type: none!important;
         }

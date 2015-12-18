@@ -39,10 +39,22 @@
       vm.errorOnSkip = false;
       vm.showCaptchaForm = null;
       vm.voteProposalRedirectURI = null;
-
+      vm.proposalsImg = null;
+      
+      
       var slug = vm.topic.slug;
       var proposal_id = vm.proposal.id;
       vm.voteProposalRedirectURI = 'state=programa&task=vote-proposal&slug=' + slug + '&proposal_id=' + proposal_id;
+      
+      // Take the coming proposal image of the body
+      // Pegar a imagem da proposta vinda do body
+      vm.proposalsImg = String(vm.proposal.body).replace(/<[^>]+>/gm, '');
+      if(vm.proposalsImg !== "undefined"){
+        vm.ProposalBody = false;
+      }else{
+        vm.ProposalBody = true;
+      }
+      
     };
 
     ProposalBoxController.prototype.addListeners = function() {

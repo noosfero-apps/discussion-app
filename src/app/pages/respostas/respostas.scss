@@ -6,4 +6,15 @@
     .topics-select--wrapper {
         margin: 20px 0;
     }
+
+    .img-mask--background{
+        text-align:left;
+    }
+    
+    @each $category, $color in $categories {
+		.#{$category} .img-mask--background {
+			background: linear-gradient(to right, rgba($color, 1) 38%, rgba($color,0.5) 100%);
+		}
+	}
+	
 }

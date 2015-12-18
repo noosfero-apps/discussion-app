@@ -7,5 +7,14 @@
         margin: 20px 0;
     }
 
-
+    .img-mask--background{
+        text-align:left;
+    }
+    
+    @each $category, $color in $categories {
+		.#{$category} .img-mask--background {
+			background: linear-gradient(to right, rgba($color, 1) 30%, rgba($color,0.5) 100%) no-repeat;            
+            padding: 30px 15px;
+		}
+	}
 }

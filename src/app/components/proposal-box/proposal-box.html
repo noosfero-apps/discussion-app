@@ -163,13 +163,8 @@
       ng-if="vm.archived === false"
       ui-sref="programa({slug: vm.topic.slug, proposal_id: vm.proposal.id})"
       ui-sref-opts="{location: true}"
-      >Partissscipe</a>
-      <a
-      class="btn btn-link color-theme-common-fg"
-      ng-if="vm.archived === true"
-      ui-sref="programa({slug: vm.topic.slug, proposal_id: vm.proposal.id})"
-      ui-sref-opts="{location: true}"
-      >Ir para o programa</a>
+      >Participe</a>
+      <!-- <a class="btn btn-link color-theme-common-fg" ng-if="vm.archived === true" ui-sref="programa({slug: vm.topic.slug proposal_id: vm.proposal.id})" ui-sref-opts="{location: true}">Ir para os programa</a> -->
     </div>
     <div ng-show="vm.showVote" class="proposal-box--actions text-center">
       <div class="row">

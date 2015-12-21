@@ -200,7 +200,8 @@
       
       vm.total_proposals = parseInt(data._obj.headers('total'));
       vm.filtredProposals = data.articles;
-      
+      console.log("vm.filtredProposals",vm.filtredProposals);
+
       vm.loadingProposals = false;
     }, function (error) {
       vm.error = error;

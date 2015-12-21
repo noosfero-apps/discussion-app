@@ -9,7 +9,7 @@
   function proposalBox() {
 
     /** @ngInject */
-    function ProposalBoxController($scope, $rootScope, $state, $timeout, $interval, $window, VOTE_STATUS, VOTE_OPTIONS, AuthService, DialogaService, $log) {
+    function ProposalBoxController($scope, $location, $rootScope, $state, $timeout, $interval, $window, VOTE_STATUS, VOTE_OPTIONS, AuthService, DialogaService, $log) {
       $log.debug('ProposalBoxController');
 
       var vm = this;
@@ -23,6 +23,7 @@
       vm.VOTE_OPTIONS = VOTE_OPTIONS;
       vm.AuthService = AuthService;
       vm.$log = $log;
+      vm.$location = $location;
 
       vm.init();
       vm.addListeners();
@@ -40,8 +41,7 @@
       vm.showCaptchaForm = null;
       vm.voteProposalRedirectURI = null;
       vm.proposalsImg = null;
-      
-      
+
       var slug = vm.topic.slug;
       var proposal_id = vm.proposal.id;
       vm.voteProposalRedirectURI = 'state=programa&task=vote-proposal&slug=' + slug + '&proposal_id=' + proposal_id;
@@ -250,6 +250,7 @@
         proposal: '=',
         showVote: '=',
         topic: '=',
+        location: '=',
       },
       controller: ProposalBoxController,
       controllerAs: 'vm',

@@ -196,8 +196,8 @@
     </div>
   </div>
   <div class="proposal-box--bottom text-center" ng-class="{archived: vm.archived}">
-    <div class="proposal-box--share">
-      <span>COMPARTILHE ESTA <b>PROPOSTA</b></span>
+    <div class="proposal-box--share" ng-class="{'text-right': vm.location == '/respostas' }">
+      <span ng-hide="vm.location == '/respostas'">COMPARTILHE ESTA <b>PROPOSTA</b></span>
       <div class="dropdown">
         <button id="dropdown-share-btn" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Mostrar ou esconder a lista redes sociais para compartilhamento"><span class="icon icon-social-share-small" aria-hidden="true"></span></button>
         <social-share class="dropdown-menu dropdown-menu-right"></social-share>

@@ -28,13 +28,12 @@
 
     CategoryListController.prototype.init = function() {
       var vm = this;
-      vm.pathUrl = vm.$location.$$path;
-      //var pathUrl = String(window.location.pathname)
-      vm.escodeRemover = true;
 
-      // Disable button remove of page ranking
-      if(vm.pathUrl=="/ranking"){
-        vm.escodeRemover = false;
+      vm.showCloseBtn = null;
+
+      // Disable button close of page ranking
+      if(vm.$location.path() == "/ranking"){
+        vm.showCloseBtn = false;
       }
 
       // Default values

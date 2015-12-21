@@ -16,7 +16,7 @@
         <span class="category-list--icon icon" aria-hidden="true" ng-class="'icon-tema-' + category.slug + '-small'"></span>
         <span class="category-list--label">{{::category.name}}</span>
         <span class="category-list--icon--right glyphicon glyphicon-chevron-right hidden-xs" ng-hide="vm.selectedCategory.slug === category.slug"></span>
-        <span ng-if="vm.escodeRemover" class="category-list--icon--right glyphicon glyphicon-remove hidden-xs" ng-show="vm.selectedCategory.slug === category.slug"></span>
+        <span ng-if="showCloseBtn" class="category-list--icon--right glyphicon glyphicon-remove hidden-xs" ng-show="vm.selectedCategory.slug === category.slug"></span>
         <div ng-if="category.archived" class="category-list--icon-archived">
           <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
         </div>

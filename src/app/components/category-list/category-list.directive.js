@@ -28,11 +28,14 @@
 
     CategoryListController.prototype.init = function() {
       var vm = this;
+     
+      vm.pathUrl = vm.$location.path();
+      console.log("--------------",vm.pathUrl);
 
-      vm.showCloseBtn = null;
+      vm.showCloseBtn = true;
 
-      // Disable button close of page ranking
-      if(vm.$location.path() == "/ranking"){
+      // Disable button remove of page ranking
+      if(vm.pathUrl=="/ranking"){
         vm.showCloseBtn = false;
       }
 

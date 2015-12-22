@@ -87,7 +87,7 @@
     vm.$scope.$watch('pagePropostas.selectedTheme', function(newValue/*, oldValue*/) {
       vm.search.tema = newValue ? newValue.slug : null;
       vm.$location.search('tema', vm.search.tema);
-
+      vm.page = 1;
       if (!vm.loadingFilter) {
         vm.filterProposals();
       }

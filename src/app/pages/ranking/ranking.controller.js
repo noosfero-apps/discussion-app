@@ -88,6 +88,8 @@
           selectedTheme = results[0];
           vm.selectedTheme = selectedTheme;
         }
+
+
       }
 
       if(!selectedTheme){

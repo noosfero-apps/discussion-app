@@ -30,7 +30,6 @@
       var vm = this;
      
       vm.pathUrl = vm.$location.path();
-      console.log("--------------",vm.pathUrl);
 
       vm.showCloseBtn = true;
 

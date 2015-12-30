@@ -46,7 +46,7 @@
     vm.search = vm.$location.search();
     var redirect = vm.search.redirect_uri || '';
     if (redirect && redirect.length > 0) {
-      vm.params = JSON.parse('{"' + decodeURI(redirect).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+      vm.params = JSON.parse('{"' + decodeURI(redirect).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
       vm.hasRedirect = true;
     }
 
@@ -99,9 +99,22 @@
     vm.$scope.$on('oauthClientPluginResult', function(event, response) {
       vm.$log.debug('response', response);
 
-      // var logged_id = response.data.logged_id;
-      // var private_token = response.data.private_token;
-      // var user = response.data.user;
+      var logged_in = response.data.logged_in;
+      var message = response.data.message;
+      var private_token = response.data.private_token;
+
+      // Garante que o 'user' sempre terá a propriedade 'private_token'
+      if(response.data.user && !response.data.user.private_token){
+        response.data.user.private_token = private_token;
+      }
+
+      // Se o usuário autorizou o login via a rede social, 'logged_in' é 'true'
+      if (logged_in) {
+        var currentUser = vm.Session.create(response.data);
+
+        vm.$rootScope.currentUser = currentUser;
+        vm.$rootScope.$broadcast(vm.AUTH_EVENTS.loginSuccess, currentUser);
+      }
     });
 
     vm._attachCaptcha();
@@ -111,10 +124,10 @@
     var vm = this;
 
     var stop = null;
-    stop = vm.$interval(function(){
+    stop = vm.$interval(function() {
       var $el = angular.element('#serpro_captcha');
 
-      if ($el && $el.length > 0 ){
+      if ($el && $el.length > 0) {
         vm.$window.initCaptcha($el[0]);
         vm.$interval.cancel(stop);
         stop = undefined;
@@ -155,15 +168,15 @@
       vm.signupErrorMessage = response.data.message;
 
       // 4xx client error
-      if (response.status >= 400 && response.status < 500){
+      if (response.status >= 400 && response.status < 500) {
         var errors = JSON.parse(response.data.message);
-        if(errors && errors.email){
+        if (errors && errors.email) {
           vm.signupErrorMessage = 'E-mail já está em uso.';
         }
       }
       
       // 5xx server error
-      if (response.status >= 500 && response.status < 600){
+      if (response.status >= 500 && response.status < 600) {
         vm.internalError = true;
       }
     });
@@ -184,12 +197,12 @@
       vm.signinError = true;
       
       // 4xx client error
-      if ( response.status >= 400 && response.status < 500 ) {
+      if (response.status >= 400 && response.status < 500) {
         
         vm.signinErrorTitle = 'Erro!';
         vm.signinErrorContent = response.data.message;
 
-        if(response.status === 401){
+        if (response.status === 401) {
           vm.signinErrorTitle = 'Acesso não autorizado!';
           vm.signinErrorContent = 'E-mail ou senha incorretos.';
         }
@@ -221,27 +234,27 @@
     });
 
     // ERROR
-    promiseRequest.catch(function(response){
+    promiseRequest.catch(function(response) {
       vm.$log.debug('recover error.response', response);
 
       vm.recoverError = true;
       vm.recoverErrorMessage = response.data.message;
 
       // Client Error
-      if (response.status >= 400 && response.status < 500){
-        if(response.status === 404){
+      if (response.status >= 400 && response.status < 500) {
+        if (response.status === 404) {
           vm.recoverErrorMessage = 'E-mail não cadastrado no Dialoga Brasil.';
         }
       }
       
       // Server Error
-      if (response.status >= 500 && response.status < 600){
+      if (response.status >= 500 && response.status < 600) {
         vm.internalError = true;
       }
     });
 
     // ALWAYS
-    promiseRequest.finally(function(){
+    promiseRequest.finally(function() {
       vm.loadingSubmitRecover = false;
     });
   };
@@ -266,15 +279,15 @@
       
       // Feedback para usuário já ativo na plataforma
       var user = response.data.users[0];
-      if ( user && (user.activated === true) ) {
+      if (user && (user.activated === true)) {
         vm.resendConfirmationSuccessTitle = 'Usuário já está ativo!';
         vm.resendConfirmationSuccessMessage = 'O e-mail informado já foi confirmado.';
-      }else{
+      }else {
         vm.resendConfirmationSuccessTitle = 'Pronto!';
         vm.resendConfirmationSuccessMessage = 'Em instantes você receberá em seu e-mail um link para confirmar o seu cadastro.';
       }
 
-    }, function(response){
+    }, function(response) {
       vm.$log.debug('resendConfirmation error.response', response);
 
       vm.resendConfirmationError = true;
@@ -284,10 +297,10 @@
       // if (response.status >= 400 && response.status < 500){}
       
       // Server Error
-      if (response.status >= 500 && response.status < 600){
+      if (response.status >= 500 && response.status < 600) {
         vm.internalError = true;
       }
-    }).catch(function(error){
+    }).catch(function(error) {
       vm.$log.debug('resendConfirmation catch.error', error);
     });
   };
@@ -370,7 +383,7 @@
     vm.$window.oauthClientAction(url);
   };
 
-  function getCaptchaValFromEvent($event){
+  function getCaptchaValFromEvent($event) {
     return angular.element($event.target).find('[name="txtToken_captcha_serpro_gov_br"]').val();
   }
 })();

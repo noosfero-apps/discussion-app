@@ -100,7 +100,7 @@
       vm.$log.debug('response', response);
 
       var logged_in = response.data.logged_in;
-      var message = response.data.message;
+      // var message = response.data.message;
       var private_token = response.data.private_token;
 
       // Garante que o 'user' sempre terá a propriedade 'private_token'

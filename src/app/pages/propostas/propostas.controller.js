@@ -172,7 +172,7 @@
     vm.DialogaService.searchProposals(params, function(data){
       vm.total_proposals = parseInt(data._obj.headers('total'));
       vm.filtredProposals = data.articles;
-      console.log("FiltredProposals",vm.filtredProposals);
+      
       vm.loadingProposals = false;
     }, function (error) {
       vm.error = error;

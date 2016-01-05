@@ -36,7 +36,7 @@
 
     ProposalListController.prototype.showContent = function (proposal) {
       var vm = this;
-      console.log("PROPOSAL-LIST",proposal);
+      
       vm.$state.go('programa', {
         slug: proposal.parent.slug,
         proposal_id: proposal.proposal_id

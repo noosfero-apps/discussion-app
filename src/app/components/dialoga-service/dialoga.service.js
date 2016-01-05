@@ -366,6 +366,11 @@
       _pipeHackPrograms(CACHE.programs);
     }
 
+    /**
+     * Quebra o 'abstract' do artigo na tag '<hr />' em 2.
+     * A primeira parte vai para o atributo 'summary' do programa.
+     * A segunda parte vai para o atributo 'summaryExtended' do programa.
+     */
     function _pipeHackPrograms (programs) {
 
       if(!angular.isArray(programs)){

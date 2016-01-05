@@ -21,7 +21,6 @@
       vm.$element = $element;
       vm.$log = $log;
 
-
       // initialization
       vm.init();
     }
@@ -33,13 +32,13 @@
 
       vm.showCloseBtn = true;
 
-      // Disable button remove of page ranking
-      if(vm.pathUrl=="/ranking"){
+      // Disable button 'remove' of page ranking
+      if (vm.pathUrl === '/ranking') {
         vm.showCloseBtn = false;
       }
 
       // Default values
-      if(!vm.isCollapsed){
+      if (!vm.isCollapsed) {
         vm.isCollapsed = false;
       }
 
@@ -48,13 +47,12 @@
     CategoryListController.prototype._disableUnselect = function() {
       var vm = this;
 
-      if(vm.disableUnselect && vm.disableUnselect === 'true'){
+      if (vm.disableUnselect && vm.disableUnselect === 'true') {
         return true;
       }
 
       return false;
     };
-
 
     CategoryListController.prototype.selectCategory = function(category, $event) {
       var vm = this;
@@ -65,9 +63,9 @@
       if (category !== vm.selectedCategory) {
         vm.selectedCategory = category;
 
-      }else{
+      }else {
 
-        if(vm._disableUnselect()){
+        if (vm._disableUnselect()) {
           vm.$log.info('Unselect is disabled.');
           return;
         }
@@ -79,11 +77,10 @@
       vm.$rootScope.$broadcast('change-selectedCategory', vm.selectedCategory);
     };
 
-
     CategoryListController.prototype.toogleList = function() {
       var vm = this;
 
-      if(!vm._listGroup){
+      if (!vm._listGroup) {
         vm._listGroup = vm.$element.find('.list-group');
       }
       vm._listGroup.slideToggle();

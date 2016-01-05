@@ -128,7 +128,6 @@
 
     function getProposalByIdRanked (proposalId, params, cbSuccess, cbError) {
       var url = service.apiProposals + proposalId + '/ranking?per_page=5&page=1';
-      console.log(url);
       var paramsExtended = angular.extend({
         // 'fields[]': ['id', 'title', 'abstract', 'children', 'children_count', 'ranking_position', 'hits', 'votes_for', 'votes_against'],
         // 'per_page':'1',
@@ -283,7 +282,6 @@
     function searchProposals (params, cbSuccess, cbError) {
       // Ex.: /api/v1/search/article?type=ProposalsDiscussionPlugin::Proposal&query=cisternas
       var url = service.apiSearch + 'article';
-      console.log('url',url);
       var paramsExtended = angular.extend({
         page: 1,
         per_page: 10,
@@ -306,8 +304,6 @@
         ]
       }, params);
 
-      console.log("params",paramsExtended);
-      
       UtilService.get(url, {params: paramsExtended}).then(function(data){
         _pipeInjectSlugIntoParentProgram(data);
         cbSuccess(data);

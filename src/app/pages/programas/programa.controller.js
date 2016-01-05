@@ -93,7 +93,7 @@
         } else {
           vm.proposals = data.proposals;
         }
-        console.log("-------------",vm.proposals);
+        
         vm.proposalsTopFive = vm.proposals.slice(0, 5);
         vm.proposalsTopRated = vm.proposals.slice(0, 3);
         vm.loadingTopProposals = false;

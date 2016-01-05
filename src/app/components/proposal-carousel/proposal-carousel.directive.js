@@ -22,11 +22,11 @@
       vm.init();
     }
 
-    ProposalCarouselController.prototype.init = function () {
+    ProposalCarouselController.prototype.init = function() {
       // initial values
       var vm = this;
 
-      if(!vm.proposals){
+      if (!vm.proposals) {
         throw { name: 'NotDefined', message: 'The attribute "proposals" is undefined.'};
       }
 
@@ -36,38 +36,38 @@
       vm.proposalsLength = vm.proposals.length;
     };
 
-    ProposalCarouselController.prototype.swipeLeft = function () {
+    ProposalCarouselController.prototype.swipeLeft = function() {
       var vm = this;
 
       vm.activeIndex = (vm.activeIndex < vm.proposalsLength - 1) ? ++vm.activeIndex : 0;
     };
 
-    ProposalCarouselController.prototype.swipeRight = function () {
+    ProposalCarouselController.prototype.swipeRight = function() {
       var vm = this;
 
       vm.activeIndex = (vm.activeIndex > 0) ? --vm.activeIndex : vm.proposalsLength - 1;
     };
 
-    ProposalCarouselController.prototype.switchProposal = function (index) {
+    ProposalCarouselController.prototype.switchProposal = function(index) {
       var vm = this;
 
-      if(index >= 0 && index < vm.proposalsLength) {
+      if (index >= 0 && index < vm.proposalsLength) {
         vm.activeIndex = index;
-      }else{
+      }else {
         vm.$log.warn('[switchProposal] "index" not handled:', index);
       }
     };
 
-    ProposalCarouselController.prototype.showProposalsList = function () {
+    ProposalCarouselController.prototype.showProposalsList = function() {
       var vm = this;
 
       // notify parents - handled by parents
       vm.$scope.$emit('proposal-carousel:showProposalsList');
     };
 
-    ProposalCarouselController.prototype.showContent = function (proposal) {
+    ProposalCarouselController.prototype.showContent = function(proposal) {
       var vm = this;
-      console.log("PROPOSAL-CARROUSEL",proposal);
+      
       vm.$state.go('programa', {
         slug: proposal.parent.slug,
         proposal_id: proposal.proposal_id
@@ -88,7 +88,6 @@
       controllerAs: 'vm',
       bindToController: true
     };
-
 
     return directive;
   }

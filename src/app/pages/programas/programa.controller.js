@@ -186,10 +186,14 @@
 
         if (vm.error.code === 400) {
           // Bad Request
-          vm.error.message = '';
-          vm.error.message += 'Não foi possível enviar a proposta.<br>';
-          vm.error.message += 'Este problema já foi registrado em nossos servidores.<br>';
-          vm.error.message += 'Por favor, tente novamente mais tarde.';
+          if (angular.equals(error.message, 'Resumo é muito longo (máximo: 200 caracteres)')) {
+            vm.error.message = 'Proposta muito longa (máximo: 200 caracteres)';
+          } else {
+            vm.error.message = '';
+            vm.error.message += 'Não foi possível enviar a proposta.<br>';
+            vm.error.message += 'Este problema já foi registrado em nossos servidores.<br>';
+            vm.error.message += 'Por favor, tente novamente mais tarde.';
+          }
         }
 
         // vm.proposalStatus = vm.PROPOSAL_STATUS.SENT | vm.PROPOSAL_STATUS.ERROR;

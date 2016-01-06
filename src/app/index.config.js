@@ -6,6 +6,7 @@
     // .config(configWhitelist)
     .config(configHeadersInterceptor)
     .config(configLocationProvider)
+    .config(configHrefWhitelist)
     .config(configBreadcrumbProvider)
     .config(config);
 
@@ -50,6 +51,11 @@
     if (Modernizr.history) {
       $locationProvider.html5Mode(true);
     }
+  }
+
+  /** @ngInject */
+  function configHrefWhitelist($compileProvider) {
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|whatsapp):/);
   }
 
   /** @ngInject */

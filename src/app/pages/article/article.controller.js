@@ -37,6 +37,9 @@
     var vm = this;
 
     switch (vm.page){
+      case 'acessibilidade':
+        vm.DialogaService.getAcessibility(handleSuccess, handleError);
+        break;
       case 'sobre':
         vm.DialogaService.getAbout(handleSuccess, handleError);
         break;

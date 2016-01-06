@@ -171,6 +171,17 @@
           }
         }
       })
+      .state('acessibilidade', {
+        url: '/acessibilidade',
+        ncyBreadcrumb: {label: 'Acessibilidade'},
+        views: {
+          'main': {
+            templateUrl: 'app/pages/article/article.html',
+            controller: 'ArticlePageController',
+            controllerAs: 'pageArticle'
+          }
+        }
+      })
       .state('mapa-do-site', {
         url: '/mapa-do-site',
         ncyBreadcrumb: {label: 'Mapa do Site'},

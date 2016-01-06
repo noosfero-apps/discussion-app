@@ -14,6 +14,7 @@
     extendedService.serviceDialoga = $rootScope.basePath + '/api/v1/dialoga_plugin/';
     extendedService.getHome = getHome;
     extendedService.getAbout = getAbout;
+    extendedService.getAcessibility = getAcessibility;
     extendedService.getTerms = getTerms;
     extendedService.getThemes = getThemes;
     extendedService.getThemeBySlug = getThemeBySlug;
@@ -64,6 +65,19 @@
           CACHE.about = article;
 
           cbSuccess(CACHE.about);
+        }, cbError);
+      }
+    }
+
+    function getAcessibility (cbSuccess, cbError) {
+      if( !!CACHE.acessibility ){
+        cbSuccess(CACHE.acessibility);
+      }else{
+        // load article content
+        ArticleService.getArticleById(API.articleId.acessibility, {}, function (article){
+          CACHE.acessibility = article;
+
+          cbSuccess(CACHE.acessibility);
         }, cbError);
       }
     }

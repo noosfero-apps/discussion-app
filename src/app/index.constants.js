@@ -66,6 +66,7 @@
     })
     .constant('Modernizr', window.Modernizr)
     .constant('jQuery', window.jQuery)
+    .constant('outdatedBrowser', window.outdatedBrowser)
     ;
 
 })();

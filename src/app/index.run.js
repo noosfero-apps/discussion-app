@@ -9,6 +9,7 @@
     .run(runCaptcha)
     // .run(runColorUtils)
     .run(runHistory)
+    .run(runOutdated)
     .run(runPath)
     .run(runSocialAuth)
     .run(runScroll)
@@ -236,6 +237,26 @@
       return $rootScope.$previousState.pop();
     };
   }
+
+  /** @ngInject */
+  function runOutdated(outdatedBrowser, jQuery) {
+    jQuery(document).ready(function(){
+      
+      // Options to 'lowerThan':
+      // 
+      // "IE11","borderImage"
+      // "IE10", "transform" (Default property)
+      // "IE9", "boxShadow"
+      // "IE8", "borderSpacing"
+      outdatedBrowser({
+        bgColor: '#f25648',
+        color: '#ffffff',
+        lowerThan: 'boxShadow',
+        languagePath: ''
+      });
+    });
+  }
+  
 
   /** @ngInject */
   function runPath($rootScope, PATH, $window, $log) {

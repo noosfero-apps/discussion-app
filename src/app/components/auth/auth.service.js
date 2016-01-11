@@ -119,7 +119,7 @@
       encodedData += '&password_confirmation=' + data.newPasswordConfirmation;
 
       return $http
-        .patch(url, encodedData)
+        .patch(url + '?' + encodedData)
         .then(function(response) {
           $log.debug('AuthService.changePassword [SUCCESS] response', response);
 

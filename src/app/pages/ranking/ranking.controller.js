@@ -24,7 +24,7 @@
     $log.debug('RankingPageController');
   }
 
-  RankingPageController.prototype.init = function () {
+  RankingPageController.prototype.init = function() {
     var vm = this;
 
     vm.page = 1;
@@ -39,7 +39,6 @@
     //Remove "X" from the theme at the ranking page
     vm.slug = vm.$location.$$path;
     
-
     if (vm.search.tema) {
       vm._filtredByThemeSlug = vm.search.tema;
     }
@@ -56,7 +55,7 @@
     vm.error = null;
   };
 
-  RankingPageController.prototype.loadData = function () {
+  RankingPageController.prototype.loadData = function() {
     var vm = this;
 
     vm.loading = true;
@@ -71,40 +70,39 @@
 
     // 1. Load themes
     vm.loadingThemes = true;
-    vm.DialogaService.getThemes(function(themes){
+    vm.DialogaService.getThemes(function(themes) {
       vm.themes = themes;
       vm.loadingThemes = false;
 
       // 2. Select a Random Theme (T)
       var selectedTheme = null;
-      if(vm.search.tema || vm._filtredByThemeSlug){
+      if (vm.search.tema || vm._filtredByThemeSlug) {
 
         // vanilla filter
-        var results = vm.themes.filter(function(t){
+        var results = vm.themes.filter(function(t) {
           return (t.slug === vm.search.tema || (t.slug === vm._filtredByThemeSlug));
         });
 
-        if(results && results.length > 0){
+        if (results && results.length > 0) {
           selectedTheme = results[0];
           vm.selectedTheme = selectedTheme;
         }
 
-
       }
 
-      if(!selectedTheme){
+      if (!selectedTheme) {
         vm.selectedTheme = vm.themes[Math.floor(Math.random() * vm.themes.length)];
       }
 
       // 3. Load programs of T
       // (AND 4)
       var themeId = vm.selectedTheme.id;
-      vm.loadPrograms(themeId, function(){
+      vm.loadPrograms(themeId, function() {
         // vm.loadProposals();
         vm.loading = false;
         vm.loadingFilter = false;
       });
-    }, function (error) {
+    }, function(error) {
       vm.error = error;
       vm.$log.error(error);
       vm.loadingThemes = false;
@@ -112,38 +110,38 @@
     });
   };
 
-  RankingPageController.prototype.loadPrograms = function (themeId, cb) {
+  RankingPageController.prototype.loadPrograms = function(themeId, cb) {
     var vm = this;
 
-    vm.DialogaService.getProgramsByThemeId(themeId, function (programs){
+    vm.DialogaService.getProgramsByThemeId(themeId, function(programs) {
 
       vm.filtredPrograms = programs;
 
       // 4. Select a random program of T
       var selectedProgram = null;
-      if(vm.search.programa || vm._filtredByProgramSlug){
+      if (vm.search.programa || vm._filtredByProgramSlug) {
 
         // vanilla filter
-        var results = vm.filtredPrograms.filter(function(p){
+        var results = vm.filtredPrograms.filter(function(p) {
           return (p.slug === vm.search.programa || (p.slug === vm._filtredByProgramSlug));
         });
 
-        if(results && results.length > 0){
+        if (results && results.length > 0) {
           selectedProgram = results[0];
           vm.selectedProgram = selectedProgram;
         }
       }
 
-      if(!selectedProgram){
+      if (!selectedProgram) {
         vm.selectedProgram = vm.filtredPrograms[Math.floor(Math.random() * vm.filtredPrograms.length)];
       }
 
-      if(cb){
+      if (cb) {
         cb();
       }
-    }, function(error){
+    }, function(error) {
       vm.$log.error(error);
-      if(cb){
+      if (cb) {
         cb();
       }
     });
@@ -152,7 +150,7 @@
   RankingPageController.prototype.attachListeners = function() {
     var vm = this;
 
-    vm.$scope.$on('change-selectedCategory', function (event, selectedCategory) {
+    vm.$scope.$on('change-selectedCategory', function(event, selectedCategory) {
       vm.selectedTheme = selectedCategory;
     });
 
@@ -160,14 +158,14 @@
       vm.search.tema = newValue ? newValue.slug : null;
       vm.$location.search('tema', vm.search.tema);
 
-      if(!vm.loadingFilter && vm.selectedTheme && vm.selectedTheme.id){
-        vm.loadPrograms(vm.selectedTheme.id, function(){
+      if (!vm.loadingFilter && vm.selectedTheme && vm.selectedTheme.id) {
+        vm.loadPrograms(vm.selectedTheme.id, function() {
           vm.filterProposals();
         });
       }
     });
 
-    vm.$scope.$on('change-selectedTopic', function (event, selectedTopic) {
+    vm.$scope.$on('change-selectedTopic', function(event, selectedTopic) {
       vm.selectedProgram = selectedTopic;
     });
 
@@ -207,7 +205,7 @@
   RankingPageController.prototype.filterProposals = function(_page, _per_page) {
     var vm = this;
 
-    if (vm.loadingProposals){
+    if (vm.loadingProposals) {
       vm.$log.debug('Content is not loaded yet.');
       return;
     }
@@ -228,11 +226,11 @@
     if (query) {params.query = query; }
 
     vm.loadingProposals = true;
-    vm.DialogaService.searchProposals(params, function(data){
+    vm.DialogaService.searchProposals(params, function(data) {
       vm.total_proposals = parseInt(data._obj.headers('total'));
       vm.filtredProposals = data.articles;
       vm.loadingProposals = false;
-    }, function (error) {
+    }, function(error) {
       vm.error = error;
       vm.$log.error(error);
       vm.loadingProposals = false;

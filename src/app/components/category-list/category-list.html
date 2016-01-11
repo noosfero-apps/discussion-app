@@ -1,12 +1,12 @@
-<div class="category-list">
+<div class="category-list" ng-class="vm.selectedCategory.slug">
   <nav class="navigation">
     <h3 class="category-list--title" ng-click="vm.toogleList()">
       <!-- <span class="hidden-xs"><b>Programas</b> por Tema</span> -->
       <!-- <span class="visible-xs"><b>Filtrar</b> por Tema <span class="glyphicon glyphicon-filter pull-right"></span></span> -->
       <b>Filtrar</b> por Tema <span class="glyphicon glyphicon-filter pull-right"></span>
     </h3>
-    <!-- <div class="list-group ng-hide" ng-show="!vm.isCollapsed" ng-class="vm.selectedCategory.slug"> -->
-    <div class="list-group is-mobile" ng-class="vm.selectedCategory.slug">
+    
+    <div class="list-group is-mobile js-list-group">
       <button type="button" class="list-group-item category-list--item"
         ng-repeat="category in vm.categories"
         ng-class="{active: vm.selectedCategory.slug === category.slug}"
@@ -18,6 +18,18 @@
         <span class="category-list--icon--right glyphicon glyphicon-chevron-right hidden-xs" ng-hide="vm.selectedCategory.slug === category.slug"></span>
         <span ng-if="vm.showCloseBtn" class="category-list--icon--right glyphicon glyphicon-remove hidden-xs" ng-show="vm.selectedCategory.slug === category.slug"></span>
         <div ng-if="category.archived" class="category-list--icon-archived">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </div>
+      </button>
+    </div>
+
+    <div class="list-group is-mobile js-selected-category">
+      <button type="button" class="list-group-item category-list--item active" ng-if="vm.isCollapsed">
+        <span class="category-list--icon-circle" aria-hidden="true" ng-class="vm.selectedCategory.slug"></span>
+        <span class="category-list--icon icon" aria-hidden="true" ng-class="'icon-tema-' + vm.selectedCategory.slug + '-small'"></span>
+        <span class="category-list--label">{{vm.selectedCategory.name}}</span>
+        <span class="category-list--icon--right glyphicon glyphicon-chevron-right hidden-xs"></span>
+        <div ng-if="vm.selectedCategory.archived" class="category-list--icon-archived">
           <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
         </div>
       </button>

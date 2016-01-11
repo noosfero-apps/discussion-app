@@ -1,8 +1,13 @@
-<div class="topics-dropdown">
-  <select
-    ng-model="vm.selectedTopic"
-    ng-change="vm.selectTopic()"
-    ng-options="topic.title for topic in vm.topics track by topic.slug"
-    class="form-control">
-  </select>
+<div class="topics-select">
+	<h3 class="category-list--title">
+		Filtrar por <b>Programa</b>
+	</h3>
+	<div class="topics-dropdown">
+		<select
+		ng-model="vm.selectedTopic"
+		ng-change="vm.selectTopic()"
+		ng-options="topic.title for topic in vm.topics track by topic.slug"
+		class="form-control">
+		</select>
+	</div>
 </div>

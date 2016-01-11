@@ -28,19 +28,18 @@
     CategoryListController.prototype.init = function() {
       var vm = this;
      
-      vm.pathUrl = vm.$location.path();
-
-      vm.showCloseBtn = true;
+      vm.isRankingPage = (vm.$location.path() === '/ranking');
 
       // Disable button 'remove' of page ranking
-      if (vm.pathUrl === '/ranking') {
+      vm.showCloseBtn = true;
+      if (vm.isRankingPage) {
         vm.showCloseBtn = false;
       }
 
       // Default values
-      if (!vm.isCollapsed) {
-        vm.isCollapsed = false;
-      }
+      vm.isCollapsed = false;
+
+      // vm.$element.find('.js-selected-category').hide();
 
     };
 
@@ -63,7 +62,11 @@
       if (category !== vm.selectedCategory) {
         vm.selectedCategory = category;
 
-      }else {
+        if (vm.isRankingPage) {
+          vm._getListGroup().slideUp();
+          vm.isCollapsed = true;
+        }
+      } else {
 
         if (vm._disableUnselect()) {
           vm.$log.info('Unselect is disabled.');
@@ -80,10 +83,23 @@
     CategoryListController.prototype.toogleList = function() {
       var vm = this;
 
-      if (!vm._listGroup) {
-        vm._listGroup = vm.$element.find('.list-group');
+      if (vm.isCollapsed) {
+        vm._getListGroup().slideDown();
+      } else {
+        vm._getListGroup().slideUp();
       }
-      vm._listGroup.slideToggle();
+      vm.isCollapsed = !vm.isCollapsed;
+    };
+
+    CategoryListController.prototype._getListGroup = function() {
+      var vm = this;
+
+      if (!vm._listGroup) {
+        vm._listGroup = vm.$element.find('.js-list-group');
+      }
+
+      return vm._listGroup;
+
     };
 
     var directive = {

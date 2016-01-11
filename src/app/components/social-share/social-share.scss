@@ -45,7 +45,20 @@
             &:last-child { margin-right: 0;}
         }
     }
+
+    // Hide whatsapp when is not a mobile device
+    // > For this, we can test if 'no-touch' class is present at root html tag.
+    .no-touch & { // ->> .no-touch .social-share
+        min-width: 160px;
+
+        .social-share--item-whatsapp {
+            display: none;
+        }
+    }
 }
+
+
+
 
 .social-share--arrow {
     position: absolute;

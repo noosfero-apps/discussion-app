@@ -24,23 +24,28 @@
   DuvidasPageController.prototype.init = function () {
     var vm = this;
 
-    vm.questions = [{
-        question: 'O que é o Dialoga Brasil?',
-        answer: 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven`t heard of them accusamus labore sustainable VHS.'
-      },{
-        question: 'O que ... ?',
-        answer: 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven`t heard of them accusamus labore sustainable VHS.'
-      }
-    ];
-    
-    vm.loading = true;
+    vm.loadingQuestions = false;
     vm.error = false;
     vm.sendingContactForm = false;
+    vm.questions = [];
 
   };
 
   DuvidasPageController.prototype.loadData = function () {
-    // var vm = this;
+    var vm = this;
+
+    vm.loadingQuestions = true;
+    vm.DialogaService.getQuestions()
+    .then(function(data) {
+      // vm.$log.debug('data', data);
+      vm.questions = data.articles;
+    })
+    .catch(function(error){
+      vm.$log.error('error', error);
+    })
+    .finally(function(){
+      vm.loadingQuestions = false;
+    });
   };
 
   DuvidasPageController.prototype.attachListeners = function () {

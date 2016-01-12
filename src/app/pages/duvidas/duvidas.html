@@ -13,16 +13,24 @@
 			<div class="row">
 				<div class="panel-group" id="accordion-duvidas" role="tablist" aria-multiselectable="false">
 					<div class="panel panel-default">
-						<div class="question-item" ng-repeat="question in pageDuvidas.questions">
-							<div id="duvida-{{($index + 1)}}" class="panel-heading" role="tab">
-								<div class="panel-title" role="button" data-target="#collapse-{{($index + 1)}}" aria-expanded="($index === 0) ? 'true' : 'false'" aria-controls="collapse-{{($index + 1)}}" data-toggle="collapse" data-parent="#accordion-duvidas">
-									<span class="num-duvida">{{($index + 1)}}</span>
-									<span class="panel-title">{{question.question}}</span>
-									<span class="glyphicon glyphicon-chevron-down icon-white pull-right" aria-hidden="true"></span>
+						<div ng-if="pageDuvidas.loadingQuestions">
+							<div class="alert alert-info" role="alert">Carregando as dúvidas frequentes.</div>
+						</div>
+						<div ng-if="pageDuvidas.loadingQuestionsError">
+							<div class="alert alert-danger" role="alert"><b>Erro!</b> Não foi possível carregar as dúvidas frequêntes.</div>
+						</div>
+						<div ng-if="!pageDuvidas.loadingQuestions && pageDuvidas.questions">
+							<div class="question-item" ng-repeat="question in pageDuvidas.questions">
+								<div id="duvida-{{($index + 1)}}" class="panel-heading" role="tab">
+									<div class="panel-title" role="button" data-target="#collapse-{{($index + 1)}}" aria-expanded="($index === 0) ? 'true' : 'false'" aria-controls="collapse-{{($index + 1)}}" data-toggle="collapse" data-parent="#accordion-duvidas">
+										<span class="num-duvida">{{($index + 1)}}</span>
+										<span class="panel-title">{{question.title}}</span>
+										<span class="glyphicon glyphicon-chevron-down icon-white pull-right" aria-hidden="true"></span>
+									</div>
 								</div>
-							</div>
-							<div id="collapse-{{($index + 1)}}" class="panel-collapse collapse" ng-class="{ 'in': ($index === 0) }" role="tabpanel" aria-expanded="($index === 0) ? 'true' : 'false'" aria-labelledby="duvida-{{($index + 1)}}">
-								<div class="panel-body" ng-bind-html="question.question"></div>
+								<div id="collapse-{{($index + 1)}}" class="panel-collapse collapse" ng-class="{ 'in': ($index === 0) }" role="tabpanel" aria-expanded="($index === 0) ? 'true' : 'false'" aria-labelledby="duvida-{{($index + 1)}}">
+									<div class="panel-body" ng-bind-html="question.body"></div>
+								</div>
 							</div>
 						</div>
 					</div>

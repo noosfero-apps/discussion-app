@@ -16,6 +16,7 @@
       apiSearch: $rootScope.basePath + '/api/v1/search/',
       getArticleById: getArticleById,
       getArticleBySlug: getArticleBySlug,
+      getArtcilesByParentId: getArtcilesByParentId,
       getCategories: getCategories,
       getCategoryBySlug: getCategoryBySlug,
       getTopics: getTopics,
@@ -55,6 +56,17 @@
 
     function getArticleBySlug (/*slug, params, cbSuccess, cbError*/) {
       throw { name: 'NotImplementedYet', message: 'The service "getArticleBySlug" is not implemented yet.'};
+    }
+
+    function getArtcilesByParentId (parentId, params) {
+      // Ex.: /api/v1/articles/103358/children?fields=
+
+      var url = service.apiArticles + parentId + '/children';
+      var paramsExtended = angular.extend({
+        'fields[]': ['id', 'slug', 'title', 'body']
+      }, params);
+
+      return UtilService.get(url, {params: paramsExtended});
     }
 
     function getCategories (articleId, params, cbSuccess, cbError) {

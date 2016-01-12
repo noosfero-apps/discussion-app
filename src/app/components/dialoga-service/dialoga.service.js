@@ -233,17 +233,10 @@
       return ArticleService.getResponseByProposalId(proposalId);
     }
 
-    // TODO: implement
-    function getQuestions (cbSuccess/*, cbError*/) {
-      if( !!CACHE.questions ){
-        cbSuccess(CACHE.questions);
-      }else{
-        // load content
-        var questions = [];
-
-        CACHE.questions = questions;
-        cbSuccess(CACHE.questions);
-      }
+    function getQuestions () {
+      var parentId = API.articleId.faq;
+      var params = {};
+      return ArticleService.getArtcilesByParentId(parentId, params);
     }
 
     function searchPrograms (query, cbSuccess, cbError) {

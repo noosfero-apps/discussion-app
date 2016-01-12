@@ -271,6 +271,29 @@
 
         .gov-response {
             background-color: #e1e1e1;
+
+            &--link-list .btn{
+
+                @media screen and (max-width: $screen-xs) {
+                    padding-right: 50px;
+                    padding-left: 15px;
+                }
+
+            }
+        }
+
+
+        .icon-programa-respondido {
+            @media screen and (max-width: $screen-xs) {
+                transform: scale(0.6);
+                margin-left: -10px;
+            }
+        }
+
+        .img-mask--container {
+            @media screen and (max-width: $screen-xs) {
+                min-width: 145px;
+            }
         }
 
         .button--themed {
@@ -285,6 +308,8 @@
             .btn-responsive {
                 white-space: normal !important;
                 word-wrap: break-word;
+                padding-right: 40px;
+                padding-left: 15px;
             }
         }
 

@@ -242,7 +242,7 @@
                     <div class="sub-section sub-section-{{::proposal.id}}" ng-class="{'sub-section-even': ( ($index+1) % 2 === 0), 'sub-section-odd': ( ($index+1) % 2 === 1)}">
                         <div class="container">
                             <div class="row">
-                                <div class="col-sm-4 col-md-3">
+                                <div class="col-xs-6 col-sm-4 col-md-3">
                                     <div class="img-mask--container" ng-style="{'background-image':'url( {{::proposal.body}} )'}">
                                         <div class="img-mask--background ng-scope">
                                             <div class="icon icon-programa-respondido">
@@ -253,11 +253,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-8 col-md-9">
+                                <div class="col-xs-6 col-sm-8 col-md-9">
                                     <br>
                                     <h3 class="color-theme-fg">{{($index+1)}}ª proposta mais votada:</h3>
                                     <p>{{::proposal.abstract}}</p>
-                                    <div class="button--themed">
+                                    <div class="hidden-xs">
+                                        <div class="button--themed" style="margin: 10px 0;">
+                                            <button class="btn btn-block btn-responsive" ng-click="pagePrograma.toggleResponseVisibility(proposal)">
+                                                Veja a resposta e o compromisso do governo
+                                                <div class="button-left-icon">
+                                                    <span class="glyphicon glyphicon-chevron-down pull-right color-theme-common-fg" aria-hidden="true"></span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 visible-xs">
+                                    <div class="button--themed" style="margin: 10px 0;">
                                         <button class="btn btn-block btn-responsive" ng-click="pagePrograma.toggleResponseVisibility(proposal)">
                                             Veja a resposta e o compromisso do governo
                                             <div class="button-left-icon">
@@ -265,7 +278,6 @@
                                             </div>
                                         </button>
                                     </div>
-                                    <br>
                                 </div>
                             </div>
                         </div>

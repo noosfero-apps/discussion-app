@@ -18,9 +18,10 @@
         home: '103358',
         about: '108073',
         acessibility: '117319',
-        terms: '107880'
+        terms: '107880',
+        faq: '117322'
       },
-      communityId: '19195'
+      communityId: '19195',
     })
     .constant('AUTH_EVENTS', {
       loginSuccess: 'auth-login-success',

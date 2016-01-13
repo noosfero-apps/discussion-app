@@ -6,14 +6,16 @@
     .controller('DuvidasPageController', DuvidasPageController);
 
   /** @ngInject */
-  function DuvidasPageController(DialogaService, $interval, $window, $log) {
+  function DuvidasPageController(DialogaService, APP, $interval, $window, vcRecaptchaService, $log) {
     $log.debug('DuvidasPageController');
 
     var vm = this;
 
     vm.DialogaService = DialogaService;
+    vm.APP = APP;
     vm.$interval = $interval;
     vm.$window = $window;
+    vm.vcRecaptchaService = vcRecaptchaService;
     vm.$log = $log;
 
     vm.init();
@@ -28,6 +30,8 @@
     vm.error = false;
     vm.sendingContactForm = false;
     vm.questions = [];
+    vm.recaptchaResponse = null;
+    vm.recaptchaWidgetId = null;
 
   };
 
@@ -51,23 +55,27 @@
   DuvidasPageController.prototype.attachListeners = function () {
     var vm = this;
 
-    vm._attachCaptcha();
-  };
+    // reCaptcha Listeners
+    vm.setWidgetId = function(widgetId) {
+      // store the `widgetId` for future usage.
+      // For example for getting the response with
+      // `recaptcha.getResponse(widgetId)`.
+      vm.$log.info('Created widget ID:', widgetId);
+      vm.recaptchaWidgetId = widgetId;
+      
+    };
 
-  DuvidasPageController.prototype._attachCaptcha = function() {
-    var vm = this;
+    vm.setResponse = function(response) {
+      
+      // Update local captcha response
+      vm.$log.debug('Response available', response);
+      vm.recaptchaResponse = response;
+    };
 
-    var stop = null;
-    stop = vm.$interval(function(){
-      var $el = angular.element('#serpro_captcha');
-
-      if ($el && $el.length > 0 ){
-        vm.$window.initCaptcha($el[0]);
-        vm.$interval.cancel(stop);
-        stop = undefined;
-      }
-
-    }, 200);
+    vm.cbExpiration = function() {
+      // reset the 'response' object that is on scope 
+      vm.$log.debug('cbExpiration');
+    };
   };
 
   DuvidasPageController.prototype.submitContactForm = function ($event, contactForm) {
@@ -82,11 +90,8 @@
       subject: contactForm.inputSubject.$modelValue,
       message: contactForm.inputMessage.$modelValue
     };
-    
-    var target = $event.target;
-    var $target = angular.element(target);
-    var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
-    data.txtToken_captcha_serpro_gov_br = $captcha.val();
+
+    data.recaptcha_response = vm.recaptchaResponse;
 
     vm.DialogaService.sendContactForm(data)
     .then(function(response){

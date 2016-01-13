@@ -7,6 +7,7 @@
     "angular-breadcrumb": "~0.4.1",
     "angular-cookies": "~1.4.0",
     "angular-messages": "ng-messages#*",
+    "angular-recaptcha": "~2.2.5",
     "angular-sanitize": "~1.4.0",
     "angular-slugify": "~1.0.1",
     "angular-socialshare": "angularjs-socialshare#~0.1.13",

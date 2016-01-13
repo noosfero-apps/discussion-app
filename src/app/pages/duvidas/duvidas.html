@@ -89,12 +89,14 @@
 								<div class="col-sm-4 form-group pull-right">
 
 									<div class="form-group">
-										<div id="serpro_captcha" class="captcha"></div>
-										<div class="captcha">Digite os caracteres acima:</div>
-										<div class="captcha">
-											<input type="text" name="captcha_text" id="captcha_text" aria-label="Escreva os caracteres do captcha aqui" ng-model="pageSignin.signup.captcha_text" ng-minlength="" ng-maxlength="" required>
-											<validation-messages field="contactForm.captcha_text"></validation-messages>
-										</div>
+				                        <div
+				                          vc-recaptcha
+				                          theme="'light'"
+				                          key="pageDuvidas.APP.recaptcha_key"
+				                          on-create="pageDuvidas.setWidgetId(widgetId)"
+				                          on-success="pageDuvidas.setResponse(response)"
+				                          on-expire="pageDuvidas.cbExpiration()"
+				                        ></div>
 									</div>
 									
 									<div class="row" ng-show="pageDuvidas.sendingContactForm">

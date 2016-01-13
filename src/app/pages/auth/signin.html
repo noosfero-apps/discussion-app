@@ -247,15 +247,14 @@
                   <validation-messages field="signupForm.user_terms_accepted"></validation-messages>
                 </div>
                 <div class="form-group">
-                  <div id="serpro_captcha" class="captcha">
-                  </div>
-                  <div class="captcha">
-                    Digite os caracteres acima:
-                  </div>
-                  <div class="captcha">
-                    <input type="text" name="captcha_text" id="captcha_text" aria-label="Escreva os caracteres do captcha aqui" ng-model="pageAuth.signup.captcha_text" ng-minlength="" ng-maxlength="" required>
-                    <validation-messages field="signupForm.captcha_text"></validation-messages>
-                  </div>
+                  <div
+                    vc-recaptcha
+                    theme="'light'"
+                    key="pageAuth.APP.recaptcha_key"
+                    on-create="pageAuth.setWidgetId(widgetId)"
+                    on-success="pageAuth.setResponse(response)"
+                    on-expire="pageAuth.cbExpiration()"
+                  ></div>
                 </div>
                 <div class="form-group">
                   <button  type="submit" class="btn btn-lg btn-block btn-submit" ng-class=" {'disabled' : !pageAuth.signup.user_terms_accepted }">Cadastrar</button>

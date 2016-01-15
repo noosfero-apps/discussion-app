@@ -127,7 +127,7 @@
 
       vm.sendingCaptcha = true;
       vm.AuthService.loginCaptcha({
-        recaptcha_response: vm.recaptchaResponse
+        g_recaptcha_response: vm.recaptchaResponse
       }).then(function(data) {
         // SUCCESS
         vm.$log.debug('register success.data', data);

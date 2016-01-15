@@ -22,15 +22,14 @@
       encodedData += '&password=' + data.password;
       encodedData += '&password_confirmation=' + data.password_confirmation;
       encodedData += '&user_terms_accepted=' + data.user_terms_accepted;
-      encodedData += '&captcha_text=' + data.captcha_text;
-      encodedData += '&txtToken_captcha_serpro_gov_br=' + data.txtToken_captcha_serpro_gov_br;
+      encodedData += '&g_recaptcha_response=' + data.g_recaptcha_response;
 
       // var encodedData = _encodeObj(data);
       // var encodedData = angular.element.param(data);
       // '&email=&login=&name=&password=&password_confirmation';
       // oauth_providers
       // oauth_signup_token
-      // captcha_text
+      // g_recaptcha_response
       // user_terms_accepted
 
       return $http.post(url, encodedData)
@@ -89,8 +88,7 @@
       var url = PATH.host + '/api/v1/resend_activation_code';
       var encodedData = ([
         'value=' + data.login,
-        'captcha_text=' + data.captcha_text,
-        'txtToken_captcha_serpro_gov_br=' + data.txtToken_captcha_serpro_gov_br
+        'g_recaptcha_response=' + data.g_recaptcha_response
         ]).join('&');
 
       url += '?' + encodedData;
@@ -139,8 +137,7 @@
       var url = PATH.host + '/api/v1/forgot_password';
       var encodedData = ([
         'value=' + data.login,
-        'captcha_text=' + data.captcha_text,
-        'txtToken_captcha_serpro_gov_br=' + data.txtToken_captcha_serpro_gov_br
+        'g_recaptcha_response=' + data.g_recaptcha_response
         ]).join('&');
 
       return $http

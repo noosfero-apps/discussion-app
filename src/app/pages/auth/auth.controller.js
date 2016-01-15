@@ -151,7 +151,7 @@
   AuthPageController.prototype.submitSignup = function($event, credentials) {
     var vm = this;
 
-    credentials.recaptcha_response = vm.recaptchaResponse;
+    credentials.g_recaptcha_response = vm.recaptchaResponse;
     
     vm.AuthService.register(credentials)
     .then(function(/*response*/) {
@@ -227,7 +227,7 @@
     // get form data
     var data = {
       login: recoverForm.login.$modelValue,
-      recaptcha_response: vm.recaptchaResponse
+      g_recaptcha_response: vm.recaptchaResponse
     };
 
     var promiseRequest = vm.AuthService.forgotPassword(data);
@@ -271,7 +271,7 @@
     // get form data
     var data = {
       login: confirmationForm.login.$modelValue,
-      recaptcha_response: vm.recaptchaResponse
+      g_recaptcha_response: vm.recaptchaResponse
     };
 
     // get captcha token

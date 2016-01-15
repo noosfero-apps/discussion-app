@@ -91,7 +91,7 @@
       message: contactForm.inputMessage.$modelValue
     };
 
-    data.recaptcha_response = vm.recaptchaResponse;
+    data.g_recaptcha_response = vm.recaptchaResponse;
 
     vm.DialogaService.sendContactForm(data)
     .then(function(response){

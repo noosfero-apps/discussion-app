@@ -9,21 +9,23 @@
   function proposalBox() {
 
     /** @ngInject */
-    function ProposalBoxController($scope, $location, $rootScope, $state, $timeout, $interval, $window, VOTE_STATUS, VOTE_OPTIONS, AuthService, DialogaService, $log) {
+    function ProposalBoxController($scope, $location, $rootScope, $state, $timeout, $interval, $window, APP, VOTE_STATUS, VOTE_OPTIONS, AuthService, DialogaService, vcRecaptchaService, $log) {
       $log.debug('ProposalBoxController');
 
       var vm = this;
       vm.$scope = $scope;
+      vm.$location = $location;
       vm.$rootScope = $rootScope;
       vm.$state = $state;
       vm.$timeout = $timeout;
       vm.$interval = $interval;
       vm.$window = $window;
+      vm.APP = APP;
       vm.VOTE_STATUS = VOTE_STATUS;
       vm.VOTE_OPTIONS = VOTE_OPTIONS;
       vm.AuthService = AuthService;
+      vm.vcRecaptchaService = vcRecaptchaService;
       vm.$log = $log;
-      vm.$location = $location;
 
       vm.init();
       vm.addListeners();
@@ -39,6 +41,8 @@
       vm.STATE = null;
       vm.errorOnSkip = false;
       vm.showCaptchaForm = null;
+      vm.recaptchaWidgetId = null;
+      vm.recaptchaResponse = null;
       vm.voteProposalRedirectURI = null;
       vm.proposalsImg = null;
 
@@ -86,20 +90,27 @@
         vm.messageCode = data.code;
       });
 
-      // Load captcha
-      var stop = null;
-      stop = vm.$interval(function() {
-        var $el = angular.element('#serpro_captcha');
+      // reCaptcha Listeners
+      vm.setWidgetId = function(widgetId) {
+        // store the `widgetId` for future usage.
+        // For example for getting the response with
+        // `recaptcha.getResponse(widgetId)`.
+        vm.$log.info('Created widget ID:', widgetId);
+        vm.recaptchaWidgetId = widgetId;
+        
+      };
 
-        if ($el && $el.length > 0) {
-          vm.$window.initCaptcha($el[0]);
-          vm.$interval.cancel(stop);
-          stop = undefined;
-        }else {
-          vm.$log.debug('captcha element not found.');
-        }
+      vm.setResponse = function(response) {
+        
+        // Update local captcha response
+        vm.$log.debug('Response available', response);
+        vm.recaptchaResponse = response;
+      };
 
-      }, 10);
+      vm.cbExpiration = function() {
+        // reset the 'response' object that is on scope 
+        vm.$log.debug('cbExpiration');
+      };
     };
 
     ProposalBoxController.prototype.canVote = function() {
@@ -113,12 +124,10 @@
 
       var target = $event.target;
       var $target = angular.element(target);
-      var $captcha = $target.find('[name="txtToken_captcha_serpro_gov_br"]');
 
       vm.sendingCaptcha = true;
       vm.AuthService.loginCaptcha({
-        captcha_text: captchaForm.captcha_text.$modelValue,
-        txtToken_captcha_serpro_gov_br: $captcha.val()
+        g_recaptcha_response: vm.recaptchaResponse
       }).then(function(data) {
         // SUCCESS
         vm.$log.debug('register success.data', data);
@@ -131,22 +140,23 @@
         // hide captcha form
         vm.showCaptchaForm = false;
 
-      }, function(data) {
+      })
+      .catch(function(data) {
         // ERROR
         vm.$log.debug('register error.data', data);
 
-        vm.sendingCaptchaError = {
-          code: data.status,
-          message: data.message || ('Erro (' + data.status + '). Já estamos trabalhando para resolver o problema.<br/>Por favor, tente novamente mais tarde')
-        };
+        // In case of a failed validation you need to reload the captcha
+        // because each response can be checked just once
+        vm.vcRecaptchaService.reload(vm.recaptchaWidgetId);
+
+        vm.sendingCaptchaError = {};
+        vm.sendingCaptchaError.code = data.status;
+        vm.sendingCaptchaError.message = data.message || ('Erro (' + data.status + '). Já estamos trabalhando para resolver o problema.<br/>Por favor, tente novamente mais tarde');
 
         if (angular.equals(vm.sendingCaptchaError.message, 'Internal captcha validation error')) {
           vm.sendingCaptchaError.message = 'Erro interno ao tentar validar captcha.<br/><br/>Já estamos trabalhando para resolver o problema.<br/>Por favor, tente novamente mais tarde.';
         }
 
-      }, function(data) {
-        // UPDATE
-        vm.$log.debug('register update.data', data);
       }).finally(function() {
         vm.sendingCaptcha = false;
       });
@@ -161,11 +171,10 @@
       vm.message = null;
 
       // reload new captcha
-      var $el = angular.element('#serpro_captcha');
-      vm.$window.reloadCaptcha($el[0]);
+      vm.vcRecaptchaService.reload(vm.recaptchaWidgetId);
 
       // focus on input
-      angular.element('#captcha_text').val('').focus();
+      // angular.element('#captcha_text').val('').focus();
     };
 
     ProposalBoxController.prototype.vote = function(value) {

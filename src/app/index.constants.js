@@ -11,6 +11,7 @@
     .constant('APP', {
       facebook_app_id: '1',
       google_app_id: '4',
+      recaptcha_key: '6LeDTRUTAAAAAA1VMOmIa2oqqWaPfXsv7J90r_49',
     })
     .constant('API', {
       token: null,

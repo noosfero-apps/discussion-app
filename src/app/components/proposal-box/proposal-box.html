@@ -93,12 +93,14 @@
                   <div ng-hide="vm.sendingCaptchaError">
                     <form name="captchaForm" ng-submit="vm.submitCaptcha($event, captchaForm)">
                       <div class="form-group">
-                        <div id="serpro_captcha" class="captcha"></div>
-                        <div class="captcha">Digite os caracteres acima:</div>
-                        <div class="captcha">
-                          <input type="text" name="captcha_text" id="captcha_text" aria-label="Escreva os caracteres do captcha aqui" ng-model="vm._captcha_text" ng-minlength="" ng-maxlength="" required>
-                          <validation-messages field="captchaForm.captcha_text"></validation-messages>
-                        </div>
+                        <div
+                          vc-recaptcha
+                          theme="'light'"
+                          key="vm.APP.recaptcha_key"
+                          on-create="vm.setWidgetId(widgetId)"
+                          on-success="vm.setResponse(response)"
+                          on-expire="vm.cbExpiration()"
+                        ></div>
                       </div>
                       <div class="form-group">
                         <button  type="submit" class="btn btn-lg btn-block btn-submit">Enviar</button>

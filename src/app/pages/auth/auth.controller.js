@@ -6,7 +6,7 @@
     .controller('AuthPageController', AuthPageController);
 
   /** @ngInject */
-  function AuthPageController($scope, $rootScope, $window, $location, $state, $timeout, $interval, APP, AUTH_EVENTS, AuthService, DialogaService, Session, $log) {
+  function AuthPageController($scope, $rootScope, $window, $location, $state, $timeout, $interval, APP, AUTH_EVENTS, AuthService, DialogaService, Session, vcRecaptchaService, $log) {
     var vm = this;
 
     vm.$scope = $scope;
@@ -21,6 +21,7 @@
     vm.AuthService = AuthService;
     vm.DialogaService = DialogaService;
     vm.Session = Session;
+    vm.vcRecaptchaService = vcRecaptchaService;
     vm.$log = $log;
 
     vm.init();
@@ -42,6 +43,8 @@
     vm.loadingTerms = null;
     vm.delay = 3; // segundos
     vm.countdown = 0;
+    vm.recaptchaResponse = null;
+    vm.recaptchaWidgetId = null;
 
     vm.search = vm.$location.search();
     var redirect = vm.search.redirect_uri || '';
@@ -62,7 +65,6 @@
     vm.$scope.$on(vm.AUTH_EVENTS.logoutSuccess, function() {
       vm.clearMessages();
       vm.currentUser = vm.Session.getCurrentUser();
-      vm._attachCaptcha();
     });
   };
 
@@ -104,7 +106,7 @@
       var private_token = response.data.private_token;
 
       // Garante que o 'user' sempre terá a propriedade 'private_token'
-      if(response.data.user && !response.data.user.private_token){
+      if (response.data.user && !response.data.user.private_token) {
         response.data.user.private_token = private_token;
       }
 
@@ -117,23 +119,27 @@
       }
     });
 
-    vm._attachCaptcha();
-  };
+    // reCaptcha Listeners
+    vm.setWidgetId = function(widgetId) {
+      // store the `widgetId` for future usage.
+      // For example for getting the response with
+      // `recaptcha.getResponse(widgetId)`.
+      vm.$log.info('Created widget ID:', widgetId);
+      vm.recaptchaWidgetId = widgetId;
+      
+    };
 
-  AuthPageController.prototype._attachCaptcha = function() {
-    var vm = this;
+    vm.setResponse = function(response) {
+      
+      // Update local captcha response
+      vm.$log.debug('Response available', response);
+      vm.recaptchaResponse = response;
+    };
 
-    var stop = null;
-    stop = vm.$interval(function() {
-      var $el = angular.element('#serpro_captcha');
-
-      if ($el && $el.length > 0) {
-        vm.$window.initCaptcha($el[0]);
-        vm.$interval.cancel(stop);
-        stop = undefined;
-      }
-
-    }, 200);
+    vm.cbExpiration = function() {
+      // reset the 'response' object that is on scope 
+      vm.$log.debug('cbExpiration');
+    };
   };
 
   AuthPageController.prototype.onClickLogout = function() {
@@ -145,8 +151,8 @@
   AuthPageController.prototype.submitSignup = function($event, credentials) {
     var vm = this;
 
-    credentials.txtToken_captcha_serpro_gov_br = getCaptchaValFromEvent($event);
-
+    credentials.g_recaptcha_response = vm.recaptchaResponse;
+    
     vm.AuthService.register(credentials)
     .then(function(/*response*/) {
       // SUCCESS
@@ -154,14 +160,12 @@
       vm.signupSuccess = true;
       // vm._startRedirect();
 
-    }, function(response) {
-      // ERROR
-
-      // TODO: mensagens de erro
-      // TODO: tratar multiplos erros
-
-      // javascript_console_message: "Unable to reach Serpro's Captcha validation service"
-      // message: "Internal captcha validation error"
+    })
+    .catch(function(response) {
+      
+      // In case of a failed validation you need to reload the captcha
+      // because each response can be checked just once
+      vm.vcRecaptchaService.reload(vm.recaptchaWidgetId);
 
       vm.signupError = true;
       vm.signupErrorTitle = 'Erro!';
@@ -179,6 +183,9 @@
       if (response.status >= 500 && response.status < 600) {
         vm.internalError = true;
       }
+    })
+    .finally(function(){
+      // vm.loadingSubmit = false;
     });
   };
 
@@ -220,8 +227,7 @@
     // get form data
     var data = {
       login: recoverForm.login.$modelValue,
-      captcha_text: recoverForm.captcha_text.$modelValue,
-      txtToken_captcha_serpro_gov_br: getCaptchaValFromEvent($event)
+      g_recaptcha_response: vm.recaptchaResponse
     };
 
     var promiseRequest = vm.AuthService.forgotPassword(data);
@@ -265,12 +271,10 @@
     // get form data
     var data = {
       login: confirmationForm.login.$modelValue,
-      captcha_text: confirmationForm.captcha_text.$modelValue,
-      txtToken_captcha_serpro_gov_br: getCaptchaValFromEvent($event)
+      g_recaptcha_response: vm.recaptchaResponse
     };
 
     // get captcha token
-
     vm.AuthService.resendConfirmation(data)
     .then(function(response) {
       vm.$log.debug('resendConfirmation success.response', response);
@@ -287,7 +291,8 @@
         vm.resendConfirmationSuccessMessage = 'Em instantes você receberá em seu e-mail um link para confirmar o seu cadastro.';
       }
 
-    }, function(response) {
+    })
+    .catch(function(response) {
       vm.$log.debug('resendConfirmation error.response', response);
 
       vm.resendConfirmationError = true;
@@ -300,8 +305,9 @@
       if (response.status >= 500 && response.status < 600) {
         vm.internalError = true;
       }
-    }).catch(function(error) {
-      vm.$log.debug('resendConfirmation catch.error', error);
+    })
+    .finally(function() {
+      
     });
   };
 
@@ -382,8 +388,4 @@
     var url = 'http://login.dialoga.gov.br/plugin/oauth_client/google_oauth2?oauth_client_popup=true&id=' + vm.APP.google_app_id;
     vm.$window.oauthClientAction(url);
   };
-
-  function getCaptchaValFromEvent($event) {
-    return angular.element($event.target).find('[name="txtToken_captcha_serpro_gov_br"]').val();
-  }
 })();
